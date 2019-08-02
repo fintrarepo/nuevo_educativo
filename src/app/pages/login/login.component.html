@@ -1,0 +1,47 @@
+<div id="wrapper-login">
+  <div class="login-center-wrapper">
+    <!-- <div class="progress"  [hidden]="!(isLoading$ | async )">
+      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+    </div> -->
+    <form action="">
+      <img src="/assets/images/Logo Fintra.svg" alt="Fintra Educativo Logo" title="Fintra Educativo Logo">
+      <h1>Inicio de Sesión</h1>
+
+      <div class="form-group">
+        <input type="email" class="form-control input-login" id="exampleInputEmail1" aria-describedby="emailHelp"
+          placeholder="Correo electrónico o Usuario">
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control input-login" id="exampleInputPassword1" placeholder="Contraseña">
+      </div>
+
+      <div class="form-group">
+        <button class="btn button-white" (click)="login($event)">Iniciar sesión</button>
+      </div>
+    </form>
+    <a href="">¿Olvidaste tu contraseña?</a>
+
+    <button class="btn btn-outline button-outline-border-white">¡ABRE UNA CUENTA!</button>
+  </div>
+</div>
+
+<footer class="footer-login">
+  <div class="container-fluid">
+    <div class="row" >
+      <div class="col-lg-3 col-sm-1 column-footer d-sm-block d-none d-sm-block" ></div>
+      <div class="col-lg-5 col-sm-6 column-footer text-center d-none d-sm-block">
+        <span class="text-footer">
+          ¡Ahora es más fácil, ágil y rápido!
+        </span>
+      </div>
+
+      <div class="col-lg-1 col-sm-1 column-footer d-sm-block d-none d-sm-block"></div>
+      <div class="col-lg-2 col-sm-4 column-footer">
+        <button class="btn btn-outline button-outline-border-orange">SOLICITA TU CRÉDITO</button>
+      </div>
+    </div>
+  </div>
+  <app-alerts></app-alerts>
+</footer>
+
+

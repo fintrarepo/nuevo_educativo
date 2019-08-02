@@ -1,0 +1,214 @@
+@import "../styles/vars/exports";
+
+* {
+  //outline: 1px solid red;
+}
+::-webkit-scrollbar {
+  width: 8px;     /* Tamaño del scroll en vertical */
+  height: 8px;    /* Tamaño del scroll en horizontal */
+  display: none;  /* Ocultar scroll */
+}
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+/* Cambiamos el fondo y agregamos una sombra cuando esté en hover */
+:-webkit-scrollbar-thumb:hover {
+  background: #b3b3b3;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* Cambiamos el fondo cuando esté en active */
+::-webkit-scrollbar-thumb:active {
+  background-color: #999999;
+}
+
+::-webkit-scrollbar-track {
+  background: #e1e1e1;
+  border-radius: 4px;
+}
+
+/* Cambiamos el fondo cuando esté en active o hover */
+::-webkit-scrollbar-track:hover,
+::-webkit-scrollbar-track:active {
+background: #d4d4d4;
+}
+
+.light-blue-font {
+  font-family: 'Gotham Book';
+  color: $blue-light;
+  font-size: 16px;
+}
+
+.light-blue-yellow-dark {
+  font-family: 'Gotham Bold';
+  color: $yellow-light;
+
+}
+
+
+.dark-blue-font {
+  font-family: 'Gotham Bold';
+  color: $blue-dark !important;
+  //   font-size: 26px !important;
+}
+
+.dark-blue-font.small {
+  font-size: 14px !important;
+  margin-top: 3px;
+}
+
+
+.white-box {
+  height: 100%;
+  overflow-y: auto;
+  // position: absolute;
+  // top: 100px;
+  background: white;
+  padding: 40px;
+  // margin: 14px 60px 14px 14px;
+  box-shadow: 0 0px 6px #CCCCCC !important;
+  border-radius: 10px;
+  width: 100%;
+}
+
+
+
+
+// BUTTONS
+button {
+  text-transform: uppercase;
+}
+
+.btn-outline-primary {
+  color: $blue-light;
+  border-color: $blue-light;
+  font-family: 'Gotham Bold';
+  border: 2px solid $blue-light;
+  font-size: .8rem;
+  transition: all .2s ease-in-out;
+  width: 150px;
+
+  &:hover,
+  &:active {
+    background-color: transparent;
+    color: $blue-light;
+    padding-left: 15px;
+    outline: none;
+    border: 2px solid $blue-light;
+
+  }
+}
+
+.block-form{
+  border-bottom:1px solid red;
+  padding: 1.5em 0;
+}
+
+.title-form {
+  color: #32BEFA;
+  font-family: 'Gotham Bold';
+  font-size: 1.4em;
+  margin-bottom: 1em;
+}
+
+.subtitle-form {
+  font-family: 'Gotham Bold';
+  color: $dark;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+//GLOBAL STYLES INPUTS
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+select {
+  font-family: 'Gotham Book' !important;
+  font-size: 1rem !important;
+  color: $color-inputs !important;
+  // border: 1px solid red;
+  border-radius: 7px !important;
+  height: 44px !important;
+  border: 2px solid $blue-light !important;
+
+
+  &:focus{
+    outline: none !important;
+    box-shadow: none !important;
+    border:3px solid darken($blue-light, 20%) !important ;
+  }
+}
+
+
+.input-login {
+  width: 400px;
+  height: 54px;
+  border-radius: 10px;
+  font-family: 'Gotham Bold';
+  color: #707070;
+  padding-left: 30px;
+  max-width: 80vw;
+}
+
+.button-white {
+  background: white;
+  width: 160px;
+  height: 40px;
+  color: $blue-semi-light;
+  font-family: 'Gotham Bold';
+  font-size: .8em;
+  border-radius: 7px;
+  border: 2px solid $blue-semi-light;
+}
+.button-blue {
+  background: $blue-semi-light;
+  width: 160px;
+  height: 40px;
+  color: white;
+  font-family: 'Gotham Bold';
+  font-size: .8em;
+  border-radius: 7px;
+  border: none;
+}
+
+.button-outline-border-white {
+  border: 2px solid white;
+  font-family: 'Gotham Bold';
+  letter-spacing: .8px;
+  font-size: 13px;
+  width: 206px;
+  height: 40px;
+  color: white;
+  border-radius: 7px;
+}
+
+.button-outline-border-orange {
+  border: 2px solid #FFA412;
+  font-family: 'Gotham Bold';
+  font-size: 13px;
+  width: 258px;
+  height: 40px;
+  color: #FFA412;
+  border-radius: 7px;
+}
+
+@media (max-width: 768.98px) {
+  .white-box{
+    padding: 20px;
+    width: calc(100vw - 21px);
+    left: 21px;
+    position: fixed;
+    border-radius: 0;
+    box-shadow: none;
+    height: calc(100vh - 72px);
+    top: 72px;
+    box-shadow: none !important;
+  }
+}
+@media (max-width: 575.98px) {
+  
+}

@@ -1,0 +1,9 @@
+<div *ngIf="(open$ | async)" 
+    class="custom-alert" 
+    [ngClass]="{'danger': (type$ | async )=='danger','warning': (type$ | async )=='warning', 'success': (type$ | async )=='success'}">
+
+  <img src="/assets/images/Icon_Alerta.svg" alt="alerta">
+  <p class="title">{{title$ | async}}</p>
+  <p class="sub-title">{{subTitle$ | async}}</p>
+
+</div>

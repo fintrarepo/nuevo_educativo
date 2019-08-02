@@ -1,0 +1,77 @@
+@import "../../../styles/vars/exports";
+
+@keyframes showNotification {
+  0% {
+    bottom: -100%;
+  }
+
+  75% {
+    bottom: 50%;
+  }
+
+  80% {
+    transform: translateX(-50%)  translateY(50%)  rotate(2deg)
+  }
+
+  90% {
+    transform: translateX(-50%) translateY(50%)  rotate(-2deg)
+  }
+
+  100% {
+    transform: translateX(-50%) translateY(50%) 
+  }
+}
+
+
+.custom-alert {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) translateY(50%);
+  bottom: 50%;
+  width: 95%;
+  height: 48px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  max-width: 425px;
+  min-width: 325px;
+  padding: 0 1em;
+  border: 1px solid white;
+  //animation: showNotification .5s ease-in-out;
+
+  img {
+    margin-right: 8px;
+  }
+
+  .title,
+  .sub-title {
+    margin: 0;
+    color: white;
+  }
+
+  .title {
+    font-family: 'Gotham Bold';
+    margin-right: 10px;
+    text-transform: uppercase;
+  }
+
+  .sub-title {
+    font-family: 'Gotham Book';
+    font-weight: 500;
+    font-size: .9rem;
+  }
+}
+
+
+
+.custom-alert.danger {
+  background: $danger;
+}
+
+.custom-alert.warning {
+  background: $yellow-dark;
+}
+
+.custom-alert.success {
+  background: $green-dark;
+}

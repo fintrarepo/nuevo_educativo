@@ -1,0 +1,89 @@
+<div class="wrapper">
+  <!-- Sidebar -->
+  <nav id="sidebar" [ngClass]="{'show-menu': showMenu}">
+    <button href="#menu-toggle" id="menu-toggle" class="navbar-brand" (click)="toggleMenu()">
+      <img src="/assets/images/Icon_BurgerMenu_Mobile.svg" alt="">
+    </button>
+    <div class="sidebar-header">
+      <img src="/assets/images/Logo Fintra.svg" alt="">
+    </div>
+
+    <ul class="list-unstyled list-menu components">
+
+      <li class="active ">
+        <a href="#homeSubmenu" class="dark-blue-font">Mi cuenta</a>
+      </li>
+      <li>
+        <a href="#">mis creditos</a>
+      </li>
+      <li>
+        <a href="#pageSubmenu">documentos</a>
+
+      </li>
+      <li>
+        <a href="#">otros servicios</a>
+      </li>
+      <li>
+        <a href="#">solicita productos</a>
+      </li>
+      <li>
+        <a href="#">pqr</a>
+      </li>
+    </ul>
+
+  </nav>
+
+  <!-- Page Content -->
+  <div id="content">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <div class="row" style="width:100%;">
+          <div class="col-lg-3  col-sm-12">
+            <span class="light-blue-font">
+              Nombre del cliente
+            </span>
+            <h5 class="dark-blue-font">
+              CLARA LUCIA MEJIA HERRERA
+            </h5>
+          </div>
+          <div class="col-md-3">
+            <span class="light-blue-font">
+              Universidad/Institución
+            </span>
+            <h5 class="dark-blue-font small">
+              FUNDACIÓN UNIVERSIDAD DEL NORTE
+            </h5>
+          </div>
+          <div class="col-md-2 col-lg-1">
+            <span class="light-blue-font">
+              Monto
+            </span>
+            <h5 class="dark-blue-font small">
+              $17,256,700
+            </h5>
+          </div>
+          <div class="col-md-2 col-lg-1">
+            <span class="light-blue-font">
+              Nº Cuotas
+            </span>
+            <h5 class="dark-blue-font small">
+              4
+            </h5>
+          </div>
+          <div class="col-md-2 col-lg-1">
+            <span class="light-blue-font">
+              Nº Solicitud
+            </span>
+            <h5 class="dark-blue-font small">
+              114785
+            </h5>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <section id="section">
+      <router-outlet></router-outlet>
+    </section>
+    <!-- <footer></footer> -->
+  </div>
+</div>

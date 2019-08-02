@@ -1,0 +1,187 @@
+@import "../../../styles/vars/exports";
+
+
+
+:host ::ng-deep ngb-tabset.first-level {}
+
+:host ::ng-deep ngb-tabset.first-level>.nav-tabs {
+  border-bottom: none;
+  background: white;
+  display: inline-flex;
+
+  border-radius: 10px 10px 0 0;
+  background-color: #F2F2F2;
+  border-top: 3px solid white;
+  border-right: 3px solid white;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  width: auto;
+}
+
+:host ::ng-deep ngb-tabset.first-level>.nav-tabs .nav-link {
+
+  color: #347794 !important;
+  border-radius: 0 10px 0 0;
+  padding: 1em 2em;
+  font-family: 'Gotham Bold';
+  font-size: .85rem !important;
+  width: 288px;
+}
+
+:host ::ng-deep ngb-tabset.first-level>.nav-tabs .nav-item {
+  margin-bottom: 0;
+}
+
+:host ::ng-deep ngb-tabset.first-level>.nav-tabs .nav-link.active {
+
+  color: $blue-dark;
+  background-color: white;
+  border-color: white;
+  border-bottom: 7px solid #4DEB96;
+  // font-size: 16px;
+  font-weight: bold;
+  border-radius: none;
+  border-radius: 0 10px 0 0;
+}
+
+:host ::ng-deep ngb-tabset.first-level.first-level>.nav-link {
+  padding: .6em 2em;
+  border: 1px solid transparent;
+  color: $blue-dark;
+  font-size: 16px;
+  font-weight: 600;
+  width: 288px;
+}
+
+:host ::ng-deep ngb-tabset.first-level>.nav-link:hover {
+  border: none;
+}
+
+:host ::ng-deep ngb-tabset.first-level>.tab-content>.tab-pane {
+  background: white;
+  padding: 10px 10px;
+  box-shadow: 0 0px 6px #CCCCCC !important;
+  border-radius: 0 10px 0 0;
+}
+
+
+//SECOND LEVEL
+
+:host ::ng-deep ngb-tabset.second-level {
+  background: white;
+}
+
+:host ::ng-deep ngb-tabset.second-level>.nav-tabs {
+  border-bottom: none;
+  background: white;
+  display: inline-flex;
+
+  // border-radius: 10px 10px 0 0;
+  background-color: white;
+  border-top: 3px solid white;
+  border-right: 3px solid white;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  width: 100%;
+  padding-bottom: 5px;
+}
+
+:host ::ng-deep ngb-tabset.second-level>.nav-tabs .nav-item {
+  margin-right: 15px;
+
+}
+
+:host ::ng-deep ngb-tabset.second-level>.nav-tabs .nav-link {
+
+  color: #D8D8D8;
+  border-radius: 10px;
+  padding: 1em 2em;
+  font-family: 'Gotham Bold';
+  font-size: .85rem !important;
+  background: #F2F2F2;
+  width: 288px;
+}
+
+:host ::ng-deep ngb-tabset.second-level>.nav-tabs .nav-link.active {
+
+  color: $blue-dark;
+  background-color: white;
+  border-color: white;
+  border: 3px solid #32BEFA;
+  font-weight: bold;
+  border-radius: none;
+  border-radius: 5px;
+}
+
+:host ::ng-deep ngb-tabset.second-level>.nav-link {
+  padding: .6em 2em;
+  border: 1px solid transparent;
+  color: $blue-dark;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+:host ::ng-deep ngb-tabset.second-level>.nav-link:hover {
+  border: none;
+}
+
+:host ::ng-deep ngb-tabset.second-level .tab-pane {
+  background: white;
+  padding: 14px 0;
+  // box-shadow: 0 0px 6px #CCCCCC !important;
+  // border-radius: 0 10px 0 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 575.98px) {
+  :host ::ng-deep ngb-tabset.first-level>.nav-tabs {
+    border: none;
+    width: 100%;
+  }
+
+  :host ::ng-deep ngb-tabset.first-level>.nav-tabs .nav-item {
+    margin-right: 0;
+    width: 51%;
+    border-radius: 0;
+  }
+
+  :host ::ng-deep ngb-tabset.first-level>.nav-tabs .nav-link {
+
+    padding: 10px;
+    width: 100%;
+    height: 32px;
+    font-size: .45rem !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  :host ::ng-deep ngb-tabset.first-level>.nav-tabs .nav-link.active {
+    border-radius: 5px;
+  }
+
+
+
+  :host ::ng-deep ngb-tabset.second-level>.nav-tabs .nav-link {
+
+    padding: 10px;
+    width: 136px;
+    height: 32px;
+    font-size: .45rem !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+
+}
