@@ -28,6 +28,7 @@ import { ApprovedComponent } from './pages/approved/approved.component';
 
 
 
+
 const NGRX_IMPORTS = [
   StoreModule.forRoot(reducers, { metaReducers }),
   StoreRouterConnectingModule.forRoot({ stateKey: 'router' }),
@@ -44,7 +45,7 @@ const NGRX_IMPORTS = [
     LoginComponent,
     AlertsComponent,
     NotApprovedComponent,
-    ApprovedComponent,
+    ApprovedComponent
   ],
   imports: [
     BrowserModule,

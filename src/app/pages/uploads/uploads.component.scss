@@ -1,0 +1,69 @@
+.files-content {
+  padding: 1em 10em;
+
+  div {
+    display: flex;
+    align-items: center;
+  }
+
+  p {
+    margin-left: 20px;
+  }
+
+  button {
+    width: 150px;
+  }
+}
+
+.file {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+p {
+  font-family: "Gotham Bold";
+  color: #707070;
+}
+
+
+@media (max-width: 769.98px) {
+  .files-content {
+    padding: 1em 3em;
+
+    button {
+      width: 100px;
+      margin-left: 1em;
+    }
+  }
+}
+
+
+// End Tablets
+
+
+
+// Mobile
+@media (max-width: 575.98px) {
+  .files-content {
+    padding: 1em .5em;
+    align-items: flex-start;
+
+    div{
+        align-items: flex-start;
+    }
+    img{
+        width: 64px;
+        height: 64px;
+    }
+    p{
+        font-size: .7rem;
+    }
+
+    button{
+        width: 85px;
+        height: 24px;
+        font-size: .7rem;
+    }
+  }
+}

@@ -1,0 +1,40 @@
+.popup-fintra {
+  width: 100vw;
+  height: 100vh;
+  background: rgba(#dadada, .4);
+
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 2000;
+  filter: blur(8px);
+
+}
+
+.form-address {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  position: fixed;
+  width: 600px;
+  height: auto;
+  background: white;
+  z-index: 3000;
+  box-shadow: 0 1px 3px #CCCCCC, 0 1px 2px #CCCCCC;
+  border-radius: 10px;
+  overflow: hidden;
+  animation: mymove .8s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+  padding: 2em;
+}
+
+@keyframes mymove {
+  from {
+    width: 0;
+    height: 0;
+  }
+
+  to {
+    width: 550px;
+    height: 350px;
+  }
+}

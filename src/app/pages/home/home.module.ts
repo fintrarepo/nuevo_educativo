@@ -12,6 +12,7 @@ import { CreditApplicationComponent } from '../credit-application/credit-applica
 //Components
 
 import { TabsComponent } from '../../components/tabs/tabs.component';
+import { AddressFormComponent } from '../../components/address-form/address-form.component';
 import { ListRequestComponent } from '../../components/list-request/list-request.component';
 import { TimelineComponent } from '../../components/timeline/timeline.component';
 import { Tab1PersonalInformationComponent } from '../../components/tab1-personal-information/tab1-personal-information.component';
@@ -57,6 +58,7 @@ const boostrapModules = [
     CreditApplicationComponent,
 
     TabsComponent,
+    AddressFormComponent,
     ListRequestComponent,
     TimelineComponent,
     Tab1PersonalInformationComponent

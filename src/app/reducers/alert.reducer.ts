@@ -9,15 +9,12 @@ export interface State {
     subTitle: String;
 }
 
-
-
 const initialState: State = {
     open: false,
     type: "",
     title: "",
     subTitle: ""
 }
-
 
 export function AlertReducer(state: State = initialState, action: AlertActions.actions) {
 
@@ -39,7 +36,6 @@ export function AlertReducer(state: State = initialState, action: AlertActions.a
     }
 
 }
-
 
 export const getAlertState = (state: State) => state;
 export const getAlertIsOpen = (state: State) => state.open;

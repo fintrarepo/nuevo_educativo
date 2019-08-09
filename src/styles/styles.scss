@@ -3,11 +3,16 @@
 * {
   //outline: 1px solid red;
 }
+
 ::-webkit-scrollbar {
-  width: 8px;     /* Tamaño del scroll en vertical */
-  height: 8px;    /* Tamaño del scroll en horizontal */
-  display: none;  /* Ocultar scroll */
+  width: 8px;
+  /* Tamaño del scroll en vertical */
+  height: 8px;
+  /* Tamaño del scroll en horizontal */
+  display: none;
+  /* Ocultar scroll */
 }
+
 ::-webkit-scrollbar-thumb {
   background: #ccc;
   border-radius: 4px;
@@ -32,7 +37,7 @@
 /* Cambiamos el fondo cuando esté en active o hover */
 ::-webkit-scrollbar-track:hover,
 ::-webkit-scrollbar-track:active {
-background: #d4d4d4;
+  background: #d4d4d4;
 }
 
 .light-blue-font {
@@ -101,8 +106,8 @@ button {
   }
 }
 
-.block-form{
-  border-bottom:1px solid red;
+.block-form {
+  border-bottom: 2px solid #dadada;
   padding: 1.5em 0;
 }
 
@@ -136,10 +141,10 @@ select {
   border: 2px solid $blue-light !important;
 
 
-  &:focus{
+  &:focus {
     outline: none !important;
     box-shadow: none !important;
-    border:3px solid darken($blue-light, 20%) !important ;
+    border: 3px solid darken($blue-light, 20%) !important;
   }
 }
 
@@ -164,6 +169,7 @@ select {
   border-radius: 7px;
   border: 2px solid $blue-semi-light;
 }
+
 .button-blue {
   background: $blue-semi-light;
   width: 160px;
@@ -197,7 +203,7 @@ select {
 }
 
 @media (max-width: 768.98px) {
-  .white-box{
+  .white-box {
     padding: 20px;
     width: calc(100vw - 21px);
     left: 21px;
@@ -209,6 +215,5 @@ select {
     box-shadow: none !important;
   }
 }
-@media (max-width: 575.98px) {
-  
-}
+
+@media (max-width: 575.98px) {}
