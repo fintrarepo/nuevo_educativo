@@ -1,52 +1,57 @@
-<div class="popup-fintra">
+<div [hidden]="!(isVisible$ | async)">
+  <div class="popup-fintra" (click)="closeAlert()">
 
-</div>
-<div class="form-address">
-  <h1 class="title-form" style="margin-bottom: 0">Dirección de residencia</h1>
-  <form>
-    <div class="block-form" style="border:none;">
-      <div class="form-row">
-        <div class="form-group col-md-6 col-lg-6">
-          <label class="subtitle-form">Departamento</label>
-          <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-        </div>
-        <div class="form-group col-md-6 col-lg-6">
-          <label class="subtitle-form">Ciudad</label>
-          <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
-        </div>
-        <div class="form-group col-md-12 col-lg-12">
-          <label class="subtitle-form">Tipo de via</label>
-          <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
-        </div>
+  </div>
+  <div class="form-address">
+    <h1 class="title-form" style="margin-bottom: 0">Dirección de residencia</h1>
+    <form [formGroup]="addressForm">
+      <div class="block-form" style="border:none;">
+        <div class="form-row align-items-center justify-content-between">
+          <div class="form-group col-md-6 col-lg-6">
+            <label class="subtitle-form">Departamento</label>
+            <input type="email" class="form-control" formControlName="departamento">
+          </div>
+          <div class="form-group col-md-6 col-lg-6">
+            <label class="subtitle-form">Ciudad</label>
+            <input type="password" class="form-control" id="inputPassword4" formControlName="ciudad">
+          </div>
+          <div class="form-group col-md-12 col-lg-12">
+            <label class="subtitle-form">Tipo de via</label>
+            <input type="password" class="form-control" id="inputPassword4" formControlName="tipo_via">
+          </div>
+          <div class="form-group col-md-4 col-lg-4">
+            <input type="password" class="form-control" id="inputPassword4" formControlName="via_principal"
+              placeholder="Vía principal">
+          </div>
+          <div class="col-md-1 col-lg-1 text-center">
+            <p>#</p>
+          </div>
+          <div class="form-group col-md-4 col-lg-4">
+            <input type="password" class="form-control" id="inputPassword4" formControlName="numero_1"
+              placeholder="Vía secundaria">
+          </div>
+          <div class="col-md-1 col-lg-1 text-center">
+            <p>-</p>
+          </div>
+          <div class="form-group col-md-3 col-lg-2">
+            <input type="password" class="form-control" id="inputPassword4" formControlName="numero_2"
+              placeholder="Número">
+          </div>
 
+          <div class="form-group col-md-8 col-lg-8">
+            <label class="subtitle-form">Complemento de Dirección</label>
+            <input type="password" class="form-control" id="inputPassword4" placeholder="Password"
+              formControlName="complementoDireccion">
+          </div>
 
-        <div class="form-group col-md-4 col-lg-4">
-          <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
-        </div>
-        <div class="col-md-1 col-lg-1">
-          <p>#</p>
-        </div>
-        <div class="form-group col-md-4 col-lg-4">
-          <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
-        </div>
-        <div class="col-md-1 col-lg-1">
-          <p>-</p>
-        </div>
-        <div class="form-group col-md-3 col-lg-2">
-          <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
-        </div>
+          <div class="form-group col-md-4 col-lg-4 text-right align-items-center" (click)="confirmAddress()"
+            style="padding-top: 21px;">
+            <button class="btn btn-primary " [disabled]="!addressForm.valid" style="margin-top: auto;
+            margin-bottom: auto;">Guardar</button>
+          </div>
 
-        <div class="form-group col-md-8 col-lg-8">
-          <label class="subtitle-form">Complemento de Dirección</label>
-          <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
         </div>
-
-        <div class="form-group col-md-4 col-lg-4">
-            <label class="subtitle-form">&nbsp;</label>
-          <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
-        </div>
-
       </div>
-    </div>
-  </form>
+    </form>
+  </div>
 </div>

@@ -36,6 +36,7 @@ export class AuthEffects {
         tap(v => console.log('LoginUser effect tap', v.payload)),
         map(action => action.payload),
         exhaustMap(auth => {
+            console.log(auth)
             return this.auth.login(auth).pipe(
                 map(Response => {
                     return Response.success ? new LoggedUser(Response) : new LoginUserError(Response.error.data)
@@ -50,6 +51,11 @@ export class AuthEffects {
     })
     LoggedUser$: Observable<Action> = this.actions$.pipe(
         ofType<LoggedUser>(AuthActionTypes.LoggedUser),
-        tap(v => this.router.navigate(['/']))
+        map(action => action.payload),
+        tap(v => {
+            console.log(v)
+            this.auth.user = v.info.data
+            this.router.navigate(['/'])
+        })
     )
 }   

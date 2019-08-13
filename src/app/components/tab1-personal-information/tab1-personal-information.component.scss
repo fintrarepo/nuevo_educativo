@@ -1,0 +1,12 @@
+.form-group {
+  margin-bottom: 2em;
+
+}
+
+.block-form {
+  margin-bottom: 1.5em;
+
+  &:last-child {
+    border: none;
+  }
+}

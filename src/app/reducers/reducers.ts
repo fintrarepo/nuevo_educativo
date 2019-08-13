@@ -1,16 +1,3 @@
-// import { tabs1Reducer, tabs2Reducer, tabs1Subtab1Reducer, tabs1Subtab2Reducer, tabs1Subtab3Reducer } from './tabs.reducer';
-
-
-
-
-
-// export const reducers = {
-//     tab1: tabs1Reducer,
-//     tab1Subtab1: tabs1Subtab1Reducer,
-//     tab1Subtab2: tabs1Subtab2Reducer,
-//     tab1Subtab3: tabs1Subtab3Reducer,
-//     tab2: tabs2Reducer,
-// }
 
 import { environment } from '../../environments/environment';
 import { ActionReducerMap, createSelector, createFeatureSelector, ActionReducer, MetaReducer } from '@ngrx/store';
@@ -21,11 +8,13 @@ import { storeFreeze } from 'ngrx-store-freeze';
 
 import * as fromAuth from '../reducers/auth.reducer';
 import * as fromAlert from '../reducers/alert.reducer';
+import * as fromAddressForm from '../reducers/address-form.reducer';
 
 
 export interface State {
     auth: fromAuth.State,
     alert: fromAlert.State,
+    addressForm: fromAddressForm.State,
     router: fromRouter.RouterReducerState<RouterStateUrl>
 }
 
@@ -33,6 +22,7 @@ export interface State {
 export const reducers: ActionReducerMap<State | any> = {
     auth: fromAuth.AuthReducer,
     alert: fromAlert.AlertReducer,
+    addressForm: fromAddressForm.AddressFormReducer,
     router: fromRouter.routerReducer
 }
 
@@ -52,6 +42,7 @@ export const metaReducers: MetaReducer<State>[] = !environment.production
 
 
 export const getAuthState = createFeatureSelector<fromAuth.State>('auth');
+export const getAddressFormState = createFeatureSelector<fromAddressForm.State>('addressForm');
 export const getAlertState = createFeatureSelector<fromAlert.State>('alert');
 
 
@@ -101,3 +92,20 @@ export const getAlertSubTitle = createSelector(
     getAlertState,
     fromAlert.getAlertSubTitle
 )
+
+
+
+
+
+//ADDRES FORM
+export const getAddressForm = createSelector(
+    getAddressFormState,
+    fromAddressForm.getAddressFormState
+)
+export const addressFormIsVisile = createSelector(
+    getAddressFormState,
+    fromAddressForm.getAddressFormVisible
+)
+
+
+

@@ -10,14 +10,17 @@
 
   <div class="row filters">
     <div class="col-md-6">
-      <button class="btn btn-outline-primary button-white" routerLink="app/upload" style="margin-right: 10px;">solicitudes</button>
-      <button class="btn btn-outline-primary button-white ">creditos</button>
+      <button class="btn btn-outline-primary button-white" [routerLink]="['/app/dashboard/requests']"
+        [ngClass]="{'selected': type_list == 'requests'}" style="margin-right: 10px;">solicitudes</button>
+
+      <button class="btn btn-outline-primary button-white" [routerLink]="['/app/dashboard/credits']"
+        [ngClass]="{'selected': type_list == 'credits'}">creditos</button>
     </div>
     <div class="col-md-6 text-lg-right  ">
-      <button class="btn btn-outline-primary button-white " style="width: 300px;">CREAR NUEVA SOLICITUD</button>
+      <button class="btn btn-outline-primary button-white" style="width: 240px;">CREAR NUEVA SOLICITUD</button>
     </div>
   </div>
 
-  <app-list-request></app-list-request>
-  
+  <app-list-request *ngIf=" type_list == 'requests'"></app-list-request>
+
 </div>

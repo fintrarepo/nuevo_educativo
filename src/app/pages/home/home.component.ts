@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import * as reducers from '../../reducers/reducers';
 
 @Component({
   selector: 'app-home',
@@ -6,8 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+
+
   showMenu: boolean = false;
-  constructor() { }
+  blurPage$ = this.store.select(reducers.addressFormIsVisile);
+
+
+  constructor(private store: Store<reducers.State>) { }
 
   ngOnInit() {
   }

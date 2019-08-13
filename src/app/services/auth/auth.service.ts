@@ -7,21 +7,29 @@ import { HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class AuthService {
-  userFake = {
-    username: 'antojsh',
-    password: '1234'
-  };
 
   constructor(private http: HttpService) { }
 
-
   login(user: any): Observable<any> {
 
-    let data = `data={ "username": "${this.userFake.username}", "password": "${this.userFake.password}" }`;
+    let data = `data={ "username": "${user.username}", "password": "${user.password}" }`;
     return this.http.post('/webresources/login/singin', data, {
       headers: new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded'
       })
     })
   }
+
+  isAuthenticated() {
+    return localStorage.getItem('user') ? true : false;
+  }
+
+  get user() {
+    return of(localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null);
+  }
+
+  set user(user: any) {
+    localStorage.setItem("user", JSON.stringify(user))
+  }
+
 }

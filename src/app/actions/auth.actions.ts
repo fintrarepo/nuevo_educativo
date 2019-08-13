@@ -24,7 +24,7 @@ export class LogoutAuth implements Action {
 //
 export class LoginUser implements Action {
     readonly type = AuthActionTypes.LoginUser;
-    constructor(public payload: { user: IUser }) { }
+    constructor(public payload: any) { }
 }
 
 export class LoggedUser implements Action {

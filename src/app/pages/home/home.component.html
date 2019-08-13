@@ -1,4 +1,4 @@
-<div class="wrapper" style="filter: blur(5px)">
+<div class="wrapper" [ngClass]="{'blur-page': (blurPage$ | async)}">
   <!-- Sidebar -->
   <nav id="sidebar" [ngClass]="{'show-menu': showMenu}">
     <button href="#menu-toggle" id="menu-toggle" class="navbar-brand" (click)="toggleMenu()">
@@ -9,7 +9,6 @@
     </div>
 
     <ul class="list-unstyled list-menu components">
-
       <li class="active ">
         <a href="#homeSubmenu" class="dark-blue-font">Mi cuenta</a>
       </li>
@@ -18,7 +17,6 @@
       </li>
       <li>
         <a href="#pageSubmenu">documentos</a>
-
       </li>
       <li>
         <a href="#">otros servicios</a>
@@ -30,7 +28,6 @@
         <a href="#">pqr</a>
       </li>
     </ul>
-
   </nav>
 
   <!-- Page Content -->

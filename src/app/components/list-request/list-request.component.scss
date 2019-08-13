@@ -2,7 +2,7 @@
 
 .item-request {
   padding: 1.2em;
-  border: 2px solid $blue-semi-light;
+  border: 2px solid $blue-light;
   border-radius: 10px;
   margin-bottom: 1em;
 
@@ -19,12 +19,14 @@
     color: $blue-dark;
     font-family: "Gotham Bold";
     font-size: 1.5em;
+    text-transform: uppercase;
   }
 
   h5 {
     color: $blue-dark;
     font-family: "Gotham Bold";
     font-size: 1em;
+    text-transform: uppercase;
   }
 
 
@@ -49,5 +51,12 @@
 
   app-timeline {
     width: 100%;
+  }
+}
+
+
+@media (max-width: 575.98px) {
+  button{
+    width: 120px;
   }
 }

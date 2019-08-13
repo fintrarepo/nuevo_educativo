@@ -4,6 +4,9 @@ import { LoginComponent } from './pages/login/login.component'
 import { NotApprovedComponent } from './pages/not-approved/not-approved.component';
 import { ApprovedComponent } from './pages/approved/approved.component';
 
+
+//GUARDS
+import { NoAuthGuard } from './auth.guard';
 const routes: Routes = [
   {
     path: 'app',
@@ -11,7 +14,8 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    canActivate: [NoAuthGuard]
   },
   {
     path: 'not-approved',

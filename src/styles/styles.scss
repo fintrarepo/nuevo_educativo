@@ -97,11 +97,11 @@ button {
 
   &:hover,
   &:active {
-    background-color: transparent;
-    color: $blue-light;
-    padding-left: 15px;
-    outline: none;
-    border: 2px solid $blue-light;
+    // background-color: transparent;
+    // color: $blue-light;
+    // padding-left: 15px;
+    // outline: none;
+    // border: 2px solid $blue-light;
 
   }
 }
@@ -167,8 +167,32 @@ select {
   font-family: 'Gotham Bold';
   font-size: .8em;
   border-radius: 7px;
-  border: 2px solid $blue-semi-light;
+  border: 2px solid $blue-light;
 }
+
+.button-white:active {
+  border: 2px solid $blue-light;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.button-white:focus {
+  border: 2px solid $blue-light;
+}
+
+.button-white:hover {
+  border: 2px solid $blue-semi-light;
+  background: white;
+  color: $blue-semi-light;
+}
+
+.button-white.selected {
+  border: 2px solid $blue-semi-light;
+  outline: none;
+  box-shadow: none;
+}
+
+
 
 .button-blue {
   background: $blue-semi-light;
@@ -201,6 +225,13 @@ select {
   color: #FFA412;
   border-radius: 7px;
 }
+
+.content-button-next-tab {
+  position: relative;
+
+  .button-next-tab {}
+}
+
 
 @media (max-width: 768.98px) {
   .white-box {

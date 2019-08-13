@@ -1,4 +1,4 @@
-<form style="padding: 14px;">
+<form style="padding: 14px;" [formGroup]="form">
   <div class="block-form">
     <h1 class="title-form" [hidden]="tab1?.disabled">Información Personal</h1>
     <div class="form-row">
@@ -22,7 +22,7 @@
         <label class="subtitle-form">Género</label>
         <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
       </div>
-      <div class="form-group col-md-6 col-lg-4">
+      <div class="form-group col-md-6 col-lg-4" >
         <label class="subtitle-form">Estado civil</label>
         <select class="form-control"></select>
       </div>
@@ -55,7 +55,7 @@
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Fecha de nacimiento</label>
-        <select class="form-control"></select>
+        <input type="text" class="form-control" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()"/>
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Departamento de expedición</label>
@@ -69,8 +69,78 @@
         <label class="subtitle-form">Fecha de nacimiento</label>
         <select class="form-control"></select>
       </div>
+
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Departamento de nacimiento</label>
+        <select class="form-control"></select>
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Ciudad de nacimiento</label>
+        <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Teléfono</label>
+        <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+      </div>
+
+
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Email</label>
+        <select class="form-control"></select>
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Celular</label>
+        <select class="form-control"></select>
+      </div>
+
     </div>
 
+  </div>
+
+  <div class="block-form">
+    <div class="form-row">
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Dirección de residencia</label>
+        <input type="email" class="form-control" id="inputEmail4" placeholder="Email" (click)="openForm()">
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Barrio</label>
+        <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Tipo de vivienda</label>
+        <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Tiempo de residencia</label>
+        <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Estrato</label>
+        <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+      </div>
+      <div class="form-group col-md-6 col-lg-4" (click)="openForm()">
+        <label class="subtitle-form">¿Posee bien raíz?</label>
+        <select class="form-control"></select>
+      </div>
+
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Nivel de estudio</label>
+        <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+      </div>
+      <div class="form-group col-md-6 col-lg-4" (click)="openForm()">
+        <label class="subtitle-form">Estado civil de los padres</label>
+        <select class="form-control"></select>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <button class="button-next-tab">Hola Mundo</button>
+    </div>
   </div>
 
 </form>
