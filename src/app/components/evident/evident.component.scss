@@ -1,0 +1,109 @@
+@import "../../../styles/vars/exports";
+
+
+.background-evident {
+  background: $blue-semi-light;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 3000;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.evident-container {
+
+  width: 800px;
+  min-height: 625px;
+  background: white;
+
+  box-shadow: 0 1px 3px #CCCCCC, 0 1px 2px #CCCCCC;
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+  // justify-content: center;
+  align-items: center;
+  padding: 2em;
+  max-width: 90vw;
+  max-height: 70vh;
+  overflow: auto;
+
+  button {
+    color: $light;
+    font-family: "Gotham Bold";
+  }
+
+  span {
+    color: $light;
+    font-family: "Gotham Bold";
+    margin-bottom: 1em;
+  }
+
+  h1 {
+    text-align: center;
+  }
+
+  p {
+    font-family: "Gotham Bold";
+    color: #707070;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-align: center;
+    max-width: 100%;
+    margin-bottom: 2em;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 2em;
+    max-width: 90vw;
+
+    li {
+      min-width: 300px;
+      height: 55px;
+      border: 2px solid $blue-semi-light;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      cursor: pointer;
+      color: $blue-semi-light;
+      font-weight: bold;
+
+      &:hover {
+        background: $blue-semi-light;
+        color: white;
+      }
+
+      &.selected {
+        background: $blue-light;
+        color: $blue-semi-light;
+      }
+
+    }
+  }
+}
+
+@media (max-width: 575.98px) {
+
+  .evident-container {
+    min-height: 90vh;
+
+    ul {
+      width: 100%;
+
+      li {
+        min-width: 100%;
+      }
+    }
+
+  }
+
+}
