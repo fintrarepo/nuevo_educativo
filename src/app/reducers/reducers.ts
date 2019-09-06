@@ -5,13 +5,14 @@ import { RouterStateUrl } from '../shared/utils';
 import * as fromRouter from '@ngrx/router-store';
 import { storeFreeze } from 'ngrx-store-freeze';
 
-
+import * as fromPlatform from '../reducers/platform.reducer';
 import * as fromAuth from '../reducers/auth.reducer';
 import * as fromAlert from '../reducers/alert.reducer';
 import * as fromAddressForm from '../reducers/address-form.reducer';
 
 
 export interface State {
+    platform: fromPlatform.State,
     auth: fromAuth.State,
     alert: fromAlert.State,
     addressForm: fromAddressForm.State,
@@ -20,6 +21,7 @@ export interface State {
 
 
 export const reducers: ActionReducerMap<State | any> = {
+    platform: fromPlatform.PlatformReducer,
     auth: fromAuth.AuthReducer,
     alert: fromAlert.AlertReducer,
     addressForm: fromAddressForm.AddressFormReducer,
@@ -40,10 +42,25 @@ export const metaReducers: MetaReducer<State>[] = !environment.production
     : [];
 
 
-
+export const getPlatformState = createFeatureSelector<fromPlatform.State>('platform');
 export const getAuthState = createFeatureSelector<fromAuth.State>('auth');
 export const getAddressFormState = createFeatureSelector<fromAddressForm.State>('addressForm');
 export const getAlertState = createFeatureSelector<fromAlert.State>('alert');
+
+
+//PLATFORM
+
+export const getPlatform = createSelector(
+    getPlatformState,
+    fromPlatform.getPlatformState
+)
+
+export const platformIsBlur = createSelector(
+    getPlatformState,
+    fromPlatform.getPlatformIsBlur
+)
+
+
 
 
 //AUTH SELECTORS

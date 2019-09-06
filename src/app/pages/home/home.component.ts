@@ -11,7 +11,7 @@ export class HomeComponent implements OnInit {
 
 
   showMenu: boolean = false;
-  blurPage$ = this.store.select(reducers.addressFormIsVisile);
+  blurPage$ = this.store.select(reducers.platformIsBlur);
 
 
   constructor(private store: Store<reducers.State>) { }

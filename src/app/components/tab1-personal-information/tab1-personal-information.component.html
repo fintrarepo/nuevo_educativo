@@ -1,28 +1,29 @@
 <form style="padding: 14px;" [formGroup]="form">
+
   <div class="block-form">
     <h1 class="title-form" [hidden]="tab1?.disabled">Información Personal</h1>
     <div class="form-row">
-      <div class="form-group col-md-6 col-lg-4">
+      <div class="form-group col-md-6 col-lg-4 ">
         <label class="subtitle-form">Primer apellido</label>
-        <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+        <input type="email" class="form-control" appInputDate>
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Segundo apellido</label>
-        <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+        <input type="password" class="form-control">
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Primer nombre</label>
-        <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+        <input type="password" class="form-control">
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Segundo nombre</label>
-        <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+        <input type="email" class="form-control">
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Género</label>
-        <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+        <input type="password" class="form-control" i>
       </div>
-      <div class="form-group col-md-6 col-lg-4" >
+      <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Estado civil</label>
         <select class="form-control"></select>
       </div>
@@ -30,44 +31,50 @@
 
   </div>
 
-
   <div class="block-form">
     <div class="form-row">
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Tipo de identificación</label>
-        <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+        <input type="email" class="form-control">
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">N° identificación</label>
-        <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+        <input type="password" class="form-control">
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Fecha de expedición</label>
-        <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+        <div class="calendar-container">
+          <!-- <img src="/assets/images/Icon_Calendario.svg" alt=""> -->
+          <input type="text" class="form-control" readonly ngbDatepicker #d1="ngbDatepicker" (click)="d1.toggle()" />
+        </div>
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Departamento de expedición</label>
-        <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+        <div class="calendar-container">
+          <input type="email" class="form-control" >
+        </div>
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Ciudad de expedición</label>
-        <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+        <input type="password" class="form-control">
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Fecha de nacimiento</label>
-        <input type="text" class="form-control" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()"/>
+        <div class="calendar-container">
+          <input type="text" class="form-control" readonly ngbDatepicker #d2="ngbDatepicker" (click)="d2.toggle()" />
+        </div>
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Departamento de expedición</label>
-        <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+        <input type="email" class="form-control">
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Ciudad de expedición</label>
-        <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+        <input type="password" class="form-control">
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Fecha de nacimiento</label>
-        <select class="form-control"></select>
+        <input type="text" class="form-control input-date" readonly />
       </div>
 
       <div class="form-group col-md-6 col-lg-4">
@@ -76,11 +83,11 @@
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Ciudad de nacimiento</label>
-        <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+        <input type="email" class="form-control">
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Teléfono</label>
-        <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+        <input type="password" class="form-control">
       </div>
 
 
@@ -101,23 +108,23 @@
     <div class="form-row">
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Dirección de residencia</label>
-        <input type="email" class="form-control" id="inputEmail4" placeholder="Email" (click)="openForm()">
+        <input type="text" class="form-control" (click)="openForm()" readonly>
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Barrio</label>
-        <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+        <input type="password" class="form-control">
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Tipo de vivienda</label>
-        <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+        <input type="password" class="form-control">
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Tiempo de residencia</label>
-        <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+        <input type="email" class="form-control">
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Estrato</label>
-        <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+        <input type="password" class="form-control">
       </div>
       <div class="form-group col-md-6 col-lg-4" (click)="openForm()">
         <label class="subtitle-form">¿Posee bien raíz?</label>
@@ -126,7 +133,7 @@
 
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Nivel de estudio</label>
-        <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+        <input type="password" class="form-control">
       </div>
       <div class="form-group col-md-6 col-lg-4" (click)="openForm()">
         <label class="subtitle-form">Estado civil de los padres</label>

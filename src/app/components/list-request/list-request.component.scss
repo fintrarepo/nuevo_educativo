@@ -52,11 +52,75 @@
   app-timeline {
     width: 100%;
   }
+
+
+
+
+  &.desembolsado {
+    border: 2px solid $green-light;
+
+    .timeline-container {
+      display: none;
+    }
+
+    .aproved-content {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      flex-direction: column;
+
+      img {
+        width: 130px;
+        transform: translateX(-42px);
+        margin-bottom: .5em;
+      }
+    }
+  }
+
+  &.not-aproved {
+    border: 2px solid $light;
+
+    span,
+    h2,
+    h5 {
+      color: $light;
+    }
+
+    .timeline-container {
+      display: none;
+    }
+
+    .not-aproved-content {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      flex-direction: column;
+
+      img {
+        width: 130px;
+        transform: translateX(-42px);
+        margin-bottom: .5em;
+      }
+    }
+  }
 }
 
+.btn-not-aproved:disabled,
+.btn-not-aproved[disabled] {
+  background: #F2F2F2;
+  opacity: 1;
+  color: #999999;
+}
+
+.btn-desemboldado:disabled,
+.btn-desemboldado[disabled] {
+  background: $green-light;
+  opacity: 1;
+  color: white;
+}
 
 @media (max-width: 575.98px) {
-  button{
+  button {
     width: 120px;
   }
 }

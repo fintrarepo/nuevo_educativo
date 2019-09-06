@@ -1,4 +1,5 @@
 <ngb-tabset class="first-level">
+
   <ngb-tab [title]="'INFORMACIÓN SOLICITANTE'" [disabled]="tab1?.disabled" [class.active]="tab1?.active">
     <ng-template ngbTabContent>
       <ngb-tabset class="second-level">
@@ -24,7 +25,8 @@
 
   <ngb-tab [title]="'INFORMACIÓN ESTUDIANTE'" [disabled]="tab2?.disabled" [class.active]="tab2?.active">
     <ng-template ngbTabContent>
-      <p>Hola</p>
+      <app-tab1-personal-information></app-tab1-personal-information>
     </ng-template>
   </ngb-tab>
+  
 </ngb-tabset>

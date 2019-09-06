@@ -1,6 +1,6 @@
 <div class="row  " style="padding: 1em; margin-top: 6px;">
   <div class="col-md-12">
-    <div class="row item-request">
+    <div class="row item-request desembolsado">
       <div class="col-lg-6">
         <div class="row">
           <div class="col-lg-6 col-sm-6">
@@ -57,9 +57,9 @@
 
       </div>
 
-      <div class="col-md-12 col-sm-12 col-lg-6">
+      <div class="col-md-12 col-sm-12 col-lg-6 timeline-container">
 
-        <div class="row align-items-center">
+        <div class="row align-items-center ">
           <div class="col-lg-12 col-6">
             <app-timeline [currentStep]="3"></app-timeline>
           </div>
@@ -69,11 +69,16 @@
 
           </div>
         </div>
-
       </div>
+
+      <div class="col-lg-6 text-right aproved-content">
+        <img src="/assets/images/Icon_Crédito Desembolsado_Verde.svg" >
+        <button class="btn btn-desemboldado" [disabled]="true">CRÉDITO DESEMBOLSADO</button>
+      </div>
+
     </div>
 
-    <div class="row item-request">
+    <div class="row item-request not-aproved">
       <div class="col-lg-6">
         <div class="row">
           <div class="col-lg-6 col-sm-6">
@@ -130,7 +135,7 @@
 
       </div>
 
-      <div class="col-md-12 col-sm-12 col-lg-6">
+      <div class="col-md-12 col-sm-12 col-lg-6 timeline-container">
 
         <div class="row align-items-center">
           <div class="col-lg-12 col-6">
@@ -144,6 +149,11 @@
         </div>
 
       </div>
+
+      <div class="col-lg-6 text-right not-aproved-content">
+          <img src="/assets/images/Icon_Crédito Rechazado.svg" >
+          <button class="btn btn-not-aproved" [disabled]="true">CRÉDITO RECHAZADO</button>
+        </div>
     </div>
 
     <div class="row item-request">

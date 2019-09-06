@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient } from "@angular/common/http";
+import {
+  HttpHeaders, HttpClient, HttpInterceptor, HttpRequest,
+  HttpResponse, HttpEvent, HttpErrorResponse, HttpHandler
+} from "@angular/common/http";
 import { Observable } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment'
 
 @Injectable({
   providedIn: 'root'
 })
-export class HttpService {
+export class HttpService  {
 
   constructor(private http: HttpClient) { }
 
