@@ -19,7 +19,7 @@ import { ListRequestComponent } from '../../components/list-request/list-request
 import { TimelineComponent } from '../../components/timeline/timeline.component';
 import { Tab1PersonalInformationComponent } from '../../components/tab1-personal-information/tab1-personal-information.component';
 import { EvidentComponent } from '../../components/evident/evident.component';
-
+import { PopupApprovedComponent } from '../../components/popup-aproved/popup-approved.component';
 //GUARDS
 import { AuthGuard } from '../../auth.guard';
 
@@ -82,6 +82,7 @@ const components = [
   TimelineComponent,
   Tab1PersonalInformationComponent,
   EvidentComponent,
+  PopupApprovedComponent
 ]
 
 const directives = [
