@@ -27,6 +27,8 @@ import { reducers, metaReducers } from './reducers/reducers';
 //Effects
 import { AuthEffects } from './effects/auth.effects';
 import { AddressFormEffects } from './effects/addressForm.effects';
+import { ServiceWorkerModule } from '@angular/service-worker';
+
 
 
 const NGRX_IMPORTS = [
@@ -52,7 +54,8 @@ const NGRX_IMPORTS = [
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    ...NGRX_IMPORTS
+    ...NGRX_IMPORTS,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]
