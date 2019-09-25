@@ -23,14 +23,19 @@
   overflow: hidden;
   animation: mymove .4s cubic-bezier(0.95, 0.05, 0.795, 0.035);
   padding: 2em;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  img{
+
+  .step-popup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  img {
     margin-bottom: 1em;
   }
-  h1{
+
+  h1 {
     margin-bottom: 0;
   }
 }

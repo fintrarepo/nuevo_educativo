@@ -9,10 +9,15 @@ import { ToggleBlurPage } from '../../actions/platform.actions';
 })
 export class PopupApprovedComponent implements OnInit {
 
+  currentStep: number = 1;
   constructor(private store: Store<reducers.State>) { }
 
   ngOnInit() {
     this.store.dispatch(new ToggleBlurPage())
+  }
+
+  nextStep() {
+    this.currentStep++;
   }
 
 }

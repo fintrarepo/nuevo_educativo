@@ -1,14 +1,34 @@
 <div class="popup-fintra">
   <div class="content-popup">
-    <img src="/assets/images/Icon_Trofeo.svg" alt="">
-    <h1 class="title-form">Felicitaciones!</h1>
-    <h1 class="title-form">¡Tu crédito ha sido Aprobado!</h1>
+    <div class="step-popup" *ngIf="currentStep==1">
+      <img src="/assets/images/Icon_Trofeo.svg" alt="">
+      <h1 class="title-form">Felicitaciones!</h1>
+      <h1 class="title-form">¡Tu crédito ha sido Aprobado!</h1>
 
-    <p>
-      Siguiente etapa: Adjunta tus documentos.
-    </p>
-    <p>
-      ¿Deseas programar la firma de tu crédito a domicilio?
-    </p>
+      <p>
+        Siguiente etapa: Adjunta tus documentos.
+      </p>
+      <p>
+        ¿Deseas programar la firma de tu crédito a domicilio?
+      </p>
+
+      <button (click)="nextStep()">Next</button>
+    </div>
+
+    <div class="step-popup" *ngIf="currentStep==2">
+      <h1 class="title-form">Programa tu visita</h1>
+      <button (click)="nextStep()">Next</button>
+    </div>
+
+    <div class="step-popup" *ngIf="currentStep==3">
+      Paso 3
+      <button (click)="nextStep()">Next</button>
+    </div>
+
+    <div class="step-popup" *ngIf="currentStep==4">
+      Paso 4
+      <button (click)="nextStep()">Next</button>
+    </div>
+
   </div>
 </div>
