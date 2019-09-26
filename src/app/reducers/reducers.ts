@@ -9,6 +9,7 @@ import * as fromPlatform from '../reducers/platform.reducer';
 import * as fromAuth from '../reducers/auth.reducer';
 import * as fromAlert from '../reducers/alert.reducer';
 import * as fromAddressForm from '../reducers/address-form.reducer';
+import * as fromRecoveryPassword from '../reducers/recovery-password.reducer';
 
 
 export interface State {
@@ -16,6 +17,7 @@ export interface State {
     auth: fromAuth.State,
     alert: fromAlert.State,
     addressForm: fromAddressForm.State,
+    recoveryPassword: fromRecoveryPassword.State,
     router: fromRouter.RouterReducerState<RouterStateUrl>
 }
 
@@ -25,7 +27,8 @@ export const reducers: ActionReducerMap<State | any> = {
     auth: fromAuth.AuthReducer,
     alert: fromAlert.AlertReducer,
     addressForm: fromAddressForm.AddressFormReducer,
-    router: fromRouter.routerReducer
+    router: fromRouter.routerReducer,
+    recoveryPassword: fromRecoveryPassword.RecoveryPasswordReducer,
 }
 
 
@@ -46,6 +49,7 @@ export const getPlatformState = createFeatureSelector<fromPlatform.State>('platf
 export const getAuthState = createFeatureSelector<fromAuth.State>('auth');
 export const getAddressFormState = createFeatureSelector<fromAddressForm.State>('addressForm');
 export const getAlertState = createFeatureSelector<fromAlert.State>('alert');
+export const getRecoveryPasswordState = createFeatureSelector<fromRecoveryPassword.State>('recovery');
 
 
 //PLATFORM
@@ -123,6 +127,31 @@ export const addressFormIsVisile = createSelector(
     getAddressFormState,
     fromAddressForm.getAddressFormVisible
 )
+
+
+//RECOVERY PASSWORD
+
+export const getRecoveryState = createSelector(
+    getRecoveryPasswordState,
+    fromRecoveryPassword.getRecoverPasswordState
+)
+
+export const getRecoveryIsOpen = createSelector(
+    getRecoveryPasswordState,
+    fromRecoveryPassword.getRecoveryPasswordIsOpen
+)
+
+export const getRecoveryCurrentStep = createSelector(
+    getRecoveryPasswordState,
+    fromRecoveryPassword.getRecoveryPasswordCurrentStep
+)
+
+export const getRecoveryError = createSelector(
+    getRecoveryPasswordState,
+    fromRecoveryPassword.getRecoveryPasswordError
+)
+
+
 
 
 

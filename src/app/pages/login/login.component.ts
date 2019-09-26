@@ -3,6 +3,7 @@ import * as reducers from '../../reducers/reducers'
 import * as fromAuthActions from '../../actions/auth.actions'
 import { Store } from '@ngrx/store';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { OpenRecoveryPassword } from 'src/app/actions/recovery-password.actions';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,7 @@ export class LoginComponent implements OnInit {
   loginProcess: boolean;
   error$ = this.store.select(reducers.getAuthError);
   isLoading$ = this.store.select(reducers.getAuthLoading);
+  blurPage$ = this.store.select(reducers.platformIsBlur);
 
   constructor(private store: Store<reducers.State>, public formBuilder: FormBuilder) {
     this.loginForm = formBuilder.group({
@@ -24,12 +26,21 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  async ngOnInit() { }
+  async ngOnInit() { 
+    this.store.select(reducers.platformIsBlur).subscribe( isBlur => {
+      console.log(isBlur)
+    })
+  }
 
 
   login(ev) {
     ev.preventDefault();
     this.store.dispatch(new fromAuthActions.LoginUser(this.loginForm.value))
+  }
+
+
+  openRecovery(){
+    this.store.dispatch(new OpenRecoveryPassword())
   }
 
 }

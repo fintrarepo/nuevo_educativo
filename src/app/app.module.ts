@@ -2,7 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
-import { environment } from '../environments/environment'
+import { environment } from '../environments/environment';
+import { ServiceWorkerModule } from '@angular/service-worker';
+
 //ngrx
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -18,7 +20,7 @@ import { ApprovedComponent } from './pages/approved/approved.component';
 
 //Component
 import { AlertsComponent } from './components/alerts/alerts.component';
-
+import { RecoverPasswordComponent } from './components/recover-password/recover-password.component';
 
 //reducers
 import { reducers, metaReducers } from './reducers/reducers';
@@ -27,14 +29,16 @@ import { reducers, metaReducers } from './reducers/reducers';
 //Effects
 import { AuthEffects } from './effects/auth.effects';
 import { AddressFormEffects } from './effects/addressForm.effects';
-import { ServiceWorkerModule } from '@angular/service-worker';
+import { OpenRecoveryPasswordEffects } from './effects/recoverPassword.effects'
+
+
 
 
 
 const NGRX_IMPORTS = [
   StoreModule.forRoot(reducers, { metaReducers }),
   StoreRouterConnectingModule.forRoot({ stateKey: 'router' }),
-  EffectsModule.forRoot([AuthEffects, AddressFormEffects]),
+  EffectsModule.forRoot([AuthEffects, AddressFormEffects, OpenRecoveryPasswordEffects]),
   StoreDevtoolsModule.instrument({
     name: "PortalFintra",
     maxAge: 25, // Retains last 25 states
@@ -47,7 +51,8 @@ const NGRX_IMPORTS = [
     LoginComponent,
     AlertsComponent,
     NotApprovedComponent,
-    ApprovedComponent
+    ApprovedComponent,
+    RecoverPasswordComponent
   ],
   imports: [
     BrowserModule,

@@ -18,6 +18,10 @@ export class AuthService {
     })
   }
 
+  sendIdByRecovery(identificacion: String): Observable<any> {
+    return this.http.post('/webresources/login/recovery', { identificacion })
+  }
+
   isAuthenticated() {
     return localStorage.getItem('user') ? true : false;
   }

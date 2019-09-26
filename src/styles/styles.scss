@@ -42,6 +42,43 @@
   background: #d4d4d4;
 }
 
+.blur-page {
+  filter: blur(5px)
+}
+
+.popup-fintra {
+  width: 100vw;
+  height: 100vh;
+  // background: rgba(#dadada, .4);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 2000;
+
+  .content-popup {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    position: fixed;
+    width: 610px;
+    height: auto;
+    background: white;
+    z-index: 3000;
+    box-shadow: 0 1px 3px #CCCCCC, 0 1px 2px #CCCCCC;
+    border-radius: 10px;
+    overflow: hidden;
+    animation: mymove .4s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+    padding: 2em;
+
+    .step-popup {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
 .light-blue-font {
   font-family: 'Gotham Book';
   color: $blue-light;
