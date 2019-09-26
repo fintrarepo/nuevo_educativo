@@ -34,11 +34,11 @@
   display: flex;
   align-items: center;
   max-width: 625px;
-  min-width: 525px;
+  // min-width: 525px;
   padding: 0 1em;
   border: 1px solid white;
   animation: showNotification .3s ease-in-out;
-
+  max-width: 80%;
   img {
     margin-right: 8px;
   }

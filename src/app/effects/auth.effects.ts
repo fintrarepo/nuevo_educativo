@@ -19,12 +19,12 @@ export class AuthEffects {
     LoginUserError$: Observable<Action> = this.actions$.pipe(
         ofType<LoginUserError>(AuthActionTypes.LoginUserError),
         tap(v => console.log('LoggedApi Error', v.payload)),
-        map(action => action.payload),
-        exhaustMap(action => {
+        map(action => action.payload.error),
+        exhaustMap((action: any) => {
             return of(new OpenAlert({
                 open: true,
                 title: "Error",
-                subTitle: action.toString(),
+                subTitle: action.data.toString(),
                 type: "danger"
             }))
         })
@@ -39,7 +39,8 @@ export class AuthEffects {
             console.log(auth)
             return this.auth.login(auth).pipe(
                 map(Response => {
-                    return Response.success ? new LoggedUser(Response) : new LoginUserError(Response.error.data)
+                    return new LoggedUser(Response)
+                    //: new LoginUserError(Response.error.data)
                 }),
                 catchError(error => of(new LoginUserError(error)))
             )
@@ -54,7 +55,7 @@ export class AuthEffects {
         map(action => action.payload),
         tap(v => {
             console.log(v)
-            this.auth.user = v.info.data
+            this.auth.user = v.data.token
             this.router.navigate(['/'])
         })
     )

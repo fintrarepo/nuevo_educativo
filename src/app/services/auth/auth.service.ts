@@ -11,11 +11,9 @@ export class AuthService {
   constructor(private http: HttpService) { }
 
   login(user: any): Observable<any> {
-
-    let data = `data={ "username": "${user.username}", "password": "${user.password}" }`;
-    return this.http.post('/webresources/login/singin', data, {
+    return this.http.post('/webresources/login/signin-v0.1', user, {
       headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/json'
       })
     })
   }
