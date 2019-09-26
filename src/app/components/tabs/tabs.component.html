@@ -9,13 +9,13 @@
           </ng-template>
         </ngb-tab>
         <ngb-tab [title]="'INFORMACIÓN LABORAL'" [disabled]="tab1Subtab2?.disabled">
-          <app-tab1-personal-information></app-tab1-personal-information>
           <ng-template ngbTabContent>
+            <app-tab1-working-information></app-tab1-working-information>
           </ng-template>
         </ngb-tab>
         <ngb-tab [title]="'REFERENCIAS'" [disabled]="tab1Subtab3?.disabled">
-          <app-tab1-personal-information></app-tab1-personal-information>
           <ng-template ngbTabContent>
+            <app-tab1-references></app-tab1-references>
           </ng-template>
         </ngb-tab>
       </ngb-tabset>
@@ -28,5 +28,5 @@
       <app-tab1-personal-information></app-tab1-personal-information>
     </ng-template>
   </ngb-tab>
-  
+
 </ngb-tabset>

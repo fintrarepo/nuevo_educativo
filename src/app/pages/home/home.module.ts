@@ -18,6 +18,8 @@ import { AddressFormComponent } from '../../components/address-form/address-form
 import { ListRequestComponent } from '../../components/list-request/list-request.component';
 import { TimelineComponent } from '../../components/timeline/timeline.component';
 import { Tab1PersonalInformationComponent } from '../../components/tab1-personal-information/tab1-personal-information.component';
+import { Tab1WorkingInformationComponent } from '../../components/tab1-working-information/tab1-working-information.component';
+import { Tab1ReferencesComponent } from '../../components/tab1-references/tab1-references.component';
 import { EvidentComponent } from '../../components/evident/evident.component';
 import { PopupApprovedComponent } from '../../components/popup-aproved/popup-approved.component';
 //GUARDS
@@ -81,6 +83,8 @@ const components = [
   ListRequestComponent,
   TimelineComponent,
   Tab1PersonalInformationComponent,
+  Tab1WorkingInformationComponent,
+  Tab1ReferencesComponent,
   EvidentComponent,
   PopupApprovedComponent
 ]
