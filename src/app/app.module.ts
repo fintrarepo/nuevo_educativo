@@ -4,13 +4,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from '../environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 //ngrx
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools'
-import { ReactiveFormsModule } from '@angular/forms';
+
 
 //Pages
 import { AppComponent } from './app.component';
@@ -30,7 +32,7 @@ import { reducers, metaReducers } from './reducers/reducers';
 import { AuthEffects } from './effects/auth.effects';
 import { AddressFormEffects } from './effects/addressForm.effects';
 import { OpenRecoveryPasswordEffects } from './effects/recoverPassword.effects'
-
+import { ListRequestEffects } from './effects/list-request.effects';
 
 
 
@@ -38,7 +40,7 @@ import { OpenRecoveryPasswordEffects } from './effects/recoverPassword.effects'
 const NGRX_IMPORTS = [
   StoreModule.forRoot(reducers, { metaReducers }),
   StoreRouterConnectingModule.forRoot({ stateKey: 'router' }),
-  EffectsModule.forRoot([AuthEffects, AddressFormEffects, OpenRecoveryPasswordEffects]),
+  EffectsModule.forRoot([AuthEffects, AddressFormEffects, OpenRecoveryPasswordEffects, ListRequestEffects]),
   StoreDevtoolsModule.instrument({
     name: "PortalFintra",
     maxAge: 25, // Retains last 25 states
@@ -59,6 +61,7 @@ const NGRX_IMPORTS = [
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
     ...NGRX_IMPORTS,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],

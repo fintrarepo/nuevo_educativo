@@ -1,6 +1,9 @@
 import { Action } from '@ngrx/store';
 
-
+interface methodsRecovery {
+    type: String;
+    value: String;
+}
 export enum RecoveryPasswordActionTypes {
     OpenRecoveryPassword = '[RecoveryPassword] OPEN_RECOVERY_PASSWORD',
     CloseRecoveryPassword = '[RecoveryPassword] CLOSE_RECOVERY_PASSWORD',
@@ -9,6 +12,7 @@ export enum RecoveryPasswordActionTypes {
     SendIdUserSuccess = '[RecoveryPassword] SEND_ID_SUCCESS',
     SendIdUserError = '[RecoveryPassword] SEND_ID_ERROR',
     NextStep = '[RecoveryPassword] NEXT_STEP',
+    SetEmailAndCelular = '[RecoveryPassword] SET_EMAIL_AND_PHONE',
 
     SendRecoveryMethod = '[RecoveryPassword] SEND_RECOVERY_MEHOD'
 }
@@ -27,7 +31,7 @@ export class CloseRecoveryPassword implements Action {
 
 export class SendIdUser implements Action {
     readonly type = RecoveryPasswordActionTypes.SendIdUser;
-    constructor(public payload: { identificacion: number }) { }
+    constructor(public payload: { identificacion: String }) { }
 }
 
 export class SendIdUserSuccess implements Action {
@@ -45,7 +49,12 @@ export class NextStep implements Action {
 
 export class SendRecoveryMethod implements Action {
     readonly type = RecoveryPasswordActionTypes.SendRecoveryMethod;
-    constructor(public payload: { recoveryMethod: String }) { }
+    constructor(public payload: { recoveryMethod: String, identificacion: String }) { }
+}
+
+export class SetEmailAndCelular implements Action {
+    readonly type = RecoveryPasswordActionTypes.SetEmailAndCelular;
+    constructor(public payload: methodsRecovery[]) { }
 }
 
 
@@ -55,7 +64,8 @@ export type actions = OpenRecoveryPassword |
     SendIdUserSuccess |
     SendIdUserError |
     NextStep |
-    SendRecoveryMethod;
+    SendRecoveryMethod |
+    SetEmailAndCelular;
 
 
 

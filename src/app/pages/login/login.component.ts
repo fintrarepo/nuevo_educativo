@@ -27,9 +27,10 @@ export class LoginComponent implements OnInit {
   }
 
   async ngOnInit() { 
-    this.store.select(reducers.platformIsBlur).subscribe( isBlur => {
+    this.store.select(reducers.getRecoveryState).subscribe( isBlur => {
       console.log(isBlur)
     })
+    
   }
 
 

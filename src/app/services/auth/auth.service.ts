@@ -11,11 +11,7 @@ export class AuthService {
   constructor(private http: HttpService) { }
 
   login(user: any): Observable<any> {
-    return this.http.post('/webresources/login/signin-v0.1', user, {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    })
+    return this.http.post('/webresources/login/signin-v0.1', user)
   }
 
   sendIdByRecovery(identificacion: String): Observable<any> {

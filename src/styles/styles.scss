@@ -6,6 +6,11 @@
   //outline: 1px solid red;
 }
 
+ul {
+  list-style: none;
+  padding: 0;
+}
+
 ::-webkit-scrollbar {
   width: 8px;
   /* Tamaño del scroll en vertical */

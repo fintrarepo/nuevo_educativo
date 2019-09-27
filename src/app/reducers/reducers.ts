@@ -10,14 +10,16 @@ import * as fromAuth from '../reducers/auth.reducer';
 import * as fromAlert from '../reducers/alert.reducer';
 import * as fromAddressForm from '../reducers/address-form.reducer';
 import * as fromRecoveryPassword from '../reducers/recovery-password.reducer';
+import * as fromListRequests from '../reducers/list-requets.reducer';
 
 
 export interface State {
     platform: fromPlatform.State,
     auth: fromAuth.State,
     alert: fromAlert.State,
+    recovery: fromRecoveryPassword.State,
     addressForm: fromAddressForm.State,
-    recoveryPassword: fromRecoveryPassword.State,
+    request: fromListRequests.State,
     router: fromRouter.RouterReducerState<RouterStateUrl>
 }
 
@@ -26,9 +28,10 @@ export const reducers: ActionReducerMap<State | any> = {
     platform: fromPlatform.PlatformReducer,
     auth: fromAuth.AuthReducer,
     alert: fromAlert.AlertReducer,
+    recovery: fromRecoveryPassword.RecoveryPasswordReducer,
     addressForm: fromAddressForm.AddressFormReducer,
+    request: fromListRequests.listRequestReducer,
     router: fromRouter.routerReducer,
-    recoveryPassword: fromRecoveryPassword.RecoveryPasswordReducer,
 }
 
 
@@ -50,6 +53,7 @@ export const getAuthState = createFeatureSelector<fromAuth.State>('auth');
 export const getAddressFormState = createFeatureSelector<fromAddressForm.State>('addressForm');
 export const getAlertState = createFeatureSelector<fromAlert.State>('alert');
 export const getRecoveryPasswordState = createFeatureSelector<fromRecoveryPassword.State>('recovery');
+export const getListRequestState = createFeatureSelector<fromListRequests.State>('request');
 
 
 //PLATFORM
@@ -115,6 +119,27 @@ export const getAlertSubTitle = createSelector(
 )
 
 
+//LIST REQUESTS
+export const getListRequest = createSelector(
+    getListRequestState,
+    fromListRequests.getListRequestsState
+)
+
+export const getListRequestResponse = createSelector(
+    getListRequestState,
+    fromListRequests.getListRequets
+)
+
+export const getListRequestIsLoading = createSelector(
+    getListRequestState,
+    fromListRequests.getListRequetsIsLoading
+)
+
+export const getListRequestError = createSelector(
+    getListRequestState,
+    fromListRequests.getListRequetsError
+)
+
 
 
 
@@ -133,7 +158,7 @@ export const addressFormIsVisile = createSelector(
 
 export const getRecoveryState = createSelector(
     getRecoveryPasswordState,
-    fromRecoveryPassword.getRecoverPasswordState
+    fromRecoveryPassword.getRecoveryPasswordState
 )
 
 export const getRecoveryIsOpen = createSelector(
@@ -149,6 +174,11 @@ export const getRecoveryCurrentStep = createSelector(
 export const getRecoveryError = createSelector(
     getRecoveryPasswordState,
     fromRecoveryPassword.getRecoveryPasswordError
+)
+
+export const getRecoveryMethods = createSelector(
+    getRecoveryPasswordState,
+    fromRecoveryPassword.getRecoveryPasswordMethods
 )
 
 

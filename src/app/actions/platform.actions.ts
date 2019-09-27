@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { actions } from './auth.actions';
+
 
 
 export enum PlatformActionTypes {

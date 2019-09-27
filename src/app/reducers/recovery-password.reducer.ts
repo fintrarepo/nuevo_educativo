@@ -7,13 +7,18 @@ export interface State {
     error: String;
     currentStep: number;
     isOpen: boolean;
+    methods: {
+        type: String;
+        valure: String;
+    }
 }
 
 const initialState: State = {
     identificacion: null,
     error: "",
     currentStep: 1,
-    isOpen: false
+    isOpen: false,
+    methods: null
 }
 
 export function RecoveryPasswordReducer(state: State = initialState, action: RecoveryPasswordActions.actions) {
@@ -55,16 +60,21 @@ export function RecoveryPasswordReducer(state: State = initialState, action: Rec
                 recoveryMethod: action.payload.recoveryMethod
             }
 
+        case RecoveryPasswordActionTypes.SetEmailAndCelular:
+            return {
+                ...state,
+                methods: action.payload
+            }
+
+
         default:
             return state;
     }
 
 }
 
-export const getRecoverPasswordState = (state: State) => state;
-export const getRecoveryPasswordIsOpen = (state: State) => {
-    console.log(state)
-    return state.isOpen
-};
+export const getRecoveryPasswordState = (state: State) => state;
+export const getRecoveryPasswordIsOpen = (state: State) => state.isOpen;
+export const getRecoveryPasswordMethods = (state: State) => state.methods;
 export const getRecoveryPasswordCurrentStep = (state: State) => state.currentStep;
 export const getRecoveryPasswordError = (state: State) => state.error;
