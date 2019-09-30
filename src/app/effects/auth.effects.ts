@@ -23,8 +23,8 @@ export class AuthEffects {
         exhaustMap((action: any) => {
             return of(new OpenAlert({
                 open: true,
-                title: "Error",
-                subTitle: action.data.toString(),
+                title: action.title.toString(),
+                subTitle: action.detail.toString(),
                 type: "danger"
             }))
         })
@@ -42,7 +42,10 @@ export class AuthEffects {
                     return new LoggedUser(Response)
                     //: new LoginUserError(Response.error.data)
                 }),
-                catchError(error => of(new LoginUserError(error)))
+                catchError(error => {
+                    console.log(error);
+                    return of(new LoginUserError(error))
+                })
             )
         })
     )
@@ -55,7 +58,7 @@ export class AuthEffects {
         map(action => action.payload),
         tap(v => {
             console.log(v)
-            this.auth.user = v.data.token
+            this.auth.token = v.data.token
             this.router.navigate(['/'])
         })
     )

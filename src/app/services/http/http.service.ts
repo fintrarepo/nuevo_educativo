@@ -10,7 +10,7 @@ import { environment } from '../../../environments/environment'
 @Injectable({
   providedIn: 'root'
 })
-export class HttpService  {
+export class HttpService {
 
   constructor(private http: HttpClient) { }
 
@@ -40,7 +40,8 @@ export class HttpService  {
       options : {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
-          'Authorization': 'my-auth-token'
+          'Authentication': String(localStorage.getItem('token')) || null,
+          'version': '2.0'
         })
       }
   }

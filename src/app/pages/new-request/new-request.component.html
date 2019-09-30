@@ -7,86 +7,103 @@
 
 
   <div class="box-form-request">
-    <div class="block-form">
-      <h1 class="title-form">Información Personal del Solicitante</h1>
-      <div class="form-row">
-        <div class="form-group col-md-6 col-lg-4 ">
-          <label class="subtitle-form">Ciudad</label>
-          <select class="form-control">
-            <option value="">Barranquilla</option>
-          </select>
+    <form [formGroup]="form">
+      <div class="block-form">
+        <h1 class="title-form">Información Personal del Solicitante</h1>
+        <div class="form-row">
+          <div class="form-group col-md-6 col-lg-4 ">
+            <label class="subtitle-form">Ciudad</label>
+            <select class="form-control" formControlName="ciudad" (change)="loadAfiliates()">
+              <option [value]="city.codigo" *ngFor="let city of cities">{{city.ciudad}}</option>
+            </select>
+          </div>
+          <div class="form-group col-md-6 col-lg-4">
+            <label class="subtitle-form">Institución educativa</label>
+            <select class="form-control" formControlName="afiliado">
+              <option [value]="item.nit_afiliado" *ngFor="let item of afiliates">{{item.nombre_afiliado}}</option>
+            </select>
+          </div>
+          <div class="form-group col-md-6 col-lg-4">
+            <label class="subtitle-form">Tipo de carrera</label>
+            <select class="form-control" formControlName="tipo_carrera">
+              <option value="PREGRADO">Pregrado</option>
+              <option value="POSGRADO">Posgrado</option>
+              <option value="CONTINUADA">Educación Continuada</option>
+            </select>
+          </div>
+          <div class="form-group col-md-6 col-lg-4">
+            <label class="subtitle-form">Fecha primer pago</label>
+            <select class="form-control" formControlName="fecha_pago">
+              <option [value]="date" *ngFor="let date of dates">{{date}}</option>
+            </select>
+          </div>
+          <div class="form-group col-md-6 col-lg-4">
+            <label class="subtitle-form">Valor semestre</label>
+            <input type="number" class="form-control" formControlName="monto">
+          </div>
+          <div class="form-group col-md-6 col-lg-4">
+            <label class="subtitle-form">Plazo crédito(Meses)</label>
+            <select class="form-control" formControlName="num_cuotas">
+              <option value="12">12</option>
+            </select>
+          </div>
         </div>
-        <div class="form-group col-md-6 col-lg-4">
-          <label class="subtitle-form">Institución educativa</label>
-          <select class="form-control">
-            <option value="">Universidad Nacional de Colombia</option>
-          </select>
+
+      </div>
+
+
+      <div class="block-form">
+        <div class="form-row">
+          <div class="form-group col-md-6 col-lg-4 ">
+            <label class="subtitle-form">Tipo de identificación</label>
+            <select name="" id="" class="form-control" formControlName="tipo_identificacion">
+              <option value="CC">Cedula de ciudadania</option>
+            </select>
+          </div>
+          <div class="form-group col-md-6 col-lg-4">
+            <label class="subtitle-form">Identificación</label>
+            <input type="number" class="form-control" formControlName="identificacion">
+          </div>
+          <div class="form-group col-md-6 col-lg-4">
+            <label class="subtitle-form">Fecha de expedición de la cédula</label>
+            <input type="date" class="form-control" formControlName="fecha_expedicion">
+          </div>
+          <div class="form-group col-md-6 col-lg-4">
+            <label class="subtitle-form">Fecha de nacimiento</label>
+            <input type="date" class="form-control" formControlName="fecha_nacimiento">
+          </div>
+          <div class="form-group col-md-6 col-lg-4">
+            <label class="subtitle-form">Primer Apellido</label>
+            <input type="text" class="form-control" formControlName="primer_apellido">
+          </div>
+          <div class="form-group col-md-6 col-lg-4">
+            <label class="subtitle-form">Primer nombre</label>
+            <input type="text" class="form-control" formControlName="primer_nombre">
+          </div>
+          <div class="form-group col-md-6 col-lg-4">
+            <label class="subtitle-form">Email activo</label>
+            <input type="email" class="form-control" formControlName="email" />
+          </div>
+          <div class="form-group col-md-6 col-lg-4">
+            <label class="subtitle-form">Telefono</label>
+            <input type="number" class="form-control" formControlName="telefono" />
+          </div>
+          <div class="form-group col-md-6 col-lg-4">
+            <label class="subtitle-form">Ingresos mensuales</label>
+            <input type="number" class="form-control" formControlName="ingresos_usuario" />
+          </div>
         </div>
-        <div class="form-group col-md-6 col-lg-4">
-          <label class="subtitle-form">Tipo de carrera</label>
-          <select class="form-control">
-            <option value="">Pregrado</option>
-          </select>
-        </div>
-        <div class="form-group col-md-6 col-lg-4">
-          <label class="subtitle-form">Fecha primer pago</label>
-          <input type="text" class="form-control">
-        </div>
-        <div class="form-group col-md-6 col-lg-4">
-          <label class="subtitle-form">Valor semestre</label>
-          <input type="number" class="form-control" i>
-        </div>
-        <div class="form-group col-md-6 col-lg-4">
-          <label class="subtitle-form">Plazo crédito</label>
-          <select class="form-control"></select>
+
+      </div>
+
+
+      <div class="block-form">
+        <div class="col-md-6">
+          <button (click)="simulate()">Simular</button>
+          <button>Solicitar</button>
         </div>
       </div>
 
-    </div>
-
-
-    <div class="block-form">
-      <div class="form-row">
-        <div class="form-group col-md-6 col-lg-4 ">
-          <label class="subtitle-form">Tipo de identificación</label>
-          <select name="" id="" class="form-control">
-            <option value="">Cedula de ciudadania</option>
-          </select>
-        </div>
-        <div class="form-group col-md-6 col-lg-4">
-          <label class="subtitle-form">Identificación</label>
-          <input type="number" class="form-control">
-        </div>
-        <div class="form-group col-md-6 col-lg-4">
-          <label class="subtitle-form">Fecha de expedición de la cédula</label>
-          <input type="text" class="form-control">
-        </div>
-        <div class="form-group col-md-6 col-lg-4">
-          <label class="subtitle-form">Fecha de nacimiento</label>
-          <input type="email" class="form-control">
-        </div>
-        <div class="form-group col-md-6 col-lg-4">
-          <label class="subtitle-form">Primer Apellido</label>
-          <input type="email" class="form-control">
-        </div>
-        <div class="form-group col-md-6 col-lg-4">
-          <label class="subtitle-form">Primer nombre</label>
-          <input type="password" class="form-control" i>
-        </div>
-        <div class="form-group col-md-6 col-lg-4">
-          <label class="subtitle-form">Email activo</label>
-          <select class="form-control"></select>
-        </div>
-        <div class="form-group col-md-6 col-lg-4">
-          <label class="subtitle-form">Telefono</label>
-          <select class="form-control"></select>
-        </div>
-        <div class="form-group col-md-6 col-lg-4">
-          <label class="subtitle-form">Ingresos mensuales</label>
-          <select class="form-control"></select>
-        </div>
-      </div>
-
-    </div>
+    </form>
   </div>
 </div>

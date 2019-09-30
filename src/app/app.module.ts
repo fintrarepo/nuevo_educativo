@@ -33,6 +33,8 @@ import { AuthEffects } from './effects/auth.effects';
 import { AddressFormEffects } from './effects/addressForm.effects';
 import { OpenRecoveryPasswordEffects } from './effects/recoverPassword.effects'
 import { ListRequestEffects } from './effects/list-request.effects';
+import { CreditComponent } from './components/credit/credit.component';
+
 
 
 
@@ -54,7 +56,8 @@ const NGRX_IMPORTS = [
     AlertsComponent,
     NotApprovedComponent,
     ApprovedComponent,
-    RecoverPasswordComponent
+    RecoverPasswordComponent,
+    CreditComponent
   ],
   imports: [
     BrowserModule,

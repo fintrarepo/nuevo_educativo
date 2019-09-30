@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, throwError, of } from 'rxjs';
 import { HttpService } from '../http/http.service';
-import { HttpHeaders } from '@angular/common/http';
+// import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -22,12 +22,12 @@ export class AuthService {
     return localStorage.getItem('user') ? true : false;
   }
 
-  get user() {
-    return of(localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null);
+  get token() {
+    return of(localStorage.getItem('token') ? localStorage.getItem('token') : null);
   }
 
-  set user(user: any) {
-    localStorage.setItem("user", JSON.stringify(user))
+  set token(token: any) {
+    localStorage.setItem("token", token)
   }
 
 }

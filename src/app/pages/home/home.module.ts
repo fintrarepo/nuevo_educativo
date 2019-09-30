@@ -12,6 +12,7 @@ import { UploadsComponent } from '../uploads/uploads.component';
 import { CreditApplicationComponent } from '../credit-application/credit-application.component';
 import { NewRequestComponent } from '../new-request/new-request.component';
 
+
 //Components
 import { TabsComponent } from '../../components/tabs/tabs.component';
 import { AddressFormComponent } from '../../components/address-form/address-form.component';
@@ -22,6 +23,8 @@ import { Tab1WorkingInformationComponent } from '../../components/tab1-working-i
 import { Tab1ReferencesComponent } from '../../components/tab1-references/tab1-references.component';
 import { EvidentComponent } from '../../components/evident/evident.component';
 import { PopupApprovedComponent } from '../../components/popup-aproved/popup-approved.component';
+import { RequestComponent } from '../../components/request/request.component';
+
 //GUARDS
 import { AuthGuard } from '../../auth.guard';
 

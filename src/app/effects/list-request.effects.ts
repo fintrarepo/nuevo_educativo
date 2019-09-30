@@ -25,10 +25,12 @@ export class ListRequestEffects {
         ofType<GetListRequest>(ListRequestsActionTypes.GetListRequest),
         tap(v => console.log('LoginUser effect tap', v.payload)),
         map(action => action.payload),
-        exhaustMap(auth => {
-            return this.listRequest.getRequests().pipe(
+        exhaustMap(action => {
+            const request = action.credits ? this.listRequest.getLoans() : this.listRequest.getRequests()
+            return request.pipe(
                 map(Response => {
-                    return new GetListRequestSuccess({ requests: [] })
+                    return action.credits ? new GetListRequestSuccess({ requests: Response }) :
+                        new GetListRequestSuccess({ requests: Response.data })
                 }),
                 catchError(error => of(new GetListRequestError(error)))
             )

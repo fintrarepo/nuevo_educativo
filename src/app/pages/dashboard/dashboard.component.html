@@ -11,10 +11,10 @@
   <div class="row filters">
     <div class="col-md-6">
       <button class="btn btn-outline-primary button-white" [routerLink]="['/app/dashboard/requests']"
-        [ngClass]="{'selected': type_list == 'requests'}" style="margin-right: 10px;">solicitudes</button>
+        [ngClass]="{'selected': type_list == 'requests'}" style="margin-right: 10px;" (click)="getCredits(false)">solicitudes</button>
 
       <button class="btn btn-outline-primary button-white" [routerLink]="['/app/dashboard/credits']"
-        [ngClass]="{'selected': type_list == 'credits'}">creditos</button>
+        [ngClass]="{'selected': type_list == 'credits'}"  (click)="getCredits(true)">creditos</button>
     </div>
     <div class="col-md-6 text-lg-right  ">
       <button class="btn btn-outline-primary button-white" style="width: 240px;" routerLink="/app/new-request">CREAR NUEVA SOLICITUD</button>

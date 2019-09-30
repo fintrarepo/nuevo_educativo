@@ -1,7 +1,7 @@
 <p *ngIf="(isLoading$ | async) ">Cargando solicitudes</p>
 <div class="row  " style="padding: 1em; margin-top: 6px;" *ngIf="!(isLoading$ | async)  && !(error$ | async)">
   <div class="col-md-12">
-    <div class="row item-request desembolsado">
+    <!-- <div class="row item-request desembolsado">
       <div class="col-lg-6">
         <div class="row">
           <div class="col-lg-6 col-sm-6">
@@ -228,21 +228,22 @@
         </div>
 
       </div>
-    </div>
+    </div> -->
 
-    <div class="row item-request">
+    <div class="row item-request"  *ngFor="let item of (listRequest$ | async )"
+      [ngClass]="{'desembolsado': item.etapa== 8, 'not-aproved': item.etapa == -1}">
       <div class="col-lg-6">
-        <div class="row">
+        <div class="row" *ngIf="item.nombre_estudiante">
           <div class="col-lg-6 col-sm-6">
             <span>Nombre Estudiante</span>
             <h2>
-              Antonio Jose Sierra Hurtado
+              {{item?.nombre_estudiante}}
             </h2>
           </div>
           <div class="col-lg-6 col-md-6">
             <span>Valor total crédito</span>
             <h2>
-              $17,256,700
+              {{item.monto_credito | currency:'USD':true:'1.0-0'}}
             </h2>
           </div>
         </div>
@@ -251,47 +252,47 @@
           <div class="col-lg-6 col-md-6">
             <span>Universidad/Institución</span>
             <h5>
-              Corporacion universitaria americana
+              {{item.name_afiliado}}
             </h5>
           </div>
           <div class="col-lg-6 col-md-6">
             <span>Valor total cuotas</span>
             <h2>
-              $1,438,058
+              {{item.valor_cuota | currency:'USD':true:'1.0-0'}}
             </h2>
           </div>
         </div>
 
         <div class="row small-info">
-          <div class="col-lg-4 col-md-6">
+          <div class="col-lg-6 col-md-6">
             <div>
               <span>Plazo</span>
               <h5>
-                12 Meses
+                {{item.numero_cuotas}} Meses
               </h5>
             </div>
-            <div>
+            <!-- <div>
               <span>Nuevo crédito</span>
               <h5>
                 $10,000,000
               </h5>
-            </div>
+            </div> -->
           </div>
-          <div class="col-lg-2 col-md-3">
+          <!-- <div class="col-lg-2 col-md-3">
             <span>Saldo pendiente</span>
             <h5>
               $7,256,700
             </h5>
-          </div>
+          </div> -->
         </div>
 
       </div>
 
-      <div class="col-md-12 col-sm-12 col-lg-6">
+      <div class="col-md-12 col-sm-12 col-lg-6" *ngIf="item.etapa != 8 && item.etapa != -1">
 
         <div class="row align-items-center">
           <div class="col-lg-12 col-6">
-            <app-timeline [currentStep]="3"></app-timeline>
+            <app-timeline [currentStep]="item.etapa"></app-timeline>
           </div>
           <div class="col-lg-12 col-6 justify-content-end text-right">
 
@@ -301,7 +302,20 @@
         </div>
 
       </div>
+
+      <div class="col-lg-6 text-right aproved-content" *ngIf="item.etapa == 8">
+        <img src="/assets/images/Icon_Crédito Desembolsado_Verde.svg">
+        <button class="btn btn-desemboldado" [disabled]="true">CRÉDITO DESEMBOLSADO</button>
+      </div>
+
+      <div class="col-lg-6 text-right not-aproved-content" *ngIf="item.etapa == -1">
+        <img src="/assets/images/Icon_Crédito Rechazado.svg">
+        <button class="btn btn-not-aproved" [disabled]="true">CRÉDITO RECHAZADO</button>
+      </div>
     </div>
+
+
+  
 
   </div>
 </div>

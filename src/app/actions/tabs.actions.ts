@@ -1,54 +1,36 @@
 import { Action } from '@ngrx/store';
-import { ITabs } from '../models/tabs.model';
+import { ITab1 } from '../models/tabs.model';
 
-export enum ETabsActions {
-    ToggleDisabledTab1 = '[Tabs] ToggleDisabledTab1',
-    ToggleDisabledTab1SubTab1 = '[Tabs] ToggleDisabledTab1SubTab1',
-    ToggleDisabledTab1SubTab2 = '[Tabs] ToggleDisabledTab1SubTab2',
-    ToggleDisabledTab1SubTab3 = '[Tabs] ToggleDisabledTab1SubTab3',
-
-    ToggleDisabledTab2 = '[Tabs] ToggleDisabledTab2',
-
+export enum ETabs1ActionsTypes {
+    SendTab1 = '[Tabs] SendTab1',
+    SendTSendTab1ResponseSuccess = '[Tabs] SendTab1ResponseSuccess',
+    SendTab1ResponseError = '[Tabs] SendTab1ResponseError',
 }
+
+
+
+
 //TAB 1
-export class ToggleDisabledTab1 implements Action {
-    public readonly type = ETabsActions.ToggleDisabledTab1;
 
-    constructor(public payload: boolean) { }
+export class SendTab1 implements Action {
+    public readonly type = ETabs1ActionsTypes.SendTab1;
+    constructor(public payload: ITab1) { }
 }
 
-export class ToggleDisabledTab1SubTab1 implements Action {
-    public readonly type = ETabsActions.ToggleDisabledTab1SubTab1;
-
-    constructor(public payload: boolean) { }
+export class SendTSendTab1ResponseSuccess implements Action {
+    public readonly type = ETabs1ActionsTypes.SendTSendTab1ResponseSuccess;
+    constructor(public payload: ITab1) { }
 }
 
-export class ToggleDisabledTab1SubTab2 implements Action {
-    public readonly type = ETabsActions.ToggleDisabledTab1SubTab2;
-
-    constructor(public payload: boolean) { }
-}
-
-export class ToggleDisabledTab1SubTab3 implements Action {
-    public readonly type = ETabsActions.ToggleDisabledTab1SubTab3;
-
-    constructor(public payload: boolean) { }
+export class SendTab1ResponseError implements Action {
+    public readonly type = ETabs1ActionsTypes.SendTab1ResponseError;
+    constructor(public payload: ITab1) { }
 }
 
 
 
-
-//TAB 2
-export class ToggleDisabledTab2 implements Action {
-    public readonly type = ETabsActions.ToggleDisabledTab2;
-
-    constructor(public payload: boolean) { }
-}
+export type actions = SendTab1 |
+    SendTSendTab1ResponseSuccess |
+    SendTab1ResponseError;
 
 
-export type TabsActions =
-    ToggleDisabledTab1 |
-    ToggleDisabledTab1SubTab1 |
-    ToggleDisabledTab1SubTab2 |
-    ToggleDisabledTab1SubTab3 |
-    ToggleDisabledTab2;

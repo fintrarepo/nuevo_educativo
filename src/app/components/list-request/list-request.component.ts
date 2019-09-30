@@ -15,10 +15,16 @@ export class ListRequestComponent implements OnInit {
   listRequest$ = this.store.select(reducers.getListRequestResponse);
   error$ = this.store.select(reducers.getListRequestError);
 
+  credits = false;
   constructor(private store: Store<reducers.State>) { }
 
   ngOnInit() {
-    this.store.dispatch(new GetListRequest({ filter: null }));
+    this.listRequest$.subscribe(data => {
+      console.log(data)
+    })
   }
+
+
+
 
 }
