@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ArchwizardModule } from 'angular-archwizard';
+import { FormsModule } from '@angular/forms';
 
 //Pages
 import { HomeComponent } from './home.component';
@@ -107,6 +108,7 @@ const directives = [
     CommonModule,
     ReactiveFormsModule,
     ArchwizardModule,
+    FormsModule,
     ...boostrapModules
   ],
   exports: [RouterModule]

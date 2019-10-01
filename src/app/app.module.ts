@@ -33,16 +33,31 @@ import { AuthEffects } from './effects/auth.effects';
 import { AddressFormEffects } from './effects/addressForm.effects';
 import { OpenRecoveryPasswordEffects } from './effects/recoverPassword.effects'
 import { ListRequestEffects } from './effects/list-request.effects';
+import { SimulatorEffects } from './effects/simulator.effects';
+import { CreditEffects } from './effects/credit.effect';
+
+
+
+
+
 import { CreditComponent } from './components/credit/credit.component';
 
 
 
 
+const effects = [
+  AuthEffects,
+  AddressFormEffects,
+  OpenRecoveryPasswordEffects,
+  ListRequestEffects,
+  SimulatorEffects,
+  CreditEffects
+]
 
 const NGRX_IMPORTS = [
   StoreModule.forRoot(reducers, { metaReducers }),
   StoreRouterConnectingModule.forRoot({ stateKey: 'router' }),
-  EffectsModule.forRoot([AuthEffects, AddressFormEffects, OpenRecoveryPasswordEffects, ListRequestEffects]),
+  EffectsModule.forRoot(effects),
   StoreDevtoolsModule.instrument({
     name: "PortalFintra",
     maxAge: 25, // Retains last 25 states

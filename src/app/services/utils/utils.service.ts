@@ -17,6 +17,10 @@ export class UtilsService {
     return this.http.post("/webresources/hdc/list_affiliates", { ciudad: city })
   }
 
+  buildDate(object) {
+    return object.year + "-" + object.month + "-" + object.day
+  }
+
   carcularFecha(year?, mo?, day?) {
     var opcion0;
     var opcion1;
@@ -41,7 +45,7 @@ export class UtilsService {
       if (mes === 12) {
 
         fecha = (anio + 1) + "-" + "01" + "-02";
-        opcion0 = new Option(fecha, fecha, "defauldSelected");
+        opcion0 = new Option(fecha, fecha);
         fecha = (anio + 1) + "-" + "01" + "-12";
         opcion1 = new Option(fecha, fecha);
         fecha = (anio + 1) + "-" + "01" + "-17";
@@ -53,7 +57,7 @@ export class UtilsService {
       } else {
 
         fecha = date.getFullYear() + "-" + ((date.getMonth() + 2) > 9 ? (date.getMonth() + 2) : "0" + (date.getMonth() + 2)) + "-02";
-        opcion0 = new Option(fecha, fecha, "defauldSelected");
+        opcion0 = new Option(fecha, fecha);
         fecha = date.getFullYear() + "-" + ((date.getMonth() + 2) > 9 ? (date.getMonth() + 2) : "0" + (date.getMonth() + 2)) + "-12";
         opcion1 = new Option(fecha, fecha);
         fecha = date.getFullYear() + "-" + ((date.getMonth() + 2) > 9 ? (date.getMonth() + 2) : "0" + (date.getMonth() + 2)) + "-17";
@@ -71,7 +75,7 @@ export class UtilsService {
       if (mes === 12) {
 
         fecha = (anio + 1) + "-" + "01" + "-12";
-        opcion0 = new Option(fecha, fecha, "defauldSelected");
+        opcion0 = new Option(fecha, fecha);
         fecha = (anio + 1) + "-" + "01" + "-17";
         opcion1 = new Option(fecha, fecha);
         fecha = (anio + 1) + "-" + "01" + "-22";
@@ -83,7 +87,7 @@ export class UtilsService {
       } else {
 
         fecha = date.getFullYear() + "-" + ((date.getMonth() + 2) > 9 ? (date.getMonth() + 2) : "0" + (date.getMonth() + 2)) + "-12";
-        opcion0 = new Option(fecha, fecha, "defauldSelected");
+        opcion0 = new Option(fecha, fecha);
         fecha = date.getFullYear() + "-" + ((date.getMonth() + 2) > 9 ? (date.getMonth() + 2) : "0" + (date.getMonth() + 2)) + "-17";
         opcion1 = new Option(fecha, fecha);
         fecha = date.getFullYear() + "-" + ((date.getMonth() + 2) > 9 ? (date.getMonth() + 2) : "0" + (date.getMonth() + 2)) + "-22";
@@ -104,7 +108,7 @@ export class UtilsService {
       if (mes === 12) {
 
         fecha = (anio + 1) + "-" + "01" + "-17";
-        opcion0 = new Option(fecha, fecha, "defauldSelected");
+        opcion0 = new Option(fecha, fecha);
         fecha = (anio + 1) + "-" + "01" + "-22";
         opcion1 = new Option(fecha, fecha);
         fecha = (anio + 1) + "-" + "02" + "-02";
@@ -115,7 +119,7 @@ export class UtilsService {
 
       } else {
         fecha = date.getFullYear() + "-" + ((date.getMonth() + 2) > 9 ? (date.getMonth() + 2) : "0" + (date.getMonth() + 2)) + "-17";
-        opcion0 = new Option(fecha, fecha, "defauldSelected");
+        opcion0 = new Option(fecha, fecha);
         fecha = date.getFullYear() + "-" + ((date.getMonth() + 2) > 9 ? (date.getMonth() + 2) : "0" + (date.getMonth() + 2)) + "-22";
         opcion1 = new Option(fecha, fecha);
 
@@ -142,7 +146,7 @@ export class UtilsService {
       if (mes === 12) {
 
         fecha = (anio + 1) + "-" + "01" + "-22";
-        opcion0 = new Option(fecha, fecha, "defauldSelected");
+        opcion0 = new Option(fecha, fecha);
         fecha = (anio + 1) + "-" + "02" + "-02";
         opcion1 = new Option(fecha, fecha);
         fecha = (anio + 1) + "-" + "02" + "-12";
@@ -154,7 +158,7 @@ export class UtilsService {
       } else {
 
         fecha = date.getFullYear() + "-" + ((date.getMonth() + 2) > 9 ? (date.getMonth() + 2) : "0" + (date.getMonth() + 2)) + "-22";
-        opcion0 = new Option(fecha, fecha, "defauldSelected");
+        opcion0 = new Option(fecha, fecha);
 
         if (mes === 11) {
 
@@ -184,7 +188,7 @@ export class UtilsService {
       if (mes === 12) {
 
         fecha = (anio + 1) + "-" + "02" + "-02";
-        opcion0 = new Option(fecha, fecha, "defauldSelected");
+        opcion0 = new Option(fecha, fecha);
         fecha = (anio + 1) + "-" + "02" + "-12";
         opcion1 = new Option(fecha, fecha);
         fecha = (anio + 1) + "-" + "02" + "-17";
@@ -198,7 +202,7 @@ export class UtilsService {
         if (mes === 11) {
 
           fecha = (anio + 1) + "-" + "01" + "-02";
-          opcion0 = new Option(fecha, fecha, "defauldSelected");
+          opcion0 = new Option(fecha, fecha);
           fecha = (anio + 1) + "-" + "01" + "-12";
           opcion1 = new Option(fecha, fecha);
           fecha = (anio + 1) + "-" + "01" + "-17";
@@ -210,7 +214,7 @@ export class UtilsService {
         } else {
 
           fecha = date.getFullYear() + "-" + ((date.getMonth() + 3) > 9 ? (date.getMonth() + 3) : "0" + (date.getMonth() + 3)) + "-02";
-          opcion0 = new Option(fecha, fecha, "defauldSelected");
+          opcion0 = new Option(fecha, fecha);
           fecha = date.getFullYear() + "-" + ((date.getMonth() + 3) > 9 ? (date.getMonth() + 3) : "0" + (date.getMonth() + 3)) + "-12";
           opcion1 = new Option(fecha, fecha);
           fecha = date.getFullYear() + "-" + ((date.getMonth() + 3) > 9 ? (date.getMonth() + 3) : "0" + (date.getMonth() + 3)) + "-17";

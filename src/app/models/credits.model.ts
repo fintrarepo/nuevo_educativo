@@ -1,0 +1,47 @@
+export interface ISimulator {
+    "monto": number,
+    "num_cuotas": number,
+    "fecha_pago": String,
+    "id_convenio": number,
+    "und_neg": number,
+    "identificacion": number,
+    error?: String,
+    result?: any
+}
+
+
+export interface IPreApplication {
+    "entidad": String,
+    "afiliado": String,
+    "monto": String,
+    "producto": String,
+    "num_cuotas": String,
+    "fecha_pago": String,
+    "id_convenio": String,
+    "fecha_credito": String,
+    "tipo_identificacion": String,
+    "identificacion": String,
+    "fecha_expedicion": String,
+    "primer_nombre": String,
+    "primer_apellido": String,
+    "email": String,
+    "ingresos_usuario": String,
+    "fecha_nacimiento": String,
+    "valor_cuota": String,
+    "valor_aval": String,
+    "empresa": String,
+    "telefono": String,
+    "tipo_cliente": String,
+    "financia_aval": String,
+    "login": String,
+    "asesor": String,
+    "und_neg": String,
+    "departamento": String,
+    "ciudad": String,
+    "nit_empresa": String,
+    "monto_renovacion": String,
+    "politica": String,
+    "negocio_origen": String,
+    "result": any,
+    "error": any
+}

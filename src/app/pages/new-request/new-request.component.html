@@ -52,7 +52,7 @@
       </div>
 
 
-      <div class="block-form">
+      <div class="block-form" style="border: none;">
         <div class="form-row">
           <div class="form-group col-md-6 col-lg-4 ">
             <label class="subtitle-form">Tipo de identificación</label>
@@ -66,11 +66,13 @@
           </div>
           <div class="form-group col-md-6 col-lg-4">
             <label class="subtitle-form">Fecha de expedición de la cédula</label>
-            <input type="date" class="form-control" formControlName="fecha_expedicion">
+            <input type="date" class="form-control" formControlName="fecha_expedicion" readonly ngbDatepicker
+              #d1="ngbDatepicker" (click)="d1.toggle()">
           </div>
           <div class="form-group col-md-6 col-lg-4">
             <label class="subtitle-form">Fecha de nacimiento</label>
-            <input type="date" class="form-control" formControlName="fecha_nacimiento">
+            <input type="date" class="form-control" formControlName="fecha_nacimiento" readonly ngbDatepicker
+              #d2="ngbDatepicker" (click)="d2.toggle()">
           </div>
           <div class="form-group col-md-6 col-lg-4">
             <label class="subtitle-form">Primer Apellido</label>
@@ -94,16 +96,44 @@
           </div>
         </div>
 
+
       </div>
+    </form>
 
 
-      <div class="block-form">
-        <div class="col-md-6">
-          <button (click)="simulate()">Simular</button>
-          <button>Solicitar</button>
+    <div class="row">
+      <div class="col-lg-7 col-md-7" *ngIf="!(resultSimulation$ | async)">
+      </div>
+      <div class="col-lg-7 col-md-7 col-12 content-simulation" *ngIf="(resultSimulation$ | async)">
+        <div class="content-text-simulation">
+          <img src="/assets/images/Icon_FlechaAprobado.svg" alt="">
+          <h3 class="label-simulation">SIMULACIÓN DE CRÉDITO PRE-APROBADA</h3>
+        </div>
+        <div class="content-result-simulation">
+          <p>Valor apróximado de cuota
+            {{(resultSimulation$ | async).result.valor_cuota | currency:'USD':true:'1.0-0'}}</p>
         </div>
       </div>
+      <div class="col-lg-5 col-md-5 col-12 terms-and-buttons">
+        <div class="terminos">
+          <input type="checkbox" [(ngModel)]="acceptTerms" name="acceptTerms">
+          <p style="margin: 0;">
+            Acepto los términos y condiciones
+          </p>
+        </div>
+        <div class="content-buttons">
+          <button class="btn button-white" (click)="simulate()">Simular</button>
+          <button class="btn button-blue" (click)="send()"
+            [disabled]="!(resultSimulation$ | async) || !acceptTerms">Solicitar</button>
+        </div>
+      </div>
+    </div>
 
-    </form>
+
   </div>
+
+
+
+
+
 </div>

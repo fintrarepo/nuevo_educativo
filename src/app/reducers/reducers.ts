@@ -11,6 +11,8 @@ import * as fromAlert from '../reducers/alert.reducer';
 import * as fromAddressForm from '../reducers/address-form.reducer';
 import * as fromRecoveryPassword from '../reducers/recovery-password.reducer';
 import * as fromListRequests from '../reducers/list-requets.reducer';
+import * as fromCredits from '../reducers/simulation.reducer';
+
 
 
 export interface State {
@@ -20,6 +22,7 @@ export interface State {
     recovery: fromRecoveryPassword.State,
     addressForm: fromAddressForm.State,
     request: fromListRequests.State,
+    credits: fromCredits.State,
     router: fromRouter.RouterReducerState<RouterStateUrl>
 }
 
@@ -31,6 +34,7 @@ export const reducers: ActionReducerMap<State | any> = {
     recovery: fromRecoveryPassword.RecoveryPasswordReducer,
     addressForm: fromAddressForm.AddressFormReducer,
     request: fromListRequests.listRequestReducer,
+    credits: fromCredits.SimulatorReducer,
     router: fromRouter.routerReducer,
 }
 
@@ -54,6 +58,7 @@ export const getAddressFormState = createFeatureSelector<fromAddressForm.State>(
 export const getAlertState = createFeatureSelector<fromAlert.State>('alert');
 export const getRecoveryPasswordState = createFeatureSelector<fromRecoveryPassword.State>('recovery');
 export const getListRequestState = createFeatureSelector<fromListRequests.State>('request');
+export const getSimulatorState = createFeatureSelector<fromCredits.State>('credits');
 
 
 //PLATFORM
@@ -179,6 +184,25 @@ export const getRecoveryError = createSelector(
 export const getRecoveryMethods = createSelector(
     getRecoveryPasswordState,
     fromRecoveryPassword.getRecoveryPasswordMethods
+)
+
+
+//CREDITS
+
+export const getSimulatorStateObject = createSelector(
+    getSimulatorState,
+    fromCredits.getSimulatorState
+)
+
+export const getSimulatorResult = createSelector(
+    getSimulatorState,
+    fromCredits.getSimulatorSuccess
+)
+
+
+export const getSimulatorError = createSelector(
+    getSimulatorState,
+    fromCredits.getSimulatorError
 )
 
 
