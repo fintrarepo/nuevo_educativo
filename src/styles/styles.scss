@@ -198,6 +198,16 @@ select {
 
   }
 
+  &.warning-input {
+    background: #FFFAEB !important;
+    border: 1px solid #FFA412 !important;
+  }
+
+  &.ng-touched.ng-invalid:not(form) {
+    background: #FFFAEB !important;
+    border: 1px solid #FFA412 !important;
+  }
+
 
 }
 
@@ -316,6 +326,7 @@ input[type="number"] {
     height: calc(100vh - 72px);
     top: 72px;
     box-shadow: none !important;
+    margin-bottom: 2em;
   }
 }
 

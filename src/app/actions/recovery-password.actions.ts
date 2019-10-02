@@ -3,6 +3,7 @@ import { Action } from '@ngrx/store';
 interface methodsRecovery {
     type: String;
     value: String;
+    option: String;
 }
 export enum RecoveryPasswordActionTypes {
     OpenRecoveryPassword = '[RecoveryPassword] OPEN_RECOVERY_PASSWORD',
@@ -49,7 +50,7 @@ export class NextStep implements Action {
 
 export class SendRecoveryMethod implements Action {
     readonly type = RecoveryPasswordActionTypes.SendRecoveryMethod;
-    constructor(public payload: { recoveryMethod: String, identificacion: String }) { }
+    constructor(public payload: { tipo: String, option: String }) { }
 }
 
 export class SetEmailAndCelular implements Action {
