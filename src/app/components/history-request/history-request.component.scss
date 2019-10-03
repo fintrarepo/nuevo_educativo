@@ -1,0 +1,27 @@
+.box-form-request {
+  padding: 1em;  
+  margin-top: 1.5em;
+}
+
+ table thead tr th{
+    margin-right: 8px !important;
+    color: #37BFFA;
+    font-family: "GotHam Book";
+    font-size: 13px;
+  }
+
+  .not_found {
+    font-size: 14px; 
+    font-family: "Gotham Book";
+    color: #37BFFA;
+  }
+
+  table .data tr{
+    width: 230px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 13px; 
+    font-family: "Gotham Book";
+  }
+ 

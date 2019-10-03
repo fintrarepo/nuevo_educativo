@@ -3,8 +3,14 @@
     <div class="col-md-6 col-6">
       <h3 class="light-blue-yellow-dark">Mi Cuenta</h3>
     </div>
-    <div class="col-md-6 col-6 text-right">
-      <span>Historial de solicitudes</span>
+    <div class="col-md-6 col-6 text-right" *ngIf="auth.tipo_usuario == 'C'">
+      <span class="light-blue-yellow-dark" 
+              style="width: 240px;" 
+              [routerLink]="['/app/dashboard/history']"
+              [ngClass]="{'selected': type_list == 'history'}">
+        Historial de solicitudes
+      </span>
+      <!-- <span class="light-blue-yellow-dark" (click)="getHistory()">Historial de solicitudes</span> -->
     </div>
   </div>
 
@@ -23,6 +29,8 @@
 
   <app-list-request *ngIf=" type_list == 'requests'"></app-list-request>
 
-  <app-list-request *ngIf=" type_list == 'credits'"></app-list-request>
+  <app-list-request *ngIf=" type_list == 'credits'"></app-list-request> 
+
+  <app-history-request [history]="historyc" *ngIf="type_list == 'history' && historyc.length > 0"></app-history-request>
 
 </div>

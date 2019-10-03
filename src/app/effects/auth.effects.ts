@@ -58,7 +58,10 @@ export class AuthEffects {
         map(action => action.payload),
         tap(v => {
             console.log(v)
-            this.auth.token = v.data.token
+            this.auth.token = v.data.token;
+            this.auth.name  = v.data.name;
+            this.auth.tipo_usuario = v.data.tipo_usuario;
+            this.auth.cambio_clave = v.data.cambio_clave;
             this.router.navigate(['/'])
         })
     )

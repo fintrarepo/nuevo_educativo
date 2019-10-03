@@ -1,0 +1,30 @@
+<div class="box-form-request">
+    <p class="not_found" *ngIf="history.length <= 0">Ops No tienes historial todabia</p>
+    <div class="table-responsive-sm table-responsive-md table-responsive-lg"  *ngIf="history.length > 0">
+        <table class="table table-borderless">
+            <thead>
+                <tr class="border-bottom data">
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Nombre Solicitante</th>
+                    <th scope="col">Universidad</th>
+                    <th scope="col">Saldo Actual</th>
+                    <th scope="col">Proxima fecha de pago</th>
+                    <th scope="col">Cuotas faltantes</th>
+                    <th scope="col">N° Solicitud</th>
+                    <!-- <th scope="col"></th> -->
+                </tr>
+            </thead>
+            <tbody class="data">
+                <tr *ngFor="let hist of history">
+                    <td>{{ hist.fecha_negocio | date:'dd/MM/yyyy' }}</td>
+                    <td>{{ hist.nombre_cliente }}</td>
+                    <td>{{ hist.universidad }}</td>
+                    <td>{{ hist.valor_saldo | currency}}</td>
+                    <td>{{ hist.proximo_pago | date:'dd/MM/yyyy' }}</td>
+                    <td>{{ hist.cuotas_faltantes }}</td>
+                    <td>{{ hist.numero_solicitud }}</td>
+                </tr>                
+            </tbody>
+        </table>
+    </div>
+</div>
