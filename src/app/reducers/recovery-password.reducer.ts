@@ -57,7 +57,8 @@ export function RecoveryPasswordReducer(state: State = initialState, action: Rec
         case RecoveryPasswordActionTypes.SendRecoveryMethod:
             return {
                 ...state,
-                recoveryMethod: action.payload.recoveryMethod
+                recoveryMethod: action.payload,
+                currentStep: 3
             }
 
         case RecoveryPasswordActionTypes.SetEmailAndCelular:

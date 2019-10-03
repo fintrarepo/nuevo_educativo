@@ -19,7 +19,7 @@
           </div>
           <div class="form-group col-md-6 col-lg-4">
             <label class="subtitle-form">Institución educativa</label>
-            <select class="form-control" formControlName="afiliado">
+            <select class="form-control" formControlName="afiliado" (change)="buildDues()">
               <option [value]="item.nit_afiliado" *ngFor="let item of afiliates">{{item.nombre_afiliado}}</option>
             </select>
           </div>
@@ -44,7 +44,7 @@
           <div class="form-group col-md-6 col-lg-4">
             <label class="subtitle-form">Plazo crédito(Meses)</label>
             <select class="form-control" formControlName="num_cuotas">
-              <option value="12">12</option>
+              <option [value]="item" *ngFor="let item of dues">{{item}}</option>
             </select>
           </div>
         </div>

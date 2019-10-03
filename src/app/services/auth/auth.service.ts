@@ -18,6 +18,10 @@ export class AuthService {
     return this.http.post('/webresources/login/recovery', { identificacion })
   }
 
+  sendRecoveryMethod(data) {
+    return this.http.post('/webresources/login/recovery_code', data)
+  }
+
   isAuthenticated() {
     return localStorage.getItem('user') ? true : false;
   }

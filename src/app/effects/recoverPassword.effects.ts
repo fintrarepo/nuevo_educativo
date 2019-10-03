@@ -33,19 +33,12 @@ export class OpenRecoveryPasswordEffects {
         tap(v => console.log('LoginUser effect tap', v.payload)),
         map(action => action.payload),
         exhaustMap(recovery => {
+            
             return this.auth.sendIdByRecovery(recovery.identificacion.toString()).pipe(
-                map(Response => Response.data[0]),
+                map(Response => Response.data),
+                //tap( x => console.log( this.buildMethods(x))),
                 switchMap(Response => [
-                    new SetEmailAndCelular([
-                        {
-                            type: "email",
-                            value: Response.email
-                        },
-                        {
-                            type: "celular",
-                            value: Response.celular
-                        }
-                    ]),
+                    new SetEmailAndCelular(this.buildMethods(Response )),
                     new SendIdUserSuccess()
                 ]),
                 catchError(error => of(new SendIdUserError(error)))
@@ -80,10 +73,37 @@ export class OpenRecoveryPasswordEffects {
     SendRecoveryMethod: Observable<Action> = this.actions$.pipe(
         ofType<SendRecoveryMethod>(RecoveryPasswordActionTypes.SendRecoveryMethod),
         tap(v => console.log(v)),
-        switchMap(action => [
-            new NextStep(),
-        ])
+        map(action => action.payload),
+        exhaustMap(recovery => {
+            
+            return this.auth.sendRecoveryMethod(recovery).pipe(
+                map(Response => Response.data),
+                switchMap(Response => [
+                   
+                ]),
+                catchError(error => of(new SendIdUserError(error)))
+            )
+        })
     )
+
+
+
+    private buildMethods(data) {
+        return [].concat.apply([],data.map(x => {
+            return [
+                {
+                    type: "email",
+                    option: x.option,
+                    value: x.email
+                },
+                {
+                    type: "celular",
+                    option: x.option,
+                    value: x.celular
+                }
+            ]
+        }))
+    }
 
 
 }

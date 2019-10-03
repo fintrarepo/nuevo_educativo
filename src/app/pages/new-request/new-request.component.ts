@@ -20,6 +20,7 @@ export class NewRequestComponent implements OnInit {
   dates: any[] = [];
   cities: any[] = [];
   afiliates: any[] = [];
+  dues: any[] = [];
   acceptTerms: boolean = false;
 
   resultSimulation$ = this.store.select(reducers.getSimulatorResult)
@@ -32,7 +33,7 @@ export class NewRequestComponent implements OnInit {
       "tipo_carrera": ['PREGRADO', Validators.compose([Validators.maxLength(50), Validators.required])],
       "entidad": ['EDUCATIVO', Validators.compose([Validators.maxLength(50), Validators.required])],
       "afiliado": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
-      "monto": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
+      "monto": ['', Validators.compose([Validators.max(100000000), Validators.required])],
       "producto": ['01', Validators.compose([Validators.maxLength(50), Validators.required])],
       "num_cuotas": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "fecha_pago": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
@@ -43,13 +44,13 @@ export class NewRequestComponent implements OnInit {
       "fecha_expedicion": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "primer_nombre": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "primer_apellido": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
-      "email": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
+      "email": ['', Validators.compose([Validators.maxLength(50), Validators.required, Validators.email])],
       "ingresos_usuario": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "fecha_nacimiento": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "valor_cuota": [''],
       "valor_aval": [''],
       "empresa": ['FINTRA', Validators.compose([Validators.maxLength(50), Validators.required])],
-      "telefono": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
+      "telefono": ['', Validators.compose([Validators.min(100000), Validators.max(9999999999), Validators.required])],
       "tipo_cliente": [''],
       "financia_aval": ['f', Validators.compose([Validators.maxLength(50), Validators.required])],
       "login": ['APICREDIT', Validators.compose([Validators.maxLength(50), Validators.required])],
@@ -94,7 +95,6 @@ export class NewRequestComponent implements OnInit {
 
   }
 
-
   send() {
 
     if (this.formValidation()) {
@@ -105,6 +105,15 @@ export class NewRequestComponent implements OnInit {
 
   }
 
+  getControl(name) {
+    return this.form.controls[name]
+  }
+
+  buildDues() {
+    let currentAffiliate = this.afiliates.filter(x => x.nit_afiliado == this.form.controls['afiliado'].value)[0]
+    this.dues = Array.apply(0, Array(parseInt(currentAffiliate.cuota_final) - 1))
+      .map((element, index) => index + parseInt(currentAffiliate.cuota_inicial));
+  }
 
   private formValidation() {
     if (!this.form.valid) {
