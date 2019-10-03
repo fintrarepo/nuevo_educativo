@@ -25,6 +25,7 @@ import { Tab1ReferencesComponent } from '../../components/tab1-references/tab1-r
 import { EvidentComponent } from '../../components/evident/evident.component';
 import { PopupApprovedComponent } from '../../components/popup-aproved/popup-approved.component';
 import { RequestComponent } from '../../components/request/request.component';
+import { HistoryRequestComponent } from '../../components/history-request/history-request.component';
 
 //GUARDS
 import { AuthGuard } from '../../auth.guard';
@@ -59,6 +60,10 @@ const routes: Routes = [
         path: 'credit-application',
         component: CreditApplicationComponent
       },
+      {
+        path: 'history',
+        component: HistoryRequestComponent
+      },
 
       {
         path: 'new-request',
@@ -90,7 +95,8 @@ const components = [
   Tab1WorkingInformationComponent,
   Tab1ReferencesComponent,
   EvidentComponent,
-  PopupApprovedComponent
+  PopupApprovedComponent,
+  HistoryRequestComponent
 ]
 
 const directives = [

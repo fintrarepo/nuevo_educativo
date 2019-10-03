@@ -18,6 +18,11 @@ export class CreditsService {
     return this.http.put('/webresources/loans/edu-pre-approved', data);
   }
 
+  loanHistory(data) {
+    return this.http.get('/webresources/loans/loan-history', data);
+
+  }
+
 
 }
 

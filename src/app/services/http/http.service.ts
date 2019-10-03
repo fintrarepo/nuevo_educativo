@@ -16,7 +16,7 @@ export class HttpService {
 
   get(url: string, options?: any): Observable<any> {
     return this.http
-      .get(this.buildUrl(url), options)
+      .get(this.buildUrl(url), this.optionsRequest(options))
   }
 
   post(url: string, body: any, options?: any): Observable<any> {

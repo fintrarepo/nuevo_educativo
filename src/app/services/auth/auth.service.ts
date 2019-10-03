@@ -35,7 +35,32 @@ export class AuthService {
   }
 
   set token(token: any) {
-    localStorage.setItem("token", token)
+    localStorage.setItem("token", token);
   }
+
+  get tipo_usuario() {
+    return localStorage.getItem('tipo_usuario')
+  }
+
+  set tipo_usuario(tipo_usuario: any) {
+    localStorage.setItem("tipo_usuario", tipo_usuario);
+  }
+
+  get name() {
+    return of(localStorage.getItem('name') ? localStorage.getItem('name') : null);
+  }
+
+  set name(name: any) {
+    localStorage.setItem("name", name);
+  }
+
+  get cambio_clave() {
+    return of(localStorage.getItem('cambio_clave') ? localStorage.getItem('cambio_clave') : null);
+  }
+
+  set cambio_clave(cambio_clave: any) {
+    localStorage.setItem("cambio_clave", cambio_clave);
+  }
+
 
 }
