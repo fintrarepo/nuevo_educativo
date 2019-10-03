@@ -26,6 +26,10 @@ export class AuthService {
     return localStorage.getItem('user') ? true : false;
   }
 
+  changePasswordOfRecovery(data) {
+    return this.http.post('/webresources/login/restore_password', data)
+  }
+
   get token() {
     return of(localStorage.getItem('token') ? localStorage.getItem('token') : null);
   }

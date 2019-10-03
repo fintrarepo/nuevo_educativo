@@ -25,7 +25,7 @@
           </div>
           <div class="form-group col-md-6 col-lg-4">
             <label class="subtitle-form">Tipo de carrera</label>
-            <select class="form-control" formControlName="tipo_carrera">
+            <select class="form-control" formControlName="tipo_carrera" (change)="buildDues()">
               <option value="PREGRADO">Pregrado</option>
               <option value="POSGRADO">Posgrado</option>
               <option value="CONTINUADA">Educación Continuada</option>
@@ -57,7 +57,7 @@
           <div class="form-group col-md-6 col-lg-4 ">
             <label class="subtitle-form">Tipo de identificación</label>
             <select name="" id="" class="form-control" formControlName="tipo_identificacion">
-              <option value="CC">Cedula de ciudadania</option>
+              <option value="CED">Cedula de ciudadania</option>
             </select>
           </div>
           <div class="form-group col-md-6 col-lg-4">
@@ -72,7 +72,9 @@
           <div class="form-group col-md-6 col-lg-4">
             <label class="subtitle-form">Fecha de nacimiento</label>
             <input type="date" class="form-control" formControlName="fecha_nacimiento" readonly ngbDatepicker
-              #d2="ngbDatepicker" (click)="d2.toggle()">
+              #d2="ngbDatepicker" (click)="d2.toggle()"
+              [maxDate]="maxDate"
+              [displayMonths]="2">
           </div>
           <div class="form-group col-md-6 col-lg-4">
             <label class="subtitle-form">Primer Apellido</label>

@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import * as reducers from '../../reducers/reducers';
 import { SendIdUser, SendRecoveryMethod } from 'src/app/actions/recovery-password.actions';
 import { filter } from 'rxjs/operators';
+import { RecoveryChangePassword , CancelRecovery} from '../../actions/recovery-password.actions';
 
 @Component({
   selector: 'app-recover-password',
@@ -11,7 +12,7 @@ import { filter } from 'rxjs/operators';
 })
 export class RecoverPasswordComponent implements OnInit {
 
-  identificacion = "1143444600";
+  identificacion = "";
   methodSelected;
   method;
   code;
@@ -40,10 +41,25 @@ export class RecoverPasswordComponent implements OnInit {
     this.store.dispatch(action)
   }
 
+  changePassword() {
+    const action = new RecoveryChangePassword({
+      password1: this.password,
+      password2: this.password_validation,
+      codigo: this.code,
+      identificacion: this.identificacion
+    })
+    this.store.dispatch(action)
+  }
+
+  cancel(){
+    const action = new CancelRecovery()
+    this.store.dispatch(action)
+  }
+
+
   setMethodSelected(item) {
     this.methodSelected = item;
   }
-
 
 
 }

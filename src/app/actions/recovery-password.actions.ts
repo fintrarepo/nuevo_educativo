@@ -15,7 +15,10 @@ export enum RecoveryPasswordActionTypes {
     NextStep = '[RecoveryPassword] NEXT_STEP',
     SetEmailAndCelular = '[RecoveryPassword] SET_EMAIL_AND_PHONE',
 
-    SendRecoveryMethod = '[RecoveryPassword] SEND_RECOVERY_MEHOD'
+    SendRecoveryMethod = '[RecoveryPassword] SEND_RECOVERY_MEHOD',
+
+    RecoveryChangePassword = '[RecoveryPassword] RecoveryChangePassword',
+    CancelRecovery = '[RecoveryPassword] CancelRecovery'
 }
 
 
@@ -58,6 +61,23 @@ export class SetEmailAndCelular implements Action {
     constructor(public payload: methodsRecovery[]) { }
 }
 
+export class CancelRecovery implements Action {
+    readonly type = RecoveryPasswordActionTypes.CancelRecovery;
+}
+
+
+
+
+export class RecoveryChangePassword implements Action {
+    readonly type = RecoveryPasswordActionTypes.RecoveryChangePassword;
+    constructor(public payload: {
+        password1: String,
+        password2: String,
+        codigo: String,
+        identificacion: String
+    }) { }
+}
+
 
 export type actions = OpenRecoveryPassword |
     CloseRecoveryPassword |
@@ -66,6 +86,8 @@ export type actions = OpenRecoveryPassword |
     SendIdUserError |
     NextStep |
     SendRecoveryMethod |
+    RecoveryChangePassword |
+    CancelRecovery |
     SetEmailAndCelular;
 
 

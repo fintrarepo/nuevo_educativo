@@ -5,9 +5,10 @@ import { tap, exhaustMap, map, switchMap, catchError } from 'rxjs/operators';
 import { Action, Store } from '@ngrx/store';
 import * as reducers from '../reducers/reducers';
 import { ToggleBlurPage } from '../actions/platform.actions';
-import { RecoveryPasswordActionTypes, OpenRecoveryPassword, SendIdUser, SendIdUserSuccess, SendIdUserError, NextStep, SetEmailAndCelular, SendRecoveryMethod } from '../actions/recovery-password.actions';
+import { RecoveryPasswordActionTypes, OpenRecoveryPassword, SendIdUser, SendIdUserSuccess, SendIdUserError, NextStep, SetEmailAndCelular, SendRecoveryMethod, RecoveryChangePassword } from '../actions/recovery-password.actions';
 import { AuthService } from '../services/auth/auth.service';
 import { OpenAlert } from '../actions/alert.actions';
+import { LoginUser, LoggedUser } from '../actions/auth.actions';
 
 
 @Injectable({
@@ -33,12 +34,12 @@ export class OpenRecoveryPasswordEffects {
         tap(v => console.log('LoginUser effect tap', v.payload)),
         map(action => action.payload),
         exhaustMap(recovery => {
-            
+
             return this.auth.sendIdByRecovery(recovery.identificacion.toString()).pipe(
                 map(Response => Response.data),
                 //tap( x => console.log( this.buildMethods(x))),
                 switchMap(Response => [
-                    new SetEmailAndCelular(this.buildMethods(Response )),
+                    new SetEmailAndCelular(this.buildMethods(Response)),
                     new SendIdUserSuccess()
                 ]),
                 catchError(error => of(new SendIdUserError(error)))
@@ -56,6 +57,15 @@ export class OpenRecoveryPasswordEffects {
     )
 
     @Effect()
+    CancelRecovery$: Observable<Action> = this.actions$.pipe(
+        ofType<SendIdUserSuccess>(RecoveryPasswordActionTypes.CancelRecovery),
+        tap(v => console.log(v)),
+        switchMap(action => [
+            new ToggleBlurPage(),
+        ])
+    )
+
+    @Effect()
     SendIdUserError$: Observable<Action> = this.actions$.pipe(
         ofType<SendIdUserError>(RecoveryPasswordActionTypes.SendIdUserError),
         map(action => action.payload),
@@ -68,6 +78,7 @@ export class OpenRecoveryPasswordEffects {
             }),
         ])
     )
+    
 
     @Effect()
     SendRecoveryMethod: Observable<Action> = this.actions$.pipe(
@@ -75,11 +86,11 @@ export class OpenRecoveryPasswordEffects {
         tap(v => console.log(v)),
         map(action => action.payload),
         exhaustMap(recovery => {
-            
+
             return this.auth.sendRecoveryMethod(recovery).pipe(
                 map(Response => Response.data),
                 switchMap(Response => [
-                   
+
                 ]),
                 catchError(error => of(new SendIdUserError(error)))
             )
@@ -87,9 +98,42 @@ export class OpenRecoveryPasswordEffects {
     )
 
 
+    @Effect()
+    RecoveryChangePassword$: Observable<Action> = this.actions$.pipe(
+        ofType<RecoveryChangePassword>(RecoveryPasswordActionTypes.RecoveryChangePassword),
+        tap(v => console.log('LoginUser effect tap', v)),
+        map(action => action.payload),
+        exhaustMap(recovery => {
+
+            return this.auth.changePasswordOfRecovery(recovery).pipe(
+                //map(Response => Response.data),
+                switchMap(Response => [
+                    new LoggedUser(Response),
+                    new OpenAlert({
+                        open: true,
+                        title: "Perfecto",
+                        subTitle: "Contraseña cambiada correctamente",
+                        type: "success"
+                    }),
+                    
+                    new ToggleBlurPage()
+                ]),
+                catchError(Response => {
+                    return of(new OpenAlert({
+                        open: true,
+                        title: Response.error.title.toString(),
+                        subTitle: Response.error.detail.toString(),
+                        type: "danger"
+                    }))
+                })
+            )
+        })
+    )
+
+
 
     private buildMethods(data) {
-        return [].concat.apply([],data.map(x => {
+        return [].concat.apply([], data.map(x => {
             return [
                 {
                     type: "email",

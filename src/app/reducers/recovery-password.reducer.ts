@@ -1,5 +1,5 @@
 import * as RecoveryPasswordActions from '../actions/recovery-password.actions';
-import { RecoveryPasswordActionTypes } from '../actions/recovery-password.actions';
+import { RecoveryPasswordActionTypes, RecoveryChangePassword } from '../actions/recovery-password.actions';
 
 
 export interface State {
@@ -7,6 +7,9 @@ export interface State {
     error: String;
     currentStep: number;
     isOpen: boolean;
+    password: String,
+    password2: String,
+    codigo: String,
     methods: {
         type: String;
         valure: String;
@@ -18,7 +21,10 @@ const initialState: State = {
     error: "",
     currentStep: 1,
     isOpen: false,
-    methods: null
+    methods: null,
+    password: "",
+    password2: "",
+    codigo: ""
 }
 
 export function RecoveryPasswordReducer(state: State = initialState, action: RecoveryPasswordActions.actions) {
@@ -65,6 +71,26 @@ export function RecoveryPasswordReducer(state: State = initialState, action: Rec
             return {
                 ...state,
                 methods: action.payload
+            }
+
+        case RecoveryPasswordActionTypes.RecoveryChangePassword:
+            return {
+                ...state,
+                password1: action.payload.password1,
+                password2: action.payload.password2,
+                codigo: action.payload.codigo,
+                identificacion: action.payload.identificacion
+            }
+
+        case RecoveryPasswordActionTypes.CancelRecovery:
+            return {
+                ...state,
+                currentStep: 1,
+                password1: "",
+                password2: "",
+                codigo: "",
+                identificacion: "",
+                isOpen: false
             }
 
 
