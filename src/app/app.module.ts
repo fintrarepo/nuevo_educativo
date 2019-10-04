@@ -23,6 +23,8 @@ import { ApprovedComponent } from './pages/approved/approved.component';
 //Component
 import { AlertsComponent } from './components/alerts/alerts.component';
 import { RecoverPasswordComponent } from './components/recover-password/recover-password.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
+
 
 //reducers
 import { reducers, metaReducers } from './reducers/reducers';
@@ -40,7 +42,7 @@ import { CreditEffects } from './effects/credit.effect';
 
 
 
-import { CreditComponent } from './components/credit/credit.component';
+
 
 
 
@@ -73,7 +75,7 @@ const NGRX_IMPORTS = [
     NotApprovedComponent,
     ApprovedComponent,
     RecoverPasswordComponent,
-    CreditComponent
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

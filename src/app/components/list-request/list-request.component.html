@@ -233,14 +233,14 @@
     <div class="row item-request"  *ngFor="let item of (listRequest$ | async )"
       [ngClass]="{'desembolsado': item.etapa== 8, 'not-aproved': item.etapa == -1}">
       <div class="col-lg-6">
-        <div class="row" *ngIf="item.nombre_estudiante">
-          <div class="col-lg-6 col-sm-6">
+        <div class="row" >
+          <div class="col-lg-6 col-sm-6" [ngStyle]="{'visibility': item.nombre_estudiante? 'visible' : 'hidden' }" >
             <span>Nombre Estudiante</span>
             <h2>
               {{item?.nombre_estudiante}}
             </h2>
           </div>
-          <div class="col-lg-6 col-md-6">
+          <div class="col-lg-6 col-md-6" [ngStyle]="{'visibility': item.monto_credito? 'visible' : 'hidden' }">
             <span>Valor total crédito</span>
             <h2>
               {{item.monto_credito | currency:'USD':true:'1.0-0'}}
@@ -271,19 +271,20 @@
                 {{item.numero_cuotas}} Meses
               </h5>
             </div>
-            <!-- <div>
+            <div [ngStyle]="{'visibility': item.monto_renovacion? 'visible' : 'hidden' }">
               <span>Nuevo crédito</span>
               <h5>
-                $10,000,000
+                {{item.monto_renovacion | currency:'USD':true:'1.0-0'}}
               </h5>
-            </div> -->
+            </div>
           </div>
-          <!-- <div class="col-lg-2 col-md-3">
+          <div class="col-lg-2 col-md-3">
             <span>Saldo pendiente</span>
             <h5>
-              $7,256,700
+              <!-- $7,256,700 -->
+              FALTA
             </h5>
-          </div> -->
+          </div>
         </div>
 
       </div>

@@ -3,7 +3,7 @@ import { Action } from '@ngrx/store';
 
 
 export enum PlatformActionTypes {
-    ToggleBlurPage = '[Platform] TOGGLE_BLUR_PAGE'
+    ToggleBlurPage = '[Platform] TOGGLE_BLUR_PAGE',
 }
 
 

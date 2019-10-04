@@ -16,7 +16,7 @@ export class DashboardComponent implements OnInit {
   credits: boolean = false;
   historyc: any[] = [];
   constructor(private route: ActivatedRoute, private router: Router, private store: Store<reducers.State>,
-              private creditserv: CreditsService, public auth: AuthService) {
+    private creditserv: CreditsService, public auth: AuthService) {
     router.events.subscribe((val) => {
       // see also 
       if (val instanceof NavigationEnd) {
@@ -27,8 +27,11 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.type_list == 'history') {
+      this.getHistory();
+    }
     this.getCredits(this.credits);
-    this.getHistory();
+
   }
 
   getCredits(credits) {

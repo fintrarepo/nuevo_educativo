@@ -23,12 +23,19 @@ export class CreditEffects {
     @Effect()
     SendPreApplication$: Observable<Action> = this.actions$.pipe(
         ofType<SendPreApplication>(PreApplicationActionTypes.SendPreApplication),
-        tap(v => console.log('LoginUser effect tap', v.payload)),
+        // tap(v => console.log('LoginUser effect tap', v.payload)),
         map(action => action.payload),
         exhaustMap(action => {
             return this.credit.send(action).pipe(
                 map(Response => {
-                    return new SendPreApplicationSucess({ result: Response })
+                    return Response.data.estado_sol == 'R' ?
+                        new SendPreApplicationError({
+                            error: {
+                                title: "Ha ocurrido un problema",
+                                detail: Response.data.msg
+                            }
+                        })
+                        : new SendPreApplicationSucess({ result: Response })
                 }),
                 catchError(error => of(new SendPreApplicationError(error)))
             )
@@ -38,9 +45,9 @@ export class CreditEffects {
 
 
 
-    @Effect()
-    SendPreApplicationError: Observable<Action> = this.actions$.pipe(
-        ofType<SendPreApplicationError>(PreApplicationActionTypes.SendPreApplicationError),
+    @Effect({})
+    SendPreApplicationSucess: Observable<Action> = this.actions$.pipe(
+        ofType<SendPreApplicationSucess>(PreApplicationActionTypes.SendPreApplicationSucess),
         tap(v => console.log(v)),
         map(action => action.payload.error),
         exhaustMap((error: any) => {
@@ -48,7 +55,7 @@ export class CreditEffects {
                 open: true,
                 title: error.title,
                 subTitle: error.detail,
-                type: "danger"
+                type: "success"
             }))
         })
     )

@@ -26,11 +26,11 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  async ngOnInit() { 
-    this.store.select(reducers.getRecoveryState).subscribe( isBlur => {
+  async ngOnInit() {
+    this.store.select(reducers.getRecoveryState).subscribe(isBlur => {
       console.log(isBlur)
     })
-    
+
   }
 
 
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
   }
 
 
-  openRecovery(){
+  openRecovery() {
     this.store.dispatch(new OpenRecoveryPassword())
   }
 

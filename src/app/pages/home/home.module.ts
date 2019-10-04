@@ -26,6 +26,8 @@ import { EvidentComponent } from '../../components/evident/evident.component';
 import { PopupApprovedComponent } from '../../components/popup-aproved/popup-approved.component';
 import { RequestComponent } from '../../components/request/request.component';
 import { HistoryRequestComponent } from '../../components/history-request/history-request.component';
+import { CreditComponent } from '../../components/credit/credit.component';
+
 
 //GUARDS
 import { AuthGuard } from '../../auth.guard';
@@ -96,7 +98,8 @@ const components = [
   Tab1ReferencesComponent,
   EvidentComponent,
   PopupApprovedComponent,
-  HistoryRequestComponent
+  HistoryRequestComponent,
+  CreditComponent
 ]
 
 const directives = [
