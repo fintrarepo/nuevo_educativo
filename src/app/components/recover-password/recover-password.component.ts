@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as reducers from '../../reducers/reducers';
-import { SendIdUser, SendRecoveryMethod } from 'src/app/actions/recovery-password.actions';
+import { SendIdUser, SendRecoveryMethod , CancelRecovery} from 'src/app/actions/recovery-password.actions';
 import { filter } from 'rxjs/operators';
-import { RecoveryChangePassword , CancelRecovery} from '../../actions/recovery-password.actions';
+import { RecoveryChangePassword , } from '../../actions/recovery-password.actions';
 
 @Component({
   selector: 'app-recover-password',

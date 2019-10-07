@@ -95,6 +95,12 @@ export const getAuthError = createSelector(
 )
 
 
+export const getAuthIsOpenChangePassword= createSelector(
+    getAuthState,
+    fromAuth.getIsOpenChangePassword
+)
+
+
 
 //ALERT SELECTORS
 

@@ -30,6 +30,10 @@ export class AuthService {
     return this.http.post('/webresources/login/restore_password', data);
   }
 
+  changePassword(data) {
+    return this.http.post('/webresources/login/change_password', data)
+  }
+
   get token() {
     return of(localStorage.getItem('token') ? localStorage.getItem('token') : null);
   }
@@ -47,7 +51,7 @@ export class AuthService {
   }
 
   get name() {
-    return of(localStorage.getItem('name') ? localStorage.getItem('name') : null);
+    return localStorage.getItem('name')
   }
 
   set name(name: any) {

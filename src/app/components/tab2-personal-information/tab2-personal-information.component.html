@@ -14,34 +14,34 @@
             <div class="form-group col-md-6 col-lg-4">
                 <label class="subtitle-form">Fecha de expedición</label>
                 <div class="calendar-container">
-                    <!-- <img src="/assets/images/Icon_Calendario.svg" alt=""> -->
+                    <img src="/assets/images/Icon_Calendario.svg" alt="">
                     <input type="text" formControlName="fecha_expedicion_id" class="form-control" readonly ngbDatepicker
                         #d1="ngbDatepicker" (click)="d1.toggle()" />
                 </div>
             </div>
             <div class="form-group col-md-6 col-lg-4">
                 <label class="subtitle-form">Primer apellido</label>
-                <input type="text" class="form-control" formControlName="dpto_expedicion_id">
+                <input type="text" class="form-control" formControlName="primer_apellido">
             </div>
             <div class="form-group col-md-6 col-lg-4">
                 <label class="subtitle-form">Segundo apellido</label>
-                <input type="text" class="form-control" formControlName="ciudad_expedicion_id">
+                <input type="text" class="form-control" formControlName="segundo_apellido">
             </div>
             <div class="form-group col-md-6 col-lg-4">
                 <label class="subtitle-form">Primer nombre</label>
-                <input type="text" class="form-control" formControlName="ciudad_expedicion_id">
+                <input type="text" class="form-control" formControlName="primer_nombre">
             </div>
             <div class="form-group col-md-6 col-lg-4">
                 <label class="subtitle-form">Segundo nombre</label>
-                <input type="text" class="form-control" formControlName="ciudad_expedicion_id">
+                <input type="text" class="form-control" formControlName="segundo_nombre">
             </div>
             <div class="form-group col-md-6 col-lg-4">
                 <label class="subtitle-form">Genero</label>
-                <input type="text" class="form-control" formControlName="dpto_nacimiento">
+                <input type="text" class="form-control" formControlName="genero">
             </div>
             <div class="form-group col-md-6 col-lg-4">
                 <label class="subtitle-form">Estado civil</label>
-                <select class="form-control" formControlName="ciudad_nacimiento"></select>
+                <select class="form-control" formControlName="estado_civil"></select>
             </div>
         </div>
     </div>
@@ -59,6 +59,7 @@
             <div class="form-group col-md-6 col-lg-4">
                 <label class="subtitle-form">Fecha de nacimiento</label>
                 <div class="calendar-container">
+                    <img src="/assets/images/Icon_Calendario.svg" alt="">
                     <input type="text" formControlName="fecha_nacimiento" class="form-control" readonly ngbDatepicker
                         #d2="ngbDatepicker" (click)="d2.toggle()" />
                 </div>
@@ -122,7 +123,7 @@
             </div>
             <div class="form-group col-md-6 col-lg-4">
                 <label class="subtitle-form">Nivel sisbén</label>
-                <select class="form-control" formControlName="posee_bienes"></select>
+                <select class="form-control" formControlName="sisben"></select>
             </div>
 
             <div class="form-group col-md-6 col-lg-4">
@@ -131,11 +132,11 @@
             </div>
             <div class="form-group col-md-6 col-lg-4">
                 <label class="subtitle-form">Tipo de colegio del estudiante</label>
-                <select class="form-control" formControlName="estado_civil_padres"></select>
+                <select class="form-control" formControlName="colegio_bachillerato"></select>
             </div>
             <div class="form-group col-md-6 col-lg-4">
                 <label class="subtitle-form">¿Estudiante trabaja?</label>
-                <select class="form-control" formControlName="estado_civil_padres"></select>
+                <select class="form-control" formControlName="trabaja"></select>
             </div>
         </div>
     </div>
@@ -146,23 +147,23 @@
         <div class="form-row">            
             <div class="form-group col-md-6 col-lg-4">
                 <label class="subtitle-form">Tipo de carrera</label>
-                <input type="number" class="form-control" formControlName="estrato">
+                <input type="number" class="form-control" formControlName="tipo_carrera">
             </div>
             <div class="form-group col-md-6 col-lg-4">
                 <label class="subtitle-form">Programa</label>
-                <input type="text" class="form-control" formControlName="estrato">
+                <input type="text" class="form-control" formControlName="programa">
             </div>
             <div class="form-group col-md-6 col-lg-4">
                 <label class="subtitle-form">Código estudiante</label>
-                <input type="text" class="form-control" formControlName="estrato">
+                <input type="text" class="form-control" formControlName="codigo">
             </div>
             <div class="form-group col-md-6 col-lg-4">
                 <label class="subtitle-form">Semestre</label>
-                <input type="number" class="form-control" formControlName="estado_civil_padres">
+                <input type="number" class="form-control" formControlName="semestre">
             </div>
             <div class="form-group col-md-6 col-lg-4">
                 <label class="subtitle-form">Parentesco con el solicitante</label>
-                <select class="form-control" formControlName="estado_civil_padres"></select>
+                <select class="form-control" formControlName="parentesco_girador"></select>
             </div>
         </div>
     </div>
