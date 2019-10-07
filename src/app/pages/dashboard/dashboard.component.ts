@@ -4,7 +4,7 @@ import { GetListRequest } from 'src/app/actions/list-requests.actions';
 import { Store } from '@ngrx/store';
 import * as reducers from '../../reducers/reducers';
 import { CreditsService } from '../../services/credits/credits.service';
-import { AuthService } from '../../services/auth/auth.service'
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -28,7 +28,9 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.getCredits(this.credits);
-    this.getHistory();
+    if (this.auth.tipo_usuario === 'C') {
+      this.getHistory();
+    }
   }
 
   getCredits(credits) {

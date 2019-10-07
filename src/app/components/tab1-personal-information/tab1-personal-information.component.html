@@ -9,144 +9,137 @@
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Segundo apellido</label>
-        <input type="password" class="form-control" formControlName="segundo_apellido">
+        <input type="text" class="form-control" formControlName="segundo_apellido">
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Primer nombre</label>
-        <input type="password" class="form-control">
+        <input type="text" class="form-control" formControlName="primer_nombre">
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Segundo nombre</label>
-        <input type="email" class="form-control">
+        <input type="text" class="form-control" formControlName="segundo_nombre">
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Género</label>
-        <input type="password" class="form-control" i>
+        <input type="text" class="form-control" formControlName="genero">
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Estado civil</label>
-        <select class="form-control"></select>
+        <select class="form-control" formControlName="estado_civil"></select>
       </div>
     </div>
-
   </div>
 
   <div class="block-form">
     <div class="form-row">
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Tipo de identificación</label>
-        <input type="email" class="form-control">
+        <select class="form-control" formControlName="tipo_id"></select>
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">N° identificación</label>
-        <input type="password" class="form-control">
+        <input type="text" class="form-control" formControlName="identificacion">
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Fecha de expedición</label>
         <div class="calendar-container">
           <!-- <img src="/assets/images/Icon_Calendario.svg" alt=""> -->
-          <input type="text" class="form-control" readonly ngbDatepicker #d1="ngbDatepicker" (click)="d1.toggle()" />
+          <input type="text" formControlName="fecha_expedicion_id" class="form-control" readonly ngbDatepicker #d1="ngbDatepicker" (click)="d1.toggle()" />
         </div>
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Departamento de expedición</label>
-        <div class="calendar-container">
-          <input type="email" class="form-control" >
-        </div>
+        <select class="form-control" formControlName="dpto_expedicion_id"></select>
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Ciudad de expedición</label>
-        <input type="password" class="form-control">
+        <select class="form-control" formControlName="ciudad_expedicion_id"></select>
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Fecha de nacimiento</label>
         <div class="calendar-container">
-          <input type="text" class="form-control" readonly ngbDatepicker #d2="ngbDatepicker" (click)="d2.toggle()" />
+          <input type="text" formControlName="fecha_nacimiento" class="form-control" readonly ngbDatepicker #d2="ngbDatepicker" (click)="d2.toggle()" />
         </div>
       </div>
       <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">Departamento de expedición</label>
-        <input type="email" class="form-control">
-      </div>
-      <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">Ciudad de expedición</label>
-        <input type="password" class="form-control">
-      </div>
-      <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">Fecha de nacimiento</label>
-        <input type="text" class="form-control input-date" readonly />
-      </div>
-
-      <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">Departamento de nacimiento</label>
-        <select class="form-control"></select>
+        <label class="subtitle-form">departamento de nacimiento</label>
+        <select class="form-control" formControlName="dpto_nacimiento"></select>
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Ciudad de nacimiento</label>
-        <input type="email" class="form-control">
+        <select class="form-control" formControlName="ciudad_nacimiento"></select>
       </div>
       <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">Teléfono</label>
-        <input type="password" class="form-control">
+        <label class="subtitle-form">Telefono</label>
+        <input type="text" class="form-control" formControlName="telefono"/>
       </div>
-
 
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Email</label>
-        <select class="form-control"></select>
+        <input type="email" class="form-control" formControlName="email" ng-pattern="/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/">
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Celular</label>
-        <select class="form-control"></select>
+        <input type="text" class="form-control" formControlName="celular">
       </div>
-
     </div>
-
   </div>
 
   <div class="block-form">
     <div class="form-row">
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Dirección de residencia</label>
-        <input type="text" class="form-control" (click)="openForm()" readonly>
+        <input type="text" class="form-control" formControlName="direccion" (click)="openForm()" readonly>
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Barrio</label>
-        <input type="password" class="form-control">
+        <select class="form-control" formControlName="barrio"></select>
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Tipo de vivienda</label>
-        <input type="password" class="form-control">
+        <select class="form-control" formControlName="tipo_vivienda"></select>
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Tiempo de residencia</label>
-        <input type="email" class="form-control">
+        <input type="text" formControlName="tiempo_residencia" class="form-control"> 
+
+        <!-- <div class="container"> -->
+          <!-- <div class="row">
+            <div class="form-group col-sm-6 col-sm-6 col-md-6 col-lg-6">
+              <input type="text" formControlName="" class="form-control" placeholder="Años">
+            </div>
+            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+              <input type="text" formControlName="" class="form-control" placeholder="Meses">
+            </div>
+          </div> -->
+        <!-- </div> -->
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Estrato</label>
-        <input type="password" class="form-control">
+        <input type="number" class="form-control" formControlName="estrato">
       </div>
-      <div class="form-group col-md-6 col-lg-4" (click)="openForm()">
+      <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">¿Posee bien raíz?</label>
-        <select class="form-control"></select>
+        <select class="form-control" formControlName="posee_bienes"></select>
       </div>
 
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Nivel de estudio</label>
-        <input type="password" class="form-control">
+        <select class="form-control" formControlName="nivel_estudio"></select>
       </div>
-      <div class="form-group col-md-6 col-lg-4" (click)="openForm()">
+      <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Estado civil de los padres</label>
-        <select class="form-control"></select>
+        <select class="form-control" formControlName="estado_civil_padres"></select>
       </div>
-
     </div>
 
   </div>
 
   <div class="row">
-    <div class="col-md-6">
-      <button class="button-next-tab">Siguiente Formulario</button>
+    <div class="col-md-12 col-lg-12">
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-outline-info button-next-tab " (click)="impForm()">Siguiente Formulario</button>
+      </div>
     </div>
   </div>
 

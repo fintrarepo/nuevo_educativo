@@ -3,15 +3,15 @@ import { Store } from '@ngrx/store';
 import * as reducers from '../../reducers/reducers';
 import { OpenForm, ClosedForm } from '../../actions/address-form.actions';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { ITab1 } from '../../models/tabs.model';
+
 @Component({
-  selector: 'app-tab1-personal-information',
-  templateUrl: './tab1-personal-information.component.html',
-  styleUrls: ['./tab1-personal-information.component.scss']
+  selector: 'app-tab2-personal-information',
+  templateUrl: './tab2-personal-information.component.html',
+  styleUrls: ['./tab2-personal-information.component.scss']
 })
-export class Tab1PersonalInformationComponent implements OnInit {
+export class Tab2PersonalInformationComponent implements OnInit {
   form: FormGroup;
-  tab1;
+  tab2;
   constructor(private store: Store<reducers.State>, public formBuilder: FormBuilder) {
     this.form = formBuilder.group({
       "primer_nombre": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
@@ -45,7 +45,6 @@ export class Tab1PersonalInformationComponent implements OnInit {
   ngOnInit() {
   }
 
-
   openForm() {
     this.store.dispatch(new OpenForm());
   }
@@ -57,8 +56,5 @@ export class Tab1PersonalInformationComponent implements OnInit {
   impForm() {
     console.log(JSON.stringify(this.form.value));
   }
+
 }
-
-
-
-

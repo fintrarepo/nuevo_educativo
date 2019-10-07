@@ -1,1 +1,110 @@
-<p>tab1-working-information works!</p>
+<form style="padding: 14px;" [formGroup]="form">
+
+    <div class="block-form">
+        <h1 class="title-form" [hidden]="tab1?.disabled">Información Financiera</h1>
+        <div class="form-row">
+            <div class="form-group col-md-6 col-lg-4 ">
+                <label class="subtitle-form">Actividad Economica</label>
+                <select class="form-control" formControlName="actividad_economica"></select>
+            </div>
+            <div class="form-group col-md-6 col-lg-4">
+                <label class="subtitle-form">Ocupacion</label>
+                <select class="form-control" formControlName="ocupacion"></select>
+            </div>
+            <div class="form-group col-md-6 col-lg-4">
+                <label class="subtitle-form">Nombre de la Empresa</label>
+                <input type="text" class="form-control" formControlName="nombre_empresa">
+            </div>
+            <div class="form-group col-md-6 col-lg-4">
+                <label class="subtitle-form">Nit Empresa</label>
+                <input type="text" class="form-control" formControlName="nit">
+            </div>
+            <div class="form-group col-md-6 col-lg-4">
+                <label class="subtitle-form">Cargo</label>
+                <input type="text" class="form-control" formControlName="cargo">
+            </div>
+            <div class="form-group col-md-6 col-lg-4">
+                <label class="subtitle-form">Tipo de Contrato</label>
+                <select class="form-control" formControlName="tipo_contrato"></select>
+            </div>            
+            <div class="form-group col-md-6 col-lg-4">
+                <label class="subtitle-form">Fecha de ingreso / Actividad</label>
+                <div class="calendar-container">
+                    <input type="text" formControlName="fecha_ingreso" class="form-control" readonly ngbDatepicker
+                        #d2="ngbDatepicker" (click)="d2.toggle()" />
+                </div>
+            </div>
+            <div class="form-group col-md-6 col-lg-4">
+                <label class="subtitle-form">Direccion empresa</label>
+                <input type="text" class="form-control" formControlName="direccion">
+            </div>
+            <div class="form-group col-md-6 col-lg-4">
+                <label class="subtitle-form">Telefono</label>
+                <input type="text" class="form-control" formControlName="telefono">
+            </div>
+            <div class="form-group col-md-6 col-lg-4">
+                <label class="subtitle-form">Email</label>
+                <input type="email" class="form-control" formControlName="email"
+                    ng-pattern="/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/">
+            </div>
+
+        </div>
+    </div>
+
+    <div class="block-form">
+        <div class="form-row">
+            <div class="form-group col-md-6 col-lg-4">
+                <label class="subtitle-form">Salario / Mesada / Ingresos mes</label>
+                <input type="text" class="form-control" formControlName="salario_ing">
+            </div>
+            <div class="form-group col-md-6 col-lg-4">
+                <label class="subtitle-form">Comisiones</label>
+                <input type="text" class="form-control" formControlName="comisiones_ing">
+            </div>
+            <div class="form-group col-md-6 col-lg-4">
+                <label class="subtitle-form">Honorarios</label>
+                <input type="text" class="form-control" formControlName="honorarios_ing">
+            </div>
+            <div class="form-group col-md-6 col-lg-4">
+                <label class="subtitle-form">Arrendamientos</label>
+                <input type="text" class="form-control" formControlName="arrendamientos_ing">
+            </div>
+            <div class="form-group col-md-6 col-lg-4">
+                <label class="subtitle-form">Otros ingresos</label>
+                <input type="text" class="form-control" formControlName="otros_ingresos">
+            </div>
+            <div class="form-group col-md-6 col-lg-4">
+                <label class="subtitle-form">Total activos</label>
+                <input type="text" class="form-control" formControlName="total_activos">
+            </div>
+        </div>
+    </div>
+
+    <div class="block-form">
+        <h1 class="title-form" [hidden]="tab1?.disabled">Información de Egresos</h1>
+        <div class="form-row">
+            <div class="form-group col-md-6 col-lg-4">
+                <label class="subtitle-form">Arriendo</label>
+                <input type="text" class="form-control" formControlName="arriendo_egr">
+            </div>
+            <div class="form-group col-md-6 col-lg-4">
+                <label class="subtitle-form">Prestamo por nomina</label>
+                <input type="text" class="form-control" formControlName="prestamo_xnomina" >
+            </div>
+            <div class="form-group col-md-6 col-lg-4">
+                <label class="subtitle-form">Total pasivos</label>
+                <input type="text" class="form-control" formControlName="total_pasivos" >
+            </div>     
+        </div>
+
+    </div>
+
+    <div class="row" >
+        <div class="col-md-12 col-lg-12">
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-outline-info button-next-tab " (click)="saveData()">Siguiente Formulario</button>
+            </div>
+        </div>
+    </div>
+
+</form>

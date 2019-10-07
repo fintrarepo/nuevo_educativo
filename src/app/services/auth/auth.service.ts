@@ -11,7 +11,7 @@ export class AuthService {
   constructor(private http: HttpService) { }
 
   login(user: any): Observable<any> {
-    return this.http.post('/webresources/login/signin-v0.1', user)
+    return this.http.post('/webresources/login/signin-v0.1', user);
   }
 
   sendIdByRecovery(identificacion: String): Observable<any> {
@@ -19,7 +19,7 @@ export class AuthService {
   }
 
   sendRecoveryMethod(data) {
-    return this.http.post('/webresources/login/recovery_code', data)
+    return this.http.post('/webresources/login/recovery_code', data);
   }
 
   isAuthenticated() {
@@ -27,7 +27,7 @@ export class AuthService {
   }
 
   changePasswordOfRecovery(data) {
-    return this.http.post('/webresources/login/restore_password', data)
+    return this.http.post('/webresources/login/restore_password', data);
   }
 
   get token() {
@@ -35,15 +35,15 @@ export class AuthService {
   }
 
   set token(token: any) {
-    localStorage.setItem("token", token);
+    localStorage.setItem('token', token);
   }
 
   get tipo_usuario() {
-    return localStorage.getItem('tipo_usuario')
+    return localStorage.getItem('tipo_usuario');
   }
 
   set tipo_usuario(tipo_usuario: any) {
-    localStorage.setItem("tipo_usuario", tipo_usuario);
+    localStorage.setItem('tipo_usuario', tipo_usuario);
   }
 
   get name() {
@@ -51,7 +51,7 @@ export class AuthService {
   }
 
   set name(name: any) {
-    localStorage.setItem("name", name);
+    localStorage.setItem('name', name);
   }
 
   get cambio_clave() {
@@ -59,7 +59,7 @@ export class AuthService {
   }
 
   set cambio_clave(cambio_clave: any) {
-    localStorage.setItem("cambio_clave", cambio_clave);
+    localStorage.setItem('cambio_clave', cambio_clave);
   }
 
 

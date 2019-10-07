@@ -7,7 +7,8 @@
       <span class="light-blue-yellow-dark" 
               style="width: 240px;" 
               [routerLink]="['/app/dashboard/history']"
-              [ngClass]="{'selected': type_list == 'history'}">
+              [ngClass]="{'selected': type_list == 'history'}"
+              (click)="getHistory()">
         Historial de solicitudes
       </span>
       <!-- <span class="light-blue-yellow-dark" (click)="getHistory()">Historial de solicitudes</span> -->
