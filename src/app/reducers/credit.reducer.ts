@@ -1,6 +1,6 @@
 
 import * as SimulationAction from '../actions/credit.actions';
-import { PreApplicationActionTypes, SendPreApplicationError } from '../actions/credit.actions';
+import { PreApplicationActionTypes, SendPreApplicationError, SendPreApplicationNotAproved } from '../actions/credit.actions';
 import { IPreApplication } from '../models/credits.model';
 
 export { IPreApplication as State };
@@ -53,14 +53,18 @@ export function PreApplicationReducer(state: IPreApplication = initialStatePreAp
 
         case PreApplicationActionTypes.SendPreApplicationSucess:
             return {
-                ...state,
-                result: action.payload
+                ...initialStatePreApplication
             };
 
         case PreApplicationActionTypes.SendPreApplicationError:
             return {
                 ...state,
                 error: action.payload
+            };
+
+        case PreApplicationActionTypes.SendPreApplicationNotAproved:
+            return {
+                ...initialStatePreApplication,
             };
 
 

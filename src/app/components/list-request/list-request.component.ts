@@ -25,6 +25,11 @@ export class ListRequestComponent implements OnInit {
   }
 
 
-
-
+  routerLink(item) {
+    if (item.etapa == 0) {
+      return "/app/credit-application/" + item.numero_solicitud
+    } else {
+      return "/"
+    }
+  }
 }

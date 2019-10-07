@@ -5,10 +5,9 @@ import { tap, exhaustMap, map, switchMap, catchError } from 'rxjs/operators';
 import { Action, Store } from '@ngrx/store';
 import * as reducers from '../reducers/reducers';
 import { OpenAlert } from '../actions/alert.actions';
-
 import { CreditsService } from '../services/credits/credits.service';
-
-import { SendPreApplication, PreApplicationActionTypes, SendPreApplicationSucess, SendPreApplicationError } from '../actions/credit.actions';
+import { SendPreApplication, PreApplicationActionTypes, SendPreApplicationSucess, SendPreApplicationError, SendPreApplicationNotAproved } from '../actions/credit.actions';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
@@ -16,7 +15,7 @@ import { SendPreApplication, PreApplicationActionTypes, SendPreApplicationSucess
 export class CreditEffects {
 
 
-    constructor(private actions$: Actions, private store: Store<reducers.State>, private credit: CreditsService) { }
+    constructor(private actions$: Actions, private store: Store<reducers.State>, private credit: CreditsService, private router: Router) { }
 
 
 
@@ -32,12 +31,13 @@ export class CreditEffects {
                         new SendPreApplicationError({
                             error: {
                                 title: "Ha ocurrido un problema",
-                                detail: Response.data.msg
+                                detail: Response.data.msg,
+                                redirect: true
                             }
                         })
                         : new SendPreApplicationSucess({ result: Response })
                 }),
-                catchError(error => of(new SendPreApplicationError(error)))
+                catchError(error => of(new SendPreApplicationError({ ...error, redirect: false })))
             )
         })
     )
@@ -48,20 +48,50 @@ export class CreditEffects {
     @Effect({})
     SendPreApplicationSucess: Observable<Action> = this.actions$.pipe(
         ofType<SendPreApplicationSucess>(PreApplicationActionTypes.SendPreApplicationSucess),
-        tap(v => console.log(v)),
+        tap(v => this.router.navigate(['/'])),
+        map(action => action.payload),
+        exhaustMap((error: any) => [
+            new OpenAlert({
+                open: true,
+                title: "LISTO",
+                subTitle: "Su solicitud de crédito ha sido creada exitosamente.",
+                type: "success"
+            }),
+
+        ])
+    )
+
+    @Effect()
+    SendPreApplicationError: Observable<Action> = this.actions$.pipe(
+        ofType<SendPreApplicationError>(PreApplicationActionTypes.SendPreApplicationError),
         map(action => action.payload.error),
-        exhaustMap((error: any) => {
-            return of(new OpenAlert({
+
+        switchMap((error: any) => [
+            new OpenAlert({
                 open: true,
                 title: error.title,
                 subTitle: error.detail,
-                type: "success"
-            }))
-        })
+                type: "danger"
+            }),
+            new SendPreApplicationNotAproved(error.redirect)
+        ])
     )
 
 
+    @Effect({
+        dispatch: false
+    })
+    SendPreApplicationNotAproved: Observable<Action> = this.actions$.pipe(
+        ofType<SendPreApplicationNotAproved>(PreApplicationActionTypes.SendPreApplicationNotAproved),
+        map(action => action.payload),
+        tap(v => {
+            console.log(v)
+            if (v) {
+                this.router.navigate(['/'])
+            }
+        }),
 
+    )
 
 
 }

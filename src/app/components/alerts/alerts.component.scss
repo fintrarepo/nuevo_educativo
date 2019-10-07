@@ -5,30 +5,29 @@
     bottom: -100%;
   }
 
-  75% {
-    bottom: 50%;
+  10% {
+    bottom: 35px;
   }
 
-  80% {
-    transform: translateX(-50%)  translateY(50%)  rotate(2deg)
+  85% {
+    bottom: 35px;
   }
 
-  90% {
-    transform: translateX(-50%) translateY(50%)  rotate(-2deg)
-  }
 
   100% {
-    transform: translateX(-50%) translateY(50%) 
+    bottom: -100%;
   }
+
+ 
 }
 
 
 .custom-alert {
   z-index: 1000;
   position: fixed;
-  left: 50%;
+  left: calc(50% + 130px);
   transform: translateX(-50%) translateY(50%);
-  bottom: 3em;
+  bottom: -100%;
   width:  525px;
   height: 48px;
   border-radius: 8px;
@@ -38,7 +37,7 @@
   // min-width: 525px;
   padding: 0 1em;
   border: 1px solid white;
-  animation: showNotification .3s ease-in-out;
+  animation: showNotification 4s cubic-bezier(0.075, 0.82, 0.165, 1);
   max-width: 80%;
   img {
     margin-right: 8px;

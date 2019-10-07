@@ -40,7 +40,7 @@ export class OpenRecoveryPasswordEffects {
                 //tap( x => console.log( this.buildMethods(x))),
                 switchMap(Response => [
                     new SetEmailAndCelular(this.buildMethods(Response)),
-                    new SendIdUserSuccess()
+                    new SendIdUserSuccess(),
                 ]),
                 catchError(error => of(new SendIdUserError(error)))
             )
