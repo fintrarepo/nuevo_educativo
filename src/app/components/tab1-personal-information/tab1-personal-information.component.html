@@ -5,7 +5,7 @@
     <div class="form-row">
       <div class="form-group col-md-6 col-lg-4 ">
         <label class="subtitle-form">Primer apellido</label>
-        <input type="text" class="form-control" formControlName="email">
+        <input type="text" class="form-control" formControlName="primer_apellido">
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Segundo apellido</label>
@@ -21,11 +21,20 @@
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Género</label>
-        <input type="text" class="form-control" formControlName="genero">
+        <select class="form-control" formControlName="genero">
+          <option value="">Seleccione Genero</option>
+          <option value="M">Masculino</option>
+          <option value="F">Femenino</option>
+        </select>
+
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Estado civil</label>
-        <select class="form-control" formControlName="estado_civil"></select>
+        <select class="form-control" formControlName="estado_civil">
+          <option value="">Seleccione estado civil</option>
+          <option [value]="item.table_code" *ngFor="let item of (formData$ | async)?.ESTCIV">{{item.dato}}</option>
+        </select>
+
       </div>
     </div>
   </div>
@@ -34,7 +43,11 @@
     <div class="form-row">
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Tipo de identificación</label>
-        <select class="form-control" formControlName="tipo_id"></select>
+        <select class="form-control" formControlName="tipo_id">
+          <option value="">Seleccione tipo de identificación</option>
+          <option [value]="item.table_code" *ngFor="let item of (formData$ | async)?.TIPID">{{item.dato}}</option>
+        </select>
+
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">N° identificación</label>
@@ -44,39 +57,53 @@
         <label class="subtitle-form">Fecha de expedición</label>
         <div class="calendar-container">
           <!-- <img src="/assets/images/Icon_Calendario.svg" alt=""> -->
-          <input type="text" formControlName="fecha_expedicion_id" class="form-control" readonly ngbDatepicker #d1="ngbDatepicker" (click)="d1.toggle()" />
+          <input type="text" formControlName="fecha_expedicion_id" class="form-control" readonly ngbDatepicker
+            #d1="ngbDatepicker" (click)="d1.toggle()" />
         </div>
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Departamento de expedición</label>
-        <select class="form-control" formControlName="dpto_expedicion_id"></select>
+        <select class="form-control" formControlName="dpto_expedicion_id">
+          <option value="">Seleccione departamento</option>
+          <option [value]="item.table_code" *ngFor="let item of (formData$ | async)?.DPTO">{{item.dato}}</option>
+        </select>
+
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Ciudad de expedición</label>
-        <select class="form-control" formControlName="ciudad_expedicion_id"></select>
+        <select class="form-control" formControlName="ciudad_expedicion_id">
+          <option value="BAQ">BAQ</option>
+        </select>
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Fecha de nacimiento</label>
         <div class="calendar-container">
-          <input type="text" formControlName="fecha_nacimiento" class="form-control" readonly ngbDatepicker #d2="ngbDatepicker" (click)="d2.toggle()" />
+          <input type="text" formControlName="fecha_nacimiento" class="form-control" readonly ngbDatepicker
+            #d2="ngbDatepicker" (click)="d2.toggle()" />
         </div>
       </div>
       <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">departamento de nacimiento</label>
-        <select class="form-control" formControlName="dpto_nacimiento"></select>
+        <label class="subtitle-form">Departamento de nacimiento</label>
+        <select class="form-control" formControlName="dpto_nacimiento">
+          <option value="">Seleccione departamento</option>
+          <option [value]="item.table_code" *ngFor="let item of (formData$ | async)?.DPTO">{{item.dato}}</option>
+        </select>
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Ciudad de nacimiento</label>
-        <select class="form-control" formControlName="ciudad_nacimiento"></select>
+        <select class="form-control" formControlName="ciudad_nacimiento">
+            <option value="BAQ">BAQ</option>
+        </select>
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Telefono</label>
-        <input type="text" class="form-control" formControlName="telefono"/>
+        <input type="text" class="form-control" formControlName="telefono" />
       </div>
 
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Email</label>
-        <input type="email" class="form-control" formControlName="email" ng-pattern="/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/">
+        <input type="email" class="form-control" formControlName="email"
+          ng-pattern="/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/">
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Celular</label>
@@ -97,14 +124,17 @@
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Tipo de vivienda</label>
-        <select class="form-control" formControlName="tipo_vivienda"></select>
+        <select class="form-control" formControlName="tipo_vivienda">
+          <option value="">Seleccione tipo de vivienda</option>
+          <option [value]="item.table_code" *ngFor="let item of (formData$ | async)?.TIPBIE">{{item.dato}}</option>
+        </select>
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Tiempo de residencia</label>
-        <input type="text" formControlName="tiempo_residencia" class="form-control"> 
+        <input type="text" formControlName="tiempo_residencia" class="form-control">
 
         <!-- <div class="container"> -->
-          <!-- <div class="row">
+        <!-- <div class="row">
             <div class="form-group col-sm-6 col-sm-6 col-md-6 col-lg-6">
               <input type="text" formControlName="" class="form-control" placeholder="Años">
             </div>
@@ -116,11 +146,21 @@
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Estrato</label>
-        <input type="number" class="form-control" formControlName="estrato">
+        <select class="form-control" formControlName="estrato">
+          <option value=1>1</option>
+          <option value=2>2</option>
+          <option value=3>3</option>
+          <option value=4>4</option>
+          <option value=5>5</option>
+          <option value=6>6</option>
+        </select>
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">¿Posee bien raíz?</label>
-        <select class="form-control" formControlName="posee_bienes"></select>
+        <select class="form-control" formControlName="posee_bienes">
+          <option value="N">No</option>
+          <option value="S">Si</option>
+        </select>
       </div>
 
       <div class="form-group col-md-6 col-lg-4">
@@ -129,7 +169,10 @@
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Estado civil de los padres</label>
-        <select class="form-control" formControlName="estado_civil_padres"></select>
+        <select class="form-control" formControlName="estado_civil_padres">
+          <option value="">Seleccione estado civil</option>
+          <option [value]="item.table_code" *ngFor="let item of (formData$ | async)?.ESTCIVPDR">{{item.dato}}</option>
+        </select>
       </div>
     </div>
 
@@ -138,7 +181,7 @@
   <div class="row">
     <div class="col-md-12 col-lg-12">
       <div class="d-flex justify-content-end">
-        <button class="btn btn-outline-info button-next-tab " (click)="impForm()">Siguiente Formulario</button>
+        <button class="btn btn-outline-info button-next-tab " (click)="save()">Siguiente Formulario</button>
       </div>
     </div>
   </div>

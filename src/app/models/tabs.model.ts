@@ -1,36 +1,36 @@
-export interface ITab1 {
-
-    "entidad": String,
-    "afiliado": String,
-    "monto": String,
-    "producto": String,
-    "num_cuotas": String,
-    "fecha_pago": String,
-    "id_convenio": String,
-    "fecha_credito": String,
-    "tipo_identificacion": String,
-    "identificacion": String,
-    "fecha_expedicion": String,
+export interface ITab1SubTab1 {
     "primer_nombre": String,
+    "segundo_nombre": String,
     "primer_apellido": String,
-    "email": String,
-    "ingresos_usuario": String,
+    "segundo_apellido": String,
+    "genero": String,
+    "estado_civil": String,
+    "tipo_id": String,
+    "identificacion": String,
+    "fecha_expedicion_id": String,
+    "dpto_expedicion_id": String,
+    "ciudad_expedicion_id": String,
     "fecha_nacimiento": String,
-    "valor_cuota": String,
-    "valor_aval": String,
-    "empresa": String,
+    "dpto_nacimiento": String,
+    "ciudad_nacimiento": String,
     "telefono": String,
-    "tipo_cliente": String,
-    "financia_aval": String,
-    "login": String,
-    "asesor": String,
-    "und_neg": String,
-    "departamento": String,
-    "ciudad": String,
-    "nit_empresa": String,
-    "monto_renovacion": String,
-    "politica": String,
-    "negocio_origen": String
-
+    "email": String,
+    "celular": String,
+    "direccion": String,
+    "barrio": String,
+    "tipo_vivienda": String,
+    "estrato": number,
+    "posee_bienes": String,
+    "nivel_estudio": String,
+    "estado_civil_padres": String,
+    "tiempo_residencia": String
 }
+
+export interface ITab1SubTab1RequestData {
+    tab: number,
+    tabs_info: ITab1SubTab1,
+    numero_solicitud: number,
+    final: boolean
+}
+
 

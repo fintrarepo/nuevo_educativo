@@ -73,6 +73,11 @@ export const platformIsBlur = createSelector(
     fromPlatform.getPlatformIsBlur
 )
 
+export const platformDataForm = createSelector(
+    getPlatformState,
+    fromPlatform.getPlatformDataForm
+)
+
 
 
 

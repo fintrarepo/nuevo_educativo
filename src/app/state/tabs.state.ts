@@ -1,41 +1,35 @@
-import { ITab1 } from '../models/tabs.model';
+import { ITab1SubTab1 } from '../models/tabs.model';
 
 
 
 
 //TAB 1
-export const initialTab1State: ITab1 = {
-    "entidad": "",
-    "afiliado": "",
-    "monto": "",
-    "producto": "",
-    "num_cuotas": "",
-    "fecha_pago": "",
-    "id_convenio": "",
-    "fecha_credito": "",
-    "tipo_identificacion": "",
-    "identificacion": "",
-    "fecha_expedicion": "",
+export const initialTab1State: ITab1SubTab1 = {
     "primer_nombre": "",
+    "segundo_nombre": "",
     "primer_apellido": "",
-    "email": "",
-    "ingresos_usuario": "",
+    "segundo_apellido": "",
+    "genero": "",
+    "estado_civil": "",
+    "tipo_id": "",
+    "identificacion": "",
+    "fecha_expedicion_id": "",
+    "dpto_expedicion_id": "",
+    "ciudad_expedicion_id": "",
     "fecha_nacimiento": "",
-    "valor_cuota": "",
-    "valor_aval": "",
-    "empresa": "",
+    "dpto_nacimiento": "",
+    "ciudad_nacimiento": "",
     "telefono": "",
-    "tipo_cliente": "",
-    "financia_aval": "",
-    "login": "",
-    "asesor": "",
-    "und_neg": "",
-    "departamento": "",
-    "ciudad": "",
-    "nit_empresa": "",
-    "monto_renovacion": "",
-    "politica": "",
-    "negocio_origen": ""
+    "email": "",
+    "celular": "",
+    "direccion": "",
+    "barrio": "",
+    "tipo_vivienda": "",
+    "estrato": null,
+    "posee_bienes": "",
+    "nivel_estudio": "",
+    "estado_civil_padres": "",
+    "tiempo_residencia": ""
 }
 
 

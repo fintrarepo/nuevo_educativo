@@ -1,13 +1,15 @@
 import * as PlaformActions from '../actions/platform.actions';
-import { PlatformActionTypes } from '../actions/platform.actions';
+import { PlatformActionTypes, InfoFormRequestResponse } from '../actions/platform.actions';
 
 
 export interface State {
     isBlur: boolean;
+    formData: any;
 }
 
 const initialState: State = {
     isBlur: false,
+    formData: null
 }
 
 export function PlatformReducer(state: State = initialState, action: PlaformActions.actions) {
@@ -19,6 +21,19 @@ export function PlatformReducer(state: State = initialState, action: PlaformActi
                 isBlur: !state.isBlur
             };
 
+
+        case PlatformActionTypes.InfoFormRequest:
+            return {
+                ...state
+            };
+
+
+        case PlatformActionTypes.InfoFormRequestResponse:
+            return {
+                ...state,
+                formData: action.payload
+            };
+
         default:
             return state;
     }
@@ -27,3 +42,5 @@ export function PlatformReducer(state: State = initialState, action: PlaformActi
 
 export const getPlatformState = (state: State) => state;
 export const getPlatformIsBlur = (state: State) => state.isBlur;
+export const getPlatformDataForm = (state: State) => state.formData;
+

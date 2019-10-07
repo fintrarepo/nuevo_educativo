@@ -6,6 +6,7 @@ import { Action, Store } from '@ngrx/store';
 import * as reducers from '../reducers/reducers';
 import { OpenAlert } from '../actions/alert.actions';
 import { CreditsService } from '../services/credits/credits.service';
+import { InfoFormRequest, PlatformActionTypes, InfoFormRequestResponse } from '../actions/platform.actions'
 import { SendPreApplication, PreApplicationActionTypes, SendPreApplicationSucess, SendPreApplicationError, SendPreApplicationNotAproved } from '../actions/credit.actions';
 import { Router } from '@angular/router';
 
@@ -92,6 +93,28 @@ export class CreditEffects {
         }),
 
     )
+
+
+
+    @Effect()
+    InfoFormRequest: Observable<Action> = this.actions$.pipe(
+        ofType<InfoFormRequest>(PlatformActionTypes.InfoFormRequest),
+        exhaustMap(recovery => {
+
+            return this.credit.loadInfoForm().pipe(
+                tap(v=> console.log(v)),
+                map(Response => Response.info.data),
+                //tap( x => console.log( this.buildMethods(x))),
+                switchMap(data => [
+                    new InfoFormRequestResponse(data)
+                ]),
+                // catchError(error => of(new SendIdUserError(error)))
+            )
+        })
+
+
+    )
+
 
 
 }

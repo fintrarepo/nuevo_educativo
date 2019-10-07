@@ -23,6 +23,17 @@ export class CreditsService {
 
   }
 
+  saveTab(data) {
+    return this.http.put('/webresources/form/save_form_edu_tab', data);
+  }
+
+  loadInfoForm() {
+    return this.http.post('/webresources/form/info_form', null)
+  }
+
+  loadCitys(dpto){
+    return this.http.post('/webresources/form/get_city', null)
+  }
 
 }
 
