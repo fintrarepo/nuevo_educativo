@@ -1,5 +1,5 @@
 import * as SimulationAction from '../actions/simulator.actions';
-import { SimulationActionTypes, SendSimulationSuccess, SendSimulationError, SendPreApplication } from '../actions/simulator.actions';
+import { SimulationActionTypes} from '../actions/simulator.actions';
 import { ISimulator } from '../models/credits.model';
 
 export { ISimulator as State };

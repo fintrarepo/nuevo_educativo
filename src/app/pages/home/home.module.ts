@@ -60,7 +60,7 @@ const routes: Routes = [
         component: UploadsComponent
       },
       {
-        path: 'credit-application',
+        path: 'credit-application/:id',
         component: CreditApplicationComponent
       },
       {

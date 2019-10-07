@@ -34,29 +34,29 @@ export class SendSimulationError implements Action {
 
 
 //PRE APPLICATION
-export class SendPreApplication implements Action {
-    readonly type = SimulationActionTypes.SendSimulationSuccess;
-    constructor(public payload: IPreApplication) { }
-}
+// export class SendPreApplication implements Action {
+//     readonly type = SimulationActionTypes.SendSimulationSuccess;
+//     constructor(public payload: IPreApplication) { }
+// }
 
-export class SendPreApplicationSucess implements Action {
-    readonly type = SimulationActionTypes.SendPreApplicationSucess;
-    constructor(public payload: any) { }
-}
+// export class SendPreApplicationSucess implements Action {
+//     readonly type = SimulationActionTypes.SendPreApplicationSucess;
+//     constructor(public payload: any) { }
+// }
 
-export class SendPreApplicationError implements Action {
-    readonly type = SimulationActionTypes.SendPreApplicationError;
-    constructor(public payload: any) { }
-}
+// export class SendPreApplicationError implements Action {
+//     readonly type = SimulationActionTypes.SendPreApplicationError;
+//     constructor(public payload: any) { }
+// }
 
 
 
 
 export type actions = SendSimulation |
     SendSimulationSuccess |
-    SendSimulationError |
-    SendPreApplication |
-    SendPreApplicationSucess |
-    SendPreApplicationError;
+    SendSimulationError 
+    // SendPreApplication |
+    // SendPreApplicationSucess |
+    // SendPreApplicationError;
 
 
