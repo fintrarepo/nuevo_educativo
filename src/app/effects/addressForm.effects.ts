@@ -29,9 +29,9 @@ export class AddressFormEffects {
     @Effect()
     confirmAdressForm$: Observable<Action> = this.actions$.pipe(
         ofType<ConfirmAddress>(AddressFormActionTypes.ConfirmAddress),
-        exhaustMap(() => {
-            return of(new FormatAddress())
-        })
+        switchMap(action => [
+            new ClosedForm()
+        ])
     )
 
     @Effect()

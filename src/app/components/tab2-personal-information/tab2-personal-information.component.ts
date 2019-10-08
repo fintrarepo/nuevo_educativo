@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import * as reducers from '../../reducers/reducers';
 import { OpenForm, ClosedForm } from '../../actions/address-form.actions';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { UtilsService } from '../../services/utils/utils.service';
 
 @Component({
   selector: 'app-tab2-personal-information',
@@ -12,7 +13,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 export class Tab2PersonalInformationComponent implements OnInit {
   form: FormGroup;
   tab2;
-  constructor(private store: Store<reducers.State>, public formBuilder: FormBuilder) {
+  constructor(private store: Store<reducers.State>, public formBuilder: FormBuilder, private utils: UtilsService) {
     this.form = formBuilder.group({
       "tipo_id": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "identificacion": ['', Validators.compose([Validators.maxLength(50), Validators.required, Validators.pattern('^[0-9]*$')])],
@@ -52,7 +53,7 @@ export class Tab2PersonalInformationComponent implements OnInit {
   }
 
   openForm() {
-    this.store.dispatch(new OpenForm());
+    // this.store.dispatch(new OpenForm());
   }
 
   closeForm() {

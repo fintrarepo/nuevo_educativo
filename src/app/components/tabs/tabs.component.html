@@ -1,19 +1,19 @@
-<ngb-tabset class="first-level">
+<ngb-tabset class="first-level" >
 
-  <ngb-tab [title]="'INFORMACIÓN SOLICITANTE'" [class.active]="tab1?.active">
+  <ngb-tab [title]="'INFORMACIÓN SOLICITANTE'">
     <ng-template ngbTabContent>
-      <ngb-tabset class="second-level">
-        <ngb-tab [title]="'INFORMACIÓN PERSONAL'">
+      <ngb-tabset class="second-level" #tabs>
+        <ngb-tab [title]="'INFORMACIÓN PERSONAL'" [disabled]="tabs?.tab1SubTab1?.disabled" id="tab1SubTab1">
           <ng-template ngbTabContent>
             <app-tab1-personal-information></app-tab1-personal-information>
           </ng-template>
         </ngb-tab>
-        <ngb-tab [title]="'INFORMACIÓN LABORAL'">
+        <ngb-tab [title]="'INFORMACIÓN LABORAL'" [disabled]="tabs?.tab1SubTab2?.disabled" id="tab1SubTab2">
           <ng-template ngbTabContent>
             <app-tab1-working-information></app-tab1-working-information>
           </ng-template>
         </ngb-tab>
-        <ngb-tab [title]="'REFERENCIAS'">
+        <ngb-tab [title]="'REFERENCIAS'" [disabled]="tabs?.tab1SubTab3?.disabled" id="tab1SubTab3">
           <ng-template ngbTabContent>
             <app-tab1-references></app-tab1-references>
           </ng-template>
@@ -23,7 +23,7 @@
   </ngb-tab>
 
 
-  <ngb-tab [title]="'INFORMACIÓN ESTUDIANTE'" [disabled]="tab2?.disabled" [class.active]="tab2?.active">
+  <ngb-tab [title]="'INFORMACIÓN ESTUDIANTE'">
     <ng-template ngbTabContent>
       <app-tab2-personal-information></app-tab2-personal-information>
     </ng-template>

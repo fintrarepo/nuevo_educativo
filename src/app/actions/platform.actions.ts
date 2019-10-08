@@ -28,7 +28,10 @@ export class InfoFormRequestResponse implements Action {
 }
 
 export class LoadCitys implements Action {
-    readonly type = PlatformActionTypes.LoadCitys; ç
+    readonly type = PlatformActionTypes.LoadCitys;
+    constructor(public payload: {
+        dpto: String
+    }) { }
 }
 
 export class LoadCitysResponse implements Action {

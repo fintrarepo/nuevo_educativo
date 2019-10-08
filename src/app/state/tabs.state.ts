@@ -1,7 +1,20 @@
-import { ITab1SubTab1 } from '../models/tabs.model';
+import { ITab1SubTab1, ITab1SubTab2, ITabs } from '../models/tabs.model';
 
 
-
+export const Tabs: ITabs = {
+    tab1SubTab1: {
+        active: false,
+        disabled: false
+    },
+    tab1SubTab2: {
+        active: false,
+        disabled: false
+    },
+    tab1SubTab3: {
+        active: false,
+        disabled: false
+    }
+}
 
 //TAB 1
 export const initialTab1State: ITab1SubTab1 = {
@@ -32,6 +45,27 @@ export const initialTab1State: ITab1SubTab1 = {
     "tiempo_residencia": ""
 }
 
+export const initialTab1SubTab2State: ITab1SubTab2 = {
+    "actividad_economica": "",
+    "ocupacion": "",
+    "nombre_empresa": "",
+    "nit": "",
+    "cargo": "",
+    "tipo_contrato": "",
+    "fecha_ingreso": "",
+    "direccion": "",
+    "telefono": "",
+    "email": "",
+    "salario_ing": "",
+    "comisiones_ing": "",
+    "honorarios_ing": "",
+    "arrendamientos_ing": "",
+    "otros_ingresos": "",
+    "total_activos": "",
+    "arriendo_egr": "",
+    "prestamo_xnomina": "",
+    "total_pasivos": ""
+}
 
 // export const initialTab1SubTab1State: ITabs = {
 //     active: true,

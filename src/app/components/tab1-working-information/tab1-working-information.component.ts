@@ -3,6 +3,9 @@ import { Store } from '@ngrx/store';
 import * as reducers from '../../reducers/reducers';
 import { OpenForm, ClosedForm } from '../../actions/address-form.actions';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { SendTab1SubTab2 } from '../../actions/tab1SubTab2.actions';
+import { ActivatedRoute } from "@angular/router";
+import { UtilsService } from '../../services/utils/utils.service';
 
 @Component({
   selector: 'app-tab1-working-information',
@@ -10,14 +13,23 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
   styleUrls: ['./tab1-working-information.component.scss']
 })
 export class Tab1WorkingInformationComponent implements OnInit {
-form: FormGroup;
-tab1;
-  constructor(private store: Store<reducers.State>, public formBuilder: FormBuilder) {
+  form: FormGroup;
+  tab1;
+  business;
+  jobs: any[] = [];
+
+  formData$ = this.store.select(reducers.platformDataForm);
+  addressState$ = this.store.select(reducers.getAddressFormState);
+
+  constructor(private store: Store<reducers.State>,
+    public formBuilder: FormBuilder,
+    private utils: UtilsService,
+    private route: ActivatedRoute) {
     this.form = formBuilder.group({
       "actividad_economica": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "ocupacion": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
-      "nombre_empresa": ['', Validators.compose([Validators.maxLength(50) ])],
-      "nit": ['', Validators.compose([Validators.maxLength(10) ])],
+      "nombre_empresa": ['', Validators.compose([Validators.maxLength(50)])],
+      "nit": ['', Validators.compose([Validators.maxLength(10)])],
       "cargo": ['', Validators.compose([Validators.maxLength(50)])],
       "tipo_contrato": ['', Validators.compose([Validators.maxLength(50)])],
       "fecha_ingreso": ['', Validators.compose([Validators.maxLength(50)])],
@@ -32,23 +44,68 @@ tab1;
       "total_activos": ['', Validators.compose([Validators.maxLength(8), Validators.pattern('^[0-9]*$')])],
       "arriendo_egr": ['', Validators.compose([Validators.maxLength(8), Validators.pattern('^[0-9]*$')])],
       "prestamo_xnomina": ['', Validators.compose([Validators.maxLength(8), Validators.pattern('^[0-9]*$')])],
-      "total_pasivos": ['', Validators.compose([Validators.maxLength(8), Validators.pattern('^[0-9]*$')])]
+      "total_pasivos": ['', Validators.compose([Validators.maxLength(8), Validators.pattern('^[0-9]*$')])],
+      departamento: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
+      ciudad: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
+      tipo_via: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
+      via_principal: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
+      via_secundaria: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
+      numero: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
+      complementoDireccion: ['', Validators.compose([Validators.maxLength(160)])]
+
     });
-   }
+    this.business = this.route.snapshot.paramMap.get("id");
+    this.addressState$.subscribe(this.addressLoaded.bind(this))
+  }
 
   ngOnInit() {
   }
 
-  openForm() {
-    this.store.dispatch(new OpenForm());
+  openForm(field) {
+    this.store.dispatch(new OpenForm({
+      fieldDestinity: "tab1SubTab2" + field
+    }));
   }
 
   closeForm() {
     this.store.dispatch(new ClosedForm());
   }
 
-  saveData() {
-    console.log(JSON.stringify(this.form.value));
+  addressLoaded(address) {
+    if (address.fieldDestinity != "tab1SubTab2direccion") return;
+    for (let i in address) {
+      if (this.form.controls[i])
+        this.form.controls[i].setValue(address[i])
+    }
+    this.form.controls.direccion.setValue(address.tipo_via + " " + address.via_principal + " #" + address.via_secundaria + " - " + address.numero + " " + address.complementoDireccion)
+    this.form.updateValueAndValidity()
   }
+
+
+  loadJobs(activity) {
+    this.utils.loadJobs(activity).subscribe(response => {
+      this.jobs = response.data;
+    })
+  }
+
+  saveData() {
+    const data = this.buildDataForm()
+    const action = new SendTab1SubTab2({
+      tab: 2,
+      final: false,
+      numero_solicitud: this.business,
+      tabs_info: {
+        ...data
+      }
+    })
+    this.store.dispatch(action)
+  }
+
+  private buildDataForm() {
+    let dataForm = { ...this.form.value }
+    dataForm.fecha_ingreso = this.utils.buildDate(dataForm.fecha_ingreso)
+    return dataForm;
+  }
+
 
 }

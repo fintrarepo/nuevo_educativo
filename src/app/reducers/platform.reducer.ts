@@ -1,15 +1,19 @@
 import * as PlaformActions from '../actions/platform.actions';
-import { PlatformActionTypes, InfoFormRequestResponse } from '../actions/platform.actions';
+import { PlatformActionTypes, InfoFormRequestResponse, LoadCitys } from '../actions/platform.actions';
 
 
 export interface State {
     isBlur: boolean;
     formData: any;
+    dpto: String;
+    citys: any;
 }
 
 const initialState: State = {
     isBlur: false,
-    formData: null
+    formData: null,
+    dpto: '',
+    citys: null
 }
 
 export function PlatformReducer(state: State = initialState, action: PlaformActions.actions) {
@@ -34,6 +38,18 @@ export function PlatformReducer(state: State = initialState, action: PlaformActi
                 formData: action.payload
             };
 
+        case PlatformActionTypes.LoadCitys:
+            return {
+                ...state,
+                dpto: action.payload.dpto
+            };
+
+        case PlatformActionTypes.LoadCitysResponse:
+            return {
+                ...state,
+                citys: action.payload
+            };
+
         default:
             return state;
     }
@@ -43,4 +59,5 @@ export function PlatformReducer(state: State = initialState, action: PlaformActi
 export const getPlatformState = (state: State) => state;
 export const getPlatformIsBlur = (state: State) => state.isBlur;
 export const getPlatformDataForm = (state: State) => state.formData;
+export const getPlatCitys = (state: State) => state.citys;
 

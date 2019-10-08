@@ -37,7 +37,8 @@ import { OpenRecoveryPasswordEffects } from './effects/recoverPassword.effects'
 import { ListRequestEffects } from './effects/list-request.effects';
 import { SimulatorEffects } from './effects/simulator.effects';
 import { CreditEffects } from './effects/credit.effect';
-import { Tab1SubTab1Effects } from './effects/tab1SubTab1.effect'
+import { Tab1SubTab1Effects } from './effects/tab1SubTab1.effect';
+import { Tab1SubTab2Effects } from './effects/tab1SubTab2.effect';
 
 
 
@@ -56,7 +57,8 @@ const effects = [
   ListRequestEffects,
   SimulatorEffects,
   CreditEffects,
-  Tab1SubTab1Effects
+  Tab1SubTab1Effects,
+  Tab1SubTab2Effects
 ]
 
 const NGRX_IMPORTS = [

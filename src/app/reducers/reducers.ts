@@ -12,6 +12,7 @@ import * as fromAddressForm from '../reducers/address-form.reducer';
 import * as fromRecoveryPassword from '../reducers/recovery-password.reducer';
 import * as fromListRequests from '../reducers/list-requets.reducer';
 import * as fromCredits from '../reducers/simulation.reducer';
+import * as fromTabs from '../reducers/tabs.reducer';
 
 
 
@@ -23,6 +24,7 @@ export interface State {
     addressForm: fromAddressForm.State,
     request: fromListRequests.State,
     credits: fromCredits.State,
+    tabs: fromTabs.State,
     router: fromRouter.RouterReducerState<RouterStateUrl>
 }
 
@@ -35,6 +37,7 @@ export const reducers: ActionReducerMap<State | any> = {
     addressForm: fromAddressForm.AddressFormReducer,
     request: fromListRequests.listRequestReducer,
     credits: fromCredits.SimulatorReducer,
+    tabs: fromTabs.tabsReducer,
     router: fromRouter.routerReducer,
 }
 
@@ -59,6 +62,7 @@ export const getAlertState = createFeatureSelector<fromAlert.State>('alert');
 export const getRecoveryPasswordState = createFeatureSelector<fromRecoveryPassword.State>('recovery');
 export const getListRequestState = createFeatureSelector<fromListRequests.State>('request');
 export const getSimulatorState = createFeatureSelector<fromCredits.State>('credits');
+export const getTabsState = createFeatureSelector<fromTabs.State>('tabs');
 
 
 //PLATFORM
@@ -79,6 +83,18 @@ export const platformDataForm = createSelector(
 )
 
 
+export const citys = createSelector(
+    getPlatformState,
+    fromPlatform.getPlatCitys
+)
+
+//TABS
+
+
+export const TabsState = createSelector(
+    getTabsState,
+    fromTabs.getTabsState
+)
 
 
 //AUTH SELECTORS
@@ -100,7 +116,7 @@ export const getAuthError = createSelector(
 )
 
 
-export const getAuthIsOpenChangePassword= createSelector(
+export const getAuthIsOpenChangePassword = createSelector(
     getAuthState,
     fromAuth.getIsOpenChangePassword
 )

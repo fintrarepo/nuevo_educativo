@@ -6,7 +6,7 @@ import { Action, Store } from '@ngrx/store';
 import * as reducers from '../reducers/reducers';
 import { OpenAlert } from '../actions/alert.actions';
 import { CreditsService } from '../services/credits/credits.service';
-import { InfoFormRequest, PlatformActionTypes, InfoFormRequestResponse } from '../actions/platform.actions'
+import { InfoFormRequest, PlatformActionTypes, InfoFormRequestResponse, LoadCitysResponse, LoadCitys } from '../actions/platform.actions'
 import { SendPreApplication, PreApplicationActionTypes, SendPreApplicationSucess, SendPreApplicationError, SendPreApplicationNotAproved } from '../actions/credit.actions';
 import { Router } from '@angular/router';
 
@@ -102,7 +102,7 @@ export class CreditEffects {
         exhaustMap(recovery => {
 
             return this.credit.loadInfoForm().pipe(
-                tap(v=> console.log(v)),
+                tap(v => console.log(v)),
                 map(Response => Response.info.data),
                 //tap( x => console.log( this.buildMethods(x))),
                 switchMap(data => [
@@ -111,8 +111,24 @@ export class CreditEffects {
                 // catchError(error => of(new SendIdUserError(error)))
             )
         })
+    )
 
 
+    @Effect()
+    LoadCitys: Observable<Action> = this.actions$.pipe(
+        ofType<LoadCitys>(PlatformActionTypes.LoadCitys),
+        map(action => action.payload.dpto),
+        exhaustMap(dpto => {
+
+            return this.credit.loadCitys(dpto).pipe(
+                
+                map(v => v.data),
+                tap(v => console.log(v)),
+                exhaustMap((Response) => {
+                    return of(new LoadCitysResponse(Response))
+                })
+            )
+        })
     )
 
 

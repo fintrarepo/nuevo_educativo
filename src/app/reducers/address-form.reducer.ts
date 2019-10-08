@@ -12,6 +12,7 @@ export interface State {
     numero_2: String,
     complementoDireccion?: String,
     direccionFormateada?: String,
+    fieldDestinity: String
 }
 
 
@@ -24,7 +25,8 @@ const initialState: State = {
     numero_1: "",
     numero_2: "",
     complementoDireccion: "",
-    direccionFormateada: ""
+    direccionFormateada: "",
+    fieldDestinity: null
 }
 
 export function AddressFormReducer(state: State = initialState, action: AddressFormActions.actions) {
@@ -33,6 +35,7 @@ export function AddressFormReducer(state: State = initialState, action: AddressF
         case AddressFormActionTypes.OpenForm:
             return {
                 ...state,
+                fieldDestinity: action.payload.fieldDestinity,
                 visible: true
             };
 
@@ -44,13 +47,13 @@ export function AddressFormReducer(state: State = initialState, action: AddressF
 
         case AddressFormActionTypes.ConfirmAddress:
             return {
-                ...action.payload
+                ...action.payload,
+                fieldDestinity: state.fieldDestinity
             }
 
         case AddressFormActionTypes.CleanForm:
             return {
-                ...initialState,
-                visible: true
+                ...state
             }
 
         case AddressFormActionTypes.FormatAddress:

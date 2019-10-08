@@ -17,6 +17,14 @@ export class UtilsService {
     return this.http.post("/webresources/hdc/list_affiliates", { ciudad: city })
   }
 
+  getNeighborhood(ciudad) {
+    return this.http.post("/webresources/form/neighborhood", { ciudad })
+  }
+
+  loadJobs(cod_actividad) {
+    return this.http.post('/webresources/form/job', { cod_actividad })
+  }
+
   buildDate(object) {
     return object.year + "-" + object.month + "-" + object.day
   }

@@ -7,4 +7,6 @@ export interface iAddressForm {
     numero_1: String;
     numero_2: String;
     complementoDireccion?: String;
+    fieldDestinity: String
+
 }

@@ -7,6 +7,8 @@ import { ITab1SubTab1 } from '../../models/tabs.model';
 import { SendTab1SubTab1 } from '../../actions/tab1SubTab1.actions';
 import { ActivatedRoute } from "@angular/router";
 import { UtilsService } from '../../services/utils/utils.service'
+import { LoadCitys } from '../../actions/platform.actions';
+
 @Component({
   selector: 'app-tab1-personal-information',
   templateUrl: './tab1-personal-information.component.html',
@@ -17,9 +19,17 @@ export class Tab1PersonalInformationComponent implements OnInit {
   tab1;
   business;
   addressObject;
+  currentSelectDpto;
+
+  //CITYS
+  ciudad_expedicion_id: any[] = [];
+  ciudad_nacimiento: any[] = [];
+  neighborhoods: any[] = [];
 
   addressState$ = this.store.select(reducers.getAddressFormState);
   formData$ = this.store.select(reducers.platformDataForm);
+  citys$ = this.store.select(reducers.citys);
+
 
   constructor(private store: Store<reducers.State>,
     private utils: UtilsService,
@@ -51,22 +61,30 @@ export class Tab1PersonalInformationComponent implements OnInit {
       "posee_bienes": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "nivel_estudio": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "estado_civil_padres": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
-      "tiempo_residencia": ['', Validators.compose([Validators.maxLength(50)])]
+      "tiempo_residencia": ['', Validators.compose([Validators.maxLength(50)])],
+      departamento: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
+      ciudad: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
+      tipo_via: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
+      via_principal: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
+      via_secundaria: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
+      numero: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
+      complementoDireccion: ['', Validators.compose([Validators.maxLength(160)])]
+
     });
 
-    this.addressState$.subscribe(data => {
-      this.addressObject = data;
-    })
+    this.addressState$.subscribe(this.addressLoaded.bind(this))
 
-
+    this.citys$.subscribe(this.citysLoaded.bind(this))
   }
 
   ngOnInit() {
   }
 
 
-  openForm() {
-    this.store.dispatch(new OpenForm());
+  openForm(field) {
+    this.store.dispatch(new OpenForm({
+      fieldDestinity: "tab1SubTab1" + field
+    }));
   }
 
   closeForm() {
@@ -86,14 +104,47 @@ export class Tab1PersonalInformationComponent implements OnInit {
     this.store.dispatch(action)
   }
 
+  loadCitys(dpto, control) {
+    this.currentSelectDpto = control;
+    const action = new LoadCitys({ dpto })
+    this.store.dispatch(action)
+  }
+
+  citysLoaded(citys) {
+    this[this.currentSelectDpto] = citys;
+  }
+
+  addressLoaded(address) {
+    console.log(address)
+    let newAddress = { ...address }
+    if (newAddress.fieldDestinity == "tab1SubTab1direccion") {
+      for (let i in newAddress) {
+        console.log(i)
+        if (this.form.controls[i])
+          this.form.controls[i].setValue(newAddress[i])
+      }
+      this.form.controls.direccion.setValue(newAddress.tipo_via + " " + newAddress.via_principal + " #" + newAddress.via_secundaria + " - " + newAddress.numero + " " + newAddress.complementoDireccion)
+      this.form.updateValueAndValidity();
+
+      this.loadNeighborhood(newAddress.ciudad)
+    }
+  }
+
+  loadNeighborhood(city) {
+    this.utils.getNeighborhood(city).subscribe(response => {
+      this.neighborhoods = response.data;
+    })
+  }
+
 
   private buildDataForm() {
-    let dataForm = { ...this.form.value, "ciudad": "Barranquila", "departamento": "Atlantico", "numero": "45", "tipo_via": "calle", "via_principal": "Carrera", "via_secundaria": "45" }
+    let dataForm = { ...this.form.value }
     dataForm.fecha_expedicion_id = this.utils.buildDate(dataForm.fecha_expedicion_id)
     dataForm.fecha_nacimiento = this.utils.buildDate(dataForm.fecha_nacimiento)
     dataForm.estrato = parseInt(dataForm.estrato)
     return dataForm;
   }
+
 }
 
 

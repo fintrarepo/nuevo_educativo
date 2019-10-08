@@ -49,18 +49,18 @@ export class NewRequestComponent implements OnInit {
       "fecha_pago": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "id_convenio": [58, Validators.compose([Validators.maxLength(50), Validators.required])],
       "fecha_credito": ['12'],//NO VAAAAA
-      "tipo_identificacion": ['CC', Validators.compose([Validators.maxLength(50), Validators.required])],
-      "identificacion": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
-      "fecha_expedicion": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
-      "primer_nombre": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
-      "primer_apellido": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
-      "email": ['', Validators.compose([Validators.maxLength(50), Validators.required, Validators.email, this.ValidateUrl])],
-      "ingresos_usuario": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
-      "fecha_nacimiento": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
+      //"tipo_identificacion": ['CC', Validators.compose([Validators.maxLength(50), Validators.required])],
+      //"identificacion": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
+      //"fecha_expedicion": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
+      //"primer_nombre": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
+      //"primer_apellido": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
+      //"email": ['', Validators.compose([Validators.maxLength(50), Validators.required, Validators.email, this.ValidateUrl])],
+      //"ingresos_usuario": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
+      //"fecha_nacimiento": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "valor_cuota": [''],
       "valor_aval": [''],
       "empresa": ['FINTRA', Validators.compose([Validators.maxLength(50), Validators.required])],
-      "telefono": ['', Validators.compose([Validators.min(100000), Validators.max(9999999999), Validators.required])],
+      // "telefono": ['', Validators.compose([Validators.min(100000), Validators.max(9999999999), Validators.required])],
       "tipo_cliente": [''],
       "financia_aval": ['f', Validators.compose([Validators.maxLength(50), Validators.required])],
       "login": ['APICREDIT', Validators.compose([Validators.maxLength(50), Validators.required])],
@@ -155,8 +155,8 @@ export class NewRequestComponent implements OnInit {
 
   private buildDataForm(): IPreApplication {
     let dataForm = { ...this.form.value }
-    dataForm.fecha_expedicion = this.utils.buildDate(dataForm.fecha_expedicion);
-    dataForm.fecha_nacimiento = this.utils.buildDate(dataForm.fecha_nacimiento);
+    // dataForm.fecha_expedicion = this.utils.buildDate(dataForm.fecha_expedicion);
+    // dataForm.fecha_nacimiento = this.utils.buildDate(dataForm.fecha_nacimiento);
     dataForm.valor_cuota = this.valorCuota
     dataForm.valor_aval = this.valorAval
     dataForm.num_cuotas = parseInt(dataForm.num_cuotas)

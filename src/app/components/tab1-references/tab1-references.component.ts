@@ -36,7 +36,7 @@ export class Tab1ReferencesComponent implements OnInit {
   }
 
   openForm() {
-    this.store.dispatch(new OpenForm());
+    // this.store.dispatch(new OpenForm());
   }
 
   closeForm() {

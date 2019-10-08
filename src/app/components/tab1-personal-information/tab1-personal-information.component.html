@@ -63,7 +63,8 @@
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Departamento de expedición</label>
-        <select class="form-control" formControlName="dpto_expedicion_id">
+        <select class="form-control" formControlName="dpto_expedicion_id"
+          (change)="loadCitys(form.controls.dpto_expedicion_id.value, 'ciudad_expedicion_id')">
           <option value="">Seleccione departamento</option>
           <option [value]="item.table_code" *ngFor="let item of (formData$ | async)?.DPTO">{{item.dato}}</option>
         </select>
@@ -72,7 +73,8 @@
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Ciudad de expedición</label>
         <select class="form-control" formControlName="ciudad_expedicion_id">
-          <option value="BAQ">BAQ</option>
+          <option value="">Seleccione una ciudad</option>
+          <option [value]="item.codciu" *ngFor="let item of ciudad_expedicion_id">{{item.nomciu}}</option>
         </select>
       </div>
       <div class="form-group col-md-6 col-lg-4">
@@ -84,7 +86,8 @@
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Departamento de nacimiento</label>
-        <select class="form-control" formControlName="dpto_nacimiento">
+        <select class="form-control" formControlName="dpto_nacimiento"
+          (change)="loadCitys(form.controls.dpto_nacimiento.value, 'ciudad_nacimiento')">
           <option value="">Seleccione departamento</option>
           <option [value]="item.table_code" *ngFor="let item of (formData$ | async)?.DPTO">{{item.dato}}</option>
         </select>
@@ -92,7 +95,8 @@
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Ciudad de nacimiento</label>
         <select class="form-control" formControlName="ciudad_nacimiento">
-            <option value="BAQ">BAQ</option>
+          <option value="">Seleccione una ciudad</option>
+          <option [value]="item.codciu" *ngFor="let item of ciudad_nacimiento">{{item.nomciu}}</option>
         </select>
       </div>
       <div class="form-group col-md-6 col-lg-4">
@@ -116,11 +120,14 @@
     <div class="form-row">
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Dirección de residencia</label>
-        <input type="text" class="form-control" formControlName="direccion" (click)="openForm()" readonly>
+        <input type="text" class="form-control" formControlName="direccion" (click)="openForm('direccion')" readonly>
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Barrio</label>
-        <select class="form-control" formControlName="barrio"></select>
+        <select class="form-control" formControlName="barrio">
+          <option value="">Seleccione un barrio</option>
+          <option [value]="item.value" *ngFor="let item of neighborhoods">{{item.name}}</option>
+        </select>
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Tipo de vivienda</label>
@@ -132,17 +139,6 @@
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Tiempo de residencia</label>
         <input type="text" formControlName="tiempo_residencia" class="form-control">
-
-        <!-- <div class="container"> -->
-        <!-- <div class="row">
-            <div class="form-group col-sm-6 col-sm-6 col-md-6 col-lg-6">
-              <input type="text" formControlName="" class="form-control" placeholder="Años">
-            </div>
-            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-              <input type="text" formControlName="" class="form-control" placeholder="Meses">
-            </div>
-          </div> -->
-        <!-- </div> -->
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Estrato</label>
@@ -165,7 +161,12 @@
 
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Nivel de estudio</label>
-        <select class="form-control" formControlName="nivel_estudio"></select>
+        <select class="form-control" formControlName="nivel_estudio">
+          <option value="">Seleccione Nivel de estudio</option>
+          <option [value]="item.table_code" *ngFor="let item of (formData$ | async)?.TIPCAR">{{item.dato}}</option>
+        </select>
+
+
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Estado civil de los padres</label>

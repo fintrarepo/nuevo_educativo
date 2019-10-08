@@ -31,8 +31,10 @@ export class CreditsService {
     return this.http.post('/webresources/form/info_form', null)
   }
 
-  loadCitys(dpto){
-    return this.http.post('/webresources/form/get_city', null)
+  
+
+  loadCitys(cod_dpto) {
+    return this.http.post('/webresources/form/get_city', { cod_dpto })
   }
 
 }
