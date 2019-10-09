@@ -28,7 +28,7 @@ export class AddressFormComponent implements OnInit {
       via_principal: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
       via_secundaria: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
       numero: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
-      complementoDireccion: ['', Validators.compose([Validators.maxLength(160)])]
+      complemento: ['', Validators.compose([Validators.maxLength(160)])]
     })
 
     this.citys$.subscribe(this.citysLoaded.bind(this))

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as reducers from '../../reducers/reducers';
 import { OpenForm, ClosedForm } from '../../actions/address-form.actions';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { SendTab1SubTab2 } from '../../actions/tab1SubTab2.actions';
 import { ActivatedRoute } from "@angular/router";
 import { UtilsService } from '../../services/utils/utils.service';
@@ -29,17 +29,17 @@ export class Tab1WorkingInformationComponent implements OnInit {
       "actividad_economica": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "ocupacion": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "nombre_empresa": ['', Validators.compose([Validators.maxLength(50)])],
-      "nit": ['', Validators.compose([Validators.maxLength(10)])],
+      // "nit": ['', Validators.compose([Validators.maxLength(10)])],
       "cargo": ['', Validators.compose([Validators.maxLength(50)])],
       "tipo_contrato": ['', Validators.compose([Validators.maxLength(50)])],
       "fecha_ingreso": ['', Validators.compose([Validators.maxLength(50)])],
       "direccion": ['', Validators.compose([Validators.maxLength(50)])],
       "telefono": ['', Validators.compose([Validators.maxLength(10), Validators.pattern('^[0-9]*$')])],
-      "email": ['', Validators.compose([Validators.maxLength(50), Validators.email])],
+      // "email": ['', Validators.compose([Validators.maxLength(50), Validators.email])],
       "salario_ing": ['', Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
-      "comisiones_ing": ['', Validators.compose([Validators.maxLength(8), Validators.pattern('^[0-9]*$')])],
-      "honorarios_ing": ['', Validators.compose([Validators.maxLength(8), Validators.pattern('^[0-9]*$')])],
-      "arrendamientos_ing": ['', Validators.compose([Validators.maxLength(8), Validators.pattern('^[0-9]*$')])],
+      // "comisiones_ing": ['', Validators.compose([Validators.maxLength(8), Validators.pattern('^[0-9]*$')])],
+      // "honorarios_ing": ['', Validators.compose([Validators.maxLength(8), Validators.pattern('^[0-9]*$')])],
+      // "arrendamientos_ing": ['', Validators.compose([Validators.maxLength(8), Validators.pattern('^[0-9]*$')])],
       "otros_ingresos": ['', Validators.compose([Validators.maxLength(8), Validators.pattern('^[0-9]*$')])],
       "total_activos": ['', Validators.compose([Validators.maxLength(8), Validators.pattern('^[0-9]*$')])],
       "arriendo_egr": ['', Validators.compose([Validators.maxLength(8), Validators.pattern('^[0-9]*$')])],
@@ -56,9 +56,29 @@ export class Tab1WorkingInformationComponent implements OnInit {
     });
     this.business = this.route.snapshot.paramMap.get("id");
     this.addressState$.subscribe(this.addressLoaded.bind(this))
+
+    this.form.controls.actividad_economica.valueChanges.subscribe(this.validateActivity.bind(this))
   }
 
   ngOnInit() {
+  }
+
+  validateActivity(activity) {
+    if (activity == 'EPLDO') {
+      this.form.controls['cargo'].setValidators([Validators.required, Validators.maxLength(100)])
+      this.form.controls['tipo_contrato'].setValidators([Validators.required, Validators.maxLength(50)])
+      this.form.controls['fecha_ingreso'].setValidators([Validators.required, Validators.maxLength(50)])
+      this.form.controls['direccion'].setValidators([Validators.required, Validators.maxLength(50)])
+      this.form.controls['telefono'].setValidators([Validators.required, Validators.maxLength(50)])
+    } else {
+      this.form.controls['cargo'].setValidators([Validators.maxLength(100)])
+      this.form.controls['tipo_contrato'].setValidators([Validators.maxLength(50)])
+      this.form.controls['fecha_ingreso'].setValidators([Validators.maxLength(50)])
+      this.form.controls['direccion'].setValidators([Validators.maxLength(50)])
+      this.form.controls['telefono'].setValidators([Validators.maxLength(50)])
+    }
+
+    this.form.updateValueAndValidity()
   }
 
   openForm(field) {
@@ -99,6 +119,13 @@ export class Tab1WorkingInformationComponent implements OnInit {
       }
     })
     this.store.dispatch(action)
+  }
+
+  validator(control) {
+    const validator = this.form.get(control).validator({} as AbstractControl);
+    if (validator && validator.required) {
+      return true;
+    }
   }
 
   private buildDataForm() {

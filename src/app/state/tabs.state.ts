@@ -1,18 +1,26 @@
-import { ITab1SubTab1, ITab1SubTab2, ITabs } from '../models/tabs.model';
+import { ITab1SubTab1, ITab1SubTab2, ITabs, ITab1SubTab3 } from '../models/tabs.model';
 
 
 export const Tabs: ITabs = {
-    tab1SubTab1: {
+    tab1:{
         active: false,
         disabled: false
+    },
+    tab2:{
+        active: false,
+        disabled: true
+    },
+    tab1SubTab1: {
+        active: false,
+        disabled: true
     },
     tab1SubTab2: {
         active: false,
-        disabled: false
+        disabled: true
     },
     tab1SubTab3: {
         active: false,
-        disabled: false
+        disabled: true
     }
 }
 
@@ -66,6 +74,34 @@ export const initialTab1SubTab2State: ITab1SubTab2 = {
     "prestamo_xnomina": "",
     "total_pasivos": ""
 }
+
+
+
+export const initialTab1SubTab3State: ITab1SubTab3 = {
+    
+    "tipo_referencia": "",
+    "secuencia": null,
+    "primer_apellido": "",
+    "segundo_apellido": "",
+    "primer_nombre": "",
+    "segundo_nombre": "",
+    "parentesco": "",
+    "telefono1": "",
+    "celular": "",
+    "direccion": "",
+    "departamento": "",
+    "ciudad": "",
+    "tipo_via": "",
+    "via_principal": "",
+    "via_secundaria": "",
+    "numero": "",
+    "complemento": ""
+}
+
+
+
+
+
 
 // export const initialTab1SubTab1State: ITabs = {
 //     active: true,

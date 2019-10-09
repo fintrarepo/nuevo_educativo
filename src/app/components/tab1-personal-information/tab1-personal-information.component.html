@@ -133,7 +133,7 @@
         <label class="subtitle-form">Tipo de vivienda</label>
         <select class="form-control" formControlName="tipo_vivienda">
           <option value="">Seleccione tipo de vivienda</option>
-          <option [value]="item.table_code" *ngFor="let item of (formData$ | async)?.TIPBIE">{{item.dato}}</option>
+          <option [value]="item.table_code" *ngFor="let item of (formData$ | async)?.TIPOVIVID">{{item.dato}}</option>
         </select>
       </div>
       <div class="form-group col-md-6 col-lg-4">

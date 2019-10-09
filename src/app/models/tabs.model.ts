@@ -1,4 +1,6 @@
 export interface ITabs {
+    tab1: ITab,
+    tab2: ITab,
     tab1SubTab1: ITab,
     tab1SubTab2: ITab,
     tab1SubTab3: ITab,
@@ -47,14 +49,14 @@ export interface ITab1SubTab1RequestData {
 }
 
 
+
+
 export interface ITab1SubTab2RequestData {
     tab: number,
     tabs_info: ITab1SubTab2,
     numero_solicitud: number,
     final: boolean
 }
-
-
 
 export interface ITab1SubTab2 {
     "actividad_economica": String,
@@ -77,6 +79,40 @@ export interface ITab1SubTab2 {
     "prestamo_xnomina": String,
     "total_pasivos": String
 }
+
+
+
+
+
+export interface ITab1SubTab3 {
+
+    "tipo_referencia": String,
+    "secuencia": number,
+    "primer_apellido": String,
+    "segundo_apellido": String,
+    "primer_nombre": String,
+    "segundo_nombre": String,
+    "parentesco": String,
+    "telefono1": String,
+    "celular": String,
+    "direccion": String,
+    "departamento": String,
+    "ciudad": String,
+    "tipo_via": String,
+    "via_principal": String,
+    "via_secundaria": String,
+    "numero": String,
+    "complemento": String
+
+}
+
+export interface ITab1SubTab3RequestData {
+    tab: number,
+    tabs_info: ITab1SubTab3[],
+    numero_solicitud: number,
+    final: boolean
+}
+
 
 
 

@@ -9,8 +9,9 @@ import { OpenAlert } from '../actions/alert.actions';
 
 import { CreditsService } from '../services/credits/credits.service';
 
-import { SendTab1SubTab1, ETabs1SubTab1ActionsTypes, SendTSendTab1SubTab1ResponseSuccess, SendTSendTab1SubTab1ResponseError } from '../actions/tab1SubTab1.actions';
+import { SendTab1SubTab1, ETabs1SubTab1ActionsTypes, SendTab1SubTab1ResponseSuccess, SendTab1SubTab1ResponseError } from '../actions/tab1SubTab1.actions';
 import { ToggleBlurPage } from '../actions/platform.actions';
+import { SelecteTab1SubTab2 } from '../actions/tabs.actions';
 
 @Injectable({
     providedIn: 'root'
@@ -34,28 +35,33 @@ export class Tab1SubTab1Effects {
         exhaustMap(action => {
             return this.credit.saveTab(action).pipe(
                 map(Response => {
-                    return new SendTSendTab1SubTab1ResponseSuccess({})
+                    return new SendTab1SubTab1ResponseSuccess({})
                 }),
-                catchError(error => of(new SendTSendTab1SubTab1ResponseError(error)))
+                catchError(error => of(new SendTab1SubTab1ResponseError(error)))
             )
         })
     )
 
-    @Effect({
-        dispatch: false
-    })
+    @Effect()
     SendTSendTab1SubTab1ResponseSuccess$: Observable<Action> = this.actions$.pipe(
-        ofType<SendTSendTab1SubTab1ResponseSuccess>(ETabs1SubTab1ActionsTypes.SendTSendTab1SubTab1ResponseSuccess),
-        tap(v => {
+        ofType<SendTab1SubTab1ResponseSuccess>(ETabs1SubTab1ActionsTypes.SendTab1SubTab1ResponseSuccess),
+        switchMap(error => [
+            new SelecteTab1SubTab2(),
+            new OpenAlert({
+                open: true,
+                title: "Listo",
+                subTitle: "Todos los cambios fueron guardados satisfactoriamente.",
+                type: "success"
+            }),
 
-        })
+        ])
     )
 
 
     @Effect()
     SendTSendTab1SubTab1ResponseError$: Observable<Action> = this.actions$.pipe(
-        ofType<SendTSendTab1SubTab1ResponseSuccess>(ETabs1SubTab1ActionsTypes.SendTSendTab1SubTab1ResponseError),
-        map( err=> err.payload.error),
+        ofType<SendTab1SubTab1ResponseError>(ETabs1SubTab1ActionsTypes.SendTab1SubTab1ResponseError),
+        map(err => err.payload.error),
         switchMap(error => [
             new OpenAlert({
                 open: true,
@@ -63,6 +69,7 @@ export class Tab1SubTab1Effects {
                 subTitle: error.detail.toString(),
                 type: "danger"
             }),
+
         ])
     )
 

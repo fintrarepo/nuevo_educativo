@@ -1,100 +1,106 @@
 <form style="padding: 14px;" [formGroup]="form">
 
-    <div class="block-form">
-        <h1 class="title-form" >Referencia Familiar</h1>
-        <div class="form-row">
-            <div class="form-group col-md-6 col-lg-4 ">
-                <label class="subtitle-form">Primer apellido</label>
-                <input type="text" class="form-control" formControlName="primer_apellido_f">
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Segundo apellido</label>
-                <input type="text" class="form-control" formControlName="segundo_apellido_f">
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Primer nombre</label>
-                <input type="text" class="form-control" formControlName="primer_nombre_f">
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Segundo nombre</label>
-                <input type="text" class="form-control" formControlName="segundo_nombre_f">
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Parentesco</label>
-                <select class="form-control" formControlName="parentesco_f"></select>
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Direccion</label>
-                <input type="text" class="form-control" formControlName="direccion_f" (click)="openForm()" readonly>
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">telefono</label>
-                <input type="text" class="form-control" formControlName="telefono1_f">
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Celular</label>
-                <input type="text" class="form-control" formControlName="celular_f">
-            </div>
-        </div>
+  <div class="block-form">
+    <h1 class="title-form">Referencia Familiar</h1>
+    <div class="form-row">
+      <div class="form-group col-md-6 col-lg-4 ">
+        <label class="subtitle-form">Primer apellido</label>
+        <input type="text" class="form-control" formControlName="primer_apellido_f">
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Segundo apellido</label>
+        <input type="text" class="form-control" formControlName="segundo_apellido_f">
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Primer nombre</label>
+        <input type="text" class="form-control" formControlName="primer_nombre_f">
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Segundo nombre</label>
+        <input type="text" class="form-control" formControlName="segundo_nombre_f">
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Parentesco</label>
+        <select class="form-control" formControlName="parentesco_f">
+          <option value="">Seleccione parentesco</option>
+          <option [value]="item.table_code" *ngFor="let item of (formData$ | async)?.PARENT">{{item.dato}}</option>
+        </select>
+
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Direccion</label>
+        <input type="text" class="form-control" formControlName="direccion_f" (click)="openForm('direccion_f')"
+          readonly>
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">telefono</label>
+        <input type="text" class="form-control" formControlName="telefono1_f">
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Celular</label>
+        <input type="text" class="form-control" formControlName="celular_f">
+      </div>
     </div>
+  </div>
 
-    <div class="block-form">
-        <h1 class="title-form" >Referencia Personal</h1>
-        <div class="form-row">
-            <div class="form-group col-md-6 col-lg-4 ">
-                <label class="subtitle-form">Primer apellido</label>
-                <input type="text" class="form-control" formControlName="primer_apellido_p">
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Segundo apellido</label>
-                <input type="text" class="form-control" formControlName="segundo_apellido_p">
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Primer nombre</label>
-                <input type="text" class="form-control" formControlName="primer_nombre_p">
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Segundo nombre</label>
-                <input type="text" class="form-control" formControlName="segundo_nombre_p">
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Direccion</label>
-                <input type="text" class="form-control" formControlName="direccion_p" (click)="openForm()" readonly>
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Telefono</label>
-                <input type="text" class="form-control" formControlName="telefono1_p">
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Celular</label>
-                <input type="text" class="form-control" formControlName="celular_p">
-            </div>
-            <div class="form-group col-md-6 col-lg-4">        
-            </div>
-            <div class="form-group col-md-6 col-lg-4">             
-            </div>
+  <div class="block-form">
+    <h1 class="title-form">Referencia Personal</h1>
+    <div class="form-row">
+      <div class="form-group col-md-6 col-lg-4 ">
+        <label class="subtitle-form">Primer apellido</label>
+        <input type="text" class="form-control" formControlName="primer_apellido_p">
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Segundo apellido</label>
+        <input type="text" class="form-control" formControlName="segundo_apellido_p">
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Primer nombre</label>
+        <input type="text" class="form-control" formControlName="primer_nombre_p">
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Segundo nombre</label>
+        <input type="text" class="form-control" formControlName="segundo_nombre_p">
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Direccion</label>
+        <input type="text" class="form-control" formControlName="direccion_p" (click)="openForm('direccion_p')"
+          readonly>
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Telefono</label>
+        <input type="text" class="form-control" formControlName="telefono1_p">
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Celular</label>
+        <input type="text" class="form-control" formControlName="celular_p">
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+      </div>
 
-            <label class="subtitle-form">¿Tú eres el estudiante?</label>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="1" checked>
-                <label class="form-check-label" for="exampleRadios1">Si</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="2">
-                <label class="form-check-label" for="exampleRadios2">No</label>
-            </div>            
-        </div>
-    </div>  
-        
-    
-
-    <div class="row">
-        <div class="col-md-12 col-lg-12">
-            
-            <div class="d-flex justify-content-end">
-                <button class="btn btn-outline-info button-next-tab " (click)="impForm()">Siguiente Formulario</button>
-            </div>
-        </div>
+      <label class="subtitle-form">¿Tú eres el estudiante?</label>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="1" checked>
+        <label class="form-check-label" for="exampleRadios1">Si</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="2">
+        <label class="form-check-label" for="exampleRadios2">No</label>
+      </div>
     </div>
+  </div>
+
+
+
+  <div class="row">
+    <div class="col-md-12 col-lg-12">
+
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-outline-info button-next-tab " (click)="save()">Siguiente Formulario</button>
+      </div>
+    </div>
+  </div>
 
 </form>

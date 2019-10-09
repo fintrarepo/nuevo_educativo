@@ -8,6 +8,7 @@ import { SendTab1SubTab1 } from '../../actions/tab1SubTab1.actions';
 import { ActivatedRoute } from "@angular/router";
 import { UtilsService } from '../../services/utils/utils.service'
 import { LoadCitys } from '../../actions/platform.actions';
+import { shareReplay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tab1-personal-information',
@@ -20,6 +21,8 @@ export class Tab1PersonalInformationComponent implements OnInit {
   business;
   addressObject;
   currentSelectDpto;
+  observerAddress;
+  observerCity;
 
   //CITYS
   ciudad_expedicion_id: any[] = [];
@@ -68,16 +71,17 @@ export class Tab1PersonalInformationComponent implements OnInit {
       via_principal: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
       via_secundaria: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
       numero: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
-      complementoDireccion: ['', Validators.compose([Validators.maxLength(160)])]
+      complemento: ['', Validators.compose([Validators.maxLength(160)])]
 
     });
 
-    this.addressState$.subscribe(this.addressLoaded.bind(this))
 
-    this.citys$.subscribe(this.citysLoaded.bind(this))
   }
 
   ngOnInit() {
+    this.observerAddress = this.addressState$.pipe(shareReplay()).subscribe(this.addressLoaded.bind(this))
+
+    this.observerCity = this.citys$.subscribe(this.citysLoaded.bind(this))
   }
 
 
@@ -115,15 +119,16 @@ export class Tab1PersonalInformationComponent implements OnInit {
   }
 
   addressLoaded(address) {
-    console.log(address)
-    let newAddress = { ...address }
+    let newAddress = { test: '', ...address }
+    console.log(newAddress)
     if (newAddress.fieldDestinity == "tab1SubTab1direccion") {
+      if (newAddress.departamento == '') return;
       for (let i in newAddress) {
-        console.log(i)
         if (this.form.controls[i])
           this.form.controls[i].setValue(newAddress[i])
       }
-      this.form.controls.direccion.setValue(newAddress.tipo_via + " " + newAddress.via_principal + " #" + newAddress.via_secundaria + " - " + newAddress.numero + " " + newAddress.complementoDireccion)
+      let complemento = newAddress.complemento ? newAddress.complemento : ''
+      this.form.controls.direccion.setValue(newAddress.tipo_via + " " + newAddress.via_principal + " #" + newAddress.via_secundaria + " - " + newAddress.numero + " " + complemento)
       this.form.updateValueAndValidity();
 
       this.loadNeighborhood(newAddress.ciudad)
@@ -136,6 +141,10 @@ export class Tab1PersonalInformationComponent implements OnInit {
     })
   }
 
+  ngOnDestroy() {
+    this.observerCity.unsubscribe()
+    this.observerAddress.unsubscribe()
+  }
 
   private buildDataForm() {
     let dataForm = { ...this.form.value }

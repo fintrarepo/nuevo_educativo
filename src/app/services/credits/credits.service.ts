@@ -20,7 +20,6 @@ export class CreditsService {
 
   loanHistory(data) {
     return this.http.get('/webresources/loans/loan-history', data);
-
   }
 
   saveTab(data) {
@@ -31,7 +30,7 @@ export class CreditsService {
     return this.http.post('/webresources/form/info_form', null)
   }
 
-  
+
 
   loadCitys(cod_dpto) {
     return this.http.post('/webresources/form/get_city', { cod_dpto })

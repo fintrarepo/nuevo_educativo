@@ -3,6 +3,8 @@ import { Store } from '@ngrx/store';
 import * as reducers from '../../reducers/reducers';
 import { OpenForm, ClosedForm } from '../../actions/address-form.actions';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { SendTab1SubTab3 } from '../../actions/tab1SubTab3.actions';
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-tab1-references',
@@ -12,7 +14,13 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 export class Tab1ReferencesComponent implements OnInit {
   form: FormGroup;
   tab1;
-  constructor(private store: Store<reducers.State>, public formBuilder: FormBuilder) {
+  business;
+
+  addressState$ = this.store.select(reducers.getAddressFormState);
+  formData$ = this.store.select(reducers.platformDataForm);
+
+  constructor(private store: Store<reducers.State>, public formBuilder: FormBuilder, private route: ActivatedRoute) {
+    this.business = this.route.snapshot.paramMap.get("id")
     this.form = formBuilder.group({
       "primer_apellido_f": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "segundo_apellido_f": ['', Validators.compose([Validators.maxLength(50)])],
@@ -28,22 +36,106 @@ export class Tab1ReferencesComponent implements OnInit {
       "segundo_nombre_p": ['', Validators.compose([Validators.maxLength(50)])],
       "direccion_p": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "telefono1_p": ['', Validators.compose([Validators.maxLength(10), Validators.pattern('^[0-9]*$')])],
-      "celular_p": ['', Validators.compose([Validators.maxLength(10), Validators.required, Validators.pattern('^[0-9]*$')])]
+      "celular_p": ['', Validators.compose([Validators.maxLength(10), Validators.required, Validators.pattern('^[0-9]*$')])],
+
+      departamento_p: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
+      ciudad_p: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
+      tipo_via_p: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
+      via_principal_p: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
+      via_secundaria_p: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
+      numero_p: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
+      complementoDireccion_p: ['', Validators.compose([Validators.maxLength(160)])],
+
+      departamento_f: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
+      ciudad_f: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
+      tipo_via_f: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
+      via_principal_f: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
+      via_secundaria_f: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
+      numero_f: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
+      complementoDireccion_f: ['', Validators.compose([Validators.maxLength(160)])]
     });
-   }
+    this.addressState$.subscribe(this.addressLoaded.bind(this))
+  }
 
   ngOnInit() {
   }
 
-  openForm() {
-    // this.store.dispatch(new OpenForm());
+
+
+  openForm(field) {
+    this.store.dispatch(new OpenForm({
+      fieldDestinity: "tab1SubTab3" + field
+    }));
   }
 
   closeForm() {
     this.store.dispatch(new ClosedForm());
   }
 
-  impForm() {
-    console.log(JSON.stringify(this.form.value));
+  save() {
+
+    const data = this.buildDataForm()
+    const action = new SendTab1SubTab3({
+      tab: 3,
+      final: false,
+      numero_solicitud: this.business,
+      tabs_info: [
+        {
+          tipo_referencia: "F",
+          "secuencia": 1,
+          ...this.buildType('f')
+        },
+        {
+          tipo_referencia: "P",
+          "secuencia": 2,
+          ...this.buildType('p')
+        }
+      ]
+    })
+    this.store.dispatch(action)
   }
+
+  addressLoaded(address) {
+    console.log(address)
+    let newAddress = { ...address }
+    if (newAddress.fieldDestinity == "tab1SubTab3direccion_p" || newAddress.fieldDestinity == "tab1SubTab3direccion_f") {
+      let tipoReference = newAddress.fieldDestinity == "tab1SubTab3direccion_p" ? '_p' : '_f';
+
+      for (let i in newAddress) {
+        if (this.form.controls[i + tipoReference])
+          this.form.controls[i + tipoReference].setValue(newAddress[i])
+      }
+      this.form.controls['direccion' + tipoReference].setValue(newAddress.tipo_via + " " + newAddress.via_principal + " #" + newAddress.via_secundaria + " - " + newAddress.numero + " " + newAddress.complementoDireccion)
+      this.form.updateValueAndValidity();
+    }
+  }
+
+
+  private buildDataForm() {
+    let dataForm = { ...this.form.value }
+    return dataForm;
+  }
+
+  private buildType(type) {
+
+    return {
+      primer_apellido: this.form.controls['primer_apellido_' + type].value,
+      primer_nombre: this.form.controls['primer_nombre_' + type].value,
+      segundo_apellido: this.form.controls['segundo_apellido_' + type].value,
+      segundo_nombre: this.form.controls['segundo_nombre_' + type].value,
+      parentesco: this.form.controls['parentesco_' + type] ? this.form.controls['parentesco_' + type].value : '',
+      direccion: this.form.controls['direccion_' + type].value,
+      telefono1: this.form.controls['telefono1_' + type].value,
+      celular: this.form.controls['celular_' + type].value,
+      departamento: this.form.controls['departamento_' + type].value,
+      ciudad: this.form.controls['ciudad_' + type].value,
+      tipo_via: this.form.controls['tipo_via_' + type].value,
+      via_principal: this.form.controls['via_principal_' + type].value,
+      via_secundaria: this.form.controls['via_secundaria_' + type].value,
+      numero: this.form.controls['numero_' + type].value,
+      complemento: this.form.controls['complementoDireccion_' + type].value,
+    }
+  }
+
 }
+

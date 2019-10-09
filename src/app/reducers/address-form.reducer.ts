@@ -41,7 +41,7 @@ export function AddressFormReducer(state: State = initialState, action: AddressF
 
         case AddressFormActionTypes.ClosedForm:
             return {
-                ...state,
+                ...initialState,
                 visible: false
             }
 

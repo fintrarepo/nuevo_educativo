@@ -39,6 +39,7 @@ import { SimulatorEffects } from './effects/simulator.effects';
 import { CreditEffects } from './effects/credit.effect';
 import { Tab1SubTab1Effects } from './effects/tab1SubTab1.effect';
 import { Tab1SubTab2Effects } from './effects/tab1SubTab2.effect';
+import { Tab1SubTab3Effects } from './effects/tab1SubTab3.effect';
 
 
 
@@ -58,7 +59,8 @@ const effects = [
   SimulatorEffects,
   CreditEffects,
   Tab1SubTab1Effects,
-  Tab1SubTab2Effects
+  Tab1SubTab2Effects,
+  Tab1SubTab3Effects
 ]
 
 const NGRX_IMPORTS = [

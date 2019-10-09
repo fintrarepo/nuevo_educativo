@@ -23,46 +23,58 @@
         <input type="text" class="form-control" formControlName="nombre_empresa">
       </div>
       <div class="form-group col-md-6 col-lg-4">
-          <label class="subtitle-form">Fecha de Ingreso / Actividad</label>
-          <div class="calendar-container">
-            <input type="text" formControlName="fecha_ingreso" class="form-control" readonly ngbDatepicker
-              #d2="ngbDatepicker" (click)="d2.toggle()" />
-          </div>
+        <label class="subtitle-form">Fecha de Ingreso / Actividad</label>
+        <div class="calendar-container">
+          <input type="text" formControlName="fecha_ingreso" class="form-control" readonly ngbDatepicker
+            #d2="ngbDatepicker" (click)="d2.toggle()" />
         </div>
+      </div>
       <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">Cargo</label>
+        <div class="label-input-content">
+          <label class="subtitle-form">Cargo</label>
+          <span *ngIf="!validator('cargo')">(Opcional)</span>
+        </div>
         <input type="text" class="form-control" formControlName="cargo">
       </div>
       <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">Tipo de Contrato</label>
+        <div class="label-input-content">
+          <label class="subtitle-form">Tipo de Contrato</label>
+          <span *ngIf="!validator('tipo_contrato')">(Opcional)</span>
+        </div>
         <select class="form-control" formControlName="tipo_contrato">
           <option value="">Seleccione Actividad Economica</option>
           <option [value]="item.table_code" *ngFor="let item of (formData$ | async)?.TIPCON">{{item.dato}}</option>
         </select>
 
       </div>
-      
+
       <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">Direccion empresa / negocio</label>
+        <div class="label-input-content">
+          <label class="subtitle-form">Direccion empresa / negocio</label>
+          <span *ngIf="!validator('direccion')">(Opcional)</span>
+        </div>
         <input type="text" class="form-control" formControlName="direccion" (click)="openForm('direccion')" readonly>
       </div>
       <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">Telefono empresa / negocio</label>
+        <div class="label-input-content">
+          <label class="subtitle-form">Telefono empresa / negocio</label>
+          <span *ngIf="!validator('telefono')">(Opcional)</span>
+        </div>
         <input type="text" class="form-control" formControlName="telefono">
       </div>
-      
+
 
     </div>
   </div>
 
   <div class="block-form">
-      <h1 class="title-form" [hidden]="tab1?.disabled">Información de ingresos</h1>
+    <h1 class="title-form" [hidden]="tab1?.disabled">Información de ingresos</h1>
     <div class="form-row">
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Salario / Mesada / Ingresos mes</label>
         <input type="number" class="form-control" formControlName="salario_ing">
       </div>
-      
+
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Otros ingresos (comisiones, arriendos, etc)</label>
         <input type="number" class="form-control" formControlName="otros_ingresos">
