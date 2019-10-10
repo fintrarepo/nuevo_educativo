@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiPath: "http://192.168.140.155:8084/fintracredit"
+  apiPath: "http://piloto.fintra.co:8084/fintracredit"
 };
 
 /*

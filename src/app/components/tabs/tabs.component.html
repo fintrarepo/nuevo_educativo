@@ -1,6 +1,6 @@
 <ngb-tabset class="first-level" #toptaps [destroyOnHide]="false">
 
-  <ngb-tab [title]="'INFORMACIÓN SOLICITANTE'" [disabled]="tabs?.tab1?.disabled" id='tab1' >
+  <ngb-tab [title]="'INFORMACIÓN SOLICITANTE'" [disabled]="tabs?.tab1?.disabled" id='tab1'>
     <ng-template ngbTabContent>
       <ngb-tabset class="second-level" #tabs (tabChange)="beforeChange($event)" [destroyOnHide]="false">
         <ngb-tab [title]="'INFORMACIÓN PERSONAL'" [disabled]="tabs?.tab1SubTab1?.disabled" id="tab1SubTab1">
@@ -25,9 +25,23 @@
   </ngb-tab>
 
 
-  <ngb-tab [title]="'INFORMACIÓN ESTUDIANTE'"  id='tab2'>
+  <ngb-tab [title]="'INFORMACIÓN ESTUDIANTE'" id='tab2'>
     <ng-template ngbTabContent>
-      <app-tab2-personal-information></app-tab2-personal-information>
+      <ngb-tabset class="second-level" #tabs2 (tabChange)="beforeChange($event)" [destroyOnHide]="false">
+
+        <ngb-tab [title]="'INFORMACIÓN ESTUDIANTE'" id='tab2SubTab1'>
+          <ng-template ngbTabContent>
+            <app-tab2-personal-information></app-tab2-personal-information>
+          </ng-template>
+        </ngb-tab>
+
+        <ngb-tab [title]="'INFORMACIÓN LABORAL ESTUDIANTE'" id='tab2SubTab2'>
+          <ng-template ngbTabContent>
+            <app-tab2-working-information></app-tab2-working-information>
+          </ng-template>
+        </ngb-tab>
+
+      </ngb-tabset>
     </ng-template>
   </ngb-tab>
 

@@ -11,7 +11,7 @@ export class CreditsService {
 
 
   simulate(data: ISimulator) {
-    return this.http.post('/webresources/loans/approximate_fee', data);
+    return this.http.post('/webresources/loans/approximate_fee-2', data);
   }
 
   send(data: IPreApplication) {

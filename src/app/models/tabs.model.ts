@@ -114,6 +114,62 @@ export interface ITab1SubTab3RequestData {
 }
 
 
+export interface ITab2SubTab1 {
+    "tipo_id": String,
+    "identificacion": String,
+    "fecha_expedicion_id": String,
+    "dpto_expedicion_id": String,
+    "ciudad_expedicion_id": String,
+    "primer_apellido": String,
+    "segundo_apellido": String,
+    "primer_nombre": String,
+    "segundo_nombre": String,
+    "fecha_nacimiento": String,
+    "dpto_nacimiento": String,
+    "ciudad_nacimiento": String,
+    "estado_civil": String,
+    "nivel_estudio": String,
+    "profesion": String,
+    "genero": String,
+    "direccion": String,
+    "departamento": String,
+    "ciudad": String,
+    "tipo_via": String,
+    "via_principal": String,
+    "via_secundaria": String,
+    "numero": String,
+    "complemento": String,
+    "barrio": String,
+    "estrato": number,
+    "tipo_vivienda": String,
+    "tiempo_residencia": String,
+    "telefono": String,
+    "estado_civil_padres": String,
+    "celular": String,
+    "email": String,
+    "universidad": String,
+    "tipo_carrera": String,
+    "programa": String,
+    "codigo": String,
+    "semestre": number,
+    "parentesco_girador": String,
+    "colegio_bachillerato": String,
+    "nivel_educativo_padre": String,
+    "sisben": String,
+    "trabaja": String
+}
+
+
+
+export interface ITab2SubTab1RequestData {
+    tab: number,
+    tabs_info: ITab2SubTab1,
+    numero_solicitud: number,
+    final: boolean
+}
+
+
+
 
 
 

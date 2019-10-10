@@ -22,11 +22,13 @@ import { TimelineComponent } from '../../components/timeline/timeline.component'
 import { Tab1PersonalInformationComponent } from '../../components/tab1-personal-information/tab1-personal-information.component';
 import { Tab1WorkingInformationComponent } from '../../components/tab1-working-information/tab1-working-information.component';
 import { Tab1ReferencesComponent } from '../../components/tab1-references/tab1-references.component';
+import { Tab2PersonalInformationComponent } from '../../components/tab2-personal-information/tab2-personal-information.component';
+import { Tab2WorkingInformationComponent } from '../../components/tab2-working-information/tab2-working-information.component';
 import { EvidentComponent } from '../../components/evident/evident.component';
 import { PopupApprovedComponent } from '../../components/popup-aproved/popup-approved.component';
 import { RequestComponent } from '../../components/request/request.component';
 import { HistoryRequestComponent } from '../../components/history-request/history-request.component';
-import { Tab2PersonalInformationComponent } from '../../components/tab2-personal-information/tab2-personal-information.component';
+
 import { CreditComponent } from '../../components/credit/credit.component';
 
 
@@ -97,6 +99,7 @@ const components = [
   Tab1PersonalInformationComponent,
   Tab1WorkingInformationComponent,
   Tab1ReferencesComponent,
+  Tab2WorkingInformationComponent,
   EvidentComponent,
   PopupApprovedComponent,
   HistoryRequestComponent,

@@ -1,5 +1,5 @@
 <div [hidden]="!(isVisible$ | async)">
-  <div class="popup-fintra" (click)="closeAlert()">
+  <div class="popup-fintra">
 
   </div>
   <div class="form-address">
@@ -17,14 +17,17 @@
           </div>
           <div class="form-group col-md-6 col-lg-6">
             <label class="subtitle-form">Ciudad</label>
-            <select class="form-control" formControlName="ciudad">
+            <select class="form-control" formControlName="ciudad"
+            (change)="getAddress(addressForm.controls.ciudad.value)">
               <option value="">Seleccione una ciudad</option>
               <option [value]="item.codciu" *ngFor="let item of ciudades">{{item.nomciu}}</option>
             </select>
           </div>
           <div class="form-group col-md-12 col-lg-12">
             <label class="subtitle-form">Tipo de via</label>
-            <input type="text" class="form-control" id="inputPassword4" formControlName="tipo_via">
+            <select name="tipo_via" class="form-control" formControlName="tipo_via">
+              <option [value]="item.nombre" *ngFor="let item of address">{{item.nombre}}</option>
+            </select>
           </div>
           <div class="form-group col-md-4 col-lg-4">
             <input type="text" class="form-control" id="inputPassword4" formControlName="via_principal"
@@ -46,8 +49,7 @@
 
           <div class="form-group col-md-8 col-lg-8">
             <label class="subtitle-form">Complemento de Dirección</label>
-            <input type="text" class="form-control" id="inputPassword4" 
-              formControlName="complemento">
+            <input type="text" class="form-control" id="inputPassword4" formControlName="complemento">
           </div>
 
           <div class="form-group col-md-4 col-lg-4 text-right align-items-center" (click)="confirmAddress()"

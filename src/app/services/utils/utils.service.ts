@@ -25,8 +25,12 @@ export class UtilsService {
     return this.http.post('/webresources/form/job', { cod_actividad })
   }
 
+  getAddress(cod_ciudad) {
+    return this.http.post('/webresources/form/get_address', { cod_ciudad })
+  }
+
   buildDate(object) {
-    return object.year + "-" + object.month + "-" + object.day
+    return (object.year && object.month && object.day) ? object.year + "-" + object.month + "-" + object.day : ""
   }
 
   carcularFecha(year?, mo?, day?) {

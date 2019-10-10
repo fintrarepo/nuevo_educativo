@@ -2,11 +2,11 @@ import { ITab1SubTab1, ITab1SubTab2, ITabs, ITab1SubTab3 } from '../models/tabs.
 
 
 export const Tabs: ITabs = {
-    tab1:{
+    tab1: {
         active: false,
         disabled: false
     },
-    tab2:{
+    tab2: {
         active: false,
         disabled: true
     },
@@ -78,7 +78,7 @@ export const initialTab1SubTab2State: ITab1SubTab2 = {
 
 
 export const initialTab1SubTab3State: ITab1SubTab3 = {
-    
+
     "tipo_referencia": "",
     "secuencia": null,
     "primer_apellido": "",
@@ -101,39 +101,48 @@ export const initialTab1SubTab3State: ITab1SubTab3 = {
 
 
 
+export const initialTab2SubTab1 = {
 
-
-// export const initialTab1SubTab1State: ITabs = {
-//     active: true,
-//     disabled: false,
-//     title: "INFORMACIÓN PERSONAL",
-//     id: "tab1-subtab1"
-// }
-
-// export const initialTab1SubTab2State: ITabs = {
-//     active: false,
-//     disabled: true,
-//     title: "INFORMACIÓN LABORAL",
-//     id: "tab1-subtab2"
-// }
-
-
-// export const initialTab1SubTab3State: ITabs = {
-//     active: false,
-//     disabled: true,
-//     title: "REFERENCIAS",
-//     id: "tab1-subtab3"
-// }
-
-
-
-// //TAB 2
-// export const initialTab2State: ITabs = {
-//     active: false,
-//     disabled: true,
-//     title: "INFORMACIÓN ESTUDIANTE",
-//     id: "tab2"
-// }
-
-
-
+    "tipo_id": "",
+    "identificacion": "",
+    "fecha_expedicion_id": "",
+    "dpto_expedicion_id": "",
+    "ciudad_expedicion_id": "",
+    "primer_apellido": "",
+    "segundo_apellido": "",
+    "primer_nombre": "",
+    "segundo_nombre": "",
+    "fecha_nacimiento": "",
+    "dpto_nacimiento": "",
+    "ciudad_nacimiento": "",
+    "estado_civil": "",
+    "nivel_estudio": "",
+    "profesion": "",
+    "genero": "",
+    "direccion": "",
+    "departamento": "",
+    "ciudad": "",
+    "tipo_via": "",
+    "via_principal": "",
+    "via_secundaria": "",
+    "numero": "",
+    "complemento": "",
+    "barrio": "",
+    "estrato": null,
+    "tipo_vivienda": "",
+    "tiempo_residencia": "",
+    "telefono": "",
+    "estado_civil_padres": "",
+    "celular": "",
+    "email": "",
+    "universidad": "",
+    "tipo_carrera": "",
+    "programa": "",
+    "codigo": "",
+    "semestre": null,
+    "parentesco_girador": "",
+    "colegio_bachillerato": "",
+    "nivel_educativo_padre": "",
+    "sisben": "",
+    "trabaja": ""
+}

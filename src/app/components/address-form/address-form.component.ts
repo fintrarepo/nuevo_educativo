@@ -5,6 +5,7 @@ import { ClosedForm } from 'src/app/actions/address-form.actions';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms'
 import { ConfirmAddress } from '../../actions/address-form.actions';
 import { LoadCitys } from '../../actions/platform.actions';
+import { UtilsService } from '../../services/utils/utils.service'
 @Component({
   selector: 'app-address-form',
   templateUrl: './address-form.component.html',
@@ -14,13 +15,14 @@ export class AddressFormComponent implements OnInit {
 
 
   addressForm: FormGroup;
-  ciudades: any[] = []
+  ciudades: any[] = [];
+  address: any[] = [];
 
   isVisible$ = this.store.select(reducers.addressFormIsVisile);
   formData$ = this.store.select(reducers.platformDataForm);
   citys$ = this.store.select(reducers.citys);
 
-  constructor(private store: Store<reducers.State>, public formBuilder: FormBuilder) {
+  constructor(private store: Store<reducers.State>, public formBuilder: FormBuilder, private utils: UtilsService) {
     this.addressForm = formBuilder.group({
       departamento: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
       ciudad: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
@@ -71,4 +73,10 @@ export class AddressFormComponent implements OnInit {
     this.ciudades = citys;
   }
 
+
+  getAddress(city){
+    this.utils.getAddress(city).subscribe( response =>{
+      this.address = response.data;
+    })
+  }
 }

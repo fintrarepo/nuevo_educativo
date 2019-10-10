@@ -1,0 +1,116 @@
+<form style="padding: 14px;" [formGroup]="form">
+
+  <div class="block-form">
+    <h1 class="title-form" [hidden]="tab1?.disabled">Información Laboral</h1>
+    <div class="form-row">
+      <div class="form-group col-md-6 col-lg-4 ">
+        <label class="subtitle-form">Actividad Economica</label>
+        <select class="form-control" formControlName="actividad_economica"
+          (change)="loadJobs(form.controls.actividad_economica.value)">
+          <option value="">Seleccione Actividad Economica</option>
+          <option [value]="item.table_code" *ngFor="let item of (formData$ | async)?.ACTECO">{{item.dato}}</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Ocupacion</label>
+        <select class="form-control" formControlName="ocupacion">
+          <option value="">Seleccione una ocupación</option>
+          <option [value]="item.table_code" *ngFor="let item of jobs">{{item.dato}}</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Nombre de la Empresa / Negocio</label>
+        <input type="text" class="form-control" formControlName="nombre_empresa">
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Fecha de Ingreso / Actividad</label>
+        <div class="calendar-container">
+          <input type="text" formControlName="fecha_ingreso" class="form-control" readonly ngbDatepicker
+            #d2="ngbDatepicker" (click)="d2.toggle()" />
+        </div>
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <div class="label-input-content">
+          <label class="subtitle-form">Cargo</label>
+          <span *ngIf="!validator('cargo')">(Opcional)</span>
+        </div>
+        <input type="text" class="form-control" formControlName="cargo">
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <div class="label-input-content">
+          <label class="subtitle-form">Tipo de Contrato</label>
+          <span *ngIf="!validator('tipo_contrato')">(Opcional)</span>
+        </div>
+        <select class="form-control" formControlName="tipo_contrato">
+          <option value="">Seleccione Actividad Economica</option>
+          <option [value]="item.table_code" *ngFor="let item of (formData$ | async)?.TIPCON">{{item.dato}}</option>
+        </select>
+
+      </div>
+
+      <div class="form-group col-md-6 col-lg-4">
+        <div class="label-input-content">
+          <label class="subtitle-form">Direccion empresa / negocio</label>
+          <span *ngIf="!validator('direccion')">(Opcional)</span>
+        </div>
+        <input type="text" class="form-control" formControlName="direccion" (click)="openForm('direccion')" readonly>
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <div class="label-input-content">
+          <label class="subtitle-form">Telefono empresa / negocio</label>
+          <span *ngIf="!validator('telefono')">(Opcional)</span>
+        </div>
+        <input type="text" class="form-control" formControlName="telefono">
+      </div>
+
+
+    </div>
+  </div>
+
+  <div class="block-form">
+    <h1 class="title-form" [hidden]="tab1?.disabled">Información de ingresos</h1>
+    <div class="form-row">
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Salario / Mesada / Ingresos mes</label>
+        <input type="number" class="form-control" formControlName="salario_ing">
+      </div>
+
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Otros ingresos (comisiones, arriendos, etc)</label>
+        <input type="number" class="form-control" formControlName="otros_ingresos">
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Total activos</label>
+        <input type="number" class="form-control" formControlName="total_activos">
+      </div>
+    </div>
+  </div>
+
+  <div class="block-form">
+    <h1 class="title-form" [hidden]="tab1?.disabled">Información de Egresos</h1>
+    <div class="form-row">
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Arriendo</label>
+        <input type="number" class="form-control" formControlName="arriendo_egr">
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Préstamos</label>
+        <input type="number" class="form-control" formControlName="prestamo_xnomina">
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Total pasivos</label>
+        <input type="number" class="form-control" formControlName="total_pasivos">
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 col-lg-12">
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-outline-info button-next-tab " (click)="saveData()">Siguiente Formulario</button>
+      </div>
+    </div>
+  </div>
+
+</form>

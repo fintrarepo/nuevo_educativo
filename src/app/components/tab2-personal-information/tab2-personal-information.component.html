@@ -1,113 +1,151 @@
 <form style="padding: 14px;" [formGroup]="form">
 
-    <div class="block-form">
-        <h1 class="title-form" [hidden]="tab2?.disabled">Información Personal</h1>
-        <div class="form-row">
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Tipo de identificación</label>
-                <select class="form-control" formControlName="tipo_id"></select>
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">N° identificación</label>
-                <input type="text" class="form-control" formControlName="identificacion">
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Fecha de expedición</label>
-                <div class="calendar-container">
-                    <img src="/assets/images/Icon_Calendario.svg" alt="">
-                    <input type="text" formControlName="fecha_expedicion_id" class="form-control" readonly ngbDatepicker
-                        #d1="ngbDatepicker" (click)="d1.toggle()" />
-                </div>
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Primer apellido</label>
-                <input type="text" class="form-control" formControlName="primer_apellido">
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Segundo apellido</label>
-                <input type="text" class="form-control" formControlName="segundo_apellido">
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Primer nombre</label>
-                <input type="text" class="form-control" formControlName="primer_nombre">
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Segundo nombre</label>
-                <input type="text" class="form-control" formControlName="segundo_nombre">
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Genero</label>
-                <input type="text" class="form-control" formControlName="genero">
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Estado civil</label>
-                <select class="form-control" formControlName="estado_civil"></select>
-            </div>
+  <div class="block-form">
+    <h1 class="title-form" [hidden]="tab2?.disabled">Información Personal</h1>
+    <div class="form-row">
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">¿ Tu eres el estudiante ?</label>
+        <select class="form-control" formControlName="estudiante_solicitante">
+          <option value="">Seleccione una opciòn</option>
+          <option value="S">Si</option>
+          <option value="N">No</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6 col-lg-4" [hidden]="estudentIsApplicant">
+        <label class="subtitle-form">Tipo de identificación</label>
+        <select class="form-control" formControlName="tipo_id">
+          <option value="">Seleccione tipo de identificación</option>
+          <option [value]="item.table_code" *ngFor="let item of (formData$ | async)?.TIPID">{{item.dato}}</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6 col-lg-4"  [hidden]="estudentIsApplicant">
+        <label class="subtitle-form">N° identificación</label>
+        <input type="text" class="form-control" formControlName="identificacion">
+      </div>
+      <div class="form-group col-md-6 col-lg-4"  [hidden]="estudentIsApplicant">
+        <label class="subtitle-form">Fecha de expedición</label>
+        <div class="calendar-container">
+          <img src="/assets/images/Icon_Calendario.svg" alt="">
+          <input type="text" formControlName="fecha_expedicion_id" class="form-control" readonly ngbDatepicker
+            #d1="ngbDatepicker" (click)="d1.toggle()" />
         </div>
+      </div>
+      <div class="form-group col-md-6 col-lg-4"  [hidden]="estudentIsApplicant">
+        <label class="subtitle-form">Primer apellido</label>
+        <input type="text" class="form-control" formControlName="primer_apellido">
+      </div>
+      <div class="form-group col-md-6 col-lg-4"  [hidden]="estudentIsApplicant">
+        <label class="subtitle-form">Segundo apellido</label>
+        <input type="text" class="form-control" formControlName="segundo_apellido">
+      </div>
+      <div class="form-group col-md-6 col-lg-4"  [hidden]="estudentIsApplicant">
+        <label class="subtitle-form">Primer nombre</label>
+        <input type="text" class="form-control" formControlName="primer_nombre">
+      </div>
+      <div class="form-group col-md-6 col-lg-4"  [hidden]="estudentIsApplicant">
+        <label class="subtitle-form">Segundo nombre</label>
+        <input type="text" class="form-control" formControlName="segundo_nombre">
+      </div>
+      <div class="form-group col-md-6 col-lg-4"  [hidden]="estudentIsApplicant">
+        <label class="subtitle-form">Genero</label>
+        <select class="form-control" formControlName="genero">
+          <option value="">Seleccione Genero</option>
+          <option value="M">Masculino</option>
+          <option value="F">Femenino</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6 col-lg-4"  [hidden]="estudentIsApplicant">
+        <label class="subtitle-form">Estado civil</label>
+        <select class="form-control" formControlName="estado_civil">
+          <option value="">Seleccione estado civil</option>
+          <option [value]="item.table_code" *ngFor="let item of (formData$ | async)?.ESTCIV">{{item.dato}}</option>
+        </select>
+      </div>
     </div>
+  </div>
 
-    <div class="block-form">
-        <div class="form-row">
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Departamento de expedición</label>
-                <select class="form-control" formControlName="dpto_expedicion_id"></select>
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Ciudad de expedición</label>
-                <select class="form-control" formControlName="ciudad_expedicion_id"></select>
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Fecha de nacimiento</label>
-                <div class="calendar-container">
-                    <img src="/assets/images/Icon_Calendario.svg" alt="">
-                    <input type="text" formControlName="fecha_nacimiento" class="form-control" readonly ngbDatepicker
-                        #d2="ngbDatepicker" (click)="d2.toggle()" />
-                </div>
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">departamento de nacimiento</label>
-                <select class="form-control" formControlName="dpto_nacimiento"></select>
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Ciudad de nacimiento</label>
-                <select class="form-control" formControlName="ciudad_nacimiento"></select>
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Telefono</label>
-                <input type="text" class="form-control" formControlName="telefono" />
-            </div>
-
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Email</label>
-                <input type="email" class="form-control" formControlName="email">
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Celular</label>
-                <input type="text" class="form-control" formControlName="celular">
-            </div>
+  <div class="block-form"  [hidden]="estudentIsApplicant">
+    <div class="form-row">
+      <div class="form-group col-md-6 col-lg-4" >
+        <label class="subtitle-form">Departamento de expedición</label>
+        <select class="form-control" formControlName="dpto_expedicion_id"
+          (change)="loadCitys(form.controls.dpto_expedicion_id.value, 'ciudad_expedicion_id')">
+          <option value="">Seleccione departamento</option>
+          <option [value]="item.table_code" *ngFor="let item of (formData$ | async)?.DPTO">{{item.dato}}</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Ciudad de expedición</label>
+        <select class="form-control" formControlName="ciudad_expedicion_id">
+          <option value="">Seleccione ciudad</option>
+          <option [value]="item.codciu" *ngFor="let item of ciudad_expedicion_id">{{item.nomciu}}</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Fecha de nacimiento</label>
+        <div class="calendar-container">
+          <img src="/assets/images/Icon_Calendario.svg" alt="">
+          <input type="text" formControlName="fecha_nacimiento" class="form-control" readonly ngbDatepicker
+            #d2="ngbDatepicker" (click)="d2.toggle()" />
         </div>
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">departamento de nacimiento</label>
+        <select class="form-control" formControlName="dpto_nacimiento"
+          (change)="loadCitys(form.controls.dpto_nacimiento.value, 'ciudad_nacimiento')">
+          <option value="">Seleccione departamento</option>
+          <option [value]="item.table_code" *ngFor="let item of (formData$ | async)?.DPTO">{{item.dato}}</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Ciudad de nacimiento</label>
+        <select class="form-control" formControlName="ciudad_nacimiento">
+          <option value="">Seleccione una ciudad</option>
+          <option [value]="item.codciu" *ngFor="let item of ciudad_nacimiento">{{item.nomciu}}</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Telefono</label>
+        <input type="text" class="form-control" formControlName="telefono" />
+      </div>
+
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Email</label>
+        <input type="email" class="form-control" formControlName="email">
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Celular</label>
+        <input type="text" class="form-control" formControlName="celular">
+      </div>
     </div>
+  </div>
 
-    <div class="block-form">
-        <div class="form-row">
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Dirección de residencia</label>
-                <input type="text" class="form-control" formControlName="direccion" (click)="openForm()" readonly>
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Barrio</label>
-                <select class="form-control" formControlName="barrio"></select>
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Tipo de vivienda</label>
-                <select class="form-control" formControlName="tipo_vivienda"></select>
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Tiempo de residencia</label>
-                <input type="text" formControlName="tiempo_residencia" class="form-control">
+  <div class="block-form">
+    <div class="form-row">
+      <div class="form-group col-md-6 col-lg-4"  [hidden]="estudentIsApplicant">
+        <label class="subtitle-form">Dirección de residencia</label>
+        <input type="text" class="form-control" formControlName="direccion" (click)="openForm()" readonly>
+      </div>
+      <div class="form-group col-md-6 col-lg-4"  [hidden]="estudentIsApplicant">
+        <label class="subtitle-form">Barrio</label>
+        <select class="form-control" formControlName="barrio">
+          <option value="">Seleccione un barrio</option>
+          <option [value]="item.value" *ngFor="let item of neighborhoods">{{item.name}}</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6 col-lg-4"  [hidden]="estudentIsApplicant">
+        <label class="subtitle-form">Tipo de vivienda</label>
+        <select class="form-control" formControlName="tipo_vivienda">
+          <option value="">Seleccione tipo de vivienda</option>
+          <option [value]="item.table_code" *ngFor="let item of (formData$ | async)?.TIPOVIVID">{{item.dato}}</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6 col-lg-4"  [hidden]="estudentIsApplicant">
+        <label class="subtitle-form">Tiempo de residencia</label>
+        <input type="text" formControlName="tiempo_residencia" class="form-control">
 
-                <!-- <div class="container"> -->
-                <!-- <div class="row">
+        <!-- <div class="container"> -->
+        <!-- <div class="row">
             <div class="form-group col-sm-6 col-sm-6 col-md-6 col-lg-6">
               <input type="text" formControlName="" class="form-control" placeholder="Años">
             </div>
@@ -115,65 +153,96 @@
               <input type="text" formControlName="" class="form-control" placeholder="Meses">
             </div>
           </div> -->
-                <!-- </div> -->
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Estrato</label>
-                <input type="number" class="form-control" formControlName="estrato">
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Nivel sisbén</label>
-                <select class="form-control" formControlName="sisben"></select>
-            </div>
+        <!-- </div> -->
+      </div>
+      <div class="form-group col-md-6 col-lg-4"  [hidden]="estudentIsApplicant">
+        <label class="subtitle-form">Estrato</label>
+        <select class="form-control" formControlName="estrato">
+          <option value=1>1</option>
+          <option value=2>2</option>
+          <option value=3>3</option>
+          <option value=4>4</option>
+          <option value=5>5</option>
+          <option value=6>6</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6 col-lg-4" >
+        <label class="subtitle-form">Nivel sisbén</label>
+        <select class="form-control" formControlName="sisben">
+          <option value="">Seleccione nivel de sisben</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="NO">No tengo sisben</option>
+        </select>
+      </div>
 
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Nivel de estudio</label>
-                <select class="form-control" formControlName="nivel_estudio"></select>
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Tipo de colegio del estudiante</label>
-                <select class="form-control" formControlName="colegio_bachillerato"></select>
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">¿Estudiante trabaja?</label>
-                <select class="form-control" formControlName="trabaja"></select>
-            </div>
-        </div>
-    </div>
+      <div class="form-group col-md-6 col-lg-4"  [hidden]="estudentIsApplicant">
+        <label class="subtitle-form">Nivel de estudio</label>
+        <select class="form-control" formControlName="nivel_estudio">
+          <option value="">Seleccione Nivel de estudio</option>
+          <option [value]="item.table_code" *ngFor="let item of (formData$ | async)?.TIPCAR">{{item.dato}}</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6 col-lg-4"  >
+        <label class="subtitle-form">Tipo de colegio del estudiante</label>
+        <select class="form-control" formControlName="colegio_bachillerato">
+          <option value="">Seleccione tipo de colegio</option>
+          <option [value]="item.table_code" *ngFor="let item of (formData$ | async)?.CAREMP">{{item.dato}}</option>
+        </select>
 
-    <div class="block-form">
-        <h1 class="title-form_" [hidden]="tab2?.disabled">Información Institucíon Educativa</h1>
-        <h2 class="univ">(Fundacion Universidad del Norte)</h2>
-        <div class="form-row">            
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Tipo de carrera</label>
-                <input type="number" class="form-control" formControlName="tipo_carrera">
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Programa</label>
-                <input type="text" class="form-control" formControlName="programa">
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Código estudiante</label>
-                <input type="text" class="form-control" formControlName="codigo">
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Semestre</label>
-                <input type="number" class="form-control" formControlName="semestre">
-            </div>
-            <div class="form-group col-md-6 col-lg-4">
-                <label class="subtitle-form">Parentesco con el solicitante</label>
-                <select class="form-control" formControlName="parentesco_girador"></select>
-            </div>
-        </div>
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">¿Estudiante trabaja?</label>
+        <select class="form-control" formControlName="trabaja">
+          <option value="N">No</option>
+          <option value="S">Si</option>
+        </select>
+      </div>
     </div>
+  </div>
 
-    <div class="row">
-        <div class="col-md-12 col-lg-12">
-            <div class="d-flex justify-content-end">
-                <button class="btn btn-outline-info button-next-tab " (click)="impForm()">Siguiente Formulario</button>
-            </div>
-        </div>
+  <div class="block-form">
+    <h1 class="title-form_" [hidden]="tab2?.disabled">Información Institucíon Educativa</h1>
+    <h2 class="univ">(Fundacion Universidad del Norte)</h2>
+    <div class="form-row">
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Tipo de carrera</label>
+        <select class="form-control" formControlName="tipo_carrera">
+          <option value="">Seleccione tipo de carrera</option>
+          <option [value]="item.table_code" *ngFor="let item of (formData$ | async)?.TIPCAR">{{item.dato}}</option>
+        </select>
+
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Programa</label>
+        <input type="text" class="form-control" formControlName="programa">
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Código estudiante</label>
+        <input type="text" class="form-control" formControlName="codigo">
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Semestre</label>
+        <input type="number" class="form-control" formControlName="semestre">
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Parentesco con el solicitante</label>
+        <select class="form-control" formControlName="parentesco_girador">
+          <option value="">Seleccione parentesco</option>
+          <option [value]="item.table_code" *ngFor="let item of (formData$ | async)?.PARENT">{{item.dato}}</option>
+        </select>
+
+      </div>
     </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 col-lg-12">
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-outline-info button-next-tab " (click)="impForm()">Siguiente Formulario</button>
+      </div>
+    </div>
+  </div>
 
 </form>

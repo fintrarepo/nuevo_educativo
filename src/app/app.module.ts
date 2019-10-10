@@ -51,6 +51,7 @@ import { Tab1SubTab3Effects } from './effects/tab1SubTab3.effect';
 
 
 
+
 const effects = [
   AuthEffects,
   AddressFormEffects,

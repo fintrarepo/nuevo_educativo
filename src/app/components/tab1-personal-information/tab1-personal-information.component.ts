@@ -84,7 +84,6 @@ export class Tab1PersonalInformationComponent implements OnInit {
     this.observerCity = this.citys$.subscribe(this.citysLoaded.bind(this))
   }
 
-
   openForm(field) {
     this.store.dispatch(new OpenForm({
       fieldDestinity: "tab1SubTab1" + field
@@ -116,6 +115,7 @@ export class Tab1PersonalInformationComponent implements OnInit {
 
   citysLoaded(citys) {
     this[this.currentSelectDpto] = citys;
+    this.currentSelectDpto = null;
   }
 
   addressLoaded(address) {

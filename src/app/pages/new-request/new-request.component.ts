@@ -55,7 +55,7 @@ export class NewRequestComponent implements OnInit {
       //"primer_nombre": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       //"primer_apellido": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       //"email": ['', Validators.compose([Validators.maxLength(50), Validators.required, Validators.email, this.ValidateUrl])],
-      //"ingresos_usuario": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
+      "ingresos_usuario": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       //"fecha_nacimiento": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "valor_cuota": [''],
       "valor_aval": [''],

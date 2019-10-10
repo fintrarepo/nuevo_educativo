@@ -4,6 +4,8 @@ import * as reducers from '../../reducers/reducers';
 import { OpenForm, ClosedForm } from '../../actions/address-form.actions';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { UtilsService } from '../../services/utils/utils.service';
+import { LoadCitys } from '../../actions/platform.actions';
+import { shareReplay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tab2-personal-information',
@@ -13,8 +15,20 @@ import { UtilsService } from '../../services/utils/utils.service';
 export class Tab2PersonalInformationComponent implements OnInit {
   form: FormGroup;
   tab2;
+  currentSelectDpto;
+  estudentIsApplicant: boolean = false;
+
+  ciudad_nacimiento: any[] = [];
+  ciudad_expedicion_id: any[] = [];
+  neighborhoods: any[] = [];
+
+  formData$ = this.store.select(reducers.platformDataForm);
+  citys$ = this.store.select(reducers.citys);
+  addressState$ = this.store.select(reducers.getAddressFormState);
+
   constructor(private store: Store<reducers.State>, public formBuilder: FormBuilder, private utils: UtilsService) {
     this.form = formBuilder.group({
+      "estudiante_solicitante": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "tipo_id": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "identificacion": ['', Validators.compose([Validators.maxLength(50), Validators.required, Validators.pattern('^[0-9]*$')])],
       "fecha_expedicion_id": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
@@ -47,13 +61,21 @@ export class Tab2PersonalInformationComponent implements OnInit {
       "semestre": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "parentesco_girador": ['', Validators.compose([Validators.maxLength(20), Validators.required])]
     });
+
+    this.citys$.subscribe(this.citysLoaded.bind(this))
+    this.addressState$.pipe(shareReplay()).subscribe(this.addressLoaded.bind(this));
+
+    this.form.controls.estudiante_solicitante.valueChanges
+      .subscribe(this.studenWorking.bind(this))
   }
 
   ngOnInit() {
   }
 
   openForm() {
-    // this.store.dispatch(new OpenForm());
+    this.store.dispatch(new OpenForm({
+      fieldDestinity: "tab2"
+    }));
   }
 
   closeForm() {
@@ -62,6 +84,78 @@ export class Tab2PersonalInformationComponent implements OnInit {
 
   impForm() {
     console.log(JSON.stringify(this.form.value));
+  }
+
+  loadCitys(dpto, control) {
+    this.currentSelectDpto = control;
+    const action = new LoadCitys({ dpto })
+    this.store.dispatch(action)
+  }
+
+  citysLoaded(citys) {
+    this[this.currentSelectDpto] = citys;
+    this.currentSelectDpto = null;
+  }
+
+  addressLoaded(address) {
+    let newAddress = { test: '', ...address }
+    if (newAddress.fieldDestinity == "tab2") {
+      if (newAddress.departamento == '') return;
+      for (let i in newAddress) {
+        if (this.form.controls[i])
+          this.form.controls[i].setValue(newAddress[i])
+      }
+      let complemento = newAddress.complemento ? newAddress.complemento : ''
+      this.form.controls.direccion.setValue(newAddress.tipo_via + " " + newAddress.via_principal + " #" + newAddress.via_secundaria + " - " + newAddress.numero + " " + complemento)
+      this.form.updateValueAndValidity();
+
+      this.loadNeighborhood(newAddress.ciudad)
+    }
+  }
+
+  loadNeighborhood(city) {
+    this.utils.getNeighborhood(city).subscribe(response => {
+      this.neighborhoods = response.data;
+    })
+  }
+
+  studenWorking(value) {
+    if (value == "S") {
+      this.enabledFileds(true)
+    } else if (value == "N") {
+      this.enabledFileds(false)
+    }
+  }
+
+  enabledFileds(enable) {
+    this.estudentIsApplicant = enable;
+    const validator = enable ? [Validators.maxLength(20), Validators.required] : [Validators.maxLength(100)]
+    this.form.controls.tipo_id.setValidators(validator);
+    this.form.controls.identificacion.setValidators(validator);
+    this.form.controls.fecha_expedicion_id.setValidators(validator);
+    this.form.controls.primer_apellido.setValidators(validator);
+    this.form.controls.segundo_apellido.setValidators(validator);
+    this.form.controls.primer_nombre.setValidators(validator);
+    this.form.controls.segundo_nombre.setValidators(validator);
+    this.form.controls.genero.setValidators(validator);
+    this.form.controls.estado_civil.setValidators(validator);
+    this.form.controls.dpto_expedicion_id.setValidators(validator);
+    this.form.controls.ciudad_expedicion_id.setValidators(validator);
+    this.form.controls.fecha_nacimiento.setValidators(validator);
+    this.form.controls.dpto_nacimiento.setValidators(validator);
+    this.form.controls.ciudad_nacimiento.setValidators(validator);
+    this.form.controls.telefono.setValidators(validator);
+    this.form.controls.email.setValidators(validator);
+    this.form.controls.celular.setValidators(validator);
+    this.form.controls.direccion.setValidators(validator);
+    this.form.controls.barrio.setValidators(validator);
+    this.form.controls.tipo_vivienda.setValidators(validator);
+    this.form.controls.tiempo_residencia.setValidators(validator);
+    this.form.controls.estrato.setValidators(validator);
+    this.form.controls.sisben.setValidators(validator);
+    this.form.controls.nivel_estudio.setValidators(validator);
+    this.form.controls.colegio_bachillerato.setValidators(validator);
+    this.form.controls.trabaja.setValidators(validator);
   }
 
 }
