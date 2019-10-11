@@ -5,24 +5,55 @@
       <h1 class="title-form">Felicitaciones!</h1>
       <h1 class="title-form">¡Tu crédito ha sido Aprobado!</h1>
 
-      <p>
+      <span>
         Siguiente etapa: Adjunta tus documentos.
-      </p>
+      </span>
       <p>
         ¿Deseas programar la firma de tu crédito a domicilio?
       </p>
 
-      <button (click)="nextStep()">Next</button>
+      <div class="row">
+        <div class="col-6">
+          <button class="btn button-white" (click)="cancel()">No</button>
+        </div>
+        <div class="col-6">
+          <button class="btn button-blue" (click)="nextStep()">Si</button>
+        </div>
+      </div>
     </div>
 
     <div class="step-popup" *ngIf="currentStep==2">
       <h1 class="title-form">Programa tu visita</h1>
-      <button (click)="nextStep()">Next</button>
+      <span> Completa estos campos para agendar la visita</span>
+      <p>¿a dónde deseas que vayamos a recoger las firmas?</p>
+
+      <div class="evident-container">
+        <ul>
+          <li class="selected">A tu casa</li>
+          <li>A tu trabajo</li>
+          <li>A otra dirección</li>
+        </ul>
+
+        <button class="btn btn-outline" (click)="nextStep()">Siguiente</button>
+      </div>
+
     </div>
 
     <div class="step-popup" *ngIf="currentStep==3">
-      Paso 3
-      <button (click)="nextStep()">Next</button>
+      <h1 class="title-form">Programa tu visita</h1>
+      <span> Completa estos campos para agendar la visita</span>
+      <p>¿En qué horario deseas que vayamos a recoger las firmas?</p>
+
+      <div class="evident-container">
+        <ul>
+          <li class="selected">A tu casa</li>
+          <li>A tu trabajo</li>
+          <li>A otra dirección</li>
+        </ul>
+
+        <button class="btn btn-outline" (click)="nextStep()">Siguiente</button>
+      </div>
+
     </div>
 
     <div class="step-popup" *ngIf="currentStep==4">

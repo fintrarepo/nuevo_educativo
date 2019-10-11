@@ -30,7 +30,14 @@ export class UtilsService {
   }
 
   buildDate(object) {
-    return (object.year && object.month && object.day) ? object.year + "-" + object.month + "-" + object.day : ""
+    if (!(object.year && object.month && object.day)) {
+      return "";
+    }
+
+    let month = object.month.length == 1 ? "0" + object.month : object.month
+    let day = object.day.length == 1 ? "0" + object.day : object.day
+
+    return object.year + "-" + month + "-" + day
   }
 
   carcularFecha(year?, mo?, day?) {

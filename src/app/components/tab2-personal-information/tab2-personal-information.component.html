@@ -18,11 +18,11 @@
           <option [value]="item.table_code" *ngFor="let item of (formData$ | async)?.TIPID">{{item.dato}}</option>
         </select>
       </div>
-      <div class="form-group col-md-6 col-lg-4"  [hidden]="estudentIsApplicant">
+      <div class="form-group col-md-6 col-lg-4" [hidden]="estudentIsApplicant">
         <label class="subtitle-form">N° identificación</label>
         <input type="text" class="form-control" formControlName="identificacion">
       </div>
-      <div class="form-group col-md-6 col-lg-4"  [hidden]="estudentIsApplicant">
+      <div class="form-group col-md-6 col-lg-4" [hidden]="estudentIsApplicant">
         <label class="subtitle-form">Fecha de expedición</label>
         <div class="calendar-container">
           <img src="/assets/images/Icon_Calendario.svg" alt="">
@@ -30,23 +30,23 @@
             #d1="ngbDatepicker" (click)="d1.toggle()" />
         </div>
       </div>
-      <div class="form-group col-md-6 col-lg-4"  [hidden]="estudentIsApplicant">
+      <div class="form-group col-md-6 col-lg-4" [hidden]="estudentIsApplicant">
         <label class="subtitle-form">Primer apellido</label>
         <input type="text" class="form-control" formControlName="primer_apellido">
       </div>
-      <div class="form-group col-md-6 col-lg-4"  [hidden]="estudentIsApplicant">
+      <div class="form-group col-md-6 col-lg-4" [hidden]="estudentIsApplicant">
         <label class="subtitle-form">Segundo apellido</label>
         <input type="text" class="form-control" formControlName="segundo_apellido">
       </div>
-      <div class="form-group col-md-6 col-lg-4"  [hidden]="estudentIsApplicant">
+      <div class="form-group col-md-6 col-lg-4" [hidden]="estudentIsApplicant">
         <label class="subtitle-form">Primer nombre</label>
         <input type="text" class="form-control" formControlName="primer_nombre">
       </div>
-      <div class="form-group col-md-6 col-lg-4"  [hidden]="estudentIsApplicant">
+      <div class="form-group col-md-6 col-lg-4" [hidden]="estudentIsApplicant">
         <label class="subtitle-form">Segundo nombre</label>
         <input type="text" class="form-control" formControlName="segundo_nombre">
       </div>
-      <div class="form-group col-md-6 col-lg-4"  [hidden]="estudentIsApplicant">
+      <div class="form-group col-md-6 col-lg-4" [hidden]="estudentIsApplicant">
         <label class="subtitle-form">Genero</label>
         <select class="form-control" formControlName="genero">
           <option value="">Seleccione Genero</option>
@@ -54,7 +54,7 @@
           <option value="F">Femenino</option>
         </select>
       </div>
-      <div class="form-group col-md-6 col-lg-4"  [hidden]="estudentIsApplicant">
+      <div class="form-group col-md-6 col-lg-4" [hidden]="estudentIsApplicant">
         <label class="subtitle-form">Estado civil</label>
         <select class="form-control" formControlName="estado_civil">
           <option value="">Seleccione estado civil</option>
@@ -64,9 +64,9 @@
     </div>
   </div>
 
-  <div class="block-form"  [hidden]="estudentIsApplicant">
+  <div class="block-form" [hidden]="estudentIsApplicant">
     <div class="form-row">
-      <div class="form-group col-md-6 col-lg-4" >
+      <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Departamento de expedición</label>
         <select class="form-control" formControlName="dpto_expedicion_id"
           (change)="loadCitys(form.controls.dpto_expedicion_id.value, 'ciudad_expedicion_id')">
@@ -122,25 +122,25 @@
 
   <div class="block-form">
     <div class="form-row">
-      <div class="form-group col-md-6 col-lg-4"  [hidden]="estudentIsApplicant">
+      <div class="form-group col-md-6 col-lg-4" [hidden]="estudentIsApplicant">
         <label class="subtitle-form">Dirección de residencia</label>
         <input type="text" class="form-control" formControlName="direccion" (click)="openForm()" readonly>
       </div>
-      <div class="form-group col-md-6 col-lg-4"  [hidden]="estudentIsApplicant">
+      <div class="form-group col-md-6 col-lg-4" [hidden]="estudentIsApplicant">
         <label class="subtitle-form">Barrio</label>
         <select class="form-control" formControlName="barrio">
           <option value="">Seleccione un barrio</option>
           <option [value]="item.value" *ngFor="let item of neighborhoods">{{item.name}}</option>
         </select>
       </div>
-      <div class="form-group col-md-6 col-lg-4"  [hidden]="estudentIsApplicant">
+      <div class="form-group col-md-6 col-lg-4" [hidden]="estudentIsApplicant">
         <label class="subtitle-form">Tipo de vivienda</label>
         <select class="form-control" formControlName="tipo_vivienda">
           <option value="">Seleccione tipo de vivienda</option>
           <option [value]="item.table_code" *ngFor="let item of (formData$ | async)?.TIPOVIVID">{{item.dato}}</option>
         </select>
       </div>
-      <div class="form-group col-md-6 col-lg-4"  [hidden]="estudentIsApplicant">
+      <div class="form-group col-md-6 col-lg-4" [hidden]="estudentIsApplicant">
         <label class="subtitle-form">Tiempo de residencia</label>
         <input type="text" formControlName="tiempo_residencia" class="form-control">
 
@@ -155,7 +155,7 @@
           </div> -->
         <!-- </div> -->
       </div>
-      <div class="form-group col-md-6 col-lg-4"  [hidden]="estudentIsApplicant">
+      <div class="form-group col-md-6 col-lg-4" [hidden]="estudentIsApplicant">
         <label class="subtitle-form">Estrato</label>
         <select class="form-control" formControlName="estrato">
           <option value=1>1</option>
@@ -166,7 +166,7 @@
           <option value=6>6</option>
         </select>
       </div>
-      <div class="form-group col-md-6 col-lg-4" >
+      <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Nivel sisbén</label>
         <select class="form-control" formControlName="sisben">
           <option value="">Seleccione nivel de sisben</option>
@@ -177,14 +177,14 @@
         </select>
       </div>
 
-      <div class="form-group col-md-6 col-lg-4"  [hidden]="estudentIsApplicant">
+      <div class="form-group col-md-6 col-lg-4" [hidden]="estudentIsApplicant">
         <label class="subtitle-form">Nivel de estudio</label>
         <select class="form-control" formControlName="nivel_estudio">
           <option value="">Seleccione Nivel de estudio</option>
           <option [value]="item.table_code" *ngFor="let item of (formData$ | async)?.TIPCAR">{{item.dato}}</option>
         </select>
       </div>
-      <div class="form-group col-md-6 col-lg-4"  >
+      <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Tipo de colegio del estudiante</label>
         <select class="form-control" formControlName="colegio_bachillerato">
           <option value="">Seleccione tipo de colegio</option>
@@ -197,6 +197,13 @@
         <select class="form-control" formControlName="trabaja">
           <option value="N">No</option>
           <option value="S">Si</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Nivel académico padre</label>
+        <select class="form-control" formControlName="nivel_educativo_padre">
+          <option value="">Seleccione Nivel de estudio</option>
+          <option [value]="item.table_code" *ngFor="let item of (formData$ | async)?.TIPCAR">{{item.dato}}</option>
         </select>
       </div>
     </div>

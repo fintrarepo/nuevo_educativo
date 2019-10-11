@@ -6,6 +6,8 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { UtilsService } from '../../services/utils/utils.service';
 import { LoadCitys } from '../../actions/platform.actions';
 import { shareReplay } from 'rxjs/operators';
+import { SendTab2SubTab1 } from '../../actions/tab2SubTab1.actions';
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-tab2-personal-information',
@@ -16,6 +18,7 @@ export class Tab2PersonalInformationComponent implements OnInit {
   form: FormGroup;
   tab2;
   currentSelectDpto;
+  business;
   estudentIsApplicant: boolean = false;
 
   ciudad_nacimiento: any[] = [];
@@ -26,7 +29,8 @@ export class Tab2PersonalInformationComponent implements OnInit {
   citys$ = this.store.select(reducers.citys);
   addressState$ = this.store.select(reducers.getAddressFormState);
 
-  constructor(private store: Store<reducers.State>, public formBuilder: FormBuilder, private utils: UtilsService) {
+  constructor(private store: Store<reducers.State>, public formBuilder: FormBuilder, private utils: UtilsService, private route: ActivatedRoute) {
+    this.business = this.route.snapshot.paramMap.get("id")
     this.form = formBuilder.group({
       "estudiante_solicitante": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "tipo_id": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
@@ -59,7 +63,16 @@ export class Tab2PersonalInformationComponent implements OnInit {
       "programa": ['', Validators.compose([Validators.maxLength(100), Validators.required])],
       "codigo": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "semestre": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
-      "parentesco_girador": ['', Validators.compose([Validators.maxLength(20), Validators.required])]
+      "parentesco_girador": ['', Validators.compose([Validators.maxLength(20), Validators.required])],
+      nivel_educativo_padre: ['', Validators.compose([Validators.maxLength(20), Validators.required])],
+      departamento: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
+      ciudad: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
+      tipo_via: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
+      via_principal: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
+      via_secundaria: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
+      numero: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
+      complemento: ['', Validators.compose([Validators.maxLength(160)])],
+      universidad: ['Universidad del Norte']
     });
 
     this.citys$.subscribe(this.citysLoaded.bind(this))
@@ -74,7 +87,7 @@ export class Tab2PersonalInformationComponent implements OnInit {
 
   openForm() {
     this.store.dispatch(new OpenForm({
-      fieldDestinity: "tab2"
+      fieldDestinity: "tab2SubTab1"
     }));
   }
 
@@ -83,7 +96,16 @@ export class Tab2PersonalInformationComponent implements OnInit {
   }
 
   impForm() {
-    console.log(JSON.stringify(this.form.value));
+    const data = this.buildDataForm()
+    const action = new SendTab2SubTab1({
+      tab: 4,
+      final: this.form.controls.trabaja.value == 'S' ? false : true,
+      numero_solicitud: this.business,
+      tabs_info: {
+        ...data
+      }
+    })
+    this.store.dispatch(action)
   }
 
   loadCitys(dpto, control) {
@@ -99,7 +121,7 @@ export class Tab2PersonalInformationComponent implements OnInit {
 
   addressLoaded(address) {
     let newAddress = { test: '', ...address }
-    if (newAddress.fieldDestinity == "tab2") {
+    if (newAddress.fieldDestinity == "tab2SubTab1") {
       if (newAddress.departamento == '') return;
       for (let i in newAddress) {
         if (this.form.controls[i])
@@ -156,6 +178,22 @@ export class Tab2PersonalInformationComponent implements OnInit {
     this.form.controls.nivel_estudio.setValidators(validator);
     this.form.controls.colegio_bachillerato.setValidators(validator);
     this.form.controls.trabaja.setValidators(validator);
+
+    this.form.controls.departamento.setValidators(validator);
+    this.form.controls.ciudad.setValidators(validator);
+    this.form.controls.tipo_via.setValidators(validator);
+    this.form.controls.via_principal.setValidators(validator);
+    this.form.controls.via_secundaria.setValidators(validator);
+    this.form.controls.numero.setValidators(validator);
   }
+
+  private buildDataForm() {
+    let dataForm = { ...this.form.value }
+    dataForm.fecha_expedicion_id = this.utils.buildDate(dataForm.fecha_expedicion_id)
+    dataForm.fecha_nacimiento = this.utils.buildDate(dataForm.fecha_nacimiento)
+    dataForm.estrato = parseInt(dataForm.estrato)
+    return dataForm;
+  }
+
 
 }

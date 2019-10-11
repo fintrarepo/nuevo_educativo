@@ -6,6 +6,7 @@ import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/fo
 import { SendTab1SubTab2 } from '../../actions/tab1SubTab2.actions';
 import { ActivatedRoute } from "@angular/router";
 import { UtilsService } from '../../services/utils/utils.service';
+import { SendTab2SubTab2 } from '../../actions/tab2SubTab2.actions';
 
 @Component({
   selector: 'app-tab2-working-information',
@@ -105,7 +106,7 @@ export class Tab2WorkingInformationComponent implements OnInit {
 
   saveData() {
     const data = this.buildDataForm()
-    const action = new SendTab1SubTab2({
+    const action = new SendTab2SubTab2({
       tab: 2,
       final: false,
       numero_solicitud: this.business,

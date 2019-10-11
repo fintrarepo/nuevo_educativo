@@ -30,7 +30,9 @@ export class CreditsService {
     return this.http.post('/webresources/form/info_form', null)
   }
 
-
+  autoComplete(data) {
+    return this.http.post('/webresources/form/auto_complete', data)
+  }
 
   loadCitys(cod_dpto) {
     return this.http.post('/webresources/form/get_city', { cod_dpto })

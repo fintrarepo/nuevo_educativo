@@ -88,6 +88,13 @@ export const citys = createSelector(
     fromPlatform.getPlatCitys
 )
 
+export const isApproved = createSelector(
+    getPlatformState,
+    fromPlatform.getPlatformIsApproved
+)
+
+
+
 //TABS
 
 

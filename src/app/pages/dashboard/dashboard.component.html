@@ -4,11 +4,8 @@
       <h3 class="light-blue-yellow-dark">Mi cuenta</h3>
     </div>
     <div class="col-md-6 col-6 text-right" *ngIf="auth.tipo_usuario == 'C'">
-      <span class="light-blue-yellow-dark" 
-              style="width: 240px;" 
-              [routerLink]="['/app/dashboard/history']"
-              [ngClass]="{'selected': type_list == 'history'}"
-              (click)="getHistory()">
+      <span class="light-blue-yellow-dark" style="width: 240px;" [routerLink]="['/app/dashboard/history']"
+        [ngClass]="{'selected': type_list == 'history'}" (click)="getHistory()">
         Historial de solicitudes
       </span>
       <!-- <span class="light-blue-yellow-dark" (click)="getHistory()">Historial de solicitudes</span> -->
@@ -18,19 +15,21 @@
   <div class="row filters">
     <div class="col-md-6">
       <button class="btn btn-outline-primary button-white" [routerLink]="['/app/dashboard/requests']"
-        [ngClass]="{'selected': type_list == 'requests'}" style="margin-right: 10px;" (click)="getCredits(false)">solicitudes</button>
+        [ngClass]="{'selected': type_list == 'requests'}" style="margin-right: 10px;"
+        (click)="getCredits(false)">solicitudes</button>
 
       <button class="btn btn-outline-primary button-white" [routerLink]="['/app/dashboard/credits']"
-        [ngClass]="{'selected': type_list == 'credits'}"  (click)="getCredits(true)">creditos</button>
+        [ngClass]="{'selected': type_list == 'credits'}" (click)="getCredits(true)">creditos</button>
     </div>
     <div class="col-md-6 text-lg-right  ">
-      <button class="btn btn-outline-primary button-white" style="width: 240px;" routerLink="/app/new-request">CREAR NUEVA SOLICITUD</button>
+      <button class="btn btn-outline-primary button-white" style="width: 240px;" routerLink="/app/new-request">CREAR
+        NUEVA SOLICITUD</button>
     </div>
   </div>
 
-  <app-list-request *ngIf=" type_list == 'requests'"></app-list-request>
+  <app-list-request *ngIf=" type_list == 'requests'" [type]="'requests'"></app-list-request>
 
-  <app-list-request *ngIf=" type_list == 'credits'"></app-list-request> 
+  <app-list-request *ngIf=" type_list == 'credits'" [type]="'credits'"></app-list-request>
 
   <app-history-request [history]="historyc" *ngIf="type_list == 'history' && historyc.length > 0"></app-history-request>
 

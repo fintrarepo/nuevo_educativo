@@ -7,13 +7,15 @@ export interface State {
     formData: any;
     dpto: String;
     citys: any;
+    showApproved: boolean;
 }
 
 const initialState: State = {
     isBlur: false,
     formData: null,
     dpto: '',
-    citys: null
+    citys: null,
+    showApproved: false
 }
 
 export function PlatformReducer(state: State = initialState, action: PlaformActions.actions) {
@@ -50,6 +52,12 @@ export function PlatformReducer(state: State = initialState, action: PlaformActi
                 citys: action.payload
             };
 
+        case PlatformActionTypes.ShowOrHiddeApproved:
+            return {
+                ...state,
+                showApproved: action.payload
+            };
+
         default:
             return state;
     }
@@ -59,5 +67,6 @@ export function PlatformReducer(state: State = initialState, action: PlaformActi
 export const getPlatformState = (state: State) => state;
 export const getPlatformIsBlur = (state: State) => state.isBlur;
 export const getPlatformDataForm = (state: State) => state.formData;
+export const getPlatformIsApproved = (state: State) => state.showApproved ;
 export const getPlatCitys = (state: State) => state.citys;
 

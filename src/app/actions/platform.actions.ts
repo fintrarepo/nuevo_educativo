@@ -10,6 +10,8 @@ export enum PlatformActionTypes {
 
     LoadCitys = '[Platform] LoadCitys',
     LoadCitysResponse = '[Platform] LoadCitysResponse',
+
+    ShowOrHiddeApproved = '[Platform] ShowOrHiddeApproved',
 }
 
 
@@ -40,8 +42,14 @@ export class LoadCitysResponse implements Action {
 }
 
 
+export class ShowOrHiddeApproved implements Action {
+    readonly type = PlatformActionTypes.ShowOrHiddeApproved;
+    constructor(public payload: boolean) { }
+}
 
-export type actions = ToggleBlurPage | InfoFormRequest | InfoFormRequestResponse | LoadCitys | LoadCitysResponse;
+
+
+export type actions = ToggleBlurPage | InfoFormRequest | InfoFormRequestResponse | LoadCitys | LoadCitysResponse | ShowOrHiddeApproved ;
 
 
 

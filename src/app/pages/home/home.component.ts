@@ -13,6 +13,8 @@ export class HomeComponent implements OnInit {
   showMenu: boolean = false;
   blurPage$ = this.store.select(reducers.platformIsBlur);
 
+  isApproved$ = this.store.select(reducers.isApproved);
+
 
   constructor(private store: Store<reducers.State>, public auth : AuthService) { }
 

@@ -9,6 +9,7 @@ import { ActivatedRoute } from "@angular/router";
 import { UtilsService } from '../../services/utils/utils.service'
 import { LoadCitys } from '../../actions/platform.actions';
 import { shareReplay } from 'rxjs/operators';
+import { CreditsService } from '../../services/credits/credits.service';
 
 @Component({
   selector: 'app-tab1-personal-information',
@@ -37,6 +38,7 @@ export class Tab1PersonalInformationComponent implements OnInit {
   constructor(private store: Store<reducers.State>,
     private utils: UtilsService,
     public formBuilder: FormBuilder,
+    private credits: CreditsService,
     private route: ActivatedRoute) {
     this.business = this.route.snapshot.paramMap.get("id")
     this.form = formBuilder.group({
@@ -80,8 +82,11 @@ export class Tab1PersonalInformationComponent implements OnInit {
 
   ngOnInit() {
     this.observerAddress = this.addressState$.pipe(shareReplay()).subscribe(this.addressLoaded.bind(this))
+    this.observerCity = this.citys$.subscribe(this.citysLoaded.bind(this));
 
-    this.observerCity = this.citys$.subscribe(this.citysLoaded.bind(this))
+    this.credits.autoComplete({
+      "numero_solicitud": this.business, "tab": 1
+    }).subscribe(this.responseAutoComplete.bind(this))
   }
 
   openForm(field) {
@@ -141,9 +146,13 @@ export class Tab1PersonalInformationComponent implements OnInit {
     })
   }
 
-  ngOnDestroy() {
-    this.observerCity.unsubscribe()
-    this.observerAddress.unsubscribe()
+  responseAutoComplete(response) {
+    for (let i in response.data) {
+      if (this.form.controls[i])
+        this.form.controls[i].setValue(response.data[i])
+    }
+
+   // this.loadNeighborhood()
   }
 
   private buildDataForm() {
@@ -153,6 +162,12 @@ export class Tab1PersonalInformationComponent implements OnInit {
     dataForm.estrato = parseInt(dataForm.estrato)
     return dataForm;
   }
+
+  private cashDate(date){
+
+  }
+
+  
 
 }
 

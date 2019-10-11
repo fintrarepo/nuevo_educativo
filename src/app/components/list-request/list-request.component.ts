@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as reducers from '../../reducers/reducers';
 import { GetListRequest } from 'src/app/actions/list-requests.actions';
@@ -16,6 +16,8 @@ export class ListRequestComponent implements OnInit {
   error$ = this.store.select(reducers.getListRequestError);
 
   credits = false;
+
+  @Input('type') type_list : any;
   constructor(private store: Store<reducers.State>) { }
 
   ngOnInit() {

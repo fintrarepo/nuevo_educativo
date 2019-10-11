@@ -1,251 +1,35 @@
 <p *ngIf="(isLoading$ | async) ">Cargando solicitudes</p>
 <div class="row  " style="padding: 1em; margin-top: 6px;" *ngIf="!(isLoading$ | async)  && !(error$ | async)">
   <div class="col-md-12">
-    <!-- <div class="row item-request desembolsado">
-      <div class="col-lg-6">
-        <div class="row">
-          <div class="col-lg-6 col-sm-6">
-            <span>Nombre Estudiante</span>
-            <h2>
-              CLARA LUCÍA MEJÍA HERRERA
-            </h2>
-          </div>
-          <div class="col-lg-6 col-md-6">
-            <span>Valor total crédito</span>
-            <h2>
-              $17,256,700
-            </h2>
-          </div>
-        </div>
 
-        <div class="row">
-          <div class="col-lg-6 col-md-6">
-            <span>Universidad/Institución</span>
-            <h5>
-              FUNDACIÓN UNIVERSIDAD DEL NORTE
-            </h5>
-          </div>
-          <div class="col-lg-6 col-md-6">
-            <span>Valor total cuotas</span>
-            <h2>
-              $1,438,058
-            </h2>
-          </div>
-        </div>
-
-        <div class="row small-info">
-          <div class="col-lg-4 col-md-6">
-            <div>
-              <span>Plazo</span>
-              <h5>
-                12 Meses
-              </h5>
-            </div>
-            <div>
-              <span>Nuevo crédito</span>
-              <h5>
-                $10,000,000
-              </h5>
-            </div>
-          </div>
-          <div class="col-lg-2 col-md-3">
-            <span>Saldo pendiente</span>
-            <h5>
-              $7,256,700
-            </h5>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="col-md-12 col-sm-12 col-lg-6 timeline-container">
-
-        <div class="row align-items-center ">
-          <div class="col-lg-12 col-6">
-            <app-timeline [currentStep]="3"></app-timeline>
-          </div>
-          <div class="col-lg-12 col-6 justify-content-end text-right">
-
-            <button class="btn button-blue" style=" margin-top:1em;">continuar</button>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-6 text-right aproved-content">
-        <img src="/assets/images/Icon_Crédito Desembolsado_Verde.svg">
-        <button class="btn btn-desemboldado" [disabled]="true">CRÉDITO DESEMBOLSADO</button>
-      </div>
-
-    </div>
-
-    <div class="row item-request not-aproved">
-      <div class="col-lg-6">
-        <div class="row">
-          <div class="col-lg-6 col-sm-6">
-            <span>Nombre Estudiante</span>
-            <h2>
-              CLARA LUCÍA MEJÍA HERRERA
-            </h2>
-          </div>
-          <div class="col-lg-6 col-md-6">
-            <span>Valor total crédito</span>
-            <h2>
-              $17,256,700
-            </h2>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-lg-6 col-md-6">
-            <span>Universidad/Institución</span>
-            <h5>
-              FUNDACIÓN UNIVERSIDAD DEL NORTE
-            </h5>
-          </div>
-          <div class="col-lg-6 col-md-6">
-            <span>Valor total cuotas</span>
-            <h2>
-              $1,438,058
-            </h2>
-          </div>
-        </div>
-
-        <div class="row small-info">
-          <div class="col-lg-4 col-md-6">
-            <div>
-              <span>Plazo</span>
-              <h5>
-                12 Meses
-              </h5>
-            </div>
-            <div>
-              <span>Nuevo crédito</span>
-              <h5>
-                $10,000,000
-              </h5>
-            </div>
-          </div>
-          <div class="col-lg-2 col-md-3">
-            <span>Saldo pendiente</span>
-            <h5>
-              $7,256,700
-            </h5>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="col-md-12 col-sm-12 col-lg-6 timeline-container">
-
-        <div class="row align-items-center">
-          <div class="col-lg-12 col-6">
-            <app-timeline [currentStep]="4"></app-timeline>
-          </div>
-          <div class="col-lg-12 col-6 justify-content-end text-right">
-
-            <button class="btn button-blue" style=" margin-top:1em;">continuar</button>
-
-          </div>
-        </div>
-
-      </div>
-
-      <div class="col-lg-6 text-right not-aproved-content">
-        <img src="/assets/images/Icon_Crédito Rechazado.svg">
-        <button class="btn btn-not-aproved" [disabled]="true">CRÉDITO RECHAZADO</button>
-      </div>
-    </div>
-
-    <div class="row item-request">
-      <div class="col-lg-6">
-        <div class="row">
-          <div class="col-lg-6 col-sm-6">
-            <span>Nombre Estudiante</span>
-            <h2>
-              CLARA LUCÍA MEJÍA HERRERA
-            </h2>
-          </div>
-          <div class="col-lg-6 col-md-6">
-            <span>Valor total crédito</span>
-            <h2>
-              $17,256,700
-            </h2>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-lg-6 col-md-6">
-            <span>Universidad/Institución</span>
-            <h5>
-              FUNDACIÓN UNIVERSIDAD DEL NORTE
-            </h5>
-          </div>
-          <div class="col-lg-6 col-md-6">
-            <span>Valor total cuotas</span>
-            <h2>
-              $1,438,058
-            </h2>
-          </div>
-        </div>
-
-        <div class="row small-info">
-          <div class="col-lg-4 col-md-6">
-            <div>
-              <span>Plazo</span>
-              <h5>
-                12 Meses
-              </h5>
-            </div>
-            <div>
-              <span>Nuevo crédito</span>
-              <h5>
-                $10,000,000
-              </h5>
-            </div>
-          </div>
-          <div class="col-lg-2 col-md-3">
-            <span>Saldo pendiente</span>
-            <h5>
-              $7,256,700
-            </h5>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="col-md-12 col-sm-12 col-lg-6">
-
-        <div class="row align-items-center">
-          <div class="col-lg-12 col-6">
-            <app-timeline [currentStep]="1"></app-timeline>
-          </div>
-          <div class="col-lg-12 col-6 justify-content-end text-right">
-
-            <button class="btn button-blue" style=" margin-top:1em;">continuar</button>
-
-          </div>
-        </div>
-
-      </div>
-    </div> -->
-
-    <div class="row item-request"  *ngFor="let item of (listRequest$ | async )"
+    <div class="row item-request" *ngFor="let item of (listRequest$ | async )"
       [ngClass]="{'desembolsado': item.etapa== 8, 'not-aproved': item.etapa == -1}">
+
+
+
       <div class="col-lg-6">
-        <div class="row" >
-          <div class="col-lg-6 col-sm-6" [ngStyle]="{'visibility': item.nombre_estudiante? 'visible' : 'hidden' }" >
+        <div class="row">
+          <div class="col-lg-6 col-sm-6">
             <span>Nombre Estudiante</span>
-            <h2>
+            <h2 [ngStyle]="{'visibility': item.nombre_estudiante? 'visible' : 'hidden' }">
               {{item?.nombre_estudiante}}
             </h2>
           </div>
-          <div class="col-lg-6 col-md-6" [ngStyle]="{'visibility': item.monto_credito? 'visible' : 'hidden' }">
+          <div class="col-lg-6 col-md-6" *ngIf="item.monto_credito && type_list=='requests'">
             <span>Valor total crédito</span>
             <h2>
               {{item.monto_credito | currency:'USD':true:'1.0-0'}}
             </h2>
           </div>
+
+          <div class="col-lg-6 col-md-6" *ngIf="item.valor_negocio && type_list=='credits'">
+            <span>Valor total crédito</span>
+            <h2>
+              {{item.valor_negocio | currency:'USD':true:'1.0-0'}}
+            </h2>
+          </div>
+
+
         </div>
 
         <div class="row">
@@ -255,68 +39,109 @@
               {{item.name_afiliado}}
             </h5>
           </div>
-          <div class="col-lg-6 col-md-6">
+          <div class="col-lg-6 col-md-6" *ngIf="item.valor_cuota && type_list=='requests'">
             <span>Valor total cuotas</span>
             <h2>
               {{item.valor_cuota | currency:'USD':true:'1.0-0'}}
             </h2>
           </div>
+
+          <div class="col-lg-2 col-md-3" *ngIf="item.monto_renovacion != null && type_list=='credits'">
+            <span>Saldo pendiente</span>
+            <h5>
+              {{item.monto_renovacion | currency:'USD':true:'1.0-0'}}
+            </h5>
+          </div>
         </div>
 
         <div class="row small-info">
-          <div class="col-lg-6 col-md-6">
+          <div class="col-lg-2 col-md-2">
             <div>
               <span>Plazo</span>
               <h5>
                 {{item.numero_cuotas}} Meses
               </h5>
             </div>
-            <div [ngStyle]="{'visibility': item.monto_renovacion? 'visible' : 'hidden' }">
-              <span>Nuevo crédito</span>
+          </div>
+
+          <div class="col-lg-2 col-md-2" *ngIf="item.valor_saldo_total && type_list=='requests'">
+            <span>Saldo pendiente</span>
+            <h5>
+              {{item.valor_saldo_total | currency:'USD':true:'1.0-0'}}
+            </h5>
+          </div>
+
+          <div class="col-lg-2 col-md-2" *ngIf="item.semestre && type_list=='credits'">
+            <div>
+              <span>Semestre actual</span>
               <h5>
-                {{item.monto_renovacion | currency:'USD':true:'1.0-0'}}
+                {{item.semestre}}º SEMESTRE
               </h5>
             </div>
           </div>
-          <div class="col-lg-2 col-md-3">
-            <span>Saldo pendiente</span>
-            <h5>
-              <!-- $7,256,700 -->
-              FALTA
-            </h5>
+
+          <div class="col-lg-2 col-md-2" *ngIf="item.mora && type_list=='credits'">
+            <div>
+              <span>Estado</span>
+              <h5 *ngIf="item.mora == 't'">
+                Al Dia
+              </h5>
+              <h5 *ngIf="item.mora == 'f'">
+                En mora
+              </h5>
+            </div>
           </div>
+
         </div>
 
       </div>
 
-      <div class="col-md-12 col-sm-12 col-lg-6" *ngIf="item.etapa != 8 && item.etapa != -1">
+      <div class="col-md-12 col-sm-12 col-lg-6" *ngIf="(item.etapa != 8 && item.etapa != -1)">
 
         <div class="row align-items-center">
-          <div class="col-lg-12 col-6">
+          <div class="col-lg-12 col-6" *ngIf="type_list=='requests'">
             <app-timeline [currentStep]="item.etapa"></app-timeline>
           </div>
-          <div class="col-lg-12 col-6 justify-content-end text-right">
+          <div class="col-lg-12 col-6 justify-content-end text-right" *ngIf="type_list=='requests'">
 
             <button class="btn button-blue" style=" margin-top:1em;" [routerLink]="routerLink(item)">continuar</button>
 
           </div>
+
+          <div class="col-lg-12 col-6 justify-content-end align-items-center text-right" *ngIf="type_list=='credits'"
+            style="transform: translateY(120%)">
+
+            <button class="btn button-blue" style=" margin-top:1em;" [routerLink]="routerLink(item)"
+              *ngIf="item.cumple_renovacion == 't'">renovar credito</button>
+            <button class="btn button-blue" style=" margin-top:1em;" *ngIf="item.cumple_renovacion == 'f'">renovar
+              credito</button>
+
+          </div>
         </div>
 
       </div>
 
-      <div class="col-lg-6 text-right aproved-content" *ngIf="item.etapa == 8">
+      <div class="col-lg-6 text-right aproved-content" *ngIf="item.etapa == 8 ">
         <img src="/assets/images/Icon_Crédito Desembolsado_Verde.svg">
         <button class="btn btn-desemboldado" [disabled]="true">CRÉDITO DESEMBOLSADO</button>
       </div>
 
-      <div class="col-lg-6 text-right not-aproved-content" *ngIf="item.etapa == -1">
+      <div class="col-lg-6 text-right not-aproved-content" *ngIf="item.etapa == -1 && type_list=='request'">
         <img src="/assets/images/Icon_Crédito Rechazado.svg">
         <button class="btn btn-not-aproved" [disabled]="true">CRÉDITO RECHAZADO</button>
       </div>
+
+
+
+
+
+
     </div>
 
 
-  
+
+
+
 
   </div>
 </div>
