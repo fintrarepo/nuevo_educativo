@@ -5,7 +5,7 @@ import { OpenForm, ClosedForm } from '../../actions/address-form.actions';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { SendTab1SubTab3 } from '../../actions/tab1SubTab3.actions';
 import { ActivatedRoute } from "@angular/router";
-
+import { CreditsService } from '../../services/credits/credits.service'
 @Component({
   selector: 'app-tab1-references',
   templateUrl: './tab1-references.component.html',
@@ -19,7 +19,11 @@ export class Tab1ReferencesComponent implements OnInit {
   addressState$ = this.store.select(reducers.getAddressFormState);
   formData$ = this.store.select(reducers.platformDataForm);
 
-  constructor(private store: Store<reducers.State>, public formBuilder: FormBuilder, private route: ActivatedRoute) {
+  constructor(private credits: CreditsService,
+    private store: Store<reducers.State>,
+    public formBuilder: FormBuilder,
+    private route: ActivatedRoute) {
+
     this.business = this.route.snapshot.paramMap.get("id")
     this.form = formBuilder.group({
       "primer_apellido_f": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
@@ -58,6 +62,9 @@ export class Tab1ReferencesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.credits.autoComplete({
+      "numero_solicitud": this.business, "tab": 3
+    }).subscribe(this.responseAutoComplete.bind(this))
   }
 
 
@@ -134,6 +141,23 @@ export class Tab1ReferencesComponent implements OnInit {
       via_secundaria: this.form.controls['via_secundaria_' + type].value,
       numero: this.form.controls['numero_' + type].value,
       complemento: this.form.controls['complementoDireccion_' + type].value,
+    }
+  }
+
+  responseAutoComplete(response) {
+    const personal = response.data.filter(x => x.tipo_referencia == 'P')[0]
+    const familiar = response.data.filter(x => x.tipo_referencia == 'F')[0]
+    console.log(personal)
+    for (let i in personal) {
+      if (this.form.controls[i + "_p"]) {
+        this.form.controls[i + "_p"].setValue(personal[i])
+      }
+    }
+
+    for (let i in familiar) {
+      if (this.form.controls[i + "_f"]) {
+        this.form.controls[i + "_f"].setValue(familiar[i])
+      }
     }
   }
 

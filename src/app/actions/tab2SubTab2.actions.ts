@@ -8,6 +8,8 @@ export enum ETabs2SubTab2ActionsTypes {
     SendTab2SubTab2 = '[Tabs] SendTab1SubTab1',
     SendTab2SubTab2ResponseSuccess = '[Tabs] SendTab1SubTab1ResponseSuccess',
     SendTab2SubTab2ResponseError = '[Tabs] SendTab1SubTab1ResponseError',
+
+   
 }
 
 
@@ -32,8 +34,9 @@ export class SendTab2SubTab2ResponseError implements Action {
 
 
 
+
 export type actions = SendTab2SubTab2 |
     SendTab2SubTab2ResponseSuccess |
-    SendTab2SubTab2ResponseError;
+    SendTab2SubTab2ResponseError 
 
 

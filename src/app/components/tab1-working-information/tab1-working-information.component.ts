@@ -6,6 +6,7 @@ import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/fo
 import { SendTab1SubTab2 } from '../../actions/tab1SubTab2.actions';
 import { ActivatedRoute } from "@angular/router";
 import { UtilsService } from '../../services/utils/utils.service';
+import { CreditsService } from '../../services/credits/credits.service';
 
 @Component({
   selector: 'app-tab1-working-information',
@@ -21,7 +22,7 @@ export class Tab1WorkingInformationComponent implements OnInit {
   formData$ = this.store.select(reducers.platformDataForm);
   addressState$ = this.store.select(reducers.getAddressFormState);
 
-  constructor(private store: Store<reducers.State>,
+  constructor(private credits: CreditsService, private store: Store<reducers.State>,
     public formBuilder: FormBuilder,
     private utils: UtilsService,
     private route: ActivatedRoute) {
@@ -61,6 +62,9 @@ export class Tab1WorkingInformationComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.credits.autoComplete({
+      "numero_solicitud": this.business, "tab": 2
+    }).subscribe(this.responseAutoComplete.bind(this))
   }
 
   validateActivity(activity) {
@@ -97,7 +101,7 @@ export class Tab1WorkingInformationComponent implements OnInit {
       if (this.form.controls[i])
         this.form.controls[i].setValue(address[i])
     }
-    this.form.controls.direccion.setValue(address.tipo_via + " " + address.via_principal + " #" + address.via_secundaria + " - " + address.numero + " " + address.complementoDireccion)
+    this.form.controls.direccion.setValue(address.tipo_via + " " + address.via_principal + " #" + address.via_secundaria + " - " + address.numero + " " + address.complemento)
     this.form.updateValueAndValidity()
   }
 
@@ -128,10 +132,26 @@ export class Tab1WorkingInformationComponent implements OnInit {
     }
   }
 
+
+  responseAutoComplete(response) {
+    for (let i in response.data) {
+      if (this.form.controls[i]) {
+        this.form.controls[i].setValue(response.data[i])
+      }
+    }
+    this.form.controls['fecha_ingreso'].setValue(this.cashDate(response.data.fecha_ingreso))
+    this.loadJobs(this.form.controls.actividad_economica.value)
+  }
+
   private buildDataForm() {
     let dataForm = { ...this.form.value }
     dataForm.fecha_ingreso = this.utils.buildDate(dataForm.fecha_ingreso)
     return dataForm;
+  }
+
+  private cashDate(date) {
+    let remoteDate = date.split('-')
+    return { year: parseInt(remoteDate[0]), month: parseInt(remoteDate[1]), day: parseInt(remoteDate[2]) };
   }
 
 

@@ -21,6 +21,16 @@ export const Tabs: ITabs = {
     tab1SubTab3: {
         active: false,
         disabled: true
+    },
+
+
+    tab2SubTab1: {
+        active: false,
+        disabled: true
+    },
+    tab2SubTab2: {
+        active: false,
+        disabled: true
     }
 }
 

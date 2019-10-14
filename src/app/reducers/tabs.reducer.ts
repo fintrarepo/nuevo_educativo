@@ -77,6 +77,38 @@ export const tabsReducer = (state = Tabs, action: TabsActions.actions): ITabs =>
         }
 
 
+        case TabsTypes.SelecteTab2SubTab1: {
+            return {
+                ...Tabs,
+                tab2: {
+                    active: true,
+                    disabled: false
+                },
+                tab2SubTab1: {
+                    active: true,
+                    disabled: false
+
+                }
+            }
+        }
+
+
+        case TabsTypes.SelecteTab2SubTab2: {
+            return {
+                ...Tabs,
+                tab2: {
+                    active: true,
+                    disabled: false
+                },
+                tab2SubTab2: {
+                    active: true,
+                    disabled: false
+
+                }
+            }
+        }
+
+
 
         default:
             return {

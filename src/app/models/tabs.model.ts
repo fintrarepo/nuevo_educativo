@@ -4,6 +4,9 @@ export interface ITabs {
     tab1SubTab1: ITab,
     tab1SubTab2: ITab,
     tab1SubTab3: ITab,
+
+    tab2SubTab1: ITab,
+    tab2SubTab2: ITab,
 }
 
 interface ITab {

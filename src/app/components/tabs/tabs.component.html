@@ -1,4 +1,4 @@
-<ngb-tabset class="first-level" #toptaps [destroyOnHide]="false">
+<ngb-tabset class="first-level" #toptaps [destroyOnHide]="false" (tabChange)="beforeChange($event)">
 
   <ngb-tab [title]="'INFORMACIÓN SOLICITANTE'" [disabled]="tabs?.tab1?.disabled" id='tab1'>
     <ng-template ngbTabContent>

@@ -29,12 +29,12 @@
 
       <div class="evident-container">
         <ul>
-          <li class="selected">A tu casa</li>
-          <li>A tu trabajo</li>
-          <li>A otra dirección</li>
+          <li [ngClass]="{'selected': addressSelected=='C'}" (click)="addressSelected='C'">A tu casa</li>
+          <li [ngClass]="{'selected': addressSelected=='T'}" (click)="addressSelected='T'">A tu trabajo</li>
+          <!-- <li [ngClass]="{'selected': addressSelected=='A'}">A otra dirección</li> -->
         </ul>
 
-        <button class="btn btn-outline" (click)="nextStep()">Siguiente</button>
+        <button class="btn btn-outline" (click)="nextStep()" [disabled]="!addressSelected">Siguiente</button>
       </div>
 
     </div>
@@ -42,14 +42,11 @@
     <div class="step-popup" *ngIf="currentStep==3">
       <h1 class="title-form">Programa tu visita</h1>
       <span> Completa estos campos para agendar la visita</span>
-      <p>¿En qué horario deseas que vayamos a recoger las firmas?</p>
+      <p>¿Qué día deseas que vayamos a recoger las firmas?</p>
 
       <div class="evident-container">
-        <ul>
-          <li class="selected">A tu casa</li>
-          <li>A tu trabajo</li>
-          <li>A otra dirección</li>
-        </ul>
+        <input type="text" class="form-control" readonly ngbDatepicker #d1="ngbDatepicker" (click)="d1.toggle()"
+          style="width: 300px;" [(ngModel)]="date" />
 
         <button class="btn btn-outline" (click)="nextStep()">Siguiente</button>
       </div>
@@ -57,8 +54,28 @@
     </div>
 
     <div class="step-popup" *ngIf="currentStep==4">
-      Paso 4
-      <button (click)="nextStep()">Next</button>
+      <h1 class="title-form">Programa tu visita</h1>
+      <span> Completa estos campos para agendar la visita</span>
+      <p>¿En qué horario deseas que vayamos a recoger las firmas?</p>
+      <div class="evident-container">
+        <ul>
+          <li [ngClass]="{'selected': hourSelected=='8am - 12pm'}" (click)="hourSelected='8am - 12pm'">8am - 12pm</li>
+          <li [ngClass]="{'selected': hourSelected=='2pm - 5pm'}" (click)="hourSelected='2pm - 5pm'">2pm - 5pm</li>
+          <!-- <li [ngClass]="{'selected': addressSelected=='A'}">A otra dirección</li> -->
+        </ul>
+      </div>
+      <button (click)="save()" [disabled]="!hourSelected">PROGRAMAR VISITA</button>
+    </div>
+
+
+    <div class="step-popup" *ngIf="currentStep==5">
+      <img src="/assets/images/Icon_FinEtapa.svg" alt="">
+      <h1 class="title-form">¡Estupendo!
+        Hemos terminado lo más difícil</h1>
+      <span style="text-align: center;;">Uno de nuestros asesores te contactará para confirmar la visita programada a tu
+        domicilio.</span>
+
+      <button class="btn btn-primary" (click)="nextPage()" style="margin-top: 1.5em;">Siguiente etapa</button>
     </div>
 
   </div>

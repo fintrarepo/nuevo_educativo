@@ -10,6 +10,9 @@ export enum TabsTypes {
     SelecteTab1 = '[TABS] SelecteTab1',
     SelecteTab2 = '[TABS] SelecteTab2',
 
+    SelecteTab2SubTab1 = '[TABS] SelecteTab2SubTab1',
+    SelecteTab2SubTab2 = '[TABS] SelecteTab2SubTab2',
+
 }
 
 
@@ -34,8 +37,23 @@ export class SelecteTab2 implements Action {
 
 
 
+export class SelecteTab2SubTab1 implements Action {
+    readonly type = TabsTypes.SelecteTab2SubTab1;
+}
+export class SelecteTab2SubTab2 implements Action {
+    readonly type = TabsTypes.SelecteTab2SubTab2;
+}
 
-export type actions = SelecteTab1SubTab1 | SelecteTab1SubTab2 | SelecteTab1SubTab3 | SelecteTab2 | SelecteTab1;
+
+
+
+export type actions = SelecteTab1SubTab1 |
+    SelecteTab1SubTab2 |
+    SelecteTab1SubTab3 |
+    SelecteTab2 |
+    SelecteTab1 |
+    SelecteTab2SubTab1 |
+    SelecteTab2SubTab2;
 
 
 

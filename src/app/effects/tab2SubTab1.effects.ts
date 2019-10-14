@@ -7,7 +7,9 @@ import * as reducers from '../reducers/reducers';
 import { OpenAlert } from '../actions/alert.actions';
 
 import { CreditsService } from '../services/credits/credits.service';
-import { ETabs2SubTab1ActionsTypes, SendTab2SubTab1ResponseSuccess, SendTab2SubTab1ResponseError, SendTab2SubTab1 } from '../actions/tab2SubTab1.actions';
+import { ETabs2SubTab1ActionsTypes, SendTab2SubTab1ResponseSuccess, SendTab2SubTab1ResponseError, SendTab2SubTab1, SendTab2SubTab1ResponseNextStep } from '../actions/tab2SubTab1.actions';
+import { SelecteTab2SubTab2, SelecteTab2SubTab1 } from '../actions/tabs.actions';
+import { ShowOrHiddeApproved } from '../actions/platform.actions';
 
 @Injectable({
     providedIn: 'root'
@@ -27,7 +29,7 @@ export class Tab2SubTab1Effects {
         exhaustMap(action => {
             return this.credit.saveTab(action).pipe(
                 map(Response => {
-                    return new SendTab2SubTab1ResponseSuccess({})
+                    return new SendTab2SubTab1ResponseSuccess(action)
                 }),
                 catchError(error => of(new SendTab2SubTab1ResponseError(error)))
             )
@@ -37,16 +39,14 @@ export class Tab2SubTab1Effects {
     @Effect()
     SendTab2SubTab1ResponseSuccess$: Observable<Action> = this.actions$.pipe(
         ofType<SendTab2SubTab1ResponseSuccess>(ETabs2SubTab1ActionsTypes.SendTab2SubTab1ResponseSuccess),
-        switchMap(error => [
-            //new SelecteTab2(),
-            new OpenAlert({
-                open: true,
-                title: "Listo",
-                subTitle: "Todos los cambios fueron guardados satisfactoriamente.",
-                type: "success"
-            }),
+        map(v => v.payload.tabs_info),
+        switchMap(action => {
+            console.log(action.trabaja)
+            return action.trabaja == 'S' ?
+                of(new ShowOrHiddeApproved(true)) :
+                of(new ShowOrHiddeApproved(true))
+        })
 
-        ])
     )
 
     @Effect()
@@ -60,6 +60,20 @@ export class Tab2SubTab1Effects {
                 subTitle: error.detail.toString(),
                 type: "danger"
             }),
+        ])
+    )
+
+    @Effect()
+    SendTab2SubTab1ResponseNextStep$: Observable<Action> = this.actions$.pipe(
+        ofType<SendTab2SubTab1ResponseNextStep>(ETabs2SubTab1ActionsTypes.SendTab2SubTab1ResponseNextStep),
+        switchMap(error => [
+            new OpenAlert({
+                open: true,
+                title: "Listo",
+                subTitle: "Todos los cambios fueron guardados satisfactoriamente.",
+                type: "success"
+            }),
+            new SelecteTab2SubTab2()
         ])
     )
 }

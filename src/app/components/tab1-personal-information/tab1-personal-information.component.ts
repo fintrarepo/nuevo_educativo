@@ -10,6 +10,7 @@ import { UtilsService } from '../../services/utils/utils.service'
 import { LoadCitys } from '../../actions/platform.actions';
 import { shareReplay } from 'rxjs/operators';
 import { CreditsService } from '../../services/credits/credits.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-tab1-personal-information',
@@ -148,26 +149,42 @@ export class Tab1PersonalInformationComponent implements OnInit {
 
   responseAutoComplete(response) {
     for (let i in response.data) {
-      if (this.form.controls[i])
-        this.form.controls[i].setValue(response.data[i])
+      if (this.form.controls[i]) {
+        if (i == 'fecha_nacimiento') {
+          this.form.controls[i].setValue(this.cashDate(response.data.fecha_nacimiento))
+        } else if (i == 'fecha_expedicion_id') {
+          this.form.controls[i].setValue(this.cashDate(response.data.fecha_expedicion_id))
+        }
+        else {
+          this.form.controls[i].setValue(response.data[i])
+        }
+      }
+
     }
 
-   // this.loadNeighborhood()
+    setTimeout(() => {
+      this.loadCitys(this.form.controls.dpto_expedicion_id.value, 'ciudad_expedicion_id');
+    }, 500)
+    //
+    this.loadCitys(this.form.controls.dpto_nacimiento.value, 'ciudad_nacimiento');
+    this.loadNeighborhood(response.data.ciudad);
   }
 
   private buildDataForm() {
     let dataForm = { ...this.form.value }
+    console.log(dataForm.fecha_expedicion_id)
     dataForm.fecha_expedicion_id = this.utils.buildDate(dataForm.fecha_expedicion_id)
     dataForm.fecha_nacimiento = this.utils.buildDate(dataForm.fecha_nacimiento)
     dataForm.estrato = parseInt(dataForm.estrato)
     return dataForm;
   }
 
-  private cashDate(date){
-
+  private cashDate(date) {
+    let remoteDate = date.split('-')
+    return { year: parseInt(remoteDate[0]), month: parseInt(remoteDate[1]), day: parseInt(remoteDate[2]) };
   }
 
-  
+
 
 }
 

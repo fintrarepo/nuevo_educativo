@@ -107,8 +107,8 @@ export class Tab2WorkingInformationComponent implements OnInit {
   saveData() {
     const data = this.buildDataForm()
     const action = new SendTab2SubTab2({
-      tab: 2,
-      final: false,
+      tab: 5,
+      final: true,
       numero_solicitud: this.business,
       tabs_info: {
         ...data

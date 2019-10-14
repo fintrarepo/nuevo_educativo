@@ -29,14 +29,19 @@ export class UtilsService {
     return this.http.post('/webresources/form/get_address', { cod_ciudad })
   }
 
+  saveVisit(data) {
+    return this.http.put('/webresources/form/save_visit', data)
+  }
+
   buildDate(object) {
     if (!(object.year && object.month && object.day)) {
       return "";
     }
 
-    let month = object.month.length == 1 ? "0" + object.month : object.month
-    let day = object.day.length == 1 ? "0" + object.day : object.day
+    let month = String(object.month).length == 1 ? "0" + String(object.month) : String(object.month)
+    let day = String(object.day).length == 1 ? "0" + String(object.day) : object.day
 
+    console.log(object.year + "-" + month + "-" + day)
     return object.year + "-" + month + "-" + day
   }
 
