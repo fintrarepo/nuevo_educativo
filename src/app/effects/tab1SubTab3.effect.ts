@@ -10,7 +10,7 @@ import { CreditsService } from '../services/credits/credits.service';
 
 import { ETabs1SubTab3ActionsTypes, SendTab1SubTab3, SendTab1SubTab3ResponseSuccess, SendTab1SubTab3ResponseError } from '../actions/tab1SubTab3.actions';
 import { ToggleBlurPage } from '../actions/platform.actions';
-import { SelecteTab1SubTab3, SelecteTab2 } from '../actions/tabs.actions';
+import { SelecteTab1SubTab3, SelecteTab2, SelecteTab2SubTab1 } from '../actions/tabs.actions';
 
 @Injectable({
     providedIn: 'root'
@@ -41,7 +41,7 @@ export class Tab1SubTab3Effects {
     SendTab1SubTab3ResponseSuccess$: Observable<Action> = this.actions$.pipe(
         ofType<SendTab1SubTab3ResponseSuccess>(ETabs1SubTab3ActionsTypes.SendTab1SubTab3ResponseSuccess),
         switchMap(error => [
-            new SelecteTab2(),
+            new SelecteTab2SubTab1(),
             new OpenAlert({
                 open: true,
                 title: "Listo",

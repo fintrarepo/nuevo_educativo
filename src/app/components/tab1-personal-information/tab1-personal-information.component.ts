@@ -67,7 +67,7 @@ export class Tab1PersonalInformationComponent implements OnInit {
       "posee_bienes": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "nivel_estudio": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "estado_civil_padres": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
-      "tiempo_residencia": ['', Validators.compose([Validators.maxLength(50)])],
+      "tiempo_residencia": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       departamento: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
       ciudad: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
       tipo_via: ['', Validators.compose([Validators.maxLength(60), Validators.required])],

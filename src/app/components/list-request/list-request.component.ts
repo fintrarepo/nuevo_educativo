@@ -18,6 +18,7 @@ export class ListRequestComponent implements OnInit {
   credits = false;
 
   @Input('type') type_list : any;
+  
   constructor(private store: Store<reducers.State>) { }
 
   ngOnInit() {

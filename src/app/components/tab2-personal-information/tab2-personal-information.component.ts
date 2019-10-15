@@ -8,6 +8,7 @@ import { LoadCitys } from '../../actions/platform.actions';
 import { shareReplay } from 'rxjs/operators';
 import { SendTab2SubTab1 } from '../../actions/tab2SubTab1.actions';
 import { ActivatedRoute } from "@angular/router";
+import { CreditsService } from '../../services/credits/credits.service';
 
 @Component({
   selector: 'app-tab2-personal-information',
@@ -20,6 +21,7 @@ export class Tab2PersonalInformationComponent implements OnInit {
   currentSelectDpto;
   business;
   estudentIsApplicant: boolean = false;
+  estudentWorked: boolean = false;
 
   ciudad_nacimiento: any[] = [];
   ciudad_expedicion_id: any[] = [];
@@ -29,7 +31,11 @@ export class Tab2PersonalInformationComponent implements OnInit {
   citys$ = this.store.select(reducers.citys);
   addressState$ = this.store.select(reducers.getAddressFormState);
 
-  constructor(private store: Store<reducers.State>, public formBuilder: FormBuilder, private utils: UtilsService, private route: ActivatedRoute) {
+  constructor(private store: Store<reducers.State>,
+    public formBuilder: FormBuilder,
+    private credits: CreditsService,
+    private utils: UtilsService,
+    private route: ActivatedRoute) {
     this.business = this.route.snapshot.paramMap.get("id")
     this.form = formBuilder.group({
       "estudiante_solicitante": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
@@ -53,7 +59,7 @@ export class Tab2PersonalInformationComponent implements OnInit {
       "direccion": ['', Validators.compose([Validators.maxLength(160), Validators.required])],
       "barrio": ['', Validators.compose([Validators.maxLength(100), Validators.required])],
       "tipo_vivienda": ['', Validators.compose([Validators.maxLength(30), Validators.required])],
-      "tiempo_residencia": ['', Validators.compose([Validators.maxLength(20)])],
+      "tiempo_residencia": ['', Validators.compose([Validators.maxLength(20), Validators.required])],
       "estrato": ['', Validators.compose([Validators.maxLength(1), Validators.required, Validators.pattern('^[0-9]*$')])],
       "sisben": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "nivel_estudio": ['', Validators.compose([Validators.maxLength(15), Validators.required])],
@@ -83,6 +89,16 @@ export class Tab2PersonalInformationComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.credits.autoComplete({
+      "numero_solicitud": this.business, "tab": 4
+    }).subscribe(this.responseAutoComplete.bind(this));
+
+    this.form.controls['estudiante_solicitante'].valueChanges.subscribe(data => {
+      this.estudentWorked = data == 'S' ? true : false;
+      if (this.estudentWorked) {
+        this.form.controls.trabaja.setValue('S');
+      }
+    })
   }
 
   openForm() {
@@ -99,7 +115,7 @@ export class Tab2PersonalInformationComponent implements OnInit {
     const data = this.buildDataForm()
     const action = new SendTab2SubTab1({
       tab: 4,
-      final: this.form.controls.trabaja.value == 'S' ? false : true,
+      final: (this.form.controls.trabaja.value == 'S' && this.form.controls.estudiante_solicitante.value == 'S') || (this.form.controls.trabaja.value == 'N' && this.form.controls.estudiante_solicitante.value == 'N') ? true : false,
       numero_solicitud: this.business,
       tabs_info: {
         ...data
@@ -185,7 +201,39 @@ export class Tab2PersonalInformationComponent implements OnInit {
     this.form.controls.via_principal.setValidators(validator);
     this.form.controls.via_secundaria.setValidators(validator);
     this.form.controls.numero.setValidators(validator);
+
+    this.form.updateValueAndValidity()
   }
+
+  responseAutoComplete(response) {
+    console.log(response)
+    for (let i in response.data) {
+      if (this.form.controls[i]) {
+        if (i == 'fecha_nacimiento') {
+          this.form.controls[i].setValue(this.cashDate(response.data.fecha_nacimiento))
+        } else if (i == 'fecha_expedicion_id') {
+          this.form.controls[i].setValue(this.cashDate(response.data.fecha_expedicion_id))
+        }
+        else {
+          this.form.controls[i].setValue(response.data[i])
+        }
+      }
+
+    }
+
+    setTimeout(() => {
+      this.loadCitys(this.form.controls.dpto_expedicion_id.value, 'ciudad_expedicion_id');
+    }, 500)
+    //
+    this.loadCitys(this.form.controls.dpto_nacimiento.value, 'ciudad_nacimiento');
+    this.loadNeighborhood(response.data.ciudad);
+  }
+
+  private cashDate(date) {
+    let remoteDate = date.split('-')
+    return { year: parseInt(remoteDate[0]), month: parseInt(remoteDate[1]), day: parseInt(remoteDate[2]) };
+  }
+
 
   private buildDataForm() {
     let dataForm = { ...this.form.value }

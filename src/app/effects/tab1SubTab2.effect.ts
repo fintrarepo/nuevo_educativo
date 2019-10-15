@@ -23,7 +23,7 @@ export class Tab1SubTab2Effects {
 
 
     @Effect()
-    SendTab1SubTab1$: Observable<Action> = this.actions$.pipe(
+    SendTab1SubTab2$: Observable<Action> = this.actions$.pipe(
         ofType<SendTab1SubTab2>(ETabs1SubTab2ActionsTypes.SendTab1SubTab2),
         tap(v => console.log('LoginUser effect tap', v.payload)),
         map(action => action.payload),
