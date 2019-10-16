@@ -33,6 +33,10 @@ export class UtilsService {
     return this.http.put('/webresources/form/save_visit', data)
   }
 
+  getCurrentStep(data) {
+    return this.http.post('/webresources/form/continue_tab', data)
+  }
+
   buildDate(object) {
     if (!(object.year && object.month && object.day)) {
       return "";

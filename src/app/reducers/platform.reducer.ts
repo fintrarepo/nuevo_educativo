@@ -8,6 +8,7 @@ export interface State {
     dpto: String;
     citys: any;
     showApproved: boolean;
+    currentBussinees: any;
 }
 
 const initialState: State = {
@@ -15,7 +16,8 @@ const initialState: State = {
     formData: null,
     dpto: '',
     citys: null,
-    showApproved: false
+    showApproved: false,
+    currentBussinees: null
 }
 
 export function PlatformReducer(state: State = initialState, action: PlaformActions.actions) {
@@ -58,6 +60,12 @@ export function PlatformReducer(state: State = initialState, action: PlaformActi
                 showApproved: action.payload
             };
 
+        case PlatformActionTypes.SetCurrentBussinees:
+            return {
+                ...state,
+                currentBussinees: action.payload
+            };
+
         default:
             return state;
     }
@@ -67,6 +75,8 @@ export function PlatformReducer(state: State = initialState, action: PlaformActi
 export const getPlatformState = (state: State) => state;
 export const getPlatformIsBlur = (state: State) => state.isBlur;
 export const getPlatformDataForm = (state: State) => state.formData;
-export const getPlatformIsApproved = (state: State) => state.showApproved ;
+export const getPlatformIsApproved = (state: State) => state.showApproved;
 export const getPlatCitys = (state: State) => state.citys;
+
+export const getCurrentBussinness = (state: State) => state.currentBussinees;
 

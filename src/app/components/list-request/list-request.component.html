@@ -1,4 +1,6 @@
-<p *ngIf="(isLoading$ | async) ">Cargando solicitudes</p>
+<p *ngIf="(isLoading$ | async) " class="content-loading">
+  <img src="/assets/images/loading.gif" alt="">
+</p>
 <div class="row  " style="padding: 1em; margin-top: 6px;" *ngIf="!(isLoading$ | async)  && !(error$ | async)">
   <div class="col-md-12">
 

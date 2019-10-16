@@ -1,3 +1,12 @@
+<div class="content-buttons-next-back">
+
+  <button class="btn btn-next" (click)="save()" [disabled]="!this.form.valid">
+    <img src="/assets/images/Icon_ChevronRight.svg" alt="">
+    <span>
+      SIGUIENTE FORMULARIO
+    </span>
+  </button>
+</div>
 <form style="padding: 14px;" [formGroup]="form">
 
   <div class="block-form">
@@ -138,7 +147,14 @@
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Tiempo de residencia</label>
-        <input type="text" formControlName="tiempo_residencia" class="form-control">
+        <select class="form-control" formControlName="tiempo_residencia">
+          <option value="">Seleccione tipo de residencia</option>
+          <option [value]="'1 Años'">Menos de un 1 año</option>
+          <option [value]="'2 Años'">2 años</option>
+          <option [value]="'3 Años'">3 años</option>
+          <option [value]="'4 Años'">4 años</option>
+          <option [value]="'5 Años'">5 años o mas</option>
+        </select>
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Estrato</label>
@@ -182,7 +198,15 @@
   <div class="row">
     <div class="col-md-12 col-lg-12">
       <div class="d-flex justify-content-end">
-        <button class="btn btn-outline-info button-next-tab " (click)="save()">Siguiente Formulario</button>
+        <div class="content-buttons-next-back" style="position: static;">
+
+          <button class="btn btn-next" (click)="save()" [disabled]="!this.form.valid">
+            <img src="/assets/images/Icon_ChevronRight.svg" alt="">
+            <span>
+              SIGUIENTE FORMULARIO
+            </span>
+          </button>
+        </div>
       </div>
     </div>
   </div>

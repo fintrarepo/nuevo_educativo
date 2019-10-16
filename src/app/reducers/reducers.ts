@@ -13,6 +13,7 @@ import * as fromRecoveryPassword from '../reducers/recovery-password.reducer';
 import * as fromListRequests from '../reducers/list-requets.reducer';
 import * as fromCredits from '../reducers/simulation.reducer';
 import * as fromTabs from '../reducers/tabs.reducer';
+import { getTab1SubTab1State } from './tabs.reducer';
 
 
 
@@ -93,6 +94,11 @@ export const isApproved = createSelector(
     fromPlatform.getPlatformIsApproved
 )
 
+export const currentBussiness = createSelector(
+    getPlatformState,
+    fromPlatform.getCurrentBussinness
+)
+
 
 
 //TABS
@@ -101,6 +107,29 @@ export const isApproved = createSelector(
 export const TabsState = createSelector(
     getTabsState,
     fromTabs.getTabsState
+)
+
+export const Tab1SubTab1State = createSelector(
+    getTabsState,
+    fromTabs.getTab1SubTab1State
+)
+export const Tab1SubTab2State = createSelector(
+    getTabsState,
+    fromTabs.getTab1SubTab2State
+)
+export const Tab1SubTab3State = createSelector(
+    getTabsState,
+    fromTabs.getTab1SubTab3State
+)
+
+
+export const Tab2SubTab1State = createSelector(
+    getTabsState,
+    fromTabs.getTab2SubTab1State
+)
+export const Tab2SubTab2State = createSelector(
+    getTabsState,
+    fromTabs.getTab2SubTab2State
 )
 
 

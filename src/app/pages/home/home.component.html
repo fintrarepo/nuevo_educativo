@@ -9,22 +9,24 @@
     </div>
 
     <ul class="list-unstyled list-menu components">
-      <li class="active ">
-        <a href="#homeSubmenu" class="dark-blue-font">Mi cuenta</a>
+      <li [ngClass]="{'active': currenturl == '/app/dashboard/requests'}">
+        <a routerLink="/app/dashboard/requests"
+          [ngClass]="{'dark-blue-font': currenturl == '/app/dashboard/requests'}">Mi cuenta</a>
       </li>
-      <li>
-        <a href="#">mis creditos</a>
+      <li [ngClass]="{'active': currenturl == '/app/dashboard/credits'}">
+        <a routerLink="/app/dashboard/credits"
+          [ngClass]="{'dark-blue-font': currenturl == '/app/dashboard/credits'}">mis creditos</a>
       </li>
-      <li>
-        <a href="#pageSubmenu">documentos</a>
+      <li [ngClass]="{'active': false}">
+        <a href="#">documentos</a>
       </li>
-      <li>
+      <li [ngClass]="{'active': false}">
         <a href="#">otros servicios</a>
       </li>
-      <li>
+      <li [ngClass]="{'active': false}">
         <a href="#">solicita productos</a>
       </li>
-      <li>
+      <li [ngClass]="{'active': false}">
         <a href="#">pqr</a>
       </li>
     </ul>
@@ -35,7 +37,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
         <div class="row" style="width:100%;">
-          <div class="col-lg-6  col-12">
+          <div class="col-lg-3  col-12">
             <span class="light-blue-font">
               Nombre del cliente
             </span>
@@ -43,38 +45,45 @@
               {{auth.name}}
             </h5>
           </div>
-          <!--<div class="col-md-3">
+          <div class="col-md-3"
+            [ngClass]="{'visible': (currentBussiness$ | async), 'hidden': !(currentBussiness$ | async)}">
             <span class="light-blue-font">
               Universidad/Institución
             </span>
             <h5 class="dark-blue-font small">
-              FUNDACIÓN UNIVERSIDAD DEL NORTE
+              {{(currentBussiness$ | async)?.payment_name}}
             </h5>
           </div>
-           <div class="col-md-2 col-lg-2">
+          <div class="col-md-1 col-lg-1"
+            [ngClass]="{'visible': (currentBussiness$ | async), 'hidden': !(currentBussiness$ | async)}">
             <span class="light-blue-font">
               Monto
             </span>
             <h5 class="dark-blue-font small">
-              $17,256,700
+              {{(currentBussiness$ | async)?.monto | currency:'USD':true:'1.0-0'}}
             </h5>
           </div>
-          <div class="col-md-2 col-lg-2">
+          <div class="col-md-1 col-lg-1"
+            [ngClass]="{'visible': (currentBussiness$ | async), 'hidden': !(currentBussiness$ | async)}">
             <span class="light-blue-font">
               Nº Cuotas
             </span>
             <h5 class="dark-blue-font small">
-              4
+              {{(currentBussiness$ | async)?.plazo}}
             </h5>
           </div>
-          <div class="col-md-2 col-lg-2">
+          <div class="col-md-2 col-lg-2"
+            [ngClass]="{'visible': (currentBussiness$ | async), 'hidden': !(currentBussiness$ | async)}">
             <span class="light-blue-font">
               Nº Solicitud
             </span>
             <h5 class="dark-blue-font small">
-              114785
+              {{(currentBussiness$ | async)?.numero_solicitud}}
             </h5>
-          </div> -->
+          </div>
+          <div class="col-md-2 col-lg-2 text-right">
+            <button class="btn btn-outline-primary" style="margin-top: 10px; margin-right:-50px;" (click)="closeSession()">Cerrar sesion</button>
+          </div>
         </div>
       </div>
     </nav>
@@ -86,5 +95,5 @@
 
 </div>
 <app-address-form></app-address-form>
-<app-popup-approved *ngIf="(isApproved$ | async)"></app-popup-approved>   
+<app-popup-approved *ngIf="(isApproved$ | async)"></app-popup-approved>
 <!-- <app-evident></app-evident> -->

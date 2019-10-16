@@ -7,6 +7,7 @@ import { SendTab1SubTab2 } from '../../actions/tab1SubTab2.actions';
 import { ActivatedRoute } from "@angular/router";
 import { UtilsService } from '../../services/utils/utils.service';
 import { SendTab2SubTab2 } from '../../actions/tab2SubTab2.actions';
+import { SelecteTab2SubTab1 } from 'src/app/actions/tabs.actions';
 
 @Component({
   selector: 'app-tab2-working-information',
@@ -115,6 +116,10 @@ export class Tab2WorkingInformationComponent implements OnInit {
       }
     })
     this.store.dispatch(action)
+  }
+
+  back(){
+    this.store.dispatch( new SelecteTab2SubTab1())
   }
 
   validator(control) {

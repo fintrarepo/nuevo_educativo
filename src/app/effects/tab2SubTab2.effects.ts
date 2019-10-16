@@ -7,14 +7,14 @@ import * as reducers from '../reducers/reducers';
 import { OpenAlert } from '../actions/alert.actions';
 
 import { CreditsService } from '../services/credits/credits.service';
-import { ETabs2SubTab1ActionsTypes, SendTab2SubTab1ResponseSuccess, SendTab2SubTab1ResponseError, SendTab2SubTab1, SendTab2SubTab1ResponseNextStep } from '../actions/tab2SubTab1.actions';
+import { ETabs2SubTab2ActionsTypes, SendTab2SubTab2ResponseSuccess, SendTab2SubTab2ResponseError, SendTab2SubTab2, SendTab2SubTab2ResponseNextStep } from '../actions/tab2SubTab2.actions';
 import { SelecteTab2SubTab2, SelecteTab2SubTab1 } from '../actions/tabs.actions';
 import { ShowOrHiddeApproved } from '../actions/platform.actions';
 
 @Injectable({
     providedIn: 'root'
 })
-export class Tab2SubTab1Effects {
+export class Tab2SubTab2Effects {
 
 
     constructor(private actions$: Actions, private store: Store<reducers.State>, private credit: CreditsService) { }
@@ -22,36 +22,33 @@ export class Tab2SubTab1Effects {
 
 
     @Effect()
-    SendTab2SubTab1$: Observable<Action> = this.actions$.pipe(
-        ofType<SendTab2SubTab1>(ETabs2SubTab1ActionsTypes.SendTab2SubTab1),
+    SendTab2SubTab2$: Observable<Action> = this.actions$.pipe(
+        ofType<SendTab2SubTab2>(ETabs2SubTab2ActionsTypes.SendTab2SubTab2),
         tap(v => console.log('LoginUser effect tap', v.payload)),
         map(action => action.payload),
         exhaustMap(action => {
             return this.credit.saveTab(action).pipe(
                 map(Response => {
-                    return new SendTab2SubTab1ResponseSuccess(action)
+                    return new ShowOrHiddeApproved(true)
                 }),
-                catchError(error => of(new SendTab2SubTab1ResponseError(error)))
+                catchError(error => of(new SendTab2SubTab2ResponseError(error)))
             )
         })
     )
 
     @Effect()
-    SendTab2SubTab1ResponseSuccess$: Observable<Action> = this.actions$.pipe(
-        ofType<SendTab2SubTab1ResponseSuccess>(ETabs2SubTab1ActionsTypes.SendTab2SubTab1ResponseSuccess),
+    SendTab2SubTab2ResponseSuccess$: Observable<Action> = this.actions$.pipe(
+        ofType<SendTab2SubTab2ResponseSuccess>(ETabs2SubTab2ActionsTypes.SendTab2SubTab2ResponseSuccess),
         map(v => v.payload.tabs_info),
         switchMap(action => {
-            console.log(action.trabaja)
-            return (action.trabaja == 'S' && action.estudiante_solicitante == 'S') || (action.trabaja == 'N' && action.estudiante_solicitante == 'N') ?
-                of(new ShowOrHiddeApproved(true)) :
-                of(new SendTab2SubTab1ResponseNextStep())
+            return of(new ShowOrHiddeApproved(true));
         })
 
     )
 
     @Effect()
-    SendTab2SubTab1ResponseError$: Observable<Action> = this.actions$.pipe(
-        ofType<SendTab2SubTab1ResponseError>(ETabs2SubTab1ActionsTypes.SendTab2SubTab1ResponseError),
+    SendTab2SubTab2ResponseError$: Observable<Action> = this.actions$.pipe(
+        ofType<SendTab2SubTab2ResponseError>(ETabs2SubTab2ActionsTypes.SendTab2SubTab2ResponseError),
         map(err => err.payload.error),
         switchMap(error => [
             new OpenAlert({
@@ -64,8 +61,8 @@ export class Tab2SubTab1Effects {
     )
 
     @Effect()
-    SendTab2SubTab1ResponseNextStep$: Observable<Action> = this.actions$.pipe(
-        ofType<SendTab2SubTab1ResponseNextStep>(ETabs2SubTab1ActionsTypes.SendTab2SubTab1ResponseNextStep),
+    SendTab2SubTab2ResponseNextStep$: Observable<Action> = this.actions$.pipe(
+        ofType<SendTab2SubTab2ResponseNextStep>(ETabs2SubTab2ActionsTypes.SendTab2SubTab2ResponseNextStep),
         switchMap(error => [
             new OpenAlert({
                 open: true,

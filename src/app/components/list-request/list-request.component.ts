@@ -17,7 +17,8 @@ export class ListRequestComponent implements OnInit {
 
   credits = false;
 
-  @Input('type') type_list : any;
+  @Input('type') type_list: any;
+
   constructor(private store: Store<reducers.State>) { }
 
   ngOnInit() {
@@ -30,8 +31,8 @@ export class ListRequestComponent implements OnInit {
   routerLink(item) {
     if (item.etapa == 0) {
       return "/app/credit-application/" + item.numero_solicitud
-    } else {
-      return "/"
+    } else if (item.etapa == 3) {
+      return "/app/upload/" + item.numero_solicitud
     }
   }
 }

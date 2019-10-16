@@ -29,13 +29,13 @@
   transform: translateX(-50%) translateY(50%);
   bottom: -100%;
   width:  525px;
-  height: 48px;
+  min-height: 48px;
   border-radius: 8px;
   display: flex;
   align-items: center;
   max-width: 625px;
   // min-width: 525px;
-  padding: 0 1em;
+  padding: 1px 1em;
   border: 1px solid white;
   animation: showNotification 4s cubic-bezier(0.075, 0.82, 0.165, 1);
   max-width: 80%;
