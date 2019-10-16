@@ -47,6 +47,14 @@ ul {
   background: #d4d4d4;
 }
 
+.content-loading{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .blur-page {
   filter: blur(5px)
 }
@@ -324,6 +332,77 @@ input[type="number"] {
   position: relative;
 
   .button-next-tab {}
+}
+
+
+.content-buttons-next-back {
+  position: absolute;
+  width: auto;
+  height: auto;
+  right: 20px;
+  top: 70px;
+  display: flex;
+  align-items: center;
+
+  .back-button {
+    padding: 0;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      width: 50px;
+      height: 50px;
+    }
+  }
+
+  .btn-next {
+    height: 50px;
+    width: auto;
+    // border-radius: 50%;
+    display: flex;
+    align-items: center;
+    border: 2px solid #32BEFA;
+    padding: 0;
+    margin-left: 20px;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+    position: relative;
+
+    img {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+      position: absolute;
+      left: -2px;
+    }
+
+    span {
+      margin-right: 10px;
+      margin-left: 55px;
+      color: #32BEFA;
+      font-family: "GotHam Bold";
+      font-size: .9rem;
+    }
+
+
+    &.next-step {
+      background: #4DEB96;
+      border: 2px solid #4DEB96;
+
+      span {
+        color: white;
+      }
+    }
+  }
 }
 
 

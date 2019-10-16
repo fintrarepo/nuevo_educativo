@@ -11,6 +11,7 @@ import { LoadCitys } from '../../actions/platform.actions';
 import { shareReplay } from 'rxjs/operators';
 import { CreditsService } from '../../services/credits/credits.service';
 import * as moment from 'moment';
+import { OpenAlert } from '../../actions/alert.actions';
 
 @Component({
   selector: 'app-tab1-personal-information',
@@ -101,6 +102,14 @@ export class Tab1PersonalInformationComponent implements OnInit {
   }
 
   save() {
+    if (!this.form.valid) {
+      return this.store.dispatch(new OpenAlert({
+        open: true,
+        title: "Error",
+        subTitle: "Por favor verifica los campos e inténtalo nuevamente.",
+        type: "danger"
+      }))
+    }
     const data = this.buildDataForm()
     const action = new SendTab1SubTab1({
       tab: 1,

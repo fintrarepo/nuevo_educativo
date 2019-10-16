@@ -12,6 +12,8 @@ export enum PlatformActionTypes {
     LoadCitysResponse = '[Platform] LoadCitysResponse',
 
     ShowOrHiddeApproved = '[Platform] ShowOrHiddeApproved',
+
+    SetCurrentBussinees = '[Platform] SetCurrentBussinees',
 }
 
 
@@ -47,9 +49,16 @@ export class ShowOrHiddeApproved implements Action {
     constructor(public payload: boolean) { }
 }
 
+export class SetCurrentBussinees implements Action {
+    readonly type = PlatformActionTypes.SetCurrentBussinees;
+    constructor(public payload: any) { }
+}
 
 
-export type actions = ToggleBlurPage | InfoFormRequest | InfoFormRequestResponse | LoadCitys | LoadCitysResponse | ShowOrHiddeApproved ;
+
+
+
+export type actions = ToggleBlurPage | InfoFormRequest | InfoFormRequestResponse | LoadCitys | LoadCitysResponse | ShowOrHiddeApproved | SetCurrentBussinees;
 
 
 

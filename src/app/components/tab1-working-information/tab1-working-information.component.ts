@@ -7,6 +7,7 @@ import { SendTab1SubTab2 } from '../../actions/tab1SubTab2.actions';
 import { ActivatedRoute } from "@angular/router";
 import { UtilsService } from '../../services/utils/utils.service';
 import { CreditsService } from '../../services/credits/credits.service';
+import { SelecteTab1SubTab1 } from '../../actions/tabs.actions';
 
 @Component({
   selector: 'app-tab1-working-information',
@@ -33,7 +34,7 @@ export class Tab1WorkingInformationComponent implements OnInit {
       // "nit": ['', Validators.compose([Validators.maxLength(10)])],
       "cargo": ['', Validators.compose([Validators.maxLength(50)])],
       "tipo_contrato": ['', Validators.compose([Validators.maxLength(50)])],
-      "fecha_ingreso": ['', Validators.compose([Validators.maxLength(50)])],
+      "fecha_ingreso": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "direccion": ['', Validators.compose([Validators.maxLength(50)])],
       "telefono": ['', Validators.compose([Validators.maxLength(10), Validators.pattern('^[0-9]*$')])],
       // "email": ['', Validators.compose([Validators.maxLength(50), Validators.email])],
@@ -41,17 +42,17 @@ export class Tab1WorkingInformationComponent implements OnInit {
       // "comisiones_ing": ['', Validators.compose([Validators.maxLength(8), Validators.pattern('^[0-9]*$')])],
       // "honorarios_ing": ['', Validators.compose([Validators.maxLength(8), Validators.pattern('^[0-9]*$')])],
       // "arrendamientos_ing": ['', Validators.compose([Validators.maxLength(8), Validators.pattern('^[0-9]*$')])],
-      "otros_ingresos": ['', Validators.compose([Validators.maxLength(8), Validators.pattern('^[0-9]*$')])],
-      "total_activos": ['', Validators.compose([Validators.maxLength(8), Validators.pattern('^[0-9]*$')])],
-      "arriendo_egr": ['', Validators.compose([Validators.maxLength(8), Validators.pattern('^[0-9]*$')])],
-      "prestamo_xnomina": ['', Validators.compose([Validators.maxLength(8), Validators.pattern('^[0-9]*$')])],
-      "total_pasivos": ['', Validators.compose([Validators.maxLength(8), Validators.pattern('^[0-9]*$')])],
-      departamento: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
-      ciudad: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
-      tipo_via: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
-      via_principal: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
-      via_secundaria: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
-      numero: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
+      "otros_ingresos": [0, Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
+      "total_activos": [0, Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
+      "arriendo_egr": [0, Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
+      "prestamo_xnomina": [0, Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
+      "total_pasivos": [0, Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
+      departamento: ['', Validators.compose([Validators.maxLength(60)])],
+      ciudad: ['', Validators.compose([Validators.maxLength(60)])],
+      tipo_via: ['', Validators.compose([Validators.maxLength(60)])],
+      via_principal: ['', Validators.compose([Validators.maxLength(60)])],
+      via_secundaria: ['', Validators.compose([Validators.maxLength(60)])],
+      numero: ['', Validators.compose([Validators.maxLength(60)])],
       complementoDireccion: ['', Validators.compose([Validators.maxLength(160)])]
 
     });
@@ -69,20 +70,26 @@ export class Tab1WorkingInformationComponent implements OnInit {
 
   validateActivity(activity) {
     if (activity == 'EPLDO') {
-      this.form.controls['cargo'].setValidators([Validators.required, Validators.maxLength(100)])
-      this.form.controls['tipo_contrato'].setValidators([Validators.required, Validators.maxLength(50)])
-      this.form.controls['fecha_ingreso'].setValidators([Validators.required, Validators.maxLength(50)])
-      this.form.controls['direccion'].setValidators([Validators.required, Validators.maxLength(50)])
-      this.form.controls['telefono'].setValidators([Validators.required, Validators.maxLength(50)])
+
+      this.form.controls['cargo'].setValidators(Validators.required)
+      this.form.controls['tipo_contrato'].setValidators(Validators.required)
+      this.form.controls['direccion'].setValidators(Validators.required)
+      this.form.controls['telefono'].setValidators(Validators.required)
+
     } else {
-      this.form.controls['cargo'].setValidators([Validators.maxLength(100)])
-      this.form.controls['tipo_contrato'].setValidators([Validators.maxLength(50)])
-      this.form.controls['fecha_ingreso'].setValidators([Validators.maxLength(50)])
-      this.form.controls['direccion'].setValidators([Validators.maxLength(50)])
-      this.form.controls['telefono'].setValidators([Validators.maxLength(50)])
+      this.form.controls['cargo'].setValidators(Validators.compose([Validators.maxLength(100)]))
+      this.form.controls['tipo_contrato'].setValidators(Validators.compose([Validators.maxLength(100)]))
+
+      this.form.controls['direccion'].setValidators(Validators.compose([Validators.maxLength(100)]))
+      this.form.controls['telefono'].setValidators(Validators.compose([Validators.maxLength(100)]))
+
     }
 
-    this.form.updateValueAndValidity()
+    this.form.controls['cargo'].updateValueAndValidity()
+    this.form.controls['tipo_contrato'].updateValueAndValidity()
+    this.form.controls['direccion'].updateValueAndValidity()
+    this.form.controls['telefono'].updateValueAndValidity()
+
   }
 
   openForm(field) {
@@ -123,6 +130,11 @@ export class Tab1WorkingInformationComponent implements OnInit {
       }
     })
     this.store.dispatch(action)
+  }
+
+
+  back() {
+    this.store.dispatch(new SelecteTab1SubTab1())
   }
 
   validator(control) {

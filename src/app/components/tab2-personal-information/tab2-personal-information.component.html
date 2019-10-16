@@ -1,3 +1,24 @@
+<div class="content-buttons-next-back">
+  <button class="btn back-button" (click)="back()">
+    <img src="/assets/images/Icon_ChevronLeft.svg" alt="">
+  </button>
+  <!-- [disabled]="!this.form.valid" -->
+  <button class="btn btn-next" (click)="impForm()" [disabled]="!form.valid" *ngIf="!((this.form.controls.trabaja.value == 'S' && this.form.controls.estudiante_solicitante.value == 'S') 
+    || (this.form.controls.trabaja.value == 'N' && this.form.controls.estudiante_solicitante.value == 'N'))">
+    <img src="/assets/images/Icon_ChevronRight.svg" alt="">
+    <span>
+      SIGUIENTE FORMULARIO
+    </span>
+  </button>
+
+  <button class="btn btn-next next-step" (click)="impForm()" [disabled]="!form.valid"
+    *ngIf=" (this.form.controls.trabaja.value == 'S' && this.form.controls.estudiante_solicitante.value == 'S') || (this.form.controls.trabaja.value == 'N' && this.form.controls.estudiante_solicitante.value == 'N')">
+    <img src="/assets/images/Grupo 301.png" alt="">
+    <span>
+      FINALIZAR ETAPA
+    </span>
+  </button>
+</div>
 <form style="padding: 14px;" [formGroup]="form">
 
   <div class="block-form">
@@ -20,7 +41,7 @@
       </div>
       <div class="form-group col-md-6 col-lg-4" [hidden]="estudentIsApplicant">
         <label class="subtitle-form">N° identificación</label>
-        <input type="text" class="form-control" formControlName="identificacion">
+        <input type="number" class="form-control" formControlName="identificacion">
       </div>
       <div class="form-group col-md-6 col-lg-4" [hidden]="estudentIsApplicant">
         <label class="subtitle-form">Fecha de expedición</label>
@@ -251,12 +272,32 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row" style="padding-top:1.5em;">
     <div class="col-md-12 col-lg-12">
       <div class="d-flex justify-content-end">
-        <button class="btn btn-outline-info button-next-tab " (click)="impForm()">Siguiente Formulario</button>
+        <div class="content-buttons-next-back" style="position: static;">
+
+          <button class="btn btn-next" (click)="impForm()" [disabled]="!form.valid" *ngIf="!((this.form.controls.trabaja.value == 'S' && this.form.controls.estudiante_solicitante.value == 'S') 
+            || (this.form.controls.trabaja.value == 'N' && this.form.controls.estudiante_solicitante.value == 'N'))">
+            <img src="/assets/images/Icon_ChevronRight.svg" alt="">
+            <span>
+              SIGUIENTE FORMULARIO
+            </span>
+          </button>
+
+          <button class="btn btn-next next-step" (click)="impForm()" [disabled]="!form.valid"
+            *ngIf=" (this.form.controls.trabaja.value == 'S' && this.form.controls.estudiante_solicitante.value == 'S') || (this.form.controls.trabaja.value == 'N' && this.form.controls.estudiante_solicitante.value == 'N')">
+            <img src="/assets/images/Grupo 301.png" alt="">
+            <span>
+              FINALIZAR ETAPA
+            </span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
+
+
+
 
 </form>

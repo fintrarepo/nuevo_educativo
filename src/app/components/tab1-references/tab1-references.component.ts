@@ -5,7 +5,8 @@ import { OpenForm, ClosedForm } from '../../actions/address-form.actions';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { SendTab1SubTab3 } from '../../actions/tab1SubTab3.actions';
 import { ActivatedRoute } from "@angular/router";
-import { CreditsService } from '../../services/credits/credits.service'
+import { CreditsService } from '../../services/credits/credits.service';
+import { SelecteTab1SubTab2 } from '../../actions/tabs.actions';
 @Component({
   selector: 'app-tab1-references',
   templateUrl: './tab1-references.component.html',
@@ -100,6 +101,10 @@ export class Tab1ReferencesComponent implements OnInit {
       ]
     })
     this.store.dispatch(action)
+  }
+
+  back(){
+    this.store.dispatch( new SelecteTab1SubTab2())
   }
 
   addressLoaded(address) {

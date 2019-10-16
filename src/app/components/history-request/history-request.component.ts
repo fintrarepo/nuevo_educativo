@@ -7,8 +7,9 @@ import { CreditsService } from '../../services/credits/credits.service';
   styleUrls: ['./history-request.component.scss']
 })
 export class HistoryRequestComponent implements OnInit {
-  @Input() history: any[];
-
+  @Input('history') history: any[];
+  @Input('loading') loading: any;
+  
   constructor(private serv: CreditsService ) { }
 
   ngOnInit() {

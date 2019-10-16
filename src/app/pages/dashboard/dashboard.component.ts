@@ -15,6 +15,8 @@ export class DashboardComponent implements OnInit {
   type_list: String;
   credits: boolean = false;
   historyc: any[] = [];
+
+  showLoadingHistory: boolean = false;
   constructor(private route: ActivatedRoute, private router: Router, private store: Store<reducers.State>,
     private creditserv: CreditsService, public auth: AuthService) {
     router.events.subscribe((val) => {
@@ -39,8 +41,10 @@ export class DashboardComponent implements OnInit {
   }
 
   getHistory(data?: any) {
+    this.showLoadingHistory = true;
     this.creditserv.loanHistory(data).subscribe(history => {
       this.historyc = history;
+      this.showLoadingHistory = false;
     });
   }
 

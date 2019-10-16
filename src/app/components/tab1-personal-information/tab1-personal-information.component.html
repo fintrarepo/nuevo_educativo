@@ -1,3 +1,12 @@
+<div class="content-buttons-next-back">
+
+  <button class="btn btn-next" (click)="save()" [disabled]="!this.form.valid">
+    <img src="/assets/images/Icon_ChevronRight.svg" alt="">
+    <span>
+      SIGUIENTE FORMULARIO
+    </span>
+  </button>
+</div>
 <form style="padding: 14px;" [formGroup]="form">
 
   <div class="block-form">
@@ -189,7 +198,15 @@
   <div class="row">
     <div class="col-md-12 col-lg-12">
       <div class="d-flex justify-content-end">
-        <button class="btn btn-outline-info button-next-tab " (click)="save()">Siguiente Formulario</button>
+        <div class="content-buttons-next-back" style="position: static;">
+
+          <button class="btn btn-next" (click)="save()" [disabled]="!this.form.valid">
+            <img src="/assets/images/Icon_ChevronRight.svg" alt="">
+            <span>
+              SIGUIENTE FORMULARIO
+            </span>
+          </button>
+        </div>
       </div>
     </div>
   </div>

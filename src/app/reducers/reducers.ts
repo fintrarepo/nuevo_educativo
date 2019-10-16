@@ -94,6 +94,11 @@ export const isApproved = createSelector(
     fromPlatform.getPlatformIsApproved
 )
 
+export const currentBussiness = createSelector(
+    getPlatformState,
+    fromPlatform.getCurrentBussinness
+)
+
 
 
 //TABS

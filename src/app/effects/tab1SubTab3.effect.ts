@@ -41,13 +41,13 @@ export class Tab1SubTab3Effects {
     SendTab1SubTab3ResponseSuccess$: Observable<Action> = this.actions$.pipe(
         ofType<SendTab1SubTab3ResponseSuccess>(ETabs1SubTab3ActionsTypes.SendTab1SubTab3ResponseSuccess),
         switchMap(error => [
-            new SelecteTab2SubTab1(),
             new OpenAlert({
                 open: true,
                 title: "Listo",
                 subTitle: "Todos los cambios fueron guardados satisfactoriamente.",
                 type: "success"
             }),
+            new SelecteTab2SubTab1()
 
         ])
     )

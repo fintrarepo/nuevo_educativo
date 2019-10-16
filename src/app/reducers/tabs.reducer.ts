@@ -10,7 +10,7 @@ export const tabsReducer = (state = Tabs, action: TabsActions.actions): ITabs =>
     switch (action.type) {
         case TabsTypes.SelecteTab1: {
             return {
-                ...state,
+                ...Tabs,
                 tab1: {
                     active: true,
                     disabled: false
@@ -24,7 +24,7 @@ export const tabsReducer = (state = Tabs, action: TabsActions.actions): ITabs =>
         }
         case TabsTypes.SelecteTab2: {
             return {
-                ...state,
+                ...Tabs,
 
                 tab2: {
                     active: true,
@@ -35,7 +35,7 @@ export const tabsReducer = (state = Tabs, action: TabsActions.actions): ITabs =>
 
         case TabsTypes.SelecteTab1SubTab1: {
             return {
-                ...state,
+                ...Tabs,
                 tab1: {
                     active: true,
                     disabled: false
@@ -50,16 +50,16 @@ export const tabsReducer = (state = Tabs, action: TabsActions.actions): ITabs =>
 
         case TabsTypes.SelecteTab1SubTab2: {
             return {
-                ...state,
+                ...Tabs,
                 tab1: {
                     active: true,
                     disabled: false
                 },
-                tab1SubTab1: {
-                    active: false,
-                    disabled: false
+                // tab1SubTab1: {
+                //     active: false,
+                //     disabled: false
 
-                },
+                // },
                 tab1SubTab2: {
                     active: true,
                     disabled: false
@@ -69,20 +69,20 @@ export const tabsReducer = (state = Tabs, action: TabsActions.actions): ITabs =>
 
         case TabsTypes.SelecteTab1SubTab3: {
             return {
-                ...state,
+                ...Tabs,
                 tab1: {
                     active: true,
                     disabled: false
                 },
-                tab1SubTab1: {
-                    active: false,
-                    disabled: false
+                // tab1SubTab1: {
+                //     active: false,
+                //     disabled: false
 
-                },
-                tab1SubTab2: {
-                    active: false,
-                    disabled: false
-                },
+                // },
+                // tab1SubTab2: {
+                //     active: false,
+                //     disabled: false
+                // },
                 tab1SubTab3: {
                     active: true,
                     disabled: false
@@ -94,25 +94,25 @@ export const tabsReducer = (state = Tabs, action: TabsActions.actions): ITabs =>
 
         case TabsTypes.SelecteTab2SubTab1: {
             return {
-                ...state,
+                ...Tabs,
                 tab2: {
                     active: true,
                     disabled: false
                 },
-                tab1SubTab1: {
-                    active: false,
-                    disabled: false
+                // tab1SubTab1: {
+                //     active: false,
+                //     disabled: false
 
-                },
-                tab1SubTab2: {
-                    active: false,
-                    disabled: false
-                },
-                tab1SubTab3: {
-                    active: false,
-                    disabled: false
+                // },
+                // tab1SubTab2: {
+                //     active: false,
+                //     disabled: false
+                // },
+                // tab1SubTab3: {
+                //     active: false,
+                //     disabled: false
 
-                },
+                // },
                 tab2SubTab1: {
                     active: true,
                     disabled: false
@@ -123,29 +123,29 @@ export const tabsReducer = (state = Tabs, action: TabsActions.actions): ITabs =>
 
         case TabsTypes.SelecteTab2SubTab2: {
             return {
-                ...state,
+                ...Tabs,
                 tab2: {
                     active: true,
                     disabled: false
                 },
-                tab1SubTab1: {
-                    active: false,
-                    disabled: false
+                // tab1SubTab1: {
+                //     active: false,
+                //     disabled: false
 
-                },
-                tab1SubTab2: {
-                    active: false,
-                    disabled: false
-                },
-                tab1SubTab3: {
-                    active: false,
-                    disabled: false
+                // },
+                // tab1SubTab2: {
+                //     active: false,
+                //     disabled: false
+                // },
+                // tab1SubTab3: {
+                //     active: false,
+                //     disabled: false
 
-                },
-                tab2SubTab1: {
-                    active: false,
-                    disabled: false
-                },
+                // },
+                // tab2SubTab1: {
+                //     active: false,
+                //     disabled: false
+                // },
                 tab2SubTab2: {
                     active: true,
                     disabled: false
