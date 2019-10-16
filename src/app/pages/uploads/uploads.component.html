@@ -2,28 +2,53 @@
   <h1 class="title-form">Documentos por Adjuntar</h1>
   <p >Adjunta los documentos aquí. Todos tus documentos se guardarán automáticamente</p>
 
-  <div class="files-content">
+  <!-- <div class="files-content">
     <div class="file">
       <div>
         <img src="/assets/images/Icon_Adjuntar 1.svg" alt="">
         <p>Documento Identidad solicitante ampliada al 150% (Frontal)</p>
       </div>
-      <button class="btn btn-outline button-blue">Adjuntar</button>
+        <input type="file"
+               style="display: none"
+               id="frontal" 
+               #fileInputFron (change)=onFileSelected($event)>
+      <button class="btn btn-outline button-blue" (click)='fileInputFron.click()'>Adjuntar</button>
     </div>
     <div class="file">
       <div>
-        <img src="/assets/images/Icon_Adjuntar 2.svg" alt="">
+        <img src="/assets/images/Icon_Adjuntar 2.svg" alt="">        
         <p>Documento Identidad solicitante ampliada al 150% (Reverso)</p>
       </div>
-
-      <button class="btn btn-outline button-blue">Adjuntar</button>
+      <input type="file" 
+             style="display: none" 
+             id="reverso" 
+             #fileInputRev 
+             (change)=onFileSelected($event)>
+      <button class="btn btn-outline button-blue" (click)='fileInputRev.click()'>Adjuntar</button>
     </div>
     <div class="file">
       <div>
         <img src="/assets/images/Icon_Adjuntar 3.svg" alt="">
         <p>Volante de Matrícula</p>
       </div>
-      <button class="btn btn-outline button-blue">Adjuntar</button>
+      <input type="file" 
+             style="display: none" 
+             id="volante" 
+             #volante 
+             (change)=onFileSelected($event)>
+      <button class="btn btn-outline button-blue" (click)='volante.click()'>Adjuntar</button>
     </div>
+  </div> -->
+
+  <div class="files-content" *ngFor="let list of listFiles">
+    <div class="file">
+      <div>
+        <img src="{{ path + ''+ list.icon + '.svg'}}" alt="">
+        <p>{{list.descripcion}}</p>
+      </div>
+      <input type="file" style="display: none" #fileInputFron (change)="onFileSelected(list, $event)">
+      <button class="btn btn-outline button-blue" (click)='fileInputFron.click()' [ngClass]="list.url != '' ? 'up' : ''" >Adjuntar</button>
+    </div>    
   </div>
+
 </div>
