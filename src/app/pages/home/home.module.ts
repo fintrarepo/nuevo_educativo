@@ -12,6 +12,7 @@ import { DashboardComponent } from '../dashboard/dashboard.component';
 import { UploadsComponent } from '../uploads/uploads.component';
 import { CreditApplicationComponent } from '../credit-application/credit-application.component';
 import { NewRequestComponent } from '../new-request/new-request.component';
+import { RegisterComponent } from '../register/register.component';
 
 
 //Components
@@ -73,7 +74,13 @@ const routes: Routes = [
       {
         path: 'new-request',
         component: NewRequestComponent
+      },
+
+      {
+        path: 'register',
+        component: RegisterComponent
       }
+
     ],
   },
   { path: '**', redirectTo: 'upload' }
@@ -89,6 +96,7 @@ const pagesComponets = [
   UploadsComponent,
   CreditApplicationComponent,
   NewRequestComponent,
+  RegisterComponent
 ]
 
 const components = [

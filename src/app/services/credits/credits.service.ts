@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '../http/http.service';
-import { ISimulator, IPreApplication } from '../../models/credits.model';
-
+import { ISimulator, IPreApplication, listFile } from '../../models/credits.model';
+import { HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
 export class CreditsService {
-
+  private options = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
   constructor(private http: HttpService) { }
 
 
@@ -36,6 +40,18 @@ export class CreditsService {
 
   loadCitys(cod_dpto) {
     return this.http.post('/webresources/form/get_city', { cod_dpto })
+  }
+
+  loadFileList(data: listFile) {
+    return this.http.get('http://piloto.fintra.co:8094/fintra/EndPointCoreServlet?'
+      + 'option=' + data.option
+      + '&numero_solicitud=' + data.numero_solicitud
+      + '&user=' + data.user
+      + '&und_negocio=' + data.und_negocio, this.options);
+  }
+
+  uploadImage(data, options) {
+    return this.http.post('/FileUploadServlet', data, options);
   }
 
 }

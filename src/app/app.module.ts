@@ -19,6 +19,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { NotApprovedComponent } from './pages/not-approved/not-approved.component';
 import { ApprovedComponent } from './pages/approved/approved.component';
+import { RegisterComponent } from './pages/register/register.component';
 
 //Component
 import { AlertsComponent } from './components/alerts/alerts.component';
@@ -42,6 +43,7 @@ import { Tab1SubTab2Effects } from './effects/tab1SubTab2.effect';
 import { Tab1SubTab3Effects } from './effects/tab1SubTab3.effect';
 import { Tab2SubTab1Effects } from './effects/tab2SubTab1.effects';
 import { Tab2SubTab2Effects } from './effects/tab2SubTab2.effects';
+
 
 
 
@@ -79,7 +81,8 @@ const NGRX_IMPORTS = [
     NotApprovedComponent,
     ApprovedComponent,
     RecoverPasswordComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

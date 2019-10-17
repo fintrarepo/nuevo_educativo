@@ -1,3 +1,11 @@
+export interface listFile {
+    'option': number,
+    'numero_solicitud': String,
+    'user': String,
+    'und_negocio': number
+}
+
+
 export interface ISimulator {
     "monto": number,
     "num_cuotas": number,

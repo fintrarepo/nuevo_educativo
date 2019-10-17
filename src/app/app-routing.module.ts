@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './pages/login/login.component'
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from "./pages/register/register.component";
 import { NotApprovedComponent } from './pages/not-approved/not-approved.component';
 import { ApprovedComponent } from './pages/approved/approved.component';
 
@@ -16,6 +17,10 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent,
     canActivate: [NoAuthGuard]
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
   },
   {
     path: 'not-approved',

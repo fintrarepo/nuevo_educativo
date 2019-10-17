@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   apiPath: "http://piloto.fintra.co:8084/fintracredit"
 };
-
+// apiPath: "http://192.168.140.65:8084/fintracredit"
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
