@@ -46,8 +46,8 @@ $width_sidebar : 260px;
     cursor: pointer;
 
     img {
-      width: 100%;
-      height: 100%;
+      width: 70%;
+      height: 70%;
     }
   }
 
@@ -151,7 +151,53 @@ $width_sidebar : 260px;
 }
 
 
+@media (max-width: 1440px) {
+  #content{
+    .navbar{
 
+      h5.dark-blue-font{
+        font-size: .8rem !important;
+      }
+      h5.dark-blue-font.small{
+        font-size: .6rem !important;
+      }
+    }
+  }
+  #sidebar {
+    position: fixed;
+    left: -240px;
+
+    #menu-toggle {
+      display: block !important;
+    }
+
+
+    .list-menu {
+      li {
+        width: calc(100% - 20px);
+      }
+    }
+  }
+
+  #sidebar.show-menu {
+    left: 0;
+  }
+
+  #content {
+    width: calc(100% - 20px);
+    left: 20px;
+    // background: white;
+  }
+
+  #section {
+    box-shadow: none;
+    margin-top: 0;
+    width: calc(100% - 30px);
+    top: 80px;
+  }
+  
+  
+}
 // Tablets
 @media (max-width: 768.98px) {
 

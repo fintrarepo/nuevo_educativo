@@ -156,12 +156,15 @@ export class Tab2PersonalInformationComponent implements OnInit {
     if (newAddress.fieldDestinity == "tab2SubTab1") {
       if (newAddress.departamento == '') return;
       for (let i in newAddress) {
-        if (this.form.controls[i])
+        if (this.form.controls[i]) {
           this.form.controls[i].setValue(newAddress[i])
+          this.form.controls[i].updateValueAndValidity();
+        }
+
       }
       let complemento = newAddress.complemento ? newAddress.complemento : ''
       this.form.controls.direccion.setValue(newAddress.tipo_via + " " + newAddress.via_principal + " #" + newAddress.via_secundaria + " - " + newAddress.numero + " " + complemento)
-      this.form.updateValueAndValidity();
+      this.form.controls.direccion.updateValueAndValidity();
 
       this.loadNeighborhood(newAddress.ciudad)
     }
@@ -183,7 +186,7 @@ export class Tab2PersonalInformationComponent implements OnInit {
 
   enabledFileds(enable) {
     this.estudentIsApplicant = enable;
-    const validator = enable ? [Validators.maxLength(100)] : [Validators.maxLength(20), Validators.required]
+    const validator = enable ? [Validators.maxLength(100)] : [Validators.maxLength(120), Validators.required]
     this.form.controls.tipo_id.setValidators(validator);
     this.form.controls.identificacion.setValidators(validator);
     this.form.controls.fecha_expedicion_id.setValidators(validator);
