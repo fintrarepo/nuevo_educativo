@@ -1,0 +1,120 @@
+<div id="wrapper-login" [ngClass]="{'blur-page': (blurPage$ | async)}">
+    <div class="login-center-wrapper">
+        <form [formGroup]="registerForm" (submit)="register($event)">
+            <img src="/assets/images/Logo Fintra.svg" alt="Fintra Educativo Logo" title="Fintra Educativo Logo">
+            <h1>Abre una cuenta</h1>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <!--esto no va -->
+                        <div class="fusion-builder-row fusion-row">
+                            <form id="presolicitud">
+                                <div class="row">
+                                    <div class="col-md-6 form--izq">
+                                        <div class="form-group">
+                                            <label for="ciudad">Cedula</label>
+                                            <select class="form-control" id="citys" onblur="validateFlied(this)"
+                                                required>
+                                                <option disabled selected value></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 form--der">
+                                        <div class="form-group">
+                                            <label for="fecha-pago">Identificacion</label>
+                                            <input type="text" class="form-control" id="monto"
+                                                onblur="validateFlied(this)" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 form--izq">
+                                        <div class="form-group">
+                                            <label for="institución-educativa">Fecha Expedicion:</label>
+                                            <input type="text" class="form-control" id="monto"
+                                                onblur="validateFlied(this)" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 form--der">
+                                        <div class="form-group">
+                                            <label for="tipo-carrera">Ciudad de estudio:</label>
+                                            <select class="form-control" id="tipo_carrera" onblur="validateFlied(this)"
+                                                required>
+                                                <option disabled selected value></option>
+                                                <option value="PREGRADO">Pregrado</option>
+                                                <option value="POSGRADO">Posgrado</option>
+                                                <option value="CONTINUADA">Educación Continuada</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 form--izq">
+                                        <div class="form-group">
+                                            <label for="valor-semestre">Primer nombre:</label>
+                                            <input type="text" class="form-control" id="monto"
+                                                onblur="validateFlied(this)" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 form--der">
+                                        <div class="form-group">
+                                            <label for="plazo-carrera">Primer apellido:</label>
+                                            <input type="text" class="form-control" id="monto" onblur="validateFlied(this)" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 form--izq">
+                                        <div class="form-group">
+                                            <label for="email">Correo electrónico:</label>
+                                            <input id="email" class="form-control" title="" onblur="validateFlied(this)"
+                                                name="email" type="email" required />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 form--der">
+                                        <div class="form-group">
+                                            <label for="identificacion">Contraseña:</label>
+                                            <input type="text" class="form-control" id="identificacion"
+                                                onblur="validateFlied(this)" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 form--izq">
+                                        <div class="form-group">
+                                            <label for="fecha-exp">Validar Contraseña:</label>
+                                            <input type="text" class="form-control" id="fecha_expedicion"
+                                                name="fecha_expedicion" required readonly>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </form>
+
+    </div>
+</div>
+<footer class="footer-login">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-sm-1 column-footer d-sm-block d-none d-sm-block"></div>
+            <div class="col-lg-5 col-sm-6 column-footer text-center d-none d-sm-block">
+                <span class="text-footer">
+                    ¡Ahora es más fácil, ágil y rápido!
+                </span>
+            </div>
+
+            <div class="col-lg-1 col-sm-1 column-footer d-sm-block d-none d-sm-block"></div>
+            <div class="col-lg-2 col-sm-4 column-footer">
+                <button class="btn btn-outline button-outline-border-orange">SOLICITA TU CRÉDITO</button>
+            </div>
+        </div>
+    </div>
+
+</footer>

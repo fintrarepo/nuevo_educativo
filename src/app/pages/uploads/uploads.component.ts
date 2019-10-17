@@ -6,6 +6,7 @@ import { promise } from 'protractor';
 import { resolve, reject } from 'q';
 import { HttpHeaders, HttpEventType } from '@angular/common/http';
 
+
 @Component({
   selector: 'app-uploads',
   templateUrl: './uploads.component.html',
@@ -15,7 +16,10 @@ export class UploadsComponent implements OnInit {
   attached: boolean;
   selectedFile: any = null;
   listFiles: any = [];
+  public adj = 'Adjuntar';
+  public adt = 'Adjuntado';
   path = '/assets/images/Icon_Adjuntar ';
+  isLoading: boolean = true;
   constructor(private creditService: CreditsService, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -30,7 +34,9 @@ export class UploadsComponent implements OnInit {
       und_negocio: 31
     };
     this.creditService.loadFileList(params).subscribe(list => {
+      this.isLoading = false;
       this.listFiles = list.data.filter(x => x.visible === 'S');
+      
     });
   }
 
