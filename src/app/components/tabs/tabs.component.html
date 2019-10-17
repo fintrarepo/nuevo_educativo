@@ -1,41 +1,42 @@
 <ngb-tabset class="first-level" #toptaps [destroyOnHide]="false" (tabChange)="beforeChange($event)">
 
-  <ngb-tab [title]="'INFORMACIÓN SOLICITANTE'" [disabled]="tabs?.tab1?.disabled" id='tab1'>
+  <ngb-tab [title]="'INFORMACIÓN SOLICITANTE'" [disabled]="disabledTab1" id='tab1'>
     <ng-template ngbTabContent>
       <ngb-tabset class="second-level" #tabs (tabChange)="beforeChange($event)" [destroyOnHide]="false">
-        <ngb-tab [title]="'INFORMACIÓN PERSONAL'" [disabled]="tabs?.tab1SubTab1?.disabled" id="tab1SubTab1">
+
+        <ngb-tab [title]="'INFORMACIÓN PERSONAL'" [disabled]="disabledTab1SubTab1" id="tab1SubTab1">
           <ng-template ngbTabContent>
 
             <app-tab1-personal-information></app-tab1-personal-information>
           </ng-template>
         </ngb-tab>
-        <ngb-tab [title]="'INFORMACIÓN LABORAL'" [disabled]="tabs?.tab1SubTab2?.disabled" id="tab1SubTab2">
+        <ngb-tab [title]="'INFORMACIÓN LABORAL'" [disabled]="disabledTab1SubTab2" id="tab1SubTab2">
           <ng-template ngbTabContent>
             <app-tab1-working-information></app-tab1-working-information>
           </ng-template>
         </ngb-tab>
-        <ngb-tab [title]="'REFERENCIAS'" [disabled]="tabs?.tab1SubTab3?.disabled" id="tab1SubTab3"
-          (click)="test($event)">
+        <ngb-tab [title]="'REFERENCIAS'" [disabled]="disabledTab1SubTab3" id="tab1SubTab3">
           <ng-template ngbTabContent>
             <app-tab1-references></app-tab1-references>
           </ng-template>
         </ngb-tab>
+
       </ngb-tabset>
     </ng-template>
   </ngb-tab>
 
 
-  <ngb-tab [title]="'INFORMACIÓN ESTUDIANTE'" id='tab2'>
+  <ngb-tab [title]="'INFORMACIÓN ESTUDIANTE'" id='tab2' [disabled]="disabledTab2">
     <ng-template ngbTabContent>
       <ngb-tabset class="second-level" #tabs2 (tabChange)="beforeChange($event)" [destroyOnHide]="false">
 
-        <ngb-tab [title]="'INFORMACIÓN ESTUDIANTE'" id='tab2SubTab1'>
+        <ngb-tab [title]="'INFORMACIÓN ESTUDIANTE'" id='tab2SubTab1' [disabled]="disabledTab2SubTab1">
           <ng-template ngbTabContent>
             <app-tab2-personal-information></app-tab2-personal-information>
           </ng-template>
         </ngb-tab>
 
-        <ngb-tab [title]="'INFORMACIÓN LABORAL ESTUDIANTE'" id='tab2SubTab2'>
+        <ngb-tab [title]="'INFORMACIÓN LABORAL ESTUDIANTE'" id='tab2SubTab2' [disabled]="disabledTab2SubTab2">
           <ng-template ngbTabContent>
             <app-tab2-working-information></app-tab2-working-information>
           </ng-template>
@@ -45,6 +46,5 @@
     </ng-template>
   </ngb-tab>
 
- 
-</ngb-tabset>
 
+</ngb-tabset>

@@ -26,7 +26,6 @@ import { Tab2PersonalInformationComponent } from '../../components/tab2-personal
 import { Tab2WorkingInformationComponent } from '../../components/tab2-working-information/tab2-working-information.component';
 import { EvidentComponent } from '../../components/evident/evident.component';
 import { PopupApprovedComponent } from '../../components/popup-aproved/popup-approved.component';
-import { RequestComponent } from '../../components/request/request.component';
 import { HistoryRequestComponent } from '../../components/history-request/history-request.component';
 
 import { CreditComponent } from '../../components/credit/credit.component';
