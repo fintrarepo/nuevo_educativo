@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validator, FormGroup } from "@angular/forms";
 
 
 @Component({
@@ -8,7 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+  registerForm: FormGroup;
+
+  constructor(public formBuilder: FormBuilder) { 
+    this.registerForm = formBuilder.group({
+
+    });
+  }
 
   ngOnInit() {
   }
