@@ -1,11 +1,11 @@
 export interface iAddressForm {
-    visible: false;
+    visible: boolean;
     departamento: String;
     ciudad: String;
     tipo_via: String;
     via_principal: String;
-    numero_1: String;
-    numero_2: String;
+    via_secundaria: String;
+    numero: String;
     complemento?: String;
     fieldDestinity: String
 

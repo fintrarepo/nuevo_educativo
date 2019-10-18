@@ -53,7 +53,7 @@ export class Tab1WorkingInformationComponent implements OnInit {
       via_principal: ['', Validators.compose([Validators.maxLength(60)])],
       via_secundaria: ['', Validators.compose([Validators.maxLength(60)])],
       numero: ['', Validators.compose([Validators.maxLength(60)])],
-      complementoDireccion: ['', Validators.compose([Validators.maxLength(160)])]
+      complemento: ['', Validators.compose([Validators.maxLength(160)])]
 
     });
     this.business = this.route.snapshot.paramMap.get("id");
@@ -94,6 +94,14 @@ export class Tab1WorkingInformationComponent implements OnInit {
 
   openForm(field) {
     this.store.dispatch(new OpenForm({
+      departamento: this.form.controls.departamento.value,
+      ciudad: this.form.controls.ciudad.value,
+      complemento: this.form.controls.complemento.value,
+      via_principal: this.form.controls.via_principal.value,
+      via_secundaria: this.form.controls.via_secundaria.value,
+      tipo_via: this.form.controls.tipo_via.value,
+      visible: true,
+      numero: this.form.controls.numero.value,
       fieldDestinity: "tab1SubTab2" + field
     }));
   }
@@ -108,7 +116,8 @@ export class Tab1WorkingInformationComponent implements OnInit {
       if (this.form.controls[i])
         this.form.controls[i].setValue(address[i])
     }
-    this.form.controls.direccion.setValue(address.tipo_via + " " + address.via_principal + " #" + address.via_secundaria + " - " + address.numero + " " + address.complemento)
+    let complemento = address.complemento ? address.complemento : ''
+    this.form.controls.direccion.setValue(address.tipo_via + " " + address.via_principal + " #" + address.via_secundaria + " - " + address.numero + " " + complemento)
     this.form.updateValueAndValidity()
   }
 

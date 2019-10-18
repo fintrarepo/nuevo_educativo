@@ -13,7 +13,8 @@ export class ChangePasswordComponent implements OnInit {
 
   password: String = '';
   password_validation: String = '';
-
+  blurPassword: boolean = false;
+  
   isOpenPassword$ = this.store.select(reducers.getAuthIsOpenChangePassword)
 
   constructor(private store: Store<reducers.State>) { }

@@ -1,4 +1,4 @@
-<div class="content-buttons-next-back">
+<div class="content-buttons-next-back top">
   <button class="btn back-button" (click)="back()">
     <img src="/assets/images/Icon_ChevronLeft.svg" alt="">
   </button>
@@ -239,7 +239,7 @@
 
   <div class="block-form">
     <h1 class="title-form_" [hidden]="tab2?.disabled">Información Institucíon Educativa</h1>
-    <h2 class="univ">(Fundacion Universidad del Norte)</h2>
+    <h2 class="univ">({{form.controls.universidad.value}})</h2>
     <div class="form-row">
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Tipo de carrera</label>
@@ -276,7 +276,9 @@
     <div class="col-md-12 col-lg-12">
       <div class="d-flex justify-content-end">
         <div class="content-buttons-next-back" style="position: static;">
-
+          <button class="btn back-button" (click)="back()">
+            <img src="/assets/images/Icon_ChevronLeft.svg" alt="">
+          </button>
           <button class="btn btn-next" (click)="impForm()" [disabled]="!form.valid" *ngIf="!((this.form.controls.trabaja.value == 'S' && this.form.controls.estudiante_solicitante.value == 'S') 
             || (this.form.controls.trabaja.value == 'N' && this.form.controls.estudiante_solicitante.value == 'N'))">
             <img src="/assets/images/Icon_ChevronRight.svg" alt="">

@@ -49,7 +49,7 @@ export class Tab1ReferencesComponent implements OnInit {
       via_principal_p: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
       via_secundaria_p: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
       numero_p: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
-      complementoDireccion_p: ['', Validators.compose([Validators.maxLength(160)])],
+      complemento_p: ['', Validators.compose([Validators.maxLength(160)])],
 
       departamento_f: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
       ciudad_f: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
@@ -57,7 +57,7 @@ export class Tab1ReferencesComponent implements OnInit {
       via_principal_f: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
       via_secundaria_f: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
       numero_f: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
-      complementoDireccion_f: ['', Validators.compose([Validators.maxLength(160)])]
+      complemento_f: ['', Validators.compose([Validators.maxLength(160)])]
     });
     this.addressState$.subscribe(this.addressLoaded.bind(this))
   }
@@ -71,8 +71,21 @@ export class Tab1ReferencesComponent implements OnInit {
 
 
   openForm(field) {
+    const type = field == 'direccion_f' ? '_f' : '_p';
+
+    const address = {
+      departamento: this.form.controls['departamento' + type].value,
+      ciudad: this.form.controls['ciudad' + type].value,
+      complemento: this.form.controls['complemento' + type].value,
+      via_principal: this.form.controls['via_principal' + type].value,
+      via_secundaria: this.form.controls['via_secundaria' + type].value,
+      tipo_via: this.form.controls['tipo_via' + type].value,
+      visible: true,
+      numero: this.form.controls['numero' + type].value,
+    }
     this.store.dispatch(new OpenForm({
-      fieldDestinity: "tab1SubTab3" + field
+      fieldDestinity: "tab1SubTab3" + field,
+      ...address
     }));
   }
 
@@ -103,8 +116,8 @@ export class Tab1ReferencesComponent implements OnInit {
     this.store.dispatch(action)
   }
 
-  back(){
-    this.store.dispatch( new SelecteTab1SubTab2())
+  back() {
+    this.store.dispatch(new SelecteTab1SubTab2())
   }
 
   addressLoaded(address) {
@@ -117,7 +130,8 @@ export class Tab1ReferencesComponent implements OnInit {
         if (this.form.controls[i + tipoReference])
           this.form.controls[i + tipoReference].setValue(newAddress[i])
       }
-      this.form.controls['direccion' + tipoReference].setValue(newAddress.tipo_via + " " + newAddress.via_principal + " #" + newAddress.via_secundaria + " - " + newAddress.numero + " " + newAddress.complementoDireccion)
+      let complemento = newAddress.complemento ? newAddress.complemento : ''
+      this.form.controls['direccion' + tipoReference].setValue(newAddress.tipo_via + " " + newAddress.via_principal + " #" + newAddress.via_secundaria + " - " + newAddress.numero + " " + complemento)
       this.form.updateValueAndValidity();
     }
   }
@@ -145,7 +159,7 @@ export class Tab1ReferencesComponent implements OnInit {
       via_principal: this.form.controls['via_principal_' + type].value,
       via_secundaria: this.form.controls['via_secundaria_' + type].value,
       numero: this.form.controls['numero_' + type].value,
-      complemento: this.form.controls['complementoDireccion_' + type].value,
+      complemento: this.form.controls['complemento_' + type].value,
     }
   }
 

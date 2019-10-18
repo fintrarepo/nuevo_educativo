@@ -33,6 +33,8 @@ export class Tab2PersonalInformationComponent implements OnInit {
   citys$ = this.store.select(reducers.citys);
   addressState$ = this.store.select(reducers.getAddressFormState);
 
+  currentBussinees$ = this.store.select(reducers.currentBussiness)
+
   constructor(private store: Store<reducers.State>,
     public formBuilder: FormBuilder,
     private credits: CreditsService,
@@ -80,7 +82,7 @@ export class Tab2PersonalInformationComponent implements OnInit {
       via_secundaria: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
       numero: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
       complemento: ['', Validators.compose([Validators.maxLength(160)])],
-      universidad: ['Universidad del Norte']
+      universidad: ['']
     });
 
     this.citys$.subscribe(this.citysLoaded.bind(this))
@@ -89,6 +91,10 @@ export class Tab2PersonalInformationComponent implements OnInit {
     this.form.controls.estudiante_solicitante.valueChanges
       .subscribe(this.studenWorking.bind(this))
 
+    this.currentBussinees$.subscribe(data => {
+      if (!data) return
+      this.form.controls.universidad.setValue(data.payment_name);
+    })
 
   }
 
@@ -107,6 +113,14 @@ export class Tab2PersonalInformationComponent implements OnInit {
 
   openForm() {
     this.store.dispatch(new OpenForm({
+      departamento: this.form.controls.departamento.value,
+      ciudad: this.form.controls.ciudad.value,
+      complemento: this.form.controls.complemento.value,
+      via_principal: this.form.controls.via_principal.value,
+      via_secundaria: this.form.controls.via_secundaria.value,
+      tipo_via: this.form.controls.tipo_via.value,
+      visible: true,
+      numero: this.form.controls.numero.value,
       fieldDestinity: "tab2SubTab1"
     }));
   }

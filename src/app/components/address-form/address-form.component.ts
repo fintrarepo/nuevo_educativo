@@ -22,6 +22,8 @@ export class AddressFormComponent implements OnInit {
   formData$ = this.store.select(reducers.platformDataForm);
   citys$ = this.store.select(reducers.citys);
 
+  addressFormData$ = this.store.select(reducers.getAddressFormState);
+
   constructor(private store: Store<reducers.State>, public formBuilder: FormBuilder, private utils: UtilsService) {
     this.addressForm = formBuilder.group({
       departamento: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
@@ -34,6 +36,7 @@ export class AddressFormComponent implements OnInit {
     })
 
     this.citys$.subscribe(this.citysLoaded.bind(this))
+    this.addressFormData$.subscribe(this.loadedData.bind(this))
   }
 
 
@@ -74,9 +77,24 @@ export class AddressFormComponent implements OnInit {
   }
 
 
-  getAddress(city){
-    this.utils.getAddress(city).subscribe( response =>{
+  getAddress(city) {
+    this.utils.getAddress(city).subscribe(response => {
       this.address = response.data;
     })
   }
+
+
+  private loadedData(data) {
+    for (let i in data) {
+      if (this.addressForm.controls[i])
+        this.addressForm.controls[i].setValue(data[i])
+    }
+
+    if(data.departamento){
+      this.loadCitys(data.departamento)
+      this.getAddress(data.ciudad)
+    }
+  }
+
+
 }

@@ -1,7 +1,7 @@
-<div class="horizontal-timeline">
+<div class="horizontal-timeline" style="margin-top: 1em;">
   <div class="horizontal-step"
     [ngClass]="{'current': oneStepNumber == currentStep, 'visited': oneStepNumber <  currentStep, 'future': oneStepNumber > currentStep }">
-    <img [src]="getImage(1,'/assets/images/Icon_Llenar Formulario.svg')" alt="">
+    <img [src]="getImage(0,'/assets/images/Icon_Llenar Formulario.svg')" alt="">
     <div class="circle-step">
       <div class="line-step"></div>
     </div>
@@ -12,8 +12,8 @@
   </div>
   <div class="line-step"></div>
   <div class="horizontal-step"
-    [ngClass]="{'current': twoStepNumber == currentStep, 'visited': twoStepNumber <  currentStep, 'future': twoStepNumber > currentStep }">
-    <img [src]="getImage(2,'/assets/images/Icon_Adjuntar Documentos.svg')" alt="">
+    [ngClass]="{'current': twoStepNumber == currentStep, 'visited': twoStepNumber <  currentStep, 'future': twoStepNumber >= currentStep }">
+    <img [src]="getImage(1,'/assets/images/Icon_Adjuntar Documentos.svg')" alt="">
     <div class="circle-step">
       <div class="line-step"></div>
     </div>
@@ -39,7 +39,7 @@
   <div class="line-step"></div>
   <div class="horizontal-step"
     [ngClass]="{'current': fourStepNumber == currentStep, 'visited': fourStepNumber <  currentStep, 'future': fourStepNumber > currentStep }">
-    <img [src]="getImage(4,'/assets/images/Icon_Crédito Desembolsado.svg')" alt="">
+    <img [src]="getImage(8,'/assets/images/Icon_Crédito Desembolsado.svg')" alt="">
     <div class="circle-step">
       <div class="line-step"></div>
     </div>

@@ -11,6 +11,8 @@ ul {
   padding: 0;
 }
 
+
+
 ::-webkit-scrollbar {
   width: 8px;
   /* Tamaño del scroll en vertical */
@@ -99,8 +101,8 @@ label.container {
   margin: 0;
   cursor: pointer;
   font-size: 22px;
-  width: 25px;
-  height: 25px;
+  width: 15px;
+  height: 15px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -121,14 +123,14 @@ label.container input {
   position: absolute;
   top: 0;
   left: 0;
-  height: 25px;
-  width: 25px;
-  border:2px solid #37BFFA;
+  height: 15px;
+  width: 15px;
+  border: 2px solid #37BFFA;
 }
 
 /* On mouse-over, add a grey background color */
 label.container:hover input~.checkmark {
-  background-color: #ccc;
+  background-color: #2196F3;
 }
 
 /* When the checkbox is checked, add a blue background */
@@ -148,18 +150,7 @@ label.container input:checked~.checkmark:after {
   display: block;
 }
 
-/* Style the checkmark/indicator */
-label.container .checkmark:after {
-  left: 9px;
-  top: 5px;
-  width: 5px;
-  height: 10px;
-  border: solid white;
-  border-width: 0 3px 3px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
-}
+
 
 .light-blue-font {
   font-family: 'Gotham Book';
@@ -272,7 +263,7 @@ input[type="password"],
 input[type="number"],
 input[type="date"],
 select {
-  // font-family: 'Gotham Light' !important;
+  font-family: 'Gotham Light Regular' !important;
   font-size: 1rem !important;
   color: $color-inputs !important;
   // border: 1px solid red;
@@ -305,6 +296,9 @@ input[type="text"],
 input[type="email"],
 input[type="password"],
 input[type="number"] {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+
   &:read-only {
     background: #F0F8FC;
     cursor: pointer;
@@ -375,6 +369,11 @@ input[type="number"] {
   font-size: .8em;
   border-radius: 7px;
   border: none;
+  transition: all .2s cubic-bezier(0.075, 0.82, 0.165, 1);
+  &:hover{
+    color:white;
+    transform: scale(1.02)
+  }
 }
 
 .button-outline-border-white {
@@ -416,8 +415,8 @@ input[type="number"] {
 
   .back-button {
     padding: 0;
-    width: 50px;
-    height: 50px;
+    width: 52px;
+    height: 52px;
     border-radius: 50%;
     margin-right: 5px;
     display: flex;
@@ -488,6 +487,10 @@ input[type="number"] {
     box-shadow: none !important;
     padding-bottom: 8em;
   }
+
+  .content-buttons-next-back.top {
+    display: none;
+  }
 }
 
 @media (max-width: 768.98px) {
@@ -505,4 +508,8 @@ input[type="number"] {
   }
 }
 
-@media (max-width: 575.98px) {}
+@media (max-width: 575.98px) {
+  .content-buttons-next-back.top {
+    display: none;
+  }
+}

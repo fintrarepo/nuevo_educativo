@@ -93,6 +93,15 @@ export class Tab1PersonalInformationComponent implements OnInit {
 
   openForm(field) {
     this.store.dispatch(new OpenForm({
+
+      departamento: this.form.controls.departamento.value,
+      ciudad: this.form.controls.ciudad.value,
+      complemento: this.form.controls.complemento.value,
+      via_principal: this.form.controls.via_principal.value,
+      via_secundaria: this.form.controls.via_secundaria.value,
+      tipo_via: this.form.controls.tipo_via.value,
+      visible: true,
+      numero: this.form.controls.numero.value,
       fieldDestinity: "tab1SubTab1" + field
     }));
   }

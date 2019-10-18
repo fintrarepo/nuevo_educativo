@@ -5,7 +5,8 @@
     </div>
     <div class="col-md-6 col-6 text-right" *ngIf="auth.tipo_usuario == 'C'">
       <span class="dark-blue-font" style="width: 240px;" [routerLink]="['/app/dashboard/history']"
-        [ngClass]="{'selected': type_list == 'history'}" (click)="getHistory()" style="cursor: pointer; text-decoration: underline;">
+        [ngClass]="{'selected': type_list == 'history'}" (click)="getHistory()"
+        style="cursor: pointer; text-decoration: underline;">
         Historial de créditos
       </span>
       <!-- <span class="light-blue-yellow-dark" (click)="getHistory()">Historial de solicitudes</span> -->
@@ -21,9 +22,10 @@
       <button class="btn btn-outline-primary button-white" [routerLink]="['/app/dashboard/credits']"
         [ngClass]="{'selected': type_list == 'credits'}" (click)="getCredits(true)">creditos</button>
     </div>
-    <div class="col-md-6 text-lg-right  ">
-      <button class="btn btn-outline-primary button-white" style="width: 240px;" routerLink="/app/new-request">CREAR
-        NUEVA SOLICITUD</button>
+    <div class="col-md-6 text-lg-right" style="display: flex; justify-content: flex-end;">
+      <button class="btn btn-outline-primary button-white" style="width: 240px; display: flex; align-items: center; justify-content: space-around;" routerLink="/app/new-request">
+        <p style="font-size:1.7em; margin:0;">+</p> CREAR NUEVA SOLICITUD
+      </button>
     </div>
   </div>
 
@@ -31,6 +33,7 @@
 
   <app-list-request *ngIf=" type_list == 'credits'" [type]="'credits'"></app-list-request>
 
-  <app-history-request [loading]="showLoadingHistory" [history]="historyc" *ngIf="type_list == 'history'"></app-history-request>
+  <app-history-request [loading]="showLoadingHistory" [history]="historyc" *ngIf="type_list == 'history'">
+  </app-history-request>
 
 </div>

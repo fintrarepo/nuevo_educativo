@@ -6,12 +6,12 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./timeline.component.scss']
 })
 export class TimelineComponent implements OnInit {
-  @Input('currentStep')  currentStep : number = 0;
+  @Input('currentStep') currentStep: number = 0;
 
-  oneStepNumber : number = 0;
-  twoStepNumber : number = 1;
-  thirdStepNumber : number = 5;
-  fourStepNumber : number = 8;
+  oneStepNumber: number = 0;
+  twoStepNumber: number = 1;
+  thirdStepNumber: number = 3;
+  fourStepNumber: number = 8;
   constructor() { }
 
   ngOnInit() {
@@ -19,9 +19,12 @@ export class TimelineComponent implements OnInit {
 
   getImage(step, img) {
 
-    return step < this.currentStep ?
+    return this.currentStep == step ? img : step < this.currentStep ?
       img.replace('.svg', '_Verde.svg') :
       step > this.currentStep ? img.replace('.svg', '_Gris.svg') : img
+
+
+
 
   }
 

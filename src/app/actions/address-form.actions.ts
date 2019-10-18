@@ -15,9 +15,7 @@ export enum AddressFormActionTypes {
 
 export class OpenForm implements Action {
     readonly type = AddressFormActionTypes.OpenForm;
-    constructor(public payload: {
-        fieldDestinity: String
-    }) { }
+    constructor(public payload: iAddressForm) { }
 }
 
 

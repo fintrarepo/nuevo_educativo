@@ -35,8 +35,7 @@ export function AddressFormReducer(state: State = initialState, action: AddressF
         case AddressFormActionTypes.OpenForm:
             return {
                 ...state,
-                fieldDestinity: action.payload.fieldDestinity,
-                visible: true
+                ...action.payload
             };
 
         case AddressFormActionTypes.ClosedForm:

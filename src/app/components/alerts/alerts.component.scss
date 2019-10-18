@@ -18,7 +18,7 @@
     bottom: -100%;
   }
 
- 
+
 }
 
 
@@ -28,7 +28,7 @@
   left: calc(50% + 130px);
   transform: translateX(-50%) translateY(50%);
   bottom: -100%;
-  width:  525px;
+  width: 525px;
   min-height: 48px;
   border-radius: 8px;
   display: flex;
@@ -39,6 +39,7 @@
   border: 1px solid white;
   animation: showNotification 4s cubic-bezier(0.075, 0.82, 0.165, 1);
   max-width: 80%;
+
   img {
     margin-right: 8px;
   }
@@ -74,4 +75,10 @@
 
 .custom-alert.success {
   background: $green-dark;
+}
+
+@media (max-width: 768.98px) {
+  .custom-alert {
+    left: 50%;
+  }
 }
