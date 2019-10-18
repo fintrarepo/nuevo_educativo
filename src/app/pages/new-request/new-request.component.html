@@ -8,24 +8,27 @@
 
   <div class="box-form-request">
     <form [formGroup]="form">
-      <div class="block-form">
+      <div class="block-form" style="border-bottom: none;">
         <h1 class="title-form">Información Personal del Solicitante</h1>
         <div class="form-row">
           <div class="form-group col-md-6 col-lg-4 ">
             <label class="subtitle-form">Ciudad</label>
             <select class="form-control" formControlName="ciudad" (change)="loadAfiliates()">
+              <option value="">Seleccione una ciudad</option>
               <option [value]="city.codigo" *ngFor="let city of cities">{{city.ciudad}}</option>
             </select>
           </div>
           <div class="form-group col-md-6 col-lg-4">
             <label class="subtitle-form">Institución educativa</label>
             <select class="form-control" formControlName="afiliado" (change)="buildDues()">
+              <option value="">Seleccione una nstitución educativa</option>
               <option [value]="item.nit_afiliado" *ngFor="let item of afiliates">{{item.nombre_afiliado}}</option>
             </select>
           </div>
           <div class="form-group col-md-6 col-lg-4">
             <label class="subtitle-form">Tipo de carrera</label>
             <select class="form-control" formControlName="tipo_carrera" (change)="buildDues()">
+              <option value="">Seleccione un tipo de carrera</option>
               <option value="PREGRADO">Pregrado</option>
               <option value="POSGRADO">Posgrado</option>
               <option value="CONTINUADA">Educación Continuada</option>
@@ -34,21 +37,25 @@
           <div class="form-group col-md-6 col-lg-4">
             <label class="subtitle-form">Fecha primer pago</label>
             <select class="form-control" formControlName="fecha_pago">
+              <option value="">Seleccione fecha primer pago</option>
               <option [value]="date" *ngFor="let date of dates">{{date}}</option>
             </select>
           </div>
           <div class="form-group col-md-6 col-lg-4">
-            <label class="subtitle-form">Valor semestre</label>
+            <label class="subtitle-form">Valor semestre
+              {{form.controls.monto.value | currency:'USD':true:'1.0-0'}}</label>
             <input type="number" class="form-control" formControlName="monto">
           </div>
           <div class="form-group col-md-6 col-lg-4">
             <label class="subtitle-form">Plazo crédito(Meses)</label>
             <select class="form-control" formControlName="num_cuotas">
+              <option value="">Seleccione plazo del crédito</option>
               <option [value]="item" *ngFor="let item of dues">{{item}}</option>
             </select>
           </div>
           <div class="form-group col-md-6 col-lg-4">
-            <label class="subtitle-form">Ingresos mensuales</label>
+            <label class="subtitle-form">Ingresos mensuales
+              {{form.controls.ingresos_usuario.value | currency:'USD':true:'1.0-0'}}</label>
             <input type="number" class="form-control" formControlName="ingresos_usuario" />
           </div>
         </div>
@@ -122,7 +129,10 @@
       </div>
       <div class="col-lg-5 col-md-5 col-12 terms-and-buttons">
         <div class="terminos">
-          <input type="checkbox" [(ngModel)]="acceptTerms" name="acceptTerms">
+          <label class="container">
+            <input type="checkbox" [(ngModel)]="acceptTerms">
+            <span class="checkmark"></span>
+          </label>
           <p style="margin: 0;">
             Acepto los términos y condiciones
           </p>

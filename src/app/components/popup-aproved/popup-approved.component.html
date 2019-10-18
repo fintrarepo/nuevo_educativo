@@ -14,7 +14,7 @@
 
       <div class="row">
         <div class="col-6">
-          <button class="btn button-white" (click)="cancel()">No</button>
+          <button class="btn button-white" >No</button>
         </div>
         <div class="col-6">
           <button class="btn button-blue" (click)="nextStep()">Si</button>
@@ -48,7 +48,7 @@
         <input type="text" class="form-control" readonly ngbDatepicker #d1="ngbDatepicker" (click)="d1.toggle()"
           style="width: 300px;" [(ngModel)]="date" />
 
-        <button class="btn btn-outline" (click)="nextStep()">Siguiente</button>
+        <button class="btn btn-outline" (click)="nextStep()" style="margin-top: 30px;">Siguiente</button>
       </div>
 
     </div>
@@ -64,7 +64,7 @@
           <!-- <li [ngClass]="{'selected': addressSelected=='A'}">A otra dirección</li> -->
         </ul>
       </div>
-      <button (click)="save()" [disabled]="!hourSelected">PROGRAMAR VISITA</button>
+      <button (click)="save()" [disabled]="!hourSelected" class="btn button-blue">PROGRAMAR VISITA</button>
     </div>
 
 
@@ -75,7 +75,7 @@
       <span style="text-align: center;;">Uno de nuestros asesores te contactará para confirmar la visita programada a tu
         domicilio.</span>
 
-      <button class="btn btn-primary" (click)="nextPage()" style="margin-top: 1.5em;">Siguiente etapa</button>
+      <button class="btn button-blue" (click)="nextPage()" style="margin-top: 1.5em;">Siguiente etapa</button>
     </div>
 
   </div>

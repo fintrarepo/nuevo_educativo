@@ -41,6 +41,15 @@ export class TabsComponent implements OnInit {
   tab2SubTab1$ = this.store.select(reducers.Tab2SubTab1State);
   tab2SubTab2$ = this.store.select(reducers.Tab2SubTab2State);
 
+  disabledTab1: boolean = true;
+  disabledTab2: boolean = true;
+
+  disabledTab1SubTab1: boolean = true;
+  disabledTab1SubTab2: boolean = true;
+  disabledTab1SubTab3: boolean = true;
+
+  disabledTab2SubTab1: boolean = true;
+  disabledTab2SubTab2: boolean = true;
 
   constructor(private router: Router,
     private utils: UtilsService,
@@ -95,6 +104,9 @@ export class TabsComponent implements OnInit {
 
   selectTab1SubTab1(state) {
     if (state.active && this.tabsComponent.activeId != "tab1SubTab1") {
+      this.disableAllTabs();
+      this.disabledTab1 = false;
+      this.disabledTab1SubTab1 = false;
       this.superTabsComponent.select('tab1')
       this.tabsComponent.select('tab1SubTab1')
     }
@@ -103,6 +115,9 @@ export class TabsComponent implements OnInit {
   selectTab1SubTab2(state) {
     console.log(this.tabsComponent.activeId)
     if (state.active && this.tabsComponent.activeId != "tab1SubTab2") {
+      this.disableAllTabs();
+      this.disabledTab1 = false;
+      this.disabledTab1SubTab2 = false;
       this.superTabsComponent.select('tab1')
       this.tabsComponent.select('tab1SubTab2')
     }
@@ -111,7 +126,10 @@ export class TabsComponent implements OnInit {
 
   selectTab1SubTab3(state) {
     if (state.active && this.tabsComponent.activeId != "tab1SubTab3") {
+      this.disableAllTabs();
       setTimeout(() => {
+        this.disabledTab1 = false;
+        this.disabledTab1SubTab3 = false;
         this.superTabsComponent.select('tab1')
         this.tabsComponent.select('tab1SubTab3')
       }, 500)
@@ -120,7 +138,9 @@ export class TabsComponent implements OnInit {
 
   selectTab2SubTab1(state) {
     if (state.active) {
-
+      this.disableAllTabs();
+      this.disabledTab2 = false;
+      this.disabledTab2SubTab1 = false;
       this.superTabsComponent.select('tab2')
       this.tabs2Component.select('tab2SubTab1')
     }
@@ -128,7 +148,10 @@ export class TabsComponent implements OnInit {
 
   selectTab2SubTab2(state) {
     if (state.active && this.tabs2Component.activeId != "tab2SubTab2") {
+      this.disableAllTabs();
       setTimeout(() => {
+        this.disabledTab2 = false;
+        this.disabledTab2SubTab2 = false;
         this.superTabsComponent.select('tab2')
         this.tabs2Component.select('tab2SubTab2')
       })
@@ -154,6 +177,18 @@ export class TabsComponent implements OnInit {
       //     return this.store.dispatch(new SelecteTab2SubTab2())
       // }
     }
+  }
+
+  private disableAllTabs() {
+    this.disabledTab1 = true;
+    this.disabledTab2 = true;
+
+    this.disabledTab1SubTab1 = true;
+    this.disabledTab1SubTab2 = true;
+    this.disabledTab1SubTab3 = true;
+
+    this.disabledTab2SubTab1 = true;
+    this.disabledTab2SubTab2 = true;
   }
 
 }

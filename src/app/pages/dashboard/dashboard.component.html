@@ -4,9 +4,9 @@
       <h3 class="light-blue-yellow-dark">Mi cuenta</h3>
     </div>
     <div class="col-md-6 col-6 text-right" *ngIf="auth.tipo_usuario == 'C'">
-      <span class="light-blue-yellow-dark" style="width: 240px;" [routerLink]="['/app/dashboard/history']"
-        [ngClass]="{'selected': type_list == 'history'}" (click)="getHistory()" style="cursor: pointer;">
-        Historial de solicitudes
+      <span class="dark-blue-font" style="width: 240px;" [routerLink]="['/app/dashboard/history']"
+        [ngClass]="{'selected': type_list == 'history'}" (click)="getHistory()" style="cursor: pointer; text-decoration: underline;">
+        Historial de créditos
       </span>
       <!-- <span class="light-blue-yellow-dark" (click)="getHistory()">Historial de solicitudes</span> -->
     </div>

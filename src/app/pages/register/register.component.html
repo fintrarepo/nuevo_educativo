@@ -1,19 +1,10 @@
-<div id="wrapper-login" [ngClass]="{'blur-page': (blurPage$ | async)}">
+<div id="wrapper-login" >
     <div class="login-center-wrapper">
-        <form [formGroup]="registerForm" (submit)="register($event)">
-            <div class="container main">
-                <div class="row d-flex justify-content-center">
-                    <div class="col-md-8 d-flex justify-content-center">
-                        <img src="/assets/images/Logo Fintra.svg" alt="Fintra Educativo Logo"
-                            title="Fintra Educativo Logo">
-                    </div>
-                </div>
-                <div class="row d-flex justify-content-center lbl">
-                    <div class="col-md-8 d-flex justify-content-center">
-                        <h1 class="text-white">Abre una cuenta</h1>
-                    </div>
-                </div>
-                <div class="row d-flex justify-content-center">
+        <form >
+            <img src="/assets/images/Logo Fintra.svg" alt="Fintra Educativo Logo" title="Fintra Educativo Logo">
+            <h1>Abre una cuenta</h1>
+            <div class="container">
+                <div class="row">
                     <div class="col-md-8">
                         <div class="fusion-builder-row fusion-row">
                             <form id="presolicitud">

@@ -13,7 +13,6 @@ import * as fromRecoveryPassword from '../reducers/recovery-password.reducer';
 import * as fromListRequests from '../reducers/list-requets.reducer';
 import * as fromCredits from '../reducers/simulation.reducer';
 import * as fromTabs from '../reducers/tabs.reducer';
-import { getTab1SubTab1State } from './tabs.reducer';
 
 
 
