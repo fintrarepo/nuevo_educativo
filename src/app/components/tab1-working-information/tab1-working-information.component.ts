@@ -36,7 +36,7 @@ export class Tab1WorkingInformationComponent implements OnInit {
       "tipo_contrato": ['', Validators.compose([Validators.maxLength(50)])],
       "fecha_ingreso": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "direccion": ['', Validators.compose([Validators.maxLength(50)])],
-      "telefono": ['', Validators.compose([Validators.maxLength(10), Validators.pattern('^[0-9]*$')])],
+      "telefono": ['', Validators.compose([Validators.maxLength(10), Validators.required, Validators.pattern('^[0-9]*$')])],
       // "email": ['', Validators.compose([Validators.maxLength(50), Validators.email])],
       "salario_ing": ['', Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
       // "comisiones_ing": ['', Validators.compose([Validators.maxLength(8), Validators.pattern('^[0-9]*$')])],

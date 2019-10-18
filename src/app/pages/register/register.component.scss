@@ -1,12 +1,16 @@
+.main{
+    max-width: 1140px;
+    height: calc(100vh - 120px);
+    overflow: auto;
+    padding-bottom: 4em;
+    padding-top: 4em;
+}
 #wrapper-login {
   width: 100%;
   background: #32BEFA;
-//   height: calc(100vh - 120px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: auto;
+  height: calc(100vh - 120px);
 
+   
 //   .login-center-wrapper {
 //     width: 480px;
 //     height: auto;

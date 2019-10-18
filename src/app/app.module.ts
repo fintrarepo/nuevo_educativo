@@ -83,6 +83,7 @@ const NGRX_IMPORTS = [
     RecoverPasswordComponent,
     ChangePasswordComponent,
     RegisterComponent
+    
   ],
   imports: [
     BrowserModule,

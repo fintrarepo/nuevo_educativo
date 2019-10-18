@@ -1,91 +1,93 @@
 <div id="wrapper-login" [ngClass]="{'blur-page': (blurPage$ | async)}">
     <div class="login-center-wrapper">
         <form [formGroup]="registerForm" (submit)="register($event)">
-            <img src="/assets/images/Logo Fintra.svg" alt="Fintra Educativo Logo" title="Fintra Educativo Logo">
-            <h1>Abre una cuenta</h1>
-            <div class="container">
-                <div class="row">
+            <div class="container main">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-8 d-flex justify-content-center">
+                        <img src="/assets/images/Logo Fintra.svg" alt="Fintra Educativo Logo"
+                            title="Fintra Educativo Logo">
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center lbl">
+                    <div class="col-md-8 d-flex justify-content-center">
+                        <h1 class="text-white">Abre una cuenta</h1>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center">
                     <div class="col-md-8">
-                        <!--esto no va -->
                         <div class="fusion-builder-row fusion-row">
                             <form id="presolicitud">
                                 <div class="row">
                                     <div class="col-md-6 form--izq">
                                         <div class="form-group">
-                                            <label for="ciudad">Cedula</label>
-                                            <select class="form-control" id="citys" onblur="validateFlied(this)"
-                                                required>
+                                            <label class="text-white" for="ciudad">Tipo identificacion</label>
+                                            <select class="form-control" required>
                                                 <option disabled selected value></option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-md-6 form--der">
                                         <div class="form-group">
-                                            <label for="fecha-pago">Identificacion</label>
-                                            <input type="text" class="form-control" id="monto"
-                                                onblur="validateFlied(this)" required>
+                                            <label class="text-white" for="fecha-pago">Identificacion</label>
+                                            <input type="text" class="form-control" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6 form--izq">
                                         <div class="form-group">
-                                            <label for="institución-educativa">Fecha Expedicion:</label>
-                                            <input type="text" class="form-control" id="monto"
-                                                onblur="validateFlied(this)" required>
+                                            <label class="text-white" for="institución-educativa">Fecha Expedicion</label>
+                                            <input type="text" class="form-control" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6 form--der">
                                         <div class="form-group">
-                                            <label for="tipo-carrera">Ciudad de estudio:</label>
-                                            <select class="form-control" id="tipo_carrera" onblur="validateFlied(this)"
-                                                required>
-                                                <option disabled selected value></option>
-                                                <option value="PREGRADO">Pregrado</option>
-                                                <option value="POSGRADO">Posgrado</option>
-                                                <option value="CONTINUADA">Educación Continuada</option>
+                                            <label class="text-white" for="tipo-carrera">Ciudad de estudio</label>
+                                            <select class="form-control" id="tipo_carrera" required>
+                                                <option disabled selected value></option>                                                
                                             </select>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6 form--izq">
                                         <div class="form-group">
-                                            <label for="valor-semestre">Primer nombre:</label>
-                                            <input type="text" class="form-control" id="monto"
-                                                onblur="validateFlied(this)" required>
+                                            <label class="text-white" for="valor-semestre">Primer nombre</label>
+                                            <input type="text" class="form-control" required>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6 form--der">
                                         <div class="form-group">
-                                            <label for="plazo-carrera">Primer apellido:</label>
-                                            <input type="text" class="form-control" id="monto" onblur="validateFlied(this)" required>
+                                            <label class="text-white" for="plazo-carrera">Primer apellido</label>
+                                            <input type="text" class="form-control" required>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6 form--izq">
                                         <div class="form-group">
-                                            <label for="email">Correo electrónico:</label>
-                                            <input id="email" class="form-control" title="" onblur="validateFlied(this)"
-                                                name="email" type="email" required />
+                                            <label class="text-white" for="email">Correo electrónico</label>
+                                            <input id="email" class="form-control"  type="email" required />
                                         </div>
                                     </div>
 
                                     <div class="col-md-6 form--der">
                                         <div class="form-group">
-                                            <label for="identificacion">Contraseña:</label>
-                                            <input type="text" class="form-control" id="identificacion"
-                                                onblur="validateFlied(this)" required>
+                                            <label class="text-white" for="identificacion">Contraseña</label>
+                                            <input type="text" class="form-control"  required>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6 form--izq">
                                         <div class="form-group">
-                                            <label for="fecha-exp">Validar Contraseña:</label>
-                                            <input type="text" class="form-control" id="fecha_expedicion"
-                                                name="fecha_expedicion" required readonly>
+                                            <label class="text-white" for="fecha-exp">Validar Contraseña</label>
+                                            <input type="text" class="form-control" required>
                                         </div>
                                     </div>
-
-
+                                </div>
+                                <div class="row d-flex justify-content-center">
+                                    <div class="col-md-12 d-flex justify-content-center">
+                                        <button class="btn btn-outline button-outline-border-white" type="submit">
+                                            ¡ABRE UNA CUENTA!
+                                        </button>
+                                    </div>
 
                                 </div>
                             </form>
@@ -93,9 +95,6 @@
                     </div>
                 </div>
             </div>
-
-
-
         </form>
 
     </div>

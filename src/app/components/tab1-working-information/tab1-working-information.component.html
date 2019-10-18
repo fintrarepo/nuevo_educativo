@@ -83,16 +83,16 @@
     <h1 class="title-form" [hidden]="tab1?.disabled">Información de ingresos</h1>
     <div class="form-row">
       <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">Salario / Mesada / Ingresos mes</label>
+        <label class="subtitle-form">Salario / Mesada / Ingresos mes {{ form.controls.salario_ing.value | currency: 'USD': true: '1.0-1' }} </label>
         <input type="number" class="form-control" formControlName="salario_ing">
       </div>
 
       <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">Otros ingresos (comisiones, arriendos, etc)</label>
+        <label class="subtitle-form">Otros ingresos (comisiones, arriendos, etc) {{ form.controls.otros_ingresos.value | currency: 'USD': true: '1.0-1' }} </label>
         <input type="number" class="form-control" formControlName="otros_ingresos">
       </div>
       <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">Total activos</label>
+        <label class="subtitle-form">Total activos {{ form.controls.total_activos.value | currency: 'USD': true: '1.0-1' }}</label>
         <input type="number" class="form-control" formControlName="total_activos">
       </div>
     </div>
@@ -102,15 +102,15 @@
     <h1 class="title-form" [hidden]="tab1?.disabled">Información de Egresos</h1>
     <div class="form-row">
       <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">Arriendo</label>
+        <label class="subtitle-form">Arriendo {{ form.controls.arriendo_egr.value | currency: 'USD': true: '1.0-1' }}</label>
         <input type="number" class="form-control" formControlName="arriendo_egr">
       </div>
       <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">Préstamos</label>
+        <label class="subtitle-form">Préstamos {{ form.controls.prestamo_xnomina.value | currency: 'USD': true: '1.0-1' }}</label>
         <input type="number" class="form-control" formControlName="prestamo_xnomina">
       </div>
       <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">Total pasivos</label>
+        <label class="subtitle-form">Total pasivos {{ form.controls.total_pasivos.value | currency: 'USD': true: '1.0-1' }}</label>
         <input type="number" class="form-control" formControlName="total_pasivos">
       </div>
     </div>

@@ -41,7 +41,7 @@
       </div>
       <div class="form-group col-md-6 col-lg-4" [hidden]="estudentIsApplicant">
         <label class="subtitle-form">N° identificación</label>
-        <input type="number" class="form-control" formControlName="identificacion">
+        <input type="number" class="form-control" formControlName="identificacion" maxlength="10">
       </div>
       <div class="form-group col-md-6 col-lg-4" [hidden]="estudentIsApplicant">
         <label class="subtitle-form">Fecha de expedición</label>
@@ -127,7 +127,7 @@
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Telefono</label>
-        <input type="text" class="form-control" formControlName="telefono" />
+        <input type="number" maxlength="7" class="form-control" formControlName="telefono" />
       </div>
 
       <div class="form-group col-md-6 col-lg-4">
@@ -136,7 +136,7 @@
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Celular</label>
-        <input type="text" class="form-control" formControlName="celular">
+        <input type="number" maxlength="10" class="form-control" formControlName="celular">
       </div>
     </div>
   </div>
@@ -223,6 +223,7 @@
       <div class="form-group col-md-6 col-lg-4" [hidden]="estudentWorked">
         <label class="subtitle-form">¿Estudiante trabaja?</label>
         <select class="form-control" formControlName="trabaja">
+          <option value=""></option>
           <option value="N">No</option>
           <option value="S">Si</option>
         </select>
