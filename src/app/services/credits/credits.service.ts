@@ -54,5 +54,15 @@ export class CreditsService {
     return this.http.post('/FileUploadServlet', data, options);
   }
 
+  registerUser(data){
+    console.log(data);
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'     
+      })
+    };
+    return this.http.put('/webresources/login/create_account', data, options);
+  }
+
 }
 
