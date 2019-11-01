@@ -83,7 +83,7 @@ export class AuthEffects {
     })
     GoToDashBoard$: Observable<Action> = this.actions$.pipe(
         ofType<GoToDashBoard>(AuthActionTypes.GoToDashBoard),
-        tap(v => this.router.navigate(['/']))
+        tap(v => this.router.navigate(['/app/dashboard/requests']))
     )
 
 

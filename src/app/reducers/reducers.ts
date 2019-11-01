@@ -98,6 +98,14 @@ export const currentBussiness = createSelector(
     fromPlatform.getCurrentBussinness
 )
 
+export const isLoadingForm = createSelector(
+    getPlatformState,
+    fromPlatform.getLoadingFormIsShow
+)
+
+
+
+
 
 
 //TABS

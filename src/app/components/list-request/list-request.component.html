@@ -3,7 +3,10 @@
 </p>
 <div class="row  " style="padding: 1em; margin-top: 6px;" *ngIf="!(isLoading$ | async)  && !(error$ | async)">
   <div class="col-md-12">
-
+    <div *ngIf="(listRequest$ | async ).length == 0" class="not-found-list">
+      <img src="assets/images/Icon_Crédito%20Rechazado.svg" alt="">
+      <h1>No se encontró ningún resultado</h1>
+    </div>
     <div class="row item-request" *ngFor="let item of (listRequest$ | async )"
       [ngClass]="{'desembolsado': item.etapa== 8, 'not-aproved': item.etapa == -1}">
 
@@ -106,7 +109,9 @@
           </div>
           <div class="col-lg-12 col-6 justify-content-end text-right" *ngIf="type_list=='requests'">
 
-            <button class="btn button-blue" style=" margin-top:1em;" [routerLink]="routerLink(item)">continuar</button>
+            <button class="btn button-blue" style=" margin-top:1em;" [routerLink]="routerLink(item)">
+              {{getTitleButton(item.etapa)}}
+            </button>
 
           </div>
 
@@ -128,22 +133,11 @@
         <button class="btn btn-desemboldado" [disabled]="true">CRÉDITO DESEMBOLSADO</button>
       </div>
 
-      <div class="col-lg-6 text-right not-aproved-content" *ngIf="item.etapa == -1 && type_list=='request'">
+      <div class="col-lg-6 text-right not-aproved-content" *ngIf="item.etapa == -1">
         <img src="/assets/images/Icon_Crédito Rechazado.svg">
         <button class="btn btn-not-aproved" [disabled]="true">CRÉDITO RECHAZADO</button>
       </div>
 
-
-
-
-
-
     </div>
-
-
-
-
-
-
   </div>
 </div>

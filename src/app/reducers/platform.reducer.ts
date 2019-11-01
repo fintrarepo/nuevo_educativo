@@ -9,6 +9,7 @@ export interface State {
     citys: any;
     showApproved: boolean;
     currentBussinees: any;
+    showLoadingForm: boolean;
 }
 
 const initialState: State = {
@@ -17,7 +18,8 @@ const initialState: State = {
     dpto: '',
     citys: null,
     showApproved: false,
-    currentBussinees: null
+    currentBussinees: null,
+    showLoadingForm: false
 }
 
 export function PlatformReducer(state: State = initialState, action: PlaformActions.actions) {
@@ -66,6 +68,13 @@ export function PlatformReducer(state: State = initialState, action: PlaformActi
                 currentBussinees: action.payload
             };
 
+        case PlatformActionTypes.ShowOrHiddenLoadingForm:
+            return {
+                ...state,
+                showLoadingForm: action.payload
+            };
+
+
         default:
             return state;
     }
@@ -77,6 +86,6 @@ export const getPlatformIsBlur = (state: State) => state.isBlur;
 export const getPlatformDataForm = (state: State) => state.formData;
 export const getPlatformIsApproved = (state: State) => state.showApproved;
 export const getPlatCitys = (state: State) => state.citys;
-
+export const getLoadingFormIsShow= (state: State) => state.showLoadingForm;
 export const getCurrentBussinness = (state: State) => state.currentBussinees;
 

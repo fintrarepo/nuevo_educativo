@@ -100,7 +100,7 @@ export class NewRequestComponent implements OnInit {
   }
 
   simulate() {
-
+    this.form.markAllAsTouched()
     if (this.formValidation()) {
       let dataForm = this.buildDataForm()
       const action = new SendSimulation(this.buildObjectBySimulation(dataForm))
@@ -110,7 +110,7 @@ export class NewRequestComponent implements OnInit {
   }
 
   send() {
-
+   
     this.form.updateValueAndValidity()
     if (this.formValidation()) {
       let dataForm = this.buildDataForm();

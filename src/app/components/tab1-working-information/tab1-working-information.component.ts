@@ -8,6 +8,8 @@ import { ActivatedRoute } from "@angular/router";
 import { UtilsService } from '../../services/utils/utils.service';
 import { CreditsService } from '../../services/credits/credits.service';
 import { SelecteTab1SubTab1 } from '../../actions/tabs.actions';
+import { OpenAlert } from '../../actions/alert.actions';
+var currencyFormatter = require('currency-formatter');
 
 @Component({
   selector: 'app-tab1-working-information',
@@ -30,7 +32,7 @@ export class Tab1WorkingInformationComponent implements OnInit {
     this.form = formBuilder.group({
       "actividad_economica": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "ocupacion": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
-      "nombre_empresa": ['', Validators.compose([Validators.maxLength(50)])],
+      "nombre_empresa": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       // "nit": ['', Validators.compose([Validators.maxLength(10)])],
       "cargo": ['', Validators.compose([Validators.maxLength(50)])],
       "tipo_contrato": ['', Validators.compose([Validators.maxLength(50)])],
@@ -42,11 +44,11 @@ export class Tab1WorkingInformationComponent implements OnInit {
       // "comisiones_ing": ['', Validators.compose([Validators.maxLength(8), Validators.pattern('^[0-9]*$')])],
       // "honorarios_ing": ['', Validators.compose([Validators.maxLength(8), Validators.pattern('^[0-9]*$')])],
       // "arrendamientos_ing": ['', Validators.compose([Validators.maxLength(8), Validators.pattern('^[0-9]*$')])],
-      "otros_ingresos": [0, Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
-      "total_activos": [0, Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
-      "arriendo_egr": [0, Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
-      "prestamo_xnomina": [0, Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
-      "total_pasivos": [0, Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
+      "otros_ingresos": [, Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
+      "total_activos": [, Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
+      "arriendo_egr": [, Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
+      "prestamo_xnomina": [, Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
+      "total_pasivos": [, Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
       departamento: ['', Validators.compose([Validators.maxLength(60)])],
       ciudad: ['', Validators.compose([Validators.maxLength(60)])],
       tipo_via: ['', Validators.compose([Validators.maxLength(60)])],
@@ -129,6 +131,15 @@ export class Tab1WorkingInformationComponent implements OnInit {
   }
 
   saveData() {
+    this.form.markAllAsTouched()
+    if (!this.form.valid) {
+      return this.store.dispatch(new OpenAlert({
+        open: true,
+        title: "Error",
+        subTitle: "Por favor verifica los campos e inténtalo nuevamente.",
+        type: "danger"
+      }))
+    }
     const data = this.buildDataForm()
     const action = new SendTab1SubTab2({
       tab: 2,
@@ -153,6 +164,7 @@ export class Tab1WorkingInformationComponent implements OnInit {
     }
   }
 
+  
 
   responseAutoComplete(response) {
     for (let i in response.data) {

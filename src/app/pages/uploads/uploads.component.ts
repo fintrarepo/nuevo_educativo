@@ -1,5 +1,5 @@
 import { Component, OnInit, ɵConsole } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CreditsService } from '../../services/credits/credits.service';
 import { listFile } from '../../models/credits.model';
 import { promise } from 'protractor';
@@ -20,7 +20,10 @@ export class UploadsComponent implements OnInit {
   public adt = 'Adjuntado';
   path = '/assets/images/Icon_Adjuntar ';
   isLoading: boolean = true;
-  constructor(private creditService: CreditsService, private route: ActivatedRoute) { }
+
+  allFileUploaded: boolean = false;
+
+  constructor(private creditService: CreditsService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.loadListFile();
@@ -36,7 +39,10 @@ export class UploadsComponent implements OnInit {
     this.creditService.loadFileList(params).subscribe(list => {
       this.isLoading = false;
       this.listFiles = list.data.filter(x => x.visible === 'S');
-      
+
+      const filesUploaded = this.listFiles.filter(x => x.url != '')
+      this.allFileUploaded = filesUploaded.length == 3 ? true : false;
+
     });
   }
 
@@ -45,25 +51,31 @@ export class UploadsComponent implements OnInit {
     let options: any;
     if (input.target.files && input.target.files.length > 0) {
       this.selectedFile = input.target.files[0];
+      obj['file_name'] = this.selectedFile.name;
       const formData = new FormData();
       formData.append('file', this.selectedFile, this.selectedFile.name);
       options = {
-          headers: new HttpHeaders({
-            'token': String(localStorage.getItem('token')),
-            'id_file': String(obj.id_archivo),
-            'negocio': String(this.route.snapshot.paramMap.get('id'))
-          })
-        };
-        
+        headers: new HttpHeaders({
+          'token': String(localStorage.getItem('token')),
+          'id_file': String(obj.id_archivo),
+          'negocio': String(this.route.snapshot.paramMap.get('id'))
+        })
+      };
+
       this.creditService.uploadImage(formData, options).subscribe(info => {
         console.log(info);
-        if(info.success){
+        if (info.success) {
           this.loadListFile();
         }
-          
-        
+
+
       });
 
     }
+  }
+
+
+  save(){
+    this.router.navigate(['/'])
   }
 }

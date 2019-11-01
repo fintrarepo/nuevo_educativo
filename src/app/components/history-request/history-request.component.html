@@ -29,6 +29,11 @@
   </div>
 </div>
 
+<div *ngIf="history.length == 0 && !loading" class="not-found-list">
+  <img src="assets/images/Icon_Crédito%20Rechazado.svg" alt="">
+  <h1>No se encontró ningún resultado</h1>
+</div>
+
 <p *ngIf="loading" class="content-loading">
   <img src="/assets/images/loading.gif" alt="">
 </p>

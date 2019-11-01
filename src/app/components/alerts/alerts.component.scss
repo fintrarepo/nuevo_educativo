@@ -28,12 +28,11 @@
   left: calc(50% + 130px);
   transform: translateX(-50%) translateY(50%);
   bottom: -100%;
-  width: 525px;
+  width: auto;
   min-height: 48px;
   border-radius: 8px;
   display: flex;
   align-items: center;
-  max-width: 625px;
   // min-width: 525px;
   padding: 1px 1em;
   border: 1px solid white;
@@ -52,7 +51,7 @@
 
   .title {
     font-family: 'Gotham Bold';
-    margin-right: 10px;
+    margin-right: 20px;
     text-transform: uppercase;
   }
 
@@ -80,5 +79,6 @@
 @media (max-width: 768.98px) {
   .custom-alert {
     left: 50%;
+    max-width: 98%;
   }
 }

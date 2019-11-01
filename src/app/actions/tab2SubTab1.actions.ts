@@ -5,7 +5,11 @@ import { ITab2SubTab1RequestData } from '../models/tabs.model';
 
 
 export enum ETabs2SubTab1ActionsTypes {
+    PreSendTab2SubTab1 = '[Tabs] PreSendTab2SubTab1',
     SendTab2SubTab1 = '[Tabs] SendTab2SubTab1',
+
+    SendTab2SubTab1Approved = '[Tabs] SendTab2SubTab1Approved',
+
     SendTab2SubTab1ResponseSuccess = '[Tabs] SendTab2SubTab1ResponseSuccess',
     SendTab2SubTab1ResponseError = '[Tabs] SendTab2SubTab1ResponseError',
 
@@ -16,11 +20,21 @@ export enum ETabs2SubTab1ActionsTypes {
 
 
 //TAB 1
+export class PreSendTab2SubTab1 implements Action {
+    public readonly type = ETabs2SubTab1ActionsTypes.PreSendTab2SubTab1;
+    constructor(public payload: ITab2SubTab1RequestData) { }
+}
 
 export class SendTab2SubTab1 implements Action {
     public readonly type = ETabs2SubTab1ActionsTypes.SendTab2SubTab1;
     constructor(public payload: ITab2SubTab1RequestData) { }
 }
+
+export class SendTab2SubTab1Approved implements Action {
+    public readonly type = ETabs2SubTab1ActionsTypes.SendTab2SubTab1Approved;
+}
+
+
 
 export class SendTab2SubTab1ResponseSuccess implements Action {
     public readonly type = ETabs2SubTab1ActionsTypes.SendTab2SubTab1ResponseSuccess;
@@ -44,6 +58,6 @@ export class SendTab2SubTab1ResponseNextStep implements Action {
 export type actions = SendTab2SubTab1 |
     SendTab2SubTab1ResponseSuccess |
     SendTab2SubTab1ResponseError |
-    SendTab2SubTab1ResponseNextStep;
+    SendTab2SubTab1ResponseNextStep | PreSendTab2SubTab1;
 
 

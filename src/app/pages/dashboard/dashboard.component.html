@@ -9,22 +9,21 @@
         style="cursor: pointer; text-decoration: underline;">
         Historial de créditos
       </span>
-      <!-- <span class="light-blue-yellow-dark" (click)="getHistory()">Historial de solicitudes</span> -->
     </div>
   </div>
 
   <div class="row filters">
     <div class="col-md-6">
-      <button class="btn btn-outline-primary button-white" [routerLink]="['/app/dashboard/requests']"
+      <button class="btn button-blue" [routerLink]="['/app/dashboard/requests']"
         [ngClass]="{'selected': type_list == 'requests'}" style="margin-right: 10px;"
-        (click)="getCredits(false)">solicitudes</button>
+        (click)="getCredits(false)">pre-solicitudes</button>
 
-      <button class="btn btn-outline-primary button-white" [routerLink]="['/app/dashboard/credits']"
-        [ngClass]="{'selected': type_list == 'credits'}" (click)="getCredits(true)">creditos</button>
+      <button class="btn button-blue" [routerLink]="['/app/dashboard/credits']"
+        [ngClass]="{'selected': type_list == 'credits'}" (click)="getCredits(true)">renovaciones</button>
     </div>
     <div class="col-md-6 text-lg-right" style="display: flex; justify-content: flex-end;">
-      <button class="btn btn-outline-primary button-white" style="width: 240px; display: flex; align-items: center; justify-content: space-around;" routerLink="/app/new-request">
-        <p style="font-size:1.7em; margin:0;">+</p> CREAR NUEVA SOLICITUD
+      <button class="btn button-blue" style="width: 240px; display: flex; align-items: center; justify-content: center;" routerLink="/app/new-request">
+        <p style="font-size:1.7em; margin:0; margin-right: 10px;">+</p>NUEVA PRE-SOLICITUD
       </button>
     </div>
   </div>
@@ -33,7 +32,7 @@
 
   <app-list-request *ngIf=" type_list == 'credits'" [type]="'credits'"></app-list-request>
 
-  <app-history-request [loading]="showLoadingHistory" [history]="historyc" *ngIf="type_list == 'history'">
+  <app-history-request [loading]="showLoadingHistory" [history]="historyc" [loading]="historyIsLoaded" *ngIf="type_list == 'history'">
   </app-history-request>
 
 </div>

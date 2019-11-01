@@ -35,4 +35,13 @@ export class ListRequestComponent implements OnInit {
       return "/app/upload/" + item.numero_solicitud
     }
   }
+
+
+  getTitleButton(etapa) {
+    if (etapa == 0) {
+      return "Formulario"
+    } else if (etapa == 3) {
+      return "Adjuntar"
+    }
+  }
 }

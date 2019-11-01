@@ -1,9 +1,8 @@
-
 <div class="white-box">
   <h1 class="title-form">Documentos por Adjuntar</h1>
   <p>Adjunta los documentos aquí. Todos tus documentos se guardarán automáticamente</p>
-  
-  <p class="content-loading" *ngIf="isLoading" [ngStyle]="{'padding-top': '2%'}">    
+
+  <p class="content-loading" *ngIf="isLoading" [ngStyle]="{'padding-top': '2%'}">
     <img src="/assets/images/loading.gif" alt="">
   </p>
 
@@ -11,7 +10,8 @@
     <div class="file">
       <div>
         <img src="{{ path + ''+ list.icon + '.svg'}}" alt="">
-        <p>{{list.descripcion}}</p>
+        <p>{{list.descripcion}}</p><br>
+        <!-- <span *ngIf="list.file_name">{{list.file_name}}</span> -->
       </div>
       <input type="file" style="display: none" #fileInputFron (change)="onFileSelected(list, $event)"
         [disabled]="list.url != '' ? true : false">
@@ -22,5 +22,29 @@
       </button>
     </div>
   </div>
+  <div class="row" style="margin-top: 3em;">
+    <div class="col-md-8 text-right" style="padding-top: 15px;">
+      <!-- <span style="color: #37BFFA; cursor: pointer;" (click)="openVisit()">¿NECESITAS QUE UN ASESOR RECOJA TUS DOCUMENTOS?</span> -->
+    </div>
+    <div class="col-md-4">
+      <div class="d-flex justify-content-center">
+        <div class="content-buttons-next-back" style="position: static;">
 
+          <button class="btn btn-next" (click)="save()" *ngIf="!allFileUploaded">
+            <img src="/assets/images/Icon_ChevronRight.svg" alt="">
+            <span>
+              Dejar para mas tarde
+            </span>
+          </button>
+
+          <button class="btn btn-next next-step" (click)="save()" *ngIf="allFileUploaded">
+            <img src="/assets/images/Grupo 301.png" alt="">
+            <span>
+              FINALIZAR ETAPA
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

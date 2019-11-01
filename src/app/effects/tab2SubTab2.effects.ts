@@ -7,9 +7,9 @@ import * as reducers from '../reducers/reducers';
 import { OpenAlert } from '../actions/alert.actions';
 
 import { CreditsService } from '../services/credits/credits.service';
-import { ETabs2SubTab2ActionsTypes, SendTab2SubTab2ResponseSuccess, SendTab2SubTab2ResponseError, SendTab2SubTab2, SendTab2SubTab2ResponseNextStep } from '../actions/tab2SubTab2.actions';
+import { ETabs2SubTab2ActionsTypes, SendTab2SubTab2ResponseSuccess, SendTab2SubTab2ResponseError, SendTab2SubTab2, SendTab2SubTab2ResponseNextStep, PreSendTab2SubTab2 } from '../actions/tab2SubTab2.actions';
 import { SelecteTab2SubTab2, SelecteTab2SubTab1 } from '../actions/tabs.actions';
-import { ShowOrHiddeApproved } from '../actions/platform.actions';
+import { ShowOrHiddeApproved, ToggleBlurPage, ShowOrHiddenLoadingForm } from '../actions/platform.actions';
 
 @Injectable({
     providedIn: 'root'
@@ -20,6 +20,17 @@ export class Tab2SubTab2Effects {
     constructor(private actions$: Actions, private store: Store<reducers.State>, private credit: CreditsService) { }
 
 
+    @Effect()
+    PreSendTab2SubTab2$: Observable<Action> = this.actions$.pipe(
+        ofType<PreSendTab2SubTab2>(ETabs2SubTab2ActionsTypes.PreSendTab2SubTab2),
+        tap(v => console.log('LoginUser effect tap', v.payload)),
+        map(action => action.payload),
+        exhaustMap(action => [
+            new ToggleBlurPage(),
+            new ShowOrHiddenLoadingForm(true),
+            new SendTab2SubTab2(action)
+        ])
+    )
 
     @Effect()
     SendTab2SubTab2$: Observable<Action> = this.actions$.pipe(
@@ -29,7 +40,7 @@ export class Tab2SubTab2Effects {
         exhaustMap(action => {
             return this.credit.saveTab(action).pipe(
                 map(Response => {
-                    return new ShowOrHiddeApproved(true)
+                    return new SendTab2SubTab2ResponseSuccess(true)
                 }),
                 catchError(error => of(new SendTab2SubTab2ResponseError(error)))
             )
@@ -40,9 +51,11 @@ export class Tab2SubTab2Effects {
     SendTab2SubTab2ResponseSuccess$: Observable<Action> = this.actions$.pipe(
         ofType<SendTab2SubTab2ResponseSuccess>(ETabs2SubTab2ActionsTypes.SendTab2SubTab2ResponseSuccess),
         map(v => v.payload.tabs_info),
-        switchMap(action => {
-            return of(new ShowOrHiddeApproved(true));
-        })
+        switchMap(action => [
+            new ToggleBlurPage(),
+            new ShowOrHiddenLoadingForm(false),
+            new ShowOrHiddeApproved(true)
+        ])
 
     )
 
@@ -51,6 +64,8 @@ export class Tab2SubTab2Effects {
         ofType<SendTab2SubTab2ResponseError>(ETabs2SubTab2ActionsTypes.SendTab2SubTab2ResponseError),
         map(err => err.payload.error),
         switchMap(error => [
+            new ToggleBlurPage(),
+            new ShowOrHiddenLoadingForm(false),
             new OpenAlert({
                 open: true,
                 title: error.title,

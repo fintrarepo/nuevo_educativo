@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as reducers from '../../reducers/reducers';
 import { OpenForm, ClosedForm } from '../../actions/address-form.actions';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { SendTab1SubTab3 } from '../../actions/tab1SubTab3.actions';
 import { ActivatedRoute } from "@angular/router";
 import { CreditsService } from '../../services/credits/credits.service';
 import { SelecteTab1SubTab2 } from '../../actions/tabs.actions';
+import { OpenAlert } from '../../actions/alert.actions';
 @Component({
   selector: 'app-tab1-references',
   templateUrl: './tab1-references.component.html',
@@ -94,7 +95,15 @@ export class Tab1ReferencesComponent implements OnInit {
   }
 
   save() {
-
+    this.form.markAllAsTouched()
+    if (!this.form.valid) {
+      return this.store.dispatch(new OpenAlert({
+        open: true,
+        title: "Error",
+        subTitle: "Por favor verifica los campos e inténtalo nuevamente.",
+        type: "danger"
+      }))
+    }
     const data = this.buildDataForm()
     const action = new SendTab1SubTab3({
       tab: 3,
@@ -137,6 +146,16 @@ export class Tab1ReferencesComponent implements OnInit {
   }
 
 
+  
+  validator(control) {
+    const validator = this.form.get(control).validator({} as AbstractControl);
+    if (validator && validator.required) {
+      return true;
+    }
+  }
+
+
+
   private buildDataForm() {
     let dataForm = { ...this.form.value }
     return dataForm;
@@ -151,8 +170,8 @@ export class Tab1ReferencesComponent implements OnInit {
       segundo_nombre: this.form.controls['segundo_nombre_' + type].value,
       parentesco: this.form.controls['parentesco_' + type] ? this.form.controls['parentesco_' + type].value : '',
       direccion: this.form.controls['direccion_' + type].value,
-      telefono1: this.form.controls['telefono1_' + type].value,
-      celular: this.form.controls['celular_' + type].value,
+      telefono1: parseInt(this.form.controls['telefono1_' + type].value),
+      celular: parseInt(this.form.controls['celular_' + type].value),
       departamento: this.form.controls['departamento_' + type].value,
       ciudad: this.form.controls['ciudad_' + type].value,
       tipo_via: this.form.controls['tipo_via_' + type].value,

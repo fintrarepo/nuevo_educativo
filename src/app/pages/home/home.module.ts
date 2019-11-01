@@ -27,9 +27,8 @@ import { Tab2WorkingInformationComponent } from '../../components/tab2-working-i
 import { EvidentComponent } from '../../components/evident/evident.component';
 import { PopupApprovedComponent } from '../../components/popup-aproved/popup-approved.component';
 import { HistoryRequestComponent } from '../../components/history-request/history-request.component';
-
 import { CreditComponent } from '../../components/credit/credit.component';
-
+import { LoadingFormsComponent } from '../../components/loading-forms/loading-forms.component';
 
 //GUARDS
 import { AuthGuard } from '../../auth.guard';
@@ -104,7 +103,8 @@ const components = [
   PopupApprovedComponent,
   HistoryRequestComponent,
   Tab2PersonalInformationComponent,
-  CreditComponent
+  CreditComponent,
+  LoadingFormsComponent
 ]
 
 const directives = [

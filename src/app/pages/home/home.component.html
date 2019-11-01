@@ -2,10 +2,10 @@
   <!-- Sidebar -->
   <nav id="sidebar" [ngClass]="{'show-menu': showMenu}">
     <button href="#menu-toggle" id="menu-toggle" class="navbar-brand" (click)="toggleMenu()">
-      <img src="/assets/images/Icon_BurgerMenu_Mobile.svg" alt="">
-<!-- 
-      <img src="/assets/images/Icon_BurgerMenu_Mobile.svg" alt="" *ngIf="!showMenu">
-      <img src="/assets/images/Icon_ChevronLeft.svg" alt="" *ngIf="showMenu"> -->
+      <!-- <img src="/assets/images/Icon_BurgerMenu_Mobile.svg" alt=""> -->
+      
+      <img src="/assets/images/iconos-web-edu-1.png" alt="" *ngIf="showMenu">
+      <img src="/assets/images/iconos-web-edu-2.png" alt="" *ngIf="!showMenu">
     </button>
     <div class="sidebar-header">
       <img src="/assets/images/Logo Fintra.svg" alt="">
@@ -14,16 +14,17 @@
     <ul class="list-unstyled list-menu components">
       <li [ngClass]="{'active': currenturl == '/app/dashboard/requests'}">
         <a routerLink="/app/dashboard/requests"
-          [ngClass]="{'dark-blue-font': currenturl == '/app/dashboard/requests'}">solicitudes</a>
+          [ngClass]="{'dark-blue-font': currenturl == '/app/dashboard/requests'}">pre-solicitudes</a>
       </li>
       <li [ngClass]="{'active': currenturl == '/app/dashboard/credits'}">
         <a routerLink="/app/dashboard/credits"
-          [ngClass]="{'dark-blue-font': currenturl == '/app/dashboard/credits'}">creditos</a>
+          [ngClass]="{'dark-blue-font': currenturl == '/app/dashboard/credits'}">renovaciones</a>
       </li>
-      <li [ngClass]="{'active': false}">
-        <a href="#">documentos</a>
+      <li [ngClass]="{'active': currenturl == '/app/new-request'}">
+        <a routerLink="/app/new-request" [ngClass]="{'dark-blue-font': currenturl == '/app/new-request'}">Nueva
+          pre-solicitud</a>
       </li>
-      <li [ngClass]="{'active': false}">
+      <!-- <li [ngClass]="{'active': false}">
         <a href="#">otros servicios</a>
       </li>
       <li [ngClass]="{'active': false}">
@@ -31,7 +32,7 @@
       </li>
       <li [ngClass]="{'active': false}">
         <a href="#">pqr</a>
-      </li>
+      </li> -->
     </ul>
   </nav>
 
@@ -88,7 +89,8 @@
 
           </div>
           <div class="col-md-2 col-lg-2 text-right">
-            <button class="btn btn-outline-primary" style="margin-top: 10px; margin-right:-50px;" (click)="closeSession()">Cerrar sesion</button>
+            <button class="btn btn-outline-primary" style="margin-top: 10px; margin-right:-50px;"
+              (click)="closeSession()">Cerrar sesion</button>
           </div>
         </div>
       </div>
@@ -98,8 +100,8 @@
     </section>
     <footer></footer>
   </div>
-
 </div>
 <app-address-form></app-address-form>
 <app-popup-approved *ngIf="(isApproved$ | async)"></app-popup-approved>
-<!-- <app-evident></app-evident> -->
+<app-loading-forms></app-loading-forms>
+<!-- <app-evident></app-evident> *ngIf="(isApproved$ | async)"-->

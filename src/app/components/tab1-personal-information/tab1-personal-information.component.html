@@ -1,6 +1,6 @@
 <div class="content-buttons-next-back top">
 
-  <button class="btn btn-next" (click)="save()" [disabled]="!this.form.valid">
+  <button class="btn btn-next" (click)="save()">
     <img src="/assets/images/Icon_ChevronRight.svg" alt="">
     <span>
       SIGUIENTE FORMULARIO
@@ -17,7 +17,10 @@
         <input type="text" class="form-control" formControlName="primer_apellido">
       </div>
       <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">Segundo apellido</label>
+        <div class="label-input-content">
+          <label class="subtitle-form">Segundo apellido</label>
+          <span *ngIf="!validator('segundo_apellido')">(Opcional)</span>
+        </div>
         <input type="text" class="form-control" formControlName="segundo_apellido">
       </div>
       <div class="form-group col-md-6 col-lg-4">
@@ -25,7 +28,10 @@
         <input type="text" class="form-control" formControlName="primer_nombre">
       </div>
       <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">Segundo nombre</label>
+        <div class="label-input-content">
+          <label class="subtitle-form">Segundo nombre</label>
+          <span *ngIf="!validator('segundo_nombre')">(Opcional)</span>
+        </div>
         <input type="text" class="form-control" formControlName="segundo_nombre">
       </div>
       <div class="form-group col-md-6 col-lg-4">
@@ -60,7 +66,7 @@
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">N° identificación</label>
-        <input type="text" class="form-control" formControlName="identificacion" maxlength="10">
+        <input type="number" class="form-control" formControlName="identificacion" maxlength="10">
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Fecha de expedición</label>
@@ -109,8 +115,11 @@
         </select>
       </div>
       <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">Telefono</label>
-        <input type="text" class="form-control" formControlName="telefono" maxlength="7" />
+        <div class="label-input-content">
+          <label class="subtitle-form">Telefono</label>
+          <span *ngIf="!validator('telefono')">(Opcional)</span>
+        </div>
+        <input type="text" class="form-control" formControlName="telefono" maxlength="10" />
       </div>
 
       <div class="form-group col-md-6 col-lg-4">
@@ -200,7 +209,7 @@
       <div class="d-flex justify-content-end">
         <div class="content-buttons-next-back" style="position: static;">
 
-          <button class="btn btn-next" (click)="save()" [disabled]="!this.form.valid">
+          <button class="btn btn-next" (click)="save()">
             <img src="/assets/images/Icon_ChevronRight.svg" alt="">
             <span>
               SIGUIENTE FORMULARIO

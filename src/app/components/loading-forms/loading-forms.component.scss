@@ -1,0 +1,25 @@
+@import "../../../styles/vars/exports";
+
+
+
+.content-popup {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  position: fixed;
+  width: 610px;
+  height: auto;
+  background: white;
+  z-index: 3002;
+  box-shadow: 0 1px 3px #CCCCCC, 0 1px 2px #CCCCCC;
+  border-radius: 10px;
+  overflow: initial;
+  animation: mymove .4s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+  padding: 2em;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+

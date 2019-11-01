@@ -2,7 +2,7 @@
   <button class="btn back-button" (click)="back()">
     <img src="/assets/images/Icon_ChevronLeft.svg" alt="">
   </button>
-  <button class="btn btn-next" (click)="save()" [disabled]="!this.form.valid">
+  <button class="btn btn-next" (click)="save()">
     <img src="/assets/images/Icon_ChevronRight.svg" alt="">
     <span>
       SIGUIENTE FORMULARIO
@@ -19,7 +19,10 @@
         <input type="text" class="form-control" formControlName="primer_apellido_f">
       </div>
       <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">Segundo apellido</label>
+        <div class="label-input-content">
+          <label class="subtitle-form">Segundo apellido</label>
+          <span *ngIf="!validator('segundo_apellido_f')">(Opcional)</span>
+        </div>
         <input type="text" class="form-control" formControlName="segundo_apellido_f">
       </div>
       <div class="form-group col-md-6 col-lg-4">
@@ -27,7 +30,10 @@
         <input type="text" class="form-control" formControlName="primer_nombre_f">
       </div>
       <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">Segundo nombre</label>
+        <div class="label-input-content">
+          <label class="subtitle-form">Segundo nombre</label>
+          <span *ngIf="!validator('segundo_nombre_f')">(Opcional)</span>
+        </div>
         <input type="text" class="form-control" formControlName="segundo_nombre_f">
       </div>
       <div class="form-group col-md-6 col-lg-4">
@@ -44,7 +50,10 @@
           readonly>
       </div>
       <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">telefono</label>
+        <div class="label-input-content">
+          <label class="subtitle-form">Telefono</label>
+          <span *ngIf="!validator('telefono1_f')">(Opcional)</span>
+        </div>
         <input type="number" class="form-control" formControlName="telefono1_f">
       </div>
       <div class="form-group col-md-6 col-lg-4">
@@ -62,7 +71,10 @@
         <input type="text" class="form-control" formControlName="primer_apellido_p">
       </div>
       <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">Segundo apellido</label>
+        <div class="label-input-content">
+          <label class="subtitle-form">Segundo apellido</label>
+          <span *ngIf="!validator('segundo_apellido_p')">(Opcional)</span>
+        </div>
         <input type="text" class="form-control" formControlName="segundo_apellido_p">
       </div>
       <div class="form-group col-md-6 col-lg-4">
@@ -70,7 +82,10 @@
         <input type="text" class="form-control" formControlName="primer_nombre_p">
       </div>
       <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">Segundo nombre</label>
+        <div class="label-input-content">
+          <label class="subtitle-form">Segundo nombre</label>
+          <span *ngIf="!validator('segundo_nombre_p')">(Opcional)</span>
+        </div>
         <input type="text" class="form-control" formControlName="segundo_nombre_p">
       </div>
       <div class="form-group col-md-6 col-lg-4">
@@ -79,7 +94,10 @@
           readonly>
       </div>
       <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">Telefono</label>
+        <div class="label-input-content">
+          <label class="subtitle-form">Telefono</label>
+          <span *ngIf="!validator('telefono1_p')">(Opcional)</span>
+        </div>
         <input type="number" class="form-control" formControlName="telefono1_p">
       </div>
       <div class="form-group col-md-6 col-lg-4">
@@ -119,7 +137,7 @@
           <button class="btn back-button" (click)="back()">
             <img src="/assets/images/Icon_ChevronLeft.svg" alt="">
           </button>
-          <button class="btn btn-next" (click)="save()" [disabled]="!this.form.valid">
+          <button class="btn btn-next" (click)="save()">
             <img src="/assets/images/Icon_ChevronRight.svg" alt="">
             <span>
               SIGUIENTE FORMULARIO

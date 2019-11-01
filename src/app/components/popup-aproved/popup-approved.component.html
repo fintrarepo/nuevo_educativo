@@ -1,5 +1,18 @@
 <div class="popup-fintra">
   <div class="content-popup">
+    <div class="step-popup" *ngIf="currentStep==-1">
+      <img src="/assets/images/Icon_Recordatorio.svg" alt="">
+      <h1 class="title-form">¡Antes de seguir, recuerda!</h1>
+      <span style="margin-top: 10px;">
+        Para firmar tu crédito debes acercarte a nuestras oficinas o puntos de atención Fintra en tu institución.
+      </span>
+
+
+      <button class="btn button-blue" (click)="cancelAndClose()" style="margin-top: 30px;" >Aceptar</button>
+      <button class="btn btn-outline" (click)="initStep()" style="margin-top: 10px;">Cancelar</button>
+    </div>
+
+
     <div class="step-popup" *ngIf="currentStep==1">
       <img src="/assets/images/Icon_Trofeo.svg" alt="">
       <h1 class="title-form">Felicitaciones!</h1>
@@ -14,7 +27,7 @@
 
       <div class="row">
         <div class="col-6">
-          <button class="btn button-white" >No</button>
+          <button class="btn button-white" (click)="cancel()">No</button>
         </div>
         <div class="col-6">
           <button class="btn button-blue" (click)="nextStep()">Si</button>
@@ -31,10 +44,10 @@
         <ul>
           <li [ngClass]="{'selected': addressSelected=='C'}" (click)="addressSelected='C'">A tu casa</li>
           <li [ngClass]="{'selected': addressSelected=='T'}" (click)="addressSelected='T'">A tu trabajo</li>
-          <!-- <li [ngClass]="{'selected': addressSelected=='A'}">A otra dirección</li> -->
         </ul>
 
-        <button class="btn btn-outline" (click)="nextStep()" [disabled]="!addressSelected">Siguiente</button>
+        <button class="btn button-blue" (click)="nextStep()" [disabled]="!addressSelected">Siguiente</button>
+        <button class="btn btn-outline" (click)="cancel()" style="margin-top: 10px;">Cancelar</button>
       </div>
 
     </div>
@@ -46,9 +59,11 @@
 
       <div class="evident-container">
         <input type="text" class="form-control" readonly ngbDatepicker #d1="ngbDatepicker" (click)="d1.toggle()"
-          style="width: 300px;" [(ngModel)]="date" />
+          style="width: 300px;" [(ngModel)]="date"/>
 
-        <button class="btn btn-outline" (click)="nextStep()" style="margin-top: 30px;">Siguiente</button>
+        <button class="btn button-blue" (click)="nextStep()" style="margin-top: 30px;"
+          [disabled]="!date">Siguiente</button>
+        <button class="btn btn-outline" (click)="cancel()" style="margin-top: 10px;">Cancelar</button>
       </div>
 
     </div>
@@ -65,6 +80,7 @@
         </ul>
       </div>
       <button (click)="save()" [disabled]="!hourSelected" class="btn button-blue">PROGRAMAR VISITA</button>
+      <button class="btn btn-outline" (click)="cancel()" style="margin-top: 10px;">Cancelar</button>
     </div>
 
 

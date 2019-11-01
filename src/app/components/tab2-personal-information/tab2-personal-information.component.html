@@ -3,7 +3,7 @@
     <img src="/assets/images/Icon_ChevronLeft.svg" alt="">
   </button>
   <!-- [disabled]="!this.form.valid" -->
-  <button class="btn btn-next" (click)="impForm()" [disabled]="!form.valid" *ngIf="!((this.form.controls.trabaja.value == 'S' && this.form.controls.estudiante_solicitante.value == 'S') 
+  <button class="btn btn-next" (click)="impForm()" *ngIf="!((this.form.controls.trabaja.value == 'S' && this.form.controls.estudiante_solicitante.value == 'S') 
     || (this.form.controls.trabaja.value == 'N' && this.form.controls.estudiante_solicitante.value == 'N'))">
     <img src="/assets/images/Icon_ChevronRight.svg" alt="">
     <span>
@@ -11,7 +11,7 @@
     </span>
   </button>
 
-  <button class="btn btn-next next-step" (click)="impForm()" [disabled]="!form.valid"
+  <button class="btn btn-next next-step" (click)="impForm()"
     *ngIf=" (this.form.controls.trabaja.value == 'S' && this.form.controls.estudiante_solicitante.value == 'S') || (this.form.controls.trabaja.value == 'N' && this.form.controls.estudiante_solicitante.value == 'N')">
     <img src="/assets/images/Grupo 301.png" alt="">
     <span>
@@ -56,7 +56,10 @@
         <input type="text" class="form-control" formControlName="primer_apellido">
       </div>
       <div class="form-group col-md-6 col-lg-4" [hidden]="estudentIsApplicant">
-        <label class="subtitle-form">Segundo apellido</label>
+        <div class="label-input-content">
+          <label class="subtitle-form">Segundo apellido</label>
+          <span>(Opcional)</span>
+        </div>
         <input type="text" class="form-control" formControlName="segundo_apellido">
       </div>
       <div class="form-group col-md-6 col-lg-4" [hidden]="estudentIsApplicant">
@@ -64,7 +67,10 @@
         <input type="text" class="form-control" formControlName="primer_nombre">
       </div>
       <div class="form-group col-md-6 col-lg-4" [hidden]="estudentIsApplicant">
-        <label class="subtitle-form">Segundo nombre</label>
+        <div class="label-input-content">
+          <label class="subtitle-form">Segundo nombre</label>
+          <span>(Opcional)</span>
+        </div>
         <input type="text" class="form-control" formControlName="segundo_nombre">
       </div>
       <div class="form-group col-md-6 col-lg-4" [hidden]="estudentIsApplicant">
@@ -126,7 +132,10 @@
         </select>
       </div>
       <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">Telefono</label>
+        <div class="label-input-content">
+          <label class="subtitle-form">Telefono</label>
+          <span>(Opcional)</span>
+        </div>
         <input type="number" maxlength="7" class="form-control" formControlName="telefono" />
       </div>
 
@@ -259,8 +268,19 @@
         <input type="text" class="form-control" formControlName="codigo">
       </div>
       <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">Semestre</label>
-        <input type="number" class="form-control" formControlName="semestre">
+        <label class="subtitle-form">Semestre / Ciclo</label>
+        <select class="form-control" formControlName="semestre">
+          <option value=1>1</option>
+          <option value=2>2</option>
+          <option value=3>3</option>
+          <option value=4>4</option>
+          <option value=5>5</option>
+          <option value=6>6</option>
+          <option value=7>7</option>
+          <option value=8>8</option>
+          <option value=9>9</option>
+          <option value=10>10</option>
+        </select>
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Parentesco con el solicitante</label>
@@ -280,7 +300,7 @@
           <button class="btn back-button" (click)="back()">
             <img src="/assets/images/Icon_ChevronLeft.svg" alt="">
           </button>
-          <button class="btn btn-next" (click)="impForm()" [disabled]="!form.valid" *ngIf="!((this.form.controls.trabaja.value == 'S' && this.form.controls.estudiante_solicitante.value == 'S') 
+          <button class="btn btn-next" (click)="impForm()" *ngIf="!((this.form.controls.trabaja.value == 'S' && this.form.controls.estudiante_solicitante.value == 'S') 
             || (this.form.controls.trabaja.value == 'N' && this.form.controls.estudiante_solicitante.value == 'N'))">
             <img src="/assets/images/Icon_ChevronRight.svg" alt="">
             <span>
@@ -288,7 +308,7 @@
             </span>
           </button>
 
-          <button class="btn btn-next next-step" (click)="impForm()" [disabled]="!form.valid"
+          <button class="btn btn-next next-step" (click)="impForm()"
             *ngIf=" (this.form.controls.trabaja.value == 'S' && this.form.controls.estudiante_solicitante.value == 'S') || (this.form.controls.trabaja.value == 'N' && this.form.controls.estudiante_solicitante.value == 'N')">
             <img src="/assets/images/Grupo 301.png" alt="">
             <span>

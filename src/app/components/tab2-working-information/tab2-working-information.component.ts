@@ -6,8 +6,9 @@ import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/fo
 import { SendTab1SubTab2 } from '../../actions/tab1SubTab2.actions';
 import { ActivatedRoute } from "@angular/router";
 import { UtilsService } from '../../services/utils/utils.service';
-import { SendTab2SubTab2 } from '../../actions/tab2SubTab2.actions';
+import { SendTab2SubTab2, PreSendTab2SubTab2 } from '../../actions/tab2SubTab2.actions';
 import { SelecteTab2SubTab1 } from 'src/app/actions/tabs.actions';
+import { OpenAlert } from '../../actions/alert.actions';
 
 @Component({
   selector: 'app-tab2-working-information',
@@ -30,25 +31,25 @@ export class Tab2WorkingInformationComponent implements OnInit {
     this.form = formBuilder.group({
       "actividad_economica": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "ocupacion": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
-      "nombre_empresa": ['', Validators.compose([Validators.maxLength(50)])],
+      "nombre_empresa": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "cargo": ['', Validators.compose([Validators.maxLength(50)])],
       "tipo_contrato": ['', Validators.compose([Validators.maxLength(50)])],
       "fecha_ingreso": ['', Validators.compose([Validators.maxLength(50)])],
       "direccion": ['', Validators.compose([Validators.maxLength(50)])],
       "telefono": ['', Validators.compose([Validators.maxLength(10), Validators.pattern('^[0-9]*$')])],
       "salario_ing": ['', Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
-      "otros_ingresos": ['', Validators.compose([Validators.maxLength(8), Validators.pattern('^[0-9]*$')])],
-      "total_activos": ['', Validators.compose([Validators.maxLength(8), Validators.pattern('^[0-9]*$')])],
-      "arriendo_egr": ['', Validators.compose([Validators.maxLength(8), Validators.pattern('^[0-9]*$')])],
-      "prestamo_xnomina": ['', Validators.compose([Validators.maxLength(8), Validators.pattern('^[0-9]*$')])],
-      "total_pasivos": ['', Validators.compose([Validators.maxLength(8), Validators.pattern('^[0-9]*$')])],
-      departamento: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
-      ciudad: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
-      tipo_via: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
-      via_principal: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
-      via_secundaria: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
-      numero: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
-      complementoDireccion: ['', Validators.compose([Validators.maxLength(160)])]
+      "otros_ingresos": ['', Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
+      "total_activos": ['', Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
+      "arriendo_egr": ['', Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
+      "prestamo_xnomina": ['', Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
+      "total_pasivos": ['', Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
+      departamento: ['', Validators.compose([Validators.maxLength(60)])],
+      ciudad: ['', Validators.compose([Validators.maxLength(60)])],
+      tipo_via: ['', Validators.compose([Validators.maxLength(60)])],
+      via_principal: ['', Validators.compose([Validators.maxLength(60)])],
+      via_secundaria: ['', Validators.compose([Validators.maxLength(60)])],
+      numero: ['', Validators.compose([Validators.maxLength(60),])],
+      complemento: ['', Validators.compose([Validators.maxLength(160)])]
 
     });
     this.business = this.route.snapshot.paramMap.get("id");
@@ -75,7 +76,10 @@ export class Tab2WorkingInformationComponent implements OnInit {
       this.form.controls['telefono'].setValidators([Validators.maxLength(50)])
     }
 
-    this.form.updateValueAndValidity()
+    this.form.controls['cargo'].updateValueAndValidity()
+    this.form.controls['tipo_contrato'].updateValueAndValidity()
+    this.form.controls['direccion'].updateValueAndValidity()
+    this.form.controls['telefono'].updateValueAndValidity()
   }
 
   openForm(field) {
@@ -115,8 +119,17 @@ export class Tab2WorkingInformationComponent implements OnInit {
   }
 
   impForm() {
+    this.form.markAllAsTouched()
+    if (!this.form.valid) {
+      return this.store.dispatch(new OpenAlert({
+        open: true,
+        title: "Error",
+        subTitle: "Por favor verifica los campos e inténtalo nuevamente.",
+        type: "danger"
+      }))
+    }
     const data = this.buildDataForm()
-    const action = new SendTab2SubTab2({
+    const action = new PreSendTab2SubTab2({
       tab: 5,
       final: true,
       numero_solicitud: this.business,
@@ -127,8 +140,8 @@ export class Tab2WorkingInformationComponent implements OnInit {
     this.store.dispatch(action)
   }
 
-  back(){
-    this.store.dispatch( new SelecteTab2SubTab1())
+  back() {
+    this.store.dispatch(new SelecteTab2SubTab1())
   }
 
   validator(control) {

@@ -5,11 +5,14 @@ import { ToggleBlurPage, ShowOrHiddeApproved } from '../../actions/platform.acti
 import { UtilsService } from '../../services/utils/utils.service';
 import { ActivatedRoute } from "@angular/router";
 import { Router } from '@angular/router';
+import { NgbDateStruct, NgbCalendar, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 
+// getWeekday
 @Component({
   selector: 'app-popup-approved',
   templateUrl: './popup-approved.component.html',
-  styleUrls: ['./popup-approved.component.scss']
+  styleUrls: ['./popup-approved.component.scss'],
+  providers: [NgbDatepickerConfig] 
 })
 export class PopupApprovedComponent implements OnInit {
 
@@ -17,16 +20,19 @@ export class PopupApprovedComponent implements OnInit {
   currentStep: number = 1;
   addressSelected;
   hourSelected;
-  date;
+  date: NgbDateStruct;
 
   constructor(private store: Store<reducers.State>,
     private utils: UtilsService,
     private router: Router,
+    private calendar: NgbCalendar,
+    private config: NgbDatepickerConfig,
     private route: ActivatedRoute) {
-
+    
   }
 
   ngOnInit() {
+    this.config.showWeekdays = false;
     this.store.dispatch(new ToggleBlurPage())
   }
 
@@ -34,11 +40,31 @@ export class PopupApprovedComponent implements OnInit {
     this.currentStep++;
   }
 
+  initStep() {
+    this.currentStep = 2;
+  }
+
   nextPage() {
     this.store.dispatch(new ToggleBlurPage())
     this.store.dispatch(new ShowOrHiddeApproved(false))
     this.router.navigate(['/app/upload/' + this.getBussinnes()])
   }
+
+  cancel() {
+    this.currentStep = -1;
+  }
+
+  cancelAndClose() {
+    this.close()
+    this.router.navigate(['/'])
+  }
+
+  close() {
+    this.store.dispatch(new ToggleBlurPage())
+    this.store.dispatch(new ShowOrHiddeApproved(false))
+  }
+
+
   save() {
     this.business = this.getBussinnes()
     const data = { "num_solicitud": this.business, "place": this.addressSelected, "date": this.utils.buildDate(this.date), "hour": this.hourSelected }

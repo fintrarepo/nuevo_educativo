@@ -68,7 +68,7 @@ export class TabsComponent implements OnInit {
   ngOnInit() {
     this.utils.getCurrentStep({ "numero_solicitud": this.business }).subscribe(response => {
       this.store.dispatch(new SetCurrentBussinees(response.data))
-      switch (response.data.numero_tab) {
+      switch (response.data.numero_tab + 1) {
         case 1:
           return this.store.dispatch(new SelecteTab1SubTab1())
         case 2:

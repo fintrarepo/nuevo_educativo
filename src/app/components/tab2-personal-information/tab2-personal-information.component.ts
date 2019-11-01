@@ -4,9 +4,9 @@ import * as reducers from '../../reducers/reducers';
 import { OpenForm, ClosedForm } from '../../actions/address-form.actions';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { UtilsService } from '../../services/utils/utils.service';
-import { LoadCitys } from '../../actions/platform.actions';
+import { LoadCitys, ShowOrHiddenLoadingForm, ToggleBlurPage } from '../../actions/platform.actions';
 import { shareReplay } from 'rxjs/operators';
-import { SendTab2SubTab1 } from '../../actions/tab2SubTab1.actions';
+import { SendTab2SubTab1, PreSendTab2SubTab1 } from '../../actions/tab2SubTab1.actions';
 import { ActivatedRoute } from "@angular/router";
 import { CreditsService } from '../../services/credits/credits.service';
 import { OpenAlert } from '../../actions/alert.actions';
@@ -57,7 +57,7 @@ export class Tab2PersonalInformationComponent implements OnInit {
       fecha_nacimiento: ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       dpto_nacimiento: ['', Validators.compose([Validators.maxLength(6), Validators.required])],
       ciudad_nacimiento: ['', Validators.compose([Validators.maxLength(6), Validators.required])],
-      telefono: ['', Validators.compose([Validators.maxLength(7), Validators.pattern('^[0-9]*$')])],
+      telefono: ['', Validators.compose([Validators.maxLength(10), Validators.pattern('^[0-9]*$')])],
       email: ['', Validators.compose([Validators.maxLength(100), Validators.required, Validators.email])],
       celular: ['', Validators.compose([Validators.maxLength(10), Validators.required, Validators.pattern('^[0-9]*$')])],
       direccion: ['', Validators.compose([Validators.maxLength(160), Validators.required])],
@@ -72,15 +72,15 @@ export class Tab2PersonalInformationComponent implements OnInit {
       tipo_carrera: ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       programa: ['', Validators.compose([Validators.maxLength(100), Validators.required])],
       codigo: ['', Validators.compose([Validators.maxLength(50), Validators.required])],
-      semestre: ['', Validators.compose([Validators.maxLength(50), Validators.required])],
+      semestre: ['', Validators.compose([Validators.maxLength(50), Validators.required, Validators.min(1)])],
       parentesco_girador: ['', Validators.compose([Validators.maxLength(20), Validators.required])],
       nivel_educativo_padre: ['', Validators.compose([Validators.maxLength(20), Validators.required])],
-      departamento: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
-      ciudad: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
-      tipo_via: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
-      via_principal: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
-      via_secundaria: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
-      numero: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
+      departamento: ['', Validators.compose([Validators.maxLength(60)])],
+      ciudad: ['', Validators.compose([Validators.maxLength(60)])],
+      tipo_via: ['', Validators.compose([Validators.maxLength(60)])],
+      via_principal: ['', Validators.compose([Validators.maxLength(60)])],
+      via_secundaria: ['', Validators.compose([Validators.maxLength(60)])],
+      numero: ['', Validators.compose([Validators.maxLength(60)])],
       complemento: ['', Validators.compose([Validators.maxLength(160)])],
       universidad: ['']
     });
@@ -109,6 +109,8 @@ export class Tab2PersonalInformationComponent implements OnInit {
         this.form.controls.trabaja.setValue('S');
       }
     })
+
+    this.studenWorking(this.form.controls['estudiante_solicitante'].value)
   }
 
   openForm() {
@@ -130,7 +132,13 @@ export class Tab2PersonalInformationComponent implements OnInit {
   }
 
   impForm() {
+    // this.store.dispatch(new ToggleBlurPage())
+    // this.store.dispatch(new ShowOrHiddenLoadingForm(true))
+  
+    this.form.markAllAsTouched()
     if (!this.form.valid) {
+      // this.store.dispatch(new ToggleBlurPage())
+      // this.store.dispatch(new ShowOrHiddenLoadingForm(false))
       return this.store.dispatch(new OpenAlert({
         open: true,
         title: "Error",
@@ -139,7 +147,7 @@ export class Tab2PersonalInformationComponent implements OnInit {
       }))
     }
     const data = this.buildDataForm()
-    const action = new SendTab2SubTab1({
+    const action = new PreSendTab2SubTab1({
       tab: 4,
       final: (this.form.controls.trabaja.value == 'S' && this.form.controls.estudiante_solicitante.value == 'S') || (this.form.controls.trabaja.value == 'N' && this.form.controls.estudiante_solicitante.value == 'N') ? true : false,
       numero_solicitud: this.business,
@@ -205,9 +213,9 @@ export class Tab2PersonalInformationComponent implements OnInit {
     this.form.controls.identificacion.setValidators(validator);
     this.form.controls.fecha_expedicion_id.setValidators(validator);
     this.form.controls.primer_apellido.setValidators(validator);
-    this.form.controls.segundo_apellido.setValidators(validator);
+  
     this.form.controls.primer_nombre.setValidators(validator);
-    this.form.controls.segundo_nombre.setValidators(validator);
+ 
     this.form.controls.genero.setValidators(validator);
     this.form.controls.estado_civil.setValidators(validator);
     this.form.controls.dpto_expedicion_id.setValidators(validator);
@@ -303,6 +311,9 @@ export class Tab2PersonalInformationComponent implements OnInit {
     dataForm.fecha_expedicion_id = this.utils.buildDate(dataForm.fecha_expedicion_id)
     dataForm.fecha_nacimiento = this.utils.buildDate(dataForm.fecha_nacimiento)
     dataForm.estrato = parseInt(dataForm.estrato)
+    dataForm.telefono = parseInt(dataForm.telefono)
+    dataForm.celular = parseInt(dataForm.celular)
+    dataForm.semestre = parseInt(dataForm.semestre)
     dataForm.identificacion = String(dataForm.identificacion)
     return dataForm;
   }

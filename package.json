@@ -29,8 +29,10 @@
     "@ngrx/store-devtools": "^8.1.0",
     "angular-archwizard": "^5.0.0",
     "bootstrap": "^4.3.1",
+    "currency-formatter": "^1.5.5",
     "moment": "^2.24.0",
     "ngrx-store-freeze": "^0.2.4",
+    "ngx-mydatepicker": "^2.4.9",
     "rxjs": "~6.4.0",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"

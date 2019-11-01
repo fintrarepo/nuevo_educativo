@@ -17,6 +17,8 @@ export class DashboardComponent implements OnInit {
   historyc: any[] = [];
 
   showLoadingHistory: boolean = false;
+  historyIsLoaded : boolean = false;
+
   constructor(private route: ActivatedRoute, private router: Router, private store: Store<reducers.State>,
     private creditserv: CreditsService, public auth: AuthService) {
     router.events.subscribe((val) => {
@@ -26,6 +28,8 @@ export class DashboardComponent implements OnInit {
         this.credits = this.type_list == 'requests' ? false : true;
         if(this.type_list == 'history'){
           this.getHistory();
+        }else{
+          this.getCredits(this.credits);
         }
       }
     });
@@ -41,10 +45,12 @@ export class DashboardComponent implements OnInit {
   }
 
   getHistory(data?: any) {
+    this.historyIsLoaded = false;
     this.showLoadingHistory = true;
     this.creditserv.loanHistory(data).subscribe(history => {
       this.historyc = history;
       this.showLoadingHistory = false;
+      this.historyIsLoaded = true;
     });
   }
 

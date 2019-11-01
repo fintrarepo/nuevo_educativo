@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as reducers from '../../reducers/reducers';
 import { OpenForm, ClosedForm } from '../../actions/address-form.actions';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { ITab1SubTab1 } from '../../models/tabs.model';
 import { SendTab1SubTab1 } from '../../actions/tab1SubTab1.actions';
 import { ActivatedRoute } from "@angular/router";
@@ -58,7 +58,7 @@ export class Tab1PersonalInformationComponent implements OnInit {
       "fecha_nacimiento": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "dpto_nacimiento": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "ciudad_nacimiento": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
-      "telefono": ['', Validators.compose([Validators.maxLength(7), Validators.pattern('^[0-9]*$')])],
+      "telefono": ['', Validators.compose([Validators.maxLength(10), Validators.pattern('^[0-9]*$')])],
       "email": ['', Validators.compose([Validators.maxLength(50), Validators.required, Validators.email])],
       "celular": ['', Validators.compose([Validators.maxLength(10), Validators.required, Validators.pattern('^[0-9]*$')])],
       "direccion": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
@@ -103,6 +103,7 @@ export class Tab1PersonalInformationComponent implements OnInit {
       visible: true,
       numero: this.form.controls.numero.value,
       fieldDestinity: "tab1SubTab1" + field
+      
     }));
   }
 
@@ -111,6 +112,7 @@ export class Tab1PersonalInformationComponent implements OnInit {
   }
 
   save() {
+    this.form.markAllAsTouched()
     if (!this.form.valid) {
       return this.store.dispatch(new OpenAlert({
         open: true,
@@ -187,6 +189,14 @@ export class Tab1PersonalInformationComponent implements OnInit {
     this.loadCitys(this.form.controls.dpto_nacimiento.value, 'ciudad_nacimiento');
     this.loadNeighborhood(response.data.ciudad);
   }
+
+  validator(control) {
+    const validator = this.form.get(control).validator({} as AbstractControl);
+    if (validator && validator.required) {
+      return true;
+    }
+  }
+
 
   private buildDataForm() {
     let dataForm = { ...this.form.value }

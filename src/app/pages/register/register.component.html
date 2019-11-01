@@ -38,13 +38,8 @@
                                 <div class="col-md-6 form--izq">
                                     <div class="form-group">
                                         <label class="text-white" for="expedicion">Fecha Expedicion</label>
-                                        <!-- <div class="calendar-container">
-                                            <img src="/assets/images/Icon_Calendario.svg" alt=""> 
-                                            <input type="text" formControlName="fecha_expedicion" class="form-control" readonly ngbDatepicker
-                                                #d1="ngbDatepicker" (click)="d1.toggle()" />
-                                        </div> -->
-                                        <input type="text" class="form-control" id="expedicion"
-                                            formControlName="fecha_expedicion" required>
+                                        <input type="text" class="form-control" id="expedicion" ngbDatepicker
+                                        #d1="ngbDatepicker" (click)="d1.toggle()" formControlName="fecha_expedicion" required readonly>
                                     </div>
                                 </div>
                                 <!-- <div class="col-md-6 form--der">

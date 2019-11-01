@@ -5,7 +5,7 @@ import { OpenAlert } from 'src/app/actions/alert.actions';
 import { Store } from '@ngrx/store';
 import * as reducers from '../../reducers/reducers';
 import { Router } from '@angular/router';
-
+import { UtilsService } from '../../services/utils/utils.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -17,7 +17,7 @@ export class RegisterComponent implements OnInit {
   submitted = false;
   passConfirm = false;
 
-  constructor (private store: Store<reducers.State>, public formBuilder: FormBuilder, private credServ: CreditsService, private route: Router) {
+  constructor(private utils: UtilsService, private store: Store<reducers.State>, public formBuilder: FormBuilder, private credServ: CreditsService, private route: Router) {
     this.registerForm = this.formBuilder.group({
       'tipo_identificacion': ['', Validators.compose([Validators.required])],
       'identificacion': ['', Validators.compose([Validators.required, Validators.maxLength(10)])],
@@ -31,18 +31,20 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  ngOnInit () {
+  ngOnInit() {
   }
 
-  register (ev) {
+  register(ev) {
     ev.preventDefault();
 
     if (!this.registerForm.invalid) {
       if (this.registerForm.controls.password1.value === this.registerForm.controls.password2.value) {
         this.passConfirm = false;
         // console.log(this.registerForm);
-        this.credServ.registerUser(this.registerForm.value).subscribe((resp) => {
-          if (resp.data == 'OK'){
+        let data = this.registerForm.value;
+        data.fecha_expedicion = this.utils.buildDate(data.fecha_expedicion)
+        this.credServ.registerUser(data).subscribe((resp) => {
+          if (resp.data == 'OK') {
             this.store.dispatch(new OpenAlert({
               open: true,
               title: "Felicidades",
@@ -51,6 +53,7 @@ export class RegisterComponent implements OnInit {
             }))
           }
           this.registerForm.reset();
+          this.route.navigate(['/login'])
           // else{
           //   this.store.dispatch(new OpenAlert({
           //     open: true,

@@ -1,11 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from '../environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { NgxMyDatePickerModule } from 'ngx-mydatepicker';
+
 
 //ngrx
 import { StoreModule } from '@ngrx/store';
@@ -49,6 +52,7 @@ import { Tab2SubTab2Effects } from './effects/tab2SubTab2.effects';
 
 
 
+
 const effects = [
   AuthEffects,
   AddressFormEffects,
@@ -82,7 +86,7 @@ const NGRX_IMPORTS = [
     ApprovedComponent,
     RecoverPasswordComponent,
     ChangePasswordComponent,
-    RegisterComponent
+    RegisterComponent,
     
   ],
   imports: [
@@ -91,6 +95,8 @@ const NGRX_IMPORTS = [
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    NgbModule,
+    NgxMyDatePickerModule.forRoot(),
     ...NGRX_IMPORTS,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
