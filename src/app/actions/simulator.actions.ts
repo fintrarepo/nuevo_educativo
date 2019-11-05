@@ -5,6 +5,10 @@ import { ISimulator, IPreApplication } from '../models/credits.model';
 // SIMULATION
 export enum SimulationActionTypes {
     SendSimulation = '[SimulationAction] SEND_SIMULATION',
+    SendSimulationRenewCredit = '[SimulationAction] SEND_SIMULATION_RENEW_CREDIT',
+
+    ResetSimulation = '[SimulationAction] RESET_SIMULATION',
+
     SendSimulationSuccess = '[SimulationAction] SEND_SIMULATION_SUCCESS',
     SendSimulationError = '[SimulationAction] SEND_SIMULATION_ERROR',
 
@@ -19,6 +23,18 @@ export class SendSimulation implements Action {
     readonly type = SimulationActionTypes.SendSimulation;
     constructor(public payload: ISimulator) { }
 }
+
+export class SendSimulationRenewCredit implements Action {
+    readonly type = SimulationActionTypes.SendSimulationRenewCredit;
+    constructor(public payload: any) { }
+}
+
+
+export class ResetSimulation implements Action {
+    readonly type = SimulationActionTypes.ResetSimulation;
+}
+
+
 
 
 export class SendSimulationSuccess implements Action {
@@ -54,7 +70,7 @@ export class SendSimulationError implements Action {
 
 export type actions = SendSimulation |
     SendSimulationSuccess |
-    SendSimulationError 
+    SendSimulationError | SendSimulationRenewCredit | ResetSimulation;
     // SendPreApplication |
     // SendPreApplicationSucess |
     // SendPreApplicationError;

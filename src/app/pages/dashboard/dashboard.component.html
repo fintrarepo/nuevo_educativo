@@ -1,9 +1,11 @@
 <div id="dashboard" class="white-box">
   <div class="row">
-    <div class="col-md-6 col-6">
-      <h3 class="light-blue-yellow-dark">Mi cuenta</h3>
+    <div class="col-md-6 col-8">
+      <h3 class="light-blue-yellow-dark" *ngIf="type_list=='requests'">Pre-solicitudes</h3>
+      <h3 class="light-blue-yellow-dark" *ngIf="type_list=='credits'">Renovaciones</h3>
+      <h3 class="light-blue-yellow-dark" *ngIf="type_list=='history'">Historial</h3>
     </div>
-    <div class="col-md-6 col-6 text-right" *ngIf="auth.tipo_usuario == 'C'">
+    <div class="col-md-6 col-4 text-right" *ngIf="auth.tipo_usuario == 'C'">
       <span class="dark-blue-font" style="width: 240px;" [routerLink]="['/app/dashboard/history']"
         [ngClass]="{'selected': type_list == 'history'}" (click)="getHistory()"
         style="cursor: pointer; text-decoration: underline;">
@@ -12,7 +14,7 @@
     </div>
   </div>
 
-  <div class="row filters">
+  <!-- <div class="row filters">
     <div class="col-md-6">
       <button class="btn button-blue" [routerLink]="['/app/dashboard/requests']"
         [ngClass]="{'selected': type_list == 'requests'}" style="margin-right: 10px;"
@@ -26,13 +28,14 @@
         <p style="font-size:1.7em; margin:0; margin-right: 10px;">+</p>NUEVA PRE-SOLICITUD
       </button>
     </div>
-  </div>
+  </div> -->
 
   <app-list-request *ngIf=" type_list == 'requests'" [type]="'requests'"></app-list-request>
 
   <app-list-request *ngIf=" type_list == 'credits'" [type]="'credits'"></app-list-request>
 
-  <app-history-request [loading]="showLoadingHistory" [history]="historyc" [loading]="historyIsLoaded" *ngIf="type_list == 'history'">
+  <app-history-request [loading]="showLoadingHistory" [history]="historyc" [loading]="historyIsLoaded"
+    *ngIf="type_list == 'history'">
   </app-history-request>
 
 </div>

@@ -18,6 +18,10 @@ export class CreditsService {
     return this.http.post('/webresources/loans/approximate_fee-2', data);
   }
 
+  simulateRenewCredit(data: ISimulator) {
+    return this.http.post('/webresources/loans/payment_settlement', data);
+  }
+
   send(data: IPreApplication) {
     return this.http.put('/webresources/loans/edu-pre-approved', data);
   }

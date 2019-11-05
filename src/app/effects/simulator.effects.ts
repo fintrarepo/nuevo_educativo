@@ -8,7 +8,7 @@ import { OpenAlert } from '../actions/alert.actions';
 
 import { CreditsService } from '../services/credits/credits.service';
 
-import { SendSimulation, SimulationActionTypes, SendSimulationSuccess, SendSimulationError } from '../actions/simulator.actions';
+import { SendSimulation, SimulationActionTypes, SendSimulationSuccess, SendSimulationError, SendSimulationRenewCredit } from '../actions/simulator.actions';
 
 @Injectable({
     providedIn: 'root'
@@ -36,7 +36,23 @@ export class SimulatorEffects {
     )
 
 
+    @Effect()
+    SendSimulationRenewCredit$: Observable<Action> = this.actions$.pipe(
+        ofType<SendSimulationRenewCredit>(SimulationActionTypes.SendSimulationRenewCredit),
+        tap(v => console.log('LoginUser effect tap', v.payload)),
+        map(action => action.payload),
+        exhaustMap(action => {
+            return this.credit.simulateRenewCredit(action).pipe(
+                map(Response => {
+                    return new SendSimulationSuccess({ result: Response.data })
+                }),
+                catchError(error => of(new SendSimulationError({ requests: Response })))
+            )
+        })
+    )
 
+
+    
 
     // @Effect()
     // GetListRequestError: Observable<Action> = this.actions$.pipe(

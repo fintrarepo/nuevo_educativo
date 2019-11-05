@@ -3,7 +3,7 @@
   <nav id="sidebar" [ngClass]="{'show-menu': showMenu}">
     <button href="#menu-toggle" id="menu-toggle" class="navbar-brand" (click)="toggleMenu()">
       <!-- <img src="/assets/images/Icon_BurgerMenu_Mobile.svg" alt=""> -->
-      
+
       <img src="/assets/images/iconos-web-edu-1.png" alt="" *ngIf="showMenu">
       <img src="/assets/images/iconos-web-edu-2.png" alt="" *ngIf="!showMenu">
     </button>
@@ -14,15 +14,24 @@
     <ul class="list-unstyled list-menu components">
       <li [ngClass]="{'active': currenturl == '/app/dashboard/requests'}">
         <a routerLink="/app/dashboard/requests"
-          [ngClass]="{'dark-blue-font': currenturl == '/app/dashboard/requests'}">pre-solicitudes</a>
+          [ngClass]="{'dark-blue-font': currenturl == '/app/dashboard/requests'}">pre-solicitudes
+          <i class="fa fa-book" [ngClass]="{'selectec-i': currenturl == '/app/dashboard/requests'}"></i>
+        </a>
+
       </li>
       <li [ngClass]="{'active': currenturl == '/app/dashboard/credits'}">
         <a routerLink="/app/dashboard/credits"
-          [ngClass]="{'dark-blue-font': currenturl == '/app/dashboard/credits'}">renovaciones</a>
+          [ngClass]="{'dark-blue-font': currenturl == '/app/dashboard/credits'}">renovaciones
+          <i class="fa fa-reply" [ngClass]="{'selectec-i': currenturl == '/app/credits'}"></i>
+        </a>
+
       </li>
       <li [ngClass]="{'active': currenturl == '/app/new-request'}">
         <a routerLink="/app/new-request" [ngClass]="{'dark-blue-font': currenturl == '/app/new-request'}">Nueva
-          pre-solicitud</a>
+          pre-solicitud
+          <i class="fa fa-plus" [ngClass]="{'selectec-i': currenturl == '/app/new-request'}"></i>
+        </a>
+
       </li>
       <!-- <li [ngClass]="{'active': false}">
         <a href="#">otros servicios</a>

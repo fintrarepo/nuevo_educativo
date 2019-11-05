@@ -1,5 +1,5 @@
 import * as SimulationAction from '../actions/simulator.actions';
-import { SimulationActionTypes} from '../actions/simulator.actions';
+import { SimulationActionTypes } from '../actions/simulator.actions';
 import { ISimulator } from '../models/credits.model';
 
 export { ISimulator as State };
@@ -20,10 +20,22 @@ const initialState: ISimulator = {
 export function SimulatorReducer(state: ISimulator = initialState, action: SimulationAction.actions) {
 
     switch (action.type) {
+
+        case SimulationActionTypes.ResetSimulation:
+            return initialState
+
         case SimulationActionTypes.SendSimulation:
             return {
                 ...action.payload,
-                result: null
+                result: null,
+                error: null,
+            };
+
+        case SimulationActionTypes.SendSimulationRenewCredit:
+            return {
+                ...action.payload,
+                result: null,
+                error: null
             };
 
         case SimulationActionTypes.SendSimulationSuccess:

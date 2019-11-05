@@ -1,7 +1,7 @@
 <div class="white-box">
   <div class="row">
     <div class="col-md-12">
-      <h3 class="light-blue-yellow-dark">Crear nueva solicitud</h3>
+      <h3 class="light-blue-yellow-dark">Crear nueva solicitud <span [hidden]="!isRenewCredit">de renovación</span></h3>
     </div>
   </div>
 
@@ -57,6 +57,22 @@
             <label class="subtitle-form">Ingresos mensuales
               {{form.controls.ingresos_usuario.value | currency:'USD':true:'1.0-0'}}</label>
             <input type="number" class="form-control" formControlName="ingresos_usuario" />
+          </div>
+          <div class="form-group col-md-6 col-lg-4" [hidden]="!isRenewCredit">
+            <label class="subtitle-form">Semestre a cursar</label>
+            <select class="form-control" formControlName="semestre">
+              <option value="">Selecciona un semestre</option>
+              <option value=1>1</option>
+              <option value=2>2</option>
+              <option value=3>3</option>
+              <option value=4>4</option>
+              <option value=5>5</option>
+              <option value=6>6</option>
+              <option value=7>7</option>
+              <option value=8>8</option>
+              <option value=9>9</option>
+              <option value=10>10</option>
+            </select>
           </div>
         </div>
 
@@ -117,7 +133,43 @@
     <div class="row">
       <div class="col-lg-7 col-md-7" *ngIf="!(resultSimulation$ | async)">
       </div>
-      <div class="col-lg-7 col-md-7 col-12 content-simulation" *ngIf="(resultSimulation$ | async)">
+      <div class="col-lg-7 col-md-7" *ngIf="(resultSimulation$ | async) && isRenewCredit">
+        <div class="row">
+          <div class="col-md-12">
+            <span class="light-blue-font">Valor total nuevo crédito</span>
+          </div>
+          <div class="col-md-12">
+            <h5 class="dark-blue-font" style="font-size: 1.8em;">
+              {{(resultSimulation$ | async ).result.total_nuevo_credito | currency:'USD':true:'1.0-0'}}</h5>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <span class="light-blue-font">Valor total cuota aproximada</span>
+          </div>
+          <div class="col-md-12">
+            <h5 class="dark-blue-font" style="font-size: 1.8em;">
+              {{(resultSimulation$ | async ).result.nueva_cuota_aproximada | currency:'USD':true:'1.0-0'}}</h5>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <span class="light-blue-font">Saldo crédito actual</span>
+            <h5 class="dark-blue-font">
+              {{(resultSimulation$ | async ).result.saldo_credito_anterior | currency:'USD':true:'1.0-0'}}</h5>
+          </div>
+          <div class="col-md-4">
+            <span class="light-blue-font">Nuevo saldo solicitado</span>
+            <h5 class="dark-blue-font">
+              {{(resultSimulation$ | async ).result.monto_solicitado | currency:'USD':true:'1.0-0'}}</h5>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="col-lg-7 col-md-7 col-12 content-simulation" *ngIf="(resultSimulation$ | async) &&  !isRenewCredit">
         <div class="content-text-simulation">
           <img src="/assets/images/Icon_FlechaAprobado.svg" alt="">
           <h3 class="label-simulation">SIMULACIÓN DE CRÉDITO PRE-APROBADA</h3>

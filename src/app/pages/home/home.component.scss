@@ -14,7 +14,7 @@ $width_sidebar : 260px;
   width: $width_sidebar;
   height: 100vh;
   z-index: 999;
-  background: #32BEFA;
+  background: #32BEFA; 
   color: #fff;
   transition: all .35s cubic-bezier(0.95, 0.05, 0.91, 0.035);
   position: relative;
@@ -59,7 +59,21 @@ $width_sidebar : 260px;
 
       height: 44px;
       width: 100%;
+      position: relative;
+      
+      i{
+        // right: 15px;
+        // position: absolute;
+        // top: 50%;
+        // transform: translateY(-50%);
+        margin-right: 10px;
+        display: flex;
+        font-size: 1.5rem;
 
+        &.selectec-i{
+          color: #32BEFA;
+        }
+      }
       a {
 
         padding-left: 30px;
@@ -69,6 +83,7 @@ $width_sidebar : 260px;
         text-decoration: none;
         display: flex;
         align-items: center;
+        justify-content: space-between;
         color: rgba(#A3E3FF, .7);
         text-transform: uppercase !important;
         font-size: 14px;
@@ -165,7 +180,7 @@ $width_sidebar : 260px;
   }
   #sidebar {
     position: fixed;
-    left: -240px;
+    left: -218px;
 
     #menu-toggle {
       display: block !important;
@@ -173,9 +188,9 @@ $width_sidebar : 260px;
 
 
     .list-menu {
-      li {
-        width: calc(100% - 20px);
-      }
+      // li {
+      //   width: calc(100% - 20px);
+      // }
     }
   }
 
@@ -184,8 +199,8 @@ $width_sidebar : 260px;
   }
 
   #content {
-    width: calc(100% - 20px);
-    left: 20px;
+    width: calc(100% - 40px);
+    left: 40px;
     // background: white;
   }
 
@@ -203,7 +218,7 @@ $width_sidebar : 260px;
 
   #sidebar {
     position: fixed;
-    left: -240px;
+    left: -218px;
 
     #menu-toggle {
       display: block !important;
@@ -211,9 +226,9 @@ $width_sidebar : 260px;
 
 
     .list-menu {
-      li {
-        width: calc(100% - 20px);
-      }
+      // li {
+      //   width: calc(100% - 20px);
+      // }
     }
   }
 
@@ -258,11 +273,14 @@ $width_sidebar : 260px;
 // Mobile
 @media (max-width: 575.98px) {
   #content {
-
+    width: calc(100% - 20px);
+    left: 20px;
     footer {
       display: none;
     }
   }
+
+  
 
   #section {
     top: 80px;
@@ -276,6 +294,18 @@ $width_sidebar : 260px;
       &>div:first-child {
         h5 {
           font-size: 1rem;
+        }
+      }
+    }
+  }
+
+  #sidebar {
+    left: -240px;
+
+    .list-menu{
+      li{
+        i{
+          display: none;
         }
       }
     }

@@ -3,9 +3,10 @@ import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/fo
 import { OpenAlert } from 'src/app/actions/alert.actions';
 import { Store } from '@ngrx/store';
 import { UtilsService } from '../../services/utils/utils.service'
-import { SendSimulation } from 'src/app/actions/simulator.actions';
+import { SendSimulation, SendSimulationRenewCredit, ResetSimulation } from 'src/app/actions/simulator.actions';
 import { ISimulator, IPreApplication } from '../../models/credits.model';
 import { SendPreApplication } from 'src/app/actions/credit.actions';
+import { ActivatedRoute } from '@angular/router';
 import * as reducers from '../../reducers/reducers';
 import * as moment from 'moment';
 
@@ -28,16 +29,22 @@ export class NewRequestComponent implements OnInit {
   minDate: any;
   valorCuota: number;
   valorAval: number;
+  isRenewCredit: boolean = false;
+  currentSimulation: any;
 
   resultSimulation$ = this.store.select(reducers.getSimulatorResult)
 
   constructor(public formBuilder: FormBuilder,
     private store: Store<reducers.State>,
+    private route: ActivatedRoute,
     private utils: UtilsService) {
     this.now = moment()
+
     this.adultDate = moment().subtract(18, "years");
     this.maxDate = { year: this.now.year(), month: this.now.month(), day: this.now.day() }
     this.minDate = { year: this.adultDate.year(), month: this.adultDate.month(), day: this.adultDate.day() }
+
+    this.resultSimulation$.subscribe(this.resultSimutation.bind(this))
 
     this.form = formBuilder.group({
       "tipo_carrera": ['PREGRADO', Validators.compose([Validators.maxLength(50), Validators.required])],
@@ -69,12 +76,15 @@ export class NewRequestComponent implements OnInit {
       // "departamento": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "ciudad": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "nit_empresa": ['8020220161', Validators.compose([Validators.maxLength(50), Validators.required])],
+      "semestre": ["", Validators.compose([Validators.maxLength(50)])],
       "monto_renovacion": [0],
       "politica": [''],
       "negocio_origen": ['']
     })
 
+    this.isRenewCredit = String(window.location.href).indexOf('renew-credit') > 0;
 
+    this.store.dispatch(new ResetSimulation())
   }
 
   ngOnInit() {
@@ -102,23 +112,65 @@ export class NewRequestComponent implements OnInit {
   simulate() {
     this.form.markAllAsTouched()
     if (this.formValidation()) {
-      let dataForm = this.buildDataForm()
-      const action = new SendSimulation(this.buildObjectBySimulation(dataForm))
-      this.store.dispatch(action)
+      if (this.isRenewCredit) {
+        this.simulateRenewCredit()
+      } else {
+        this.simulateNewRequest()
+      }
     }
 
   }
 
+  simulateNewRequest() {
+    let dataForm = this.buildDataForm()
+    const action = new SendSimulation(this.buildObjectBySimulation(dataForm))
+    this.store.dispatch(action)
+  }
+
+  simulateRenewCredit() {
+    let dataForm = this.buildDataForm()
+    const action = new SendSimulationRenewCredit({ ...this.buildObjectBySimulation(dataForm), negocio: this.route.snapshot.paramMap.get('id') })
+    this.store.dispatch(action)
+  }
+
   send() {
-   
+
     this.form.updateValueAndValidity()
     if (this.formValidation()) {
-      let dataForm = this.buildDataForm();
-      console.log(dataForm)
-      const action = new SendPreApplication(dataForm)
-      this.store.dispatch(action)
+      if (this.isRenewCredit) {
+        this.sendRenewCredit()
+      } else {
+        this.sendPreApplication()
+      }
     }
 
+  }
+
+  sendPreApplication() {
+    let dataForm = this.buildDataForm();
+    console.log(dataForm)
+    const action = new SendPreApplication(dataForm)
+    this.store.dispatch(action)
+  }
+
+  sendRenewCredit() {
+    const politica = this.route.snapshot.paramMap.get('polite')
+    let dataForm = this.buildDataForm();
+    const data = {
+      ...dataForm,
+      monto_renovacion: this.currentSimulation.saldo_credito_anterior,
+      politica,
+      negocio_origen: this.route.snapshot.paramMap.get('id'),
+      valor_cuota: this.currentSimulation.nueva_cuota_aproximada,
+      valor_aval: this.currentSimulation.nuevo_valor_aval
+    }
+    const action = new SendPreApplication(data)
+    this.store.dispatch(action)
+  }
+
+  resultSimutation(data) {
+    if (!data) return;
+    this.currentSimulation = data.result;
   }
 
   getControl(name) {

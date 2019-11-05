@@ -34,6 +34,12 @@ export class SendPreApplicationNotAproved implements Action {
 
 
 
+
+
+
+
+
+
 export type actions =
     SendPreApplication |
     SendPreApplicationSucess |

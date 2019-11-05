@@ -117,7 +117,7 @@ label.container input:checked~.checkmark:after {
 
 
 .light-blue-font {
-  font-family: 'Gotham Book';
+  font-family: 'Gotham Light Regular';
   color: $blue-light;
   font-size: 16px;
 }
@@ -490,8 +490,8 @@ input[type="number"] {
 @media (max-width: 1440px) {
   .white-box {
     padding: 20px;
-    width: calc(100vw - 21px);
-    left: 21px;
+    width: calc(100vw - 41px);
+    left: 41px;
     position: fixed;
     border-radius: 0;
     box-shadow: none;

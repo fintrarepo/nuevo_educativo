@@ -118,9 +118,9 @@
           <div class="col-lg-12 col-6 justify-content-end align-items-center text-right" *ngIf="type_list=='credits'"
             style="transform: translateY(120%)">
 
-            <button class="btn button-blue" style=" margin-top:1em;" [routerLink]="routerLink(item)"
+            <button class="btn button-blue" style=" margin-top:1em;" routerLink="/app/renew-credit/{{item.politica}}/{{item.negocio}}"
               *ngIf="item.cumple_renovacion == 't'">renovar credito</button>
-            <button class="btn button-blue" style=" margin-top:1em;" *ngIf="item.cumple_renovacion == 'f'">renovar
+            <button class="btn button-blue" style=" margin-top:1em;" *ngIf="item.cumple_renovacion == 'f'" disabled>renovar
               credito</button>
 
           </div>

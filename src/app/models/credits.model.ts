@@ -51,5 +51,6 @@ export interface IPreApplication {
     "politica": String,
     "negocio_origen": String,
     "result": any,
-    "error": any
+    "error": any,
+    
 }
