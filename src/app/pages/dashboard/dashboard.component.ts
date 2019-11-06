@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import * as reducers from '../../reducers/reducers';
 import { CreditsService } from '../../services/credits/credits.service';
 import { AuthService } from '../../services/auth/auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,6 +19,7 @@ export class DashboardComponent implements OnInit {
 
   showLoadingHistory: boolean = false;
   historyIsLoaded: boolean = false;
+  routerSubscription: any;
 
   constructor(private route: ActivatedRoute, private router: Router, private store: Store<reducers.State>,
     private creditserv: CreditsService, public auth: AuthService) {
@@ -25,13 +27,17 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.router.events.subscribe((val) => {
+    this.routerSubscription = this.router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
         this.changeList()
       }
-    });
+    })
 
     this.changeList()
+  }
+
+  ngOnDestroy() {
+    this.routerSubscription.unsubscribe()
   }
 
   changeList() {
@@ -39,8 +45,10 @@ export class DashboardComponent implements OnInit {
     this.credits = this.type_list == 'requests' ? false : true;
     if (this.type_list == 'history') {
       this.getHistory();
-    } else {
-      this.getCredits(this.credits);
+    } else if (this.type_list == 'credits') {
+      this.getCredits(true);
+    } else if (this.type_list == 'requests') {
+      this.getCredits(false);
     }
   }
 
