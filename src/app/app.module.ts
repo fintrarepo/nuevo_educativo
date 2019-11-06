@@ -53,6 +53,7 @@ import { Tab2SubTab2Effects } from './effects/tab2SubTab2.effects';
 
 
 
+
 const effects = [
   AuthEffects,
   AddressFormEffects,
@@ -86,7 +87,7 @@ const NGRX_IMPORTS = [
     ApprovedComponent,
     RecoverPasswordComponent,
     ChangePasswordComponent,
-    RegisterComponent,
+    RegisterComponent
     
   ],
   imports: [

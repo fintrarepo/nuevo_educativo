@@ -7,6 +7,7 @@ import { SendSimulation, SendSimulationRenewCredit, ResetSimulation } from 'src/
 import { ISimulator, IPreApplication } from '../../models/credits.model';
 import { SendPreApplication } from 'src/app/actions/credit.actions';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../../services/auth/auth.service';
 import * as reducers from '../../reducers/reducers';
 import * as moment from 'moment';
 
@@ -37,6 +38,7 @@ export class NewRequestComponent implements OnInit {
   constructor(public formBuilder: FormBuilder,
     private store: Store<reducers.State>,
     private route: ActivatedRoute,
+    private auth: AuthService,
     private utils: UtilsService) {
     this.now = moment()
 
@@ -56,35 +58,56 @@ export class NewRequestComponent implements OnInit {
       "fecha_pago": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "id_convenio": [58, Validators.compose([Validators.maxLength(50), Validators.required])],
       "fecha_credito": ['12'],//NO VAAAAA
-      //"tipo_identificacion": ['CC', Validators.compose([Validators.maxLength(50), Validators.required])],
-      //"identificacion": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
-      //"fecha_expedicion": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
-      //"primer_nombre": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
-      //"primer_apellido": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
-      //"email": ['', Validators.compose([Validators.maxLength(50), Validators.required, Validators.email, this.ValidateUrl])],
+
       "ingresos_usuario": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
-      //"fecha_nacimiento": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
+
       "valor_cuota": [''],
       "valor_aval": [''],
       "empresa": ['FINTRA', Validators.compose([Validators.maxLength(50), Validators.required])],
-      // "telefono": ['', Validators.compose([Validators.min(100000), Validators.max(9999999999), Validators.required])],
+
       "tipo_cliente": [''],
       "financia_aval": ['f', Validators.compose([Validators.maxLength(50), Validators.required])],
       "login": ['APICREDIT', Validators.compose([Validators.maxLength(50), Validators.required])],
       "asesor": ['antojsh'], //NO VAA
       "und_neg": [31, Validators.compose([Validators.maxLength(50), Validators.required])],
-      // "departamento": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
+
       "ciudad": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "nit_empresa": ['8020220161', Validators.compose([Validators.maxLength(50), Validators.required])],
       "semestre": ["", Validators.compose([Validators.maxLength(50)])],
       "monto_renovacion": [0],
       "politica": [''],
-      "negocio_origen": ['']
+      "negocio_origen": [''],
+
+
+      "tipo_identificacion": ['CED', Validators.compose([Validators.maxLength(50),])],
+      "identificacion": ['', Validators.compose([Validators.maxLength(50),])],
+      "fecha_expedicion": ['', Validators.compose([Validators.maxLength(50),])],
+      "primer_nombre": ['', Validators.compose([Validators.maxLength(50),])],
+      "primer_apellido": ['', Validators.compose([Validators.maxLength(50),])],
+      "email": ['', Validators.compose([Validators.maxLength(50), , Validators.email, this.ValidateUrl])],
+      "departamento": ['', Validators.compose([Validators.maxLength(50),])],
+      "telefono": ['', Validators.compose([Validators.min(100000), Validators.max(9999999999),])],
+      "fecha_nacimiento": ['', Validators.compose([Validators.maxLength(50),])],
     })
 
     this.isRenewCredit = String(window.location.href).indexOf('renew-credit') > 0;
 
     this.store.dispatch(new ResetSimulation())
+
+    if (this.auth.tipo_usuario == 'E') {
+
+
+      this.form.controls.tipo_identificacion.setValidators([Validators.required, Validators.maxLength(100)])
+      this.form.controls.identificacion.setValidators([Validators.required, Validators.maxLength(50)])
+      this.form.controls.fecha_expedicion.setValidators([Validators.required, Validators.maxLength(100)])
+      this.form.controls.primer_nombre.setValidators([Validators.required, Validators.maxLength(100)])
+      this.form.controls.primer_apellido.setValidators([Validators.required, Validators.maxLength(100)])
+      this.form.controls.email.setValidators([Validators.required, Validators.maxLength(100), Validators.email, this.ValidateUrl])
+      // this.form.controls.departamento.setValidators([Validators.required, Validators.maxLength(100)])
+      this.form.controls.telefono.setValidators([Validators.required, Validators.maxLength(100)])
+      this.form.controls.fecha_nacimiento.setValidators([Validators.required, Validators.maxLength(100)])
+
+    }
   }
 
   ngOnInit() {
@@ -147,15 +170,15 @@ export class NewRequestComponent implements OnInit {
   }
 
   sendPreApplication() {
-    let dataForm = this.buildDataForm();
-    console.log(dataForm)
+    let dataForm = { ...this.buildDataForm(), tipo_usuario: this.auth.tipo_usuario }
+
     const action = new SendPreApplication(dataForm)
     this.store.dispatch(action)
   }
 
   sendRenewCredit() {
     const politica = this.route.snapshot.paramMap.get('polite')
-    let dataForm = this.buildDataForm();
+    let dataForm = { ...this.buildDataForm(), tipo_usuario: this.auth.tipo_usuario }
     const data = {
       ...dataForm,
       monto_renovacion: this.currentSimulation.saldo_credito_anterior,
@@ -207,8 +230,12 @@ export class NewRequestComponent implements OnInit {
 
   private buildDataForm(): IPreApplication {
     let dataForm = { ...this.form.value }
-    // dataForm.fecha_expedicion = this.utils.buildDate(dataForm.fecha_expedicion);
-    // dataForm.fecha_nacimiento = this.utils.buildDate(dataForm.fecha_nacimiento);
+
+    if (this.auth.tipo_usuario == 'E') {
+      dataForm.fecha_expedicion = this.utils.buildDate(dataForm.fecha_expedicion);
+      dataForm.fecha_nacimiento = this.utils.buildDate(dataForm.fecha_nacimiento);
+    }
+
     dataForm.valor_cuota = this.valorCuota
     dataForm.valor_aval = this.valorAval
     dataForm.num_cuotas = parseInt(dataForm.num_cuotas)

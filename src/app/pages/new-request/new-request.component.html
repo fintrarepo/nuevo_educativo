@@ -79,7 +79,7 @@
       </div>
 
 
-      <!-- <div class="block-form" style="border: none;">
+      <div class="block-form" style="border: none;" *ngIf="auth.tipo_usuario=='E'">
         <div class="form-row">
           <div class="form-group col-md-6 col-lg-4 ">
             <label class="subtitle-form">Tipo de identificación</label>
@@ -94,14 +94,15 @@
           <div class="form-group col-md-6 col-lg-4">
             <label class="subtitle-form">Fecha de expedición de la cédula</label>
             <input type="date" class="form-control" formControlName="fecha_expedicion" readonly ngbDatepicker
-              #d1="ngbDatepicker" (click)="d1.toggle()">
+              #d1="ngbDatepicker" (click)="d1.toggle()" [minDate]="{year: 1967, month: 1, day: 1}">
           </div>
           <div class="form-group col-md-6 col-lg-4">
             <label class="subtitle-form">Fecha de nacimiento</label>
             <input type="date" class="form-control" formControlName="fecha_nacimiento" readonly ngbDatepicker
               #d2="ngbDatepicker" (click)="d2.toggle()"
               [maxDate]="maxDate"
-              [displayMonths]="2">
+              [minDate]="{year: 1967, month: 1, day: 1}"
+              >
           </div>
           <div class="form-group col-md-6 col-lg-4">
             <label class="subtitle-form">Primer Apellido</label>
@@ -119,14 +120,11 @@
             <label class="subtitle-form">Telefono</label>
             <input type="number" class="form-control" formControlName="telefono" />
           </div>
-          <div class="form-group col-md-6 col-lg-4">
-            <label class="subtitle-form">Ingresos mensuales</label>
-            <input type="number" class="form-control" formControlName="ingresos_usuario" />
-          </div>
+          
         </div>
 
 
-      </div> -->
+      </div>
     </form>
 
 

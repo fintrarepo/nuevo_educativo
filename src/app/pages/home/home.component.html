@@ -8,25 +8,25 @@
       <img src="/assets/images/iconos-web-edu-2.png" alt="" *ngIf="!showMenu">
     </button>
     <div class="sidebar-header">
-      <img src="/assets/images/Logo Fintra.svg" alt="">
+      <img src="/assets/images/Logo Fintra.svg" class="logo-fintra" >
     </div>
 
     <ul class="list-unstyled list-menu components">
-      <li [ngClass]="{'active': currenturl == '/app/dashboard/requests'}">
+      <li [ngClass]="{'active': currenturl == '/app/dashboard/requests'}" title="Lista de pre-solicitudes">
         <a routerLink="/app/dashboard/requests"
           [ngClass]="{'dark-blue-font': currenturl == '/app/dashboard/requests'}">pre-solicitudes
           <i class="fa fa-book" [ngClass]="{'selectec-i': currenturl == '/app/dashboard/requests'}"></i>
         </a>
 
       </li>
-      <li [ngClass]="{'active': currenturl == '/app/dashboard/credits'}">
+      <li [ngClass]="{'active': currenturl == '/app/dashboard/credits'}" title="Renovaciones de creditos">
         <a routerLink="/app/dashboard/credits"
           [ngClass]="{'dark-blue-font': currenturl == '/app/dashboard/credits'}">renovaciones
           <i class="fa fa-reply" [ngClass]="{'selectec-i': currenturl == '/app/credits'}"></i>
         </a>
 
       </li>
-      <li [ngClass]="{'active': currenturl == '/app/new-request'}">
+      <li [ngClass]="{'active': currenturl == '/app/new-request'}" title="Nueva pre-solicitud">
         <a routerLink="/app/new-request" [ngClass]="{'dark-blue-font': currenturl == '/app/new-request'}">Nueva
           pre-solicitud
           <i class="fa fa-plus" [ngClass]="{'selectec-i': currenturl == '/app/new-request'}"></i>
@@ -46,7 +46,7 @@
   </nav>
 
   <!-- Page Content -->
-  <div id="content">
+  <div id="content"  [ngClass]="{'show-menu': showMenu}">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
         <div class="row" style="width:100%;">

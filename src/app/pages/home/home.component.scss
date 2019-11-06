@@ -4,7 +4,7 @@ $width_sidebar : 260px;
 .wrapper {
   display: flex;
   width: 100%;
-
+  overflow: hidden;
 }
 
 
@@ -16,9 +16,14 @@ $width_sidebar : 260px;
   z-index: 999;
   background: #32BEFA; 
   color: #fff;
-  transition: all .35s cubic-bezier(0.95, 0.05, 0.91, 0.035);
-  position: relative;
+  transition: all .15s cubic-bezier(0.755, 0.05, 0.855, 0.06);
+  position: fixed;
+  left: -200px;
 
+  img.logo-fintra{
+    display: none;
+  }
+  
   //cubic-bezier(0.95, 0.05, 0.795, 0.9)
   .sidebar-header {
     height: 150px;
@@ -39,7 +44,7 @@ $width_sidebar : 260px;
     z-index: 1000;
     margin: 0;
     padding: 0;
-    display: none;
+    // display: none;
     background: none;
     outline: none;
     border: none;
@@ -66,7 +71,7 @@ $width_sidebar : 260px;
         // position: absolute;
         // top: 50%;
         // transform: translateY(-50%);
-        margin-right: 10px;
+        margin-right: 20px;
         display: flex;
         font-size: 1.5rem;
 
@@ -109,14 +114,27 @@ $width_sidebar : 260px;
 
     }
   }
+
+  &.show-menu {
+    left: 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+
+    img.logo-fintra{
+      display: block;
+    }
+  }
 }
 
 #content {
-  width: calc(100vw - #{$width_sidebar});
+  width: calc(100vw - 60px);
+  left: 60px;
   height: 100vh;
   position: relative;
   background: #F2F2F2;
-
+  transition: all .15s cubic-bezier(0.755, 0.05, 0.855, 0.06);
+  &.show-menu{
+    left: $width_sidebar;
+  }
   .navbar {
     height: 70px;
     position: absolute;
@@ -168,6 +186,9 @@ $width_sidebar : 260px;
 
 @media (max-width: 1440px) {
   #content{
+    &.show-menu{
+      left: $width_sidebar;
+    }
     .navbar{
 
       h5.dark-blue-font{
@@ -180,7 +201,7 @@ $width_sidebar : 260px;
   }
   #sidebar {
     position: fixed;
-    left: -218px;
+    left: -200px;
 
     #menu-toggle {
       display: block !important;
@@ -199,8 +220,11 @@ $width_sidebar : 260px;
   }
 
   #content {
-    width: calc(100% - 40px);
-    left: 40px;
+    &.show-menu{
+      left: $width_sidebar;
+    }
+    width: calc(100% - 60px);
+    left: 60px;
     // background: white;
   }
 
@@ -218,7 +242,7 @@ $width_sidebar : 260px;
 
   #sidebar {
     position: fixed;
-    left: -218px;
+    left: -200px;
 
     #menu-toggle {
       display: block !important;
@@ -237,8 +261,11 @@ $width_sidebar : 260px;
   }
 
   #content {
-    width: calc(100% - 20px);
-    left: 20px;
+    &.show-menu{
+      left: $width_sidebar;
+    }
+    width: calc(100% - 60px);
+    left: 60px;
     // background: white;
   }
 
@@ -273,6 +300,9 @@ $width_sidebar : 260px;
 // Mobile
 @media (max-width: 575.98px) {
   #content {
+    &.show-menu{
+      left: $width_sidebar;
+    }
     width: calc(100% - 20px);
     left: 20px;
     footer {

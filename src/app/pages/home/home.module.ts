@@ -29,6 +29,7 @@ import { PopupApprovedComponent } from '../../components/popup-aproved/popup-app
 import { HistoryRequestComponent } from '../../components/history-request/history-request.component';
 import { CreditComponent } from '../../components/credit/credit.component';
 import { LoadingFormsComponent } from '../../components/loading-forms/loading-forms.component';
+import { UpdateInfoComponent } from '../../components/update-info/update-info.component';
 
 //GUARDS
 import { AuthGuard } from '../../auth.guard';
@@ -44,7 +45,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'dashboard',
+        redirectTo: 'dashboard/requests',
         pathMatch: 'full'
       },
       {
@@ -108,7 +109,8 @@ const components = [
   HistoryRequestComponent,
   Tab2PersonalInformationComponent,
   CreditComponent,
-  LoadingFormsComponent
+  LoadingFormsComponent,
+  UpdateInfoComponent
 ]
 
 const directives = [

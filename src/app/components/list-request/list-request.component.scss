@@ -125,4 +125,9 @@
   button {
     width: 120px;
   }
+
+  .btn-desemboldado:disabled,
+  .btn-desemboldado[disabled] {
+    width: 100%
+  }
 }
