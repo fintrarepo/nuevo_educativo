@@ -164,7 +164,7 @@ export class Tab1WorkingInformationComponent implements OnInit {
     }
   }
 
-  
+
 
   responseAutoComplete(response) {
     for (let i in response.data) {
@@ -179,6 +179,7 @@ export class Tab1WorkingInformationComponent implements OnInit {
   private buildDataForm() {
     let dataForm = { ...this.form.value }
     dataForm.fecha_ingreso = this.utils.buildDate(dataForm.fecha_ingreso)
+    dataForm.telefono = String(dataForm.telefono)
     return dataForm;
   }
 

@@ -8,28 +8,37 @@
       <img src="/assets/images/iconos-web-edu-2.png" alt="" *ngIf="!showMenu">
     </button>
     <div class="sidebar-header">
-      <img src="/assets/images/Logo Fintra.svg" class="logo-fintra" >
+      <img src="/assets/images/Logo Fintra.svg" class="logo-fintra">
     </div>
 
     <ul class="list-unstyled list-menu components">
       <li [ngClass]="{'active': currenturl == '/app/dashboard/requests'}" title="Lista de pre-solicitudes">
         <a routerLink="/app/dashboard/requests"
           [ngClass]="{'dark-blue-font': currenturl == '/app/dashboard/requests'}">pre-solicitudes
-          <i class="fa fa-book" [ngClass]="{'selectec-i': currenturl == '/app/dashboard/requests'}"></i>
+          <!-- <i class="fa fa-book" [ngClass]="{'selectec-i': currenturl == '/app/dashboard/requests'}"> -->
+          <img src="/assets/images/menu/Pre-solicitud-NO-SEL.png" alt=""
+            *ngIf="currenturl != '/app/dashboard/requests'" />
+          <img src="/assets/images/menu/Pre-solicitud-SEL.png" alt="" *ngIf="currenturl == '/app/dashboard/requests'" />
+
         </a>
 
       </li>
       <li [ngClass]="{'active': currenturl == '/app/dashboard/credits'}" title="Renovaciones de creditos">
         <a routerLink="/app/dashboard/credits"
           [ngClass]="{'dark-blue-font': currenturl == '/app/dashboard/credits'}">renovaciones
-          <i class="fa fa-reply" [ngClass]="{'selectec-i': currenturl == '/app/credits'}"></i>
+          <!-- <i class="fa fa-reply" [ngClass]="{'selectec-i': currenturl == '/app/credits'}"></i> -->
+          <img src="/assets/images/menu/Renueva-NO-SEL.png" alt="" *ngIf="currenturl != '/app/dashboard/credits'" />
+          <img src="/assets/images/menu/Renueva-SEL.png" alt="" *ngIf="currenturl == '/app/dashboard/credits'" />
         </a>
 
       </li>
       <li [ngClass]="{'active': currenturl == '/app/new-request'}" title="Nueva pre-solicitud">
         <a routerLink="/app/new-request" [ngClass]="{'dark-blue-font': currenturl == '/app/new-request'}">Nueva
           pre-solicitud
-          <i class="fa fa-plus" [ngClass]="{'selectec-i': currenturl == '/app/new-request'}"></i>
+          <!-- <i class="fa fa-plus" [ngClass]="{'selectec-i': currenturl == '/app/new-request'}"></i> -->
+          <img src="/assets/images/menu/Nueva-Pre-solicitud-NO-SEL.png" alt=""
+            *ngIf="currenturl != '/app/new-request'" />
+          <img src="/assets/images/menu//Nueva-Pre-solicitud-SEL.png" alt="" *ngIf="currenturl == '/app/new-request'" />
         </a>
 
       </li>
@@ -43,14 +52,20 @@
         <a href="#">pqr</a>
       </li> -->
     </ul>
+
+    <div class="footer-menu">
+        <button (click)="closeSession()">CERRAR SESIÓN 
+          <img src="/assets/images/menu/Cerrar-Sesion-SEL.png" alt="">
+        </button>
+    </div>
   </nav>
 
   <!-- Page Content -->
-  <div id="content"  [ngClass]="{'show-menu': showMenu}">
+  <div id="content" [ngClass]="{'show-menu': showMenu}">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
         <div class="row" style="width:100%;">
-          <div class="col-lg-3  col-12">
+          <div class="col-lg-3  col-12 col-md-4">
             <span class="light-blue-font">
               Nombre cliente
             </span>
@@ -58,16 +73,7 @@
               {{auth.name}}
             </h5>
           </div>
-          <!-- <div class="col-md-3 hidden"
-            [ngClass]="{'visible': (currentBussiness$ | async), 'hidden': !(currentBussiness$ | async)}">
-            <span class="light-blue-font">
-              Universidad/Institución
-            </span>
-            <h5 class="dark-blue-font small">
-              {{(currentBussiness$ | async)?.payment_name}}
-            </h5>
-          </div> -->
-          <div class="col-md-1 col-lg-1"
+          <div class="col-md-2 col-lg-1"
             [ngClass]="{'visible': (currentBussiness$ | async), 'hidden': !(currentBussiness$ | async)}">
             <span class="light-blue-font">
               Monto
@@ -76,7 +82,7 @@
               {{(currentBussiness$ | async)?.monto | currency:'USD':true:'1.0-0'}}
             </h5>
           </div>
-          <div class="col-md-1 col-lg-1"
+          <div class="col-md-2 col-lg-1"
             [ngClass]="{'visible': (currentBussiness$ | async), 'hidden': !(currentBussiness$ | async)}">
             <span class="light-blue-font">
               Cuotas
@@ -94,13 +100,11 @@
               {{(currentBussiness$ | async)?.numero_solicitud}}
             </h5>
           </div>
-          <div class="col-md-3 hidden">
-
-          </div>
-          <div class="col-md-2 col-lg-2 text-right">
+         
+          <!-- <div class="col-md-2 col-lg-2 text-right btn-close-session">
             <button class="btn btn-outline-primary" style="margin-top: 10px; margin-right:-50px;"
               (click)="closeSession()">Cerrar sesion</button>
-          </div>
+          </div> -->
         </div>
       </div>
     </nav>

@@ -8,6 +8,7 @@ import { ISimulator, IPreApplication } from '../../models/credits.model';
 import { SendPreApplication } from 'src/app/actions/credit.actions';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
+import { ListRequestService } from '../../services/list-request/list-request.service'
 import * as reducers from '../../reducers/reducers';
 import * as moment from 'moment';
 
@@ -32,13 +33,15 @@ export class NewRequestComponent implements OnInit {
   valorAval: number;
   isRenewCredit: boolean = false;
   currentSimulation: any;
+  currentRenew: any;
 
   resultSimulation$ = this.store.select(reducers.getSimulatorResult)
 
   constructor(public formBuilder: FormBuilder,
     private store: Store<reducers.State>,
     private route: ActivatedRoute,
-    private auth: AuthService,
+    public auth: AuthService,
+    private request: ListRequestService,
     private utils: UtilsService) {
     this.now = moment()
 
@@ -122,6 +125,10 @@ export class NewRequestComponent implements OnInit {
         this.valorAval = data.result.valor_aval;
       }
     })
+
+    if (this.isRenewCredit) {
+      this.loadDataRenew(this.route.snapshot.paramMap.get('id'))
+    }
   }
 
   loadAfiliates() {
@@ -129,6 +136,18 @@ export class NewRequestComponent implements OnInit {
       .loadAfiliates(this.form.controls.ciudad.value)
       .subscribe(afiliates => {
         this.afiliates = afiliates.data;
+      })
+  }
+
+  loadDataRenew(negocio) {
+    this.request.getLoan(negocio)
+      .subscribe(data => {
+        this.currentRenew = data[0]
+
+        if (this.currentRenew.politica == "T") {
+          let date = this.currentRenew.fecha_vencimiento_ultima_cuota.split('-');
+          this.dates = this.utils.carcularFecha(date[0], date[1], date[2]);
+        }
       })
   }
 
@@ -177,7 +196,7 @@ export class NewRequestComponent implements OnInit {
   }
 
   sendRenewCredit() {
-    const politica = this.route.snapshot.paramMap.get('polite')
+    const politica = this.currentRenew.politica
     let dataForm = { ...this.buildDataForm(), tipo_usuario: this.auth.tipo_usuario }
     const data = {
       ...dataForm,

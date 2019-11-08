@@ -30,6 +30,17 @@
     </div>
   </div> -->
 
+  <div class="row filters" *ngIf=" type_list == 'credits' && auth.tipo_usuario=='E'">
+    <div class="form-group col-md-4 col-lg-3">
+      <div class="label-input-content">
+      </div>
+      <input type="text" class="form-control" [(ngModel)]="identificacion" placeholder="Numero de cedula del cliente">
+    </div>
+    <div class="col-md-4">
+      <button class="btn button-blue" (click)="getCredits(true)">Buscar negocios</button>
+    </div>
+  </div>
+
   <app-list-request *ngIf=" type_list == 'requests'" [type]="'requests'"></app-list-request>
 
   <app-list-request *ngIf=" type_list == 'credits'" [type]="'credits'"></app-list-request>

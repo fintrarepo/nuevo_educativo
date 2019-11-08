@@ -37,10 +37,7 @@ export function RecoveryPasswordReducer(state: State = initialState, action: Rec
             }
 
         case RecoveryPasswordActionTypes.CloseRecoveryPassword:
-            return {
-                ...state,
-                isOpen: false
-            }
+            return initialState
 
         case RecoveryPasswordActionTypes.SendIdUser:
             return {

@@ -60,7 +60,24 @@
         </div>
 
         <div class="row small-info">
-          <div class="col-lg-2 col-md-2">
+          <div class="col-lg-2 col-md-2" *ngIf="item.valor_saldo_total && type_list=='requests'">
+            <div>
+              <span>Nº solicitud</span>
+              <h5>
+                {{item.numero_solicitud}}
+              </h5>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-2" *ngIf="item.valor_saldo_total && type_list=='credits'">
+            <div>
+              <span>Negocio</span>
+              <h5>
+                {{item.negocio}}
+              </h5>
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-md-2" *ngIf="item.valor_saldo_total && type_list=='requests'">
             <div>
               <span>Plazo</span>
               <h5>
@@ -118,9 +135,10 @@
           <div class="col-lg-12 col-6 justify-content-end align-items-center text-right" *ngIf="type_list=='credits'"
             style="transform: translateY(120%)">
 
-            <button class="btn button-blue" style=" margin-top:1em;" routerLink="/app/renew-credit/{{item.politica}}/{{item.negocio}}"
+            <button class="btn button-blue" style=" margin-top:1em;" routerLink="/app/renew-credit/{{item.negocio}}"
               *ngIf="item.cumple_renovacion == 't'">renovar credito</button>
-            <button class="btn button-blue" style=" margin-top:1em;" *ngIf="item.cumple_renovacion == 'f'" disabled>renovar
+            <button class="btn button-blue" style=" margin-top:1em;" *ngIf="item.cumple_renovacion == 'f'"
+              disabled>renovar
               credito</button>
 
           </div>

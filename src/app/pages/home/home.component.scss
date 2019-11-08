@@ -14,16 +14,44 @@ $width_sidebar : 260px;
   width: $width_sidebar;
   height: 100vh;
   z-index: 999;
-  background: #32BEFA; 
+  background: #32BEFA;
   color: #fff;
   transition: all .15s cubic-bezier(0.755, 0.05, 0.855, 0.06);
   position: fixed;
   left: -200px;
 
-  img.logo-fintra{
+  .footer-menu {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    bottom: 10px;
+
+    button {
+      background: white;
+      width: 100%;
+      outline: none;
+      border: none;
+      padding: 5px;
+      color: #37BFFA;
+   
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: "GotHam Bold";
+      padding: 10px 20px;
+      img {
+        margin-left: 10px;
+        height: 23px !important;
+      }
+    }
+  }
+
+  img.logo-fintra {
     display: none;
   }
-  
+
   //cubic-bezier(0.95, 0.05, 0.795, 0.9)
   .sidebar-header {
     height: 150px;
@@ -65,20 +93,22 @@ $width_sidebar : 260px;
       height: 44px;
       width: 100%;
       position: relative;
-      
-      i{
+
+      img {
         // right: 15px;
         // position: absolute;
         // top: 50%;
         // transform: translateY(-50%);
-        margin-right: 20px;
+        margin-right: 15px;
         display: flex;
-        font-size: 1.5rem;
+        height: 30px;
+        // font-size: 1.5rem;
 
-        &.selectec-i{
+        &.selectec-i {
           color: #32BEFA;
         }
       }
+
       a {
 
         padding-left: 30px;
@@ -113,13 +143,15 @@ $width_sidebar : 260px;
       }
 
     }
+
+
   }
 
   &.show-menu {
     left: 0;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 
-    img.logo-fintra{
+    img.logo-fintra {
       display: block;
     }
   }
@@ -132,9 +164,11 @@ $width_sidebar : 260px;
   position: relative;
   background: #F2F2F2;
   transition: all .15s cubic-bezier(0.755, 0.05, 0.855, 0.06);
-  &.show-menu{
+
+  &.show-menu {
     left: $width_sidebar;
   }
+
   .navbar {
     height: 70px;
     position: absolute;
@@ -143,7 +177,8 @@ $width_sidebar : 260px;
     top: 0;
     background: white !important;
     box-shadow: 0 0px 6px #CCCCCC;
-    span{
+
+    span {
       font-size: .8rem;
     }
   }
@@ -175,30 +210,38 @@ $width_sidebar : 260px;
 }
 
 
-.visible{
+.visible {
   visibility: visible;
 }
 
-.hidden{
+.hidden {
   visibility: hidden;
 }
 
 
 @media (max-width: 1440px) {
-  #content{
-    &.show-menu{
+  .btn-close-session {
+
+    display: none;
+  }
+
+  #content {
+    &.show-menu {
       left: $width_sidebar;
     }
-    .navbar{
 
-      h5.dark-blue-font{
+    .navbar {
+
+      h5.dark-blue-font {
         font-size: .8rem !important;
       }
-      h5.dark-blue-font.small{
+
+      h5.dark-blue-font.small {
         font-size: .6rem !important;
       }
     }
   }
+
   #sidebar {
     position: fixed;
     left: -200px;
@@ -220,9 +263,10 @@ $width_sidebar : 260px;
   }
 
   #content {
-    &.show-menu{
+    &.show-menu {
       left: $width_sidebar;
     }
+
     width: calc(100% - 60px);
     left: 60px;
     // background: white;
@@ -234,9 +278,10 @@ $width_sidebar : 260px;
     width: calc(100% - 30px);
     top: 80px;
   }
-  
-  
+
+
 }
+
 // Tablets
 @media (max-width: 768.98px) {
 
@@ -261,9 +306,10 @@ $width_sidebar : 260px;
   }
 
   #content {
-    &.show-menu{
+    &.show-menu {
       left: $width_sidebar;
     }
+
     width: calc(100% - 60px);
     left: 60px;
     // background: white;
@@ -300,17 +346,19 @@ $width_sidebar : 260px;
 // Mobile
 @media (max-width: 575.98px) {
   #content {
-    &.show-menu{
+    &.show-menu {
       left: $width_sidebar;
     }
+
     width: calc(100% - 20px);
     left: 20px;
+
     footer {
       display: none;
     }
   }
 
-  
+
 
   #section {
     top: 80px;
@@ -332,9 +380,9 @@ $width_sidebar : 260px;
   #sidebar {
     left: -240px;
 
-    .list-menu{
-      li{
-        i{
+    .list-menu {
+      li {
+        i {
           display: none;
         }
       }

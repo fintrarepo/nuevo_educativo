@@ -13,8 +13,13 @@ export class ListRequestService {
     return this.http.post("/webresources/loans/pre-approved", { etapa: etapa })
   }
 
-  getLoans() {
-    return this.http.post("/webresources/loans/approved", null);
+  getLoans(identificacion = "") {
+    return this.http.post("/webresources/loans/approved", { identificacion });
+  }
+
+
+  getLoan(cod) {
+    return this.http.get("/webresources/loans/approved/" + cod);
   }
 
 }

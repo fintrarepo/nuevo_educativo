@@ -74,7 +74,7 @@ const routes: Routes = [
         component: NewRequestComponent
       },
       {
-        path: 'renew-credit/:polite/:id',
+        path: 'renew-credit/:id',
         component: NewRequestComponent
       }
 

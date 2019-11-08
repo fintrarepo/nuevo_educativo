@@ -90,6 +90,7 @@ label.container input {
   height: 15px;
   width: 15px;
   border: 2px solid #37BFFA;
+  border-radius: 2px;
 }
 
 /* On mouse-over, add a grey background color */
@@ -100,6 +101,7 @@ label.container:hover input~.checkmark {
 /* When the checkbox is checked, add a blue background */
 label.container input:checked~.checkmark {
   background-color: #2196F3;
+  border-color: darken(#2196F3, 3%);
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -452,15 +454,15 @@ input[type="number"] {
     }
 
 
-    
+
     &:hover {
       color: $blue-semi-light;
       // transform: scale(1.02);
       background: white;
       border: 2px solid $blue-semi-light;
 
-      span{
-        color:  $blue-semi-light !important;
+      span {
+        color: $blue-semi-light !important;
       }
 
     }
@@ -477,11 +479,11 @@ input[type="number"] {
   justify-content: center;
   align-items: center;
 
-  img{
+  img {
     width: 150px;
   }
 
-  h1{
+  h1 {
     color: #999;
     text-align: center;
   }

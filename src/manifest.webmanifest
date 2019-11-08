@@ -3,7 +3,7 @@
   "short_name": "Fintra Educativo",
   "theme_color": "#32BEFA",
   "background_color": "#32BEFA",
-  "display": "landscape",
+  "display": "fullscreen",
   "scope": "/",
   "start_url": "/",
   "icons": [

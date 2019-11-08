@@ -16,6 +16,7 @@ export class DashboardComponent implements OnInit {
   type_list: String;
   credits: boolean = false;
   historyc: any[] = [];
+  identificacion= "";
 
   showLoadingHistory: boolean = false;
   historyIsLoaded: boolean = false;
@@ -54,7 +55,7 @@ export class DashboardComponent implements OnInit {
 
   getCredits(credits) {
     this.credits = credits;
-    this.store.dispatch(new GetListRequest({ filter: null, credits: this.credits }));
+    this.store.dispatch(new GetListRequest({ filter: null, credits: this.credits, identificacion: this.identificacion }));
   }
 
   getHistory(data?: any) {

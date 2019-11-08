@@ -25,7 +25,7 @@
 .custom-alert {
   z-index: 1000;
   position: fixed;
-  left: calc(50% + 130px);
+  left: 50%;
   transform: translateX(-50%) translateY(50%);
   bottom: -100%;
   width: auto;

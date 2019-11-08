@@ -5,7 +5,7 @@ import { tap, exhaustMap, map, switchMap, catchError } from 'rxjs/operators';
 import { Action, Store } from '@ngrx/store';
 import * as reducers from '../reducers/reducers';
 import { ToggleBlurPage } from '../actions/platform.actions';
-import { RecoveryPasswordActionTypes, OpenRecoveryPassword, SendIdUser, SendIdUserSuccess, SendIdUserError, NextStep, SetEmailAndCelular, SendRecoveryMethod, RecoveryChangePassword } from '../actions/recovery-password.actions';
+import { RecoveryPasswordActionTypes, OpenRecoveryPassword, SendIdUser, SendIdUserSuccess, SendIdUserError, NextStep, SetEmailAndCelular, SendRecoveryMethod, RecoveryChangePassword, CloseRecoveryPassword } from '../actions/recovery-password.actions';
 import { AuthService } from '../services/auth/auth.service';
 import { OpenAlert } from '../actions/alert.actions';
 import { LoginUser, LoggedUser } from '../actions/auth.actions';
@@ -116,7 +116,8 @@ export class OpenRecoveryPasswordEffects {
                         type: "success"
                     }),
                     
-                    new ToggleBlurPage()
+                    new ToggleBlurPage(),
+                    new CloseRecoveryPassword()
                 ]),
                 catchError(Response => {
                     return of(new OpenAlert({
