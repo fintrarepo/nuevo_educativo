@@ -8,7 +8,14 @@ $width_sidebar : 260px;
 }
 
 
-
+.btn-close-session{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  button{
+    min-width: 200px;
+  }
+}
 
 #sidebar {
   width: $width_sidebar;
@@ -26,7 +33,7 @@ $width_sidebar : 260px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    bottom: 10px;
+    bottom: 80px;
 
     button {
       background: white;
@@ -220,10 +227,7 @@ $width_sidebar : 260px;
 
 
 @media (max-width: 1440px) {
-  .btn-close-session {
-
-    display: none;
-  }
+ 
 
   #content {
     &.show-menu {
@@ -280,6 +284,14 @@ $width_sidebar : 260px;
   }
 
 
+}
+
+
+@media (max-width: 1000px){
+   .btn-close-session {
+
+    display: none;
+  }
 }
 
 // Tablets

@@ -60,7 +60,7 @@
         </div>
 
         <div class="row small-info">
-          <div class="col-lg-2 col-md-2" *ngIf="item.valor_saldo_total && type_list=='requests'">
+          <div class="col-lg-2 col-md-2" *ngIf="item.numero_solicitud && type_list=='requests'">
             <div>
               <span>Nº solicitud</span>
               <h5>
@@ -68,7 +68,7 @@
               </h5>
             </div>
           </div>
-          <div class="col-lg-2 col-md-2" *ngIf="item.valor_saldo_total && type_list=='credits'">
+          <div class="col-lg-2 col-md-2" *ngIf="item.negocio && type_list=='credits'">
             <div>
               <span>Negocio</span>
               <h5>
@@ -77,7 +77,7 @@
             </div>
           </div>
 
-          <div class="col-lg-2 col-md-2" *ngIf="item.valor_saldo_total && type_list=='requests'">
+          <div class="col-lg-2 col-md-2" *ngIf="item.numero_cuotas && type_list=='requests'">
             <div>
               <span>Plazo</span>
               <h5>

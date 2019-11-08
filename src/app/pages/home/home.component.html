@@ -54,9 +54,9 @@
     </ul>
 
     <div class="footer-menu">
-        <button (click)="closeSession()">CERRAR SESIÓN 
-          <img src="/assets/images/menu/Cerrar-Sesion-SEL.png" alt="">
-        </button>
+      <button (click)="closeSession()">CERRAR SESIÓN
+        <img src="/assets/images/menu/Cerrar-Sesion-SEL.png" alt="">
+      </button>
     </div>
   </nav>
 
@@ -100,11 +100,16 @@
               {{(currentBussiness$ | async)?.numero_solicitud}}
             </h5>
           </div>
-         
-          <!-- <div class="col-md-2 col-lg-2 text-right btn-close-session">
-            <button class="btn btn-outline-primary" style="margin-top: 10px; margin-right:-50px;"
-              (click)="closeSession()">Cerrar sesion</button>
-          </div> -->
+          <div class="col-md-3 col-lg-3"></div>
+          <div class="col-md-2 col-lg-2 text-right btn-close-session">
+            <!-- <button class="btn btn-outline-primary" style="margin-top: 10px; margin-right:-50px;"
+              (click)="closeSession()">Cerrar sesion</button> -->
+            <button class="btn button-white"
+              style="width: 240px; display: flex; align-items: center; justify-content: center; padding: 3px;"
+              routerLink="/app/new-request">
+              <p style="font-size:1.7em; margin:0;">+</p>NUEVA PRE-SOLICITUD
+            </button>
+          </div>
         </div>
       </div>
     </nav>
