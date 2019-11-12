@@ -6,7 +6,7 @@ import { Action, Store } from '@ngrx/store';
 import * as reducers from '../reducers/reducers';
 import { OpenAlert } from '../actions/alert.actions';
 import { CreditsService } from '../services/credits/credits.service';
-import { InfoFormRequest, PlatformActionTypes, InfoFormRequestResponse, LoadCitysResponse, LoadCitys } from '../actions/platform.actions'
+import { InfoFormRequest, PlatformActionTypes, InfoFormRequestResponse, LoadCitysResponse, LoadCitys, ToggleBlurPage, ShowNotApproved } from '../actions/platform.actions'
 import { SendPreApplication, PreApplicationActionTypes, SendPreApplicationSucess, SendPreApplicationError, SendPreApplicationNotAproved } from '../actions/credit.actions';
 import { Router } from '@angular/router';
 
@@ -29,13 +29,7 @@ export class CreditEffects {
             return this.credit.send(action).pipe(
                 map(Response => {
                     return Response.data.estado_sol == 'R' ?
-                        new SendPreApplicationError({
-                            error: {
-                                title: "Ha ocurrido un problema",
-                                detail: Response.data.msg,
-                                redirect: true
-                            }
-                        })
+                        new SendPreApplicationNotAproved()
                         : new SendPreApplicationSucess({ result: Response })
                 }),
                 catchError(error => of(new SendPreApplicationError({ ...error, redirect: false })))
@@ -73,8 +67,7 @@ export class CreditEffects {
                 title: error.title,
                 subTitle: error.detail,
                 type: "danger"
-            }),
-            new SendPreApplicationNotAproved(error.redirect)
+            })
         ])
     )
 
@@ -84,13 +77,10 @@ export class CreditEffects {
     })
     SendPreApplicationNotAproved: Observable<Action> = this.actions$.pipe(
         ofType<SendPreApplicationNotAproved>(PreApplicationActionTypes.SendPreApplicationNotAproved),
-        map(action => action.payload),
-        tap(v => {
-            console.log(v)
-            if (v) {
-                this.router.navigate(['/'])
-            }
-        }),
+        switchMap(v => [
+            new ToggleBlurPage(),
+            new ShowNotApproved(true)
+        ])
 
     )
 
@@ -121,7 +111,7 @@ export class CreditEffects {
         exhaustMap(dpto => {
 
             return this.credit.loadCitys(dpto).pipe(
-                
+
                 map(v => v.data),
                 tap(v => console.log(v)),
                 exhaustMap((Response) => {

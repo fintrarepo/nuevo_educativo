@@ -103,6 +103,11 @@ export const isLoadingForm = createSelector(
     fromPlatform.getLoadingFormIsShow
 )
 
+export const isShowNotApproved = createSelector(
+    getPlatformState,
+    fromPlatform.isShowNotApproved
+)
+
 
 
 

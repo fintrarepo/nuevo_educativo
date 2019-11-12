@@ -15,10 +15,15 @@ export enum PlatformActionTypes {
 
     SetCurrentBussinees = '[Platform] SetCurrentBussinees',
 
-    ShowOrHiddenLoadingForm= '[Platform] ShowOrHiddenLoadingForm',
+    ShowOrHiddenLoadingForm = '[Platform] ShowOrHiddenLoadingForm',
+
+    ShowNotApproved = '[Platform] ShowNotApproved',
 }
 
-
+export class ShowNotApproved implements Action {
+    readonly type = PlatformActionTypes.ShowNotApproved;
+    constructor(public payload: boolean) { }
+}
 
 export class ToggleBlurPage implements Action {
     readonly type = PlatformActionTypes.ToggleBlurPage;
@@ -66,7 +71,7 @@ export class ShowOrHiddenLoadingForm implements Action {
 
 
 
-export type actions = ToggleBlurPage | InfoFormRequest | InfoFormRequestResponse | LoadCitys | LoadCitysResponse | ShowOrHiddeApproved | SetCurrentBussinees | ShowOrHiddenLoadingForm;
+export type actions = ShowNotApproved | ToggleBlurPage | InfoFormRequest | InfoFormRequestResponse | LoadCitys | LoadCitysResponse | ShowOrHiddeApproved | SetCurrentBussinees | ShowOrHiddenLoadingForm;
 
 
 

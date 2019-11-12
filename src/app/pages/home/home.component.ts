@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
 
   currentBussiness$ = this.store.select(reducers.currentBussiness);
 
+  isShowNotApproved$ = this.store.select(reducers.isShowNotApproved);
 
   constructor(private activeRoute: ActivatedRoute, private store: Store<reducers.State>, public auth: AuthService, private route: Router) {
     this.currenturl = this.route.url;

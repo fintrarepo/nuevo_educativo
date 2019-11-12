@@ -30,6 +30,7 @@ import { HistoryRequestComponent } from '../../components/history-request/histor
 import { CreditComponent } from '../../components/credit/credit.component';
 import { LoadingFormsComponent } from '../../components/loading-forms/loading-forms.component';
 import { UpdateInfoComponent } from '../../components/update-info/update-info.component';
+import { NotApprovedComponent } from '../../components/not-approved/not-approved.component'
 
 //GUARDS
 import { AuthGuard } from '../../auth.guard';
@@ -110,7 +111,8 @@ const components = [
   Tab2PersonalInformationComponent,
   CreditComponent,
   LoadingFormsComponent,
-  UpdateInfoComponent
+  UpdateInfoComponent,
+  NotApprovedComponent
 ]
 
 const directives = [

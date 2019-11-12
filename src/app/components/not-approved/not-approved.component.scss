@@ -1,0 +1,142 @@
+@import "../../../styles/vars/exports";
+
+.popup-fintra {
+  width: 100vw;
+  height: 100vh;
+  // background: rgba(#dadada, .4);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 2000;
+
+}
+
+.content-popup {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  position: fixed;
+  width: 610px;
+  height: auto;
+  background: white;
+  z-index: 3000;
+  box-shadow: 0 1px 3px #CCCCCC, 0 1px 2px #CCCCCC;
+  border-radius: 10px;
+  overflow: initial;
+  animation: mymove .4s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+  padding: 2em;
+
+  .step-popup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  img {
+    margin-bottom: 1em;
+    width: 200px;
+  }
+
+  h1 {
+    margin-bottom: 0;
+    text-align: center;
+  }
+
+  span {
+    margin-top: 1.5em;
+    color: #999999;
+    text-align: center;
+  }
+
+  p {
+    margin-bottom: 1.5em;
+    color: #707070;
+    font-weight: bold;
+    font-family: "GotHam Bold";
+    text-align: center;
+  }
+}
+
+
+
+.evident-container {
+
+  width: 100%;
+
+  background: white;
+
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+  // justify-content: center;
+  align-items: center;
+  padding: 2em;
+
+  overflow: auto;
+
+  
+
+
+
+  span {
+    color: $light;
+    font-family: "Gotham Bold";
+    margin-bottom: 1em;
+  }
+
+  h1 {
+    text-align: center;
+  }
+
+  p {
+    font-family: "Gotham Bold";
+    color: #707070;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-align: center;
+    max-width: 100%;
+    margin-bottom: 2em;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 2em;
+    max-width: 90vw;
+
+    li {
+      min-width: 300px;
+      height: 45px;
+      border: 2px solid $blue-semi-light;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      cursor: pointer;
+      color: $blue-semi-light;
+    
+
+      &:hover {
+        background: $blue-semi-light;
+        color: white;
+      }
+
+      &.selected {
+        background: $blue-light;
+        color: white;
+      }
+
+    }
+  }
+}
+button.button-blue{
+  width: 165px !important;
+}
+button.btn-outline {
+  color: $light;
+  font-family: "Gotham Bold";
+}

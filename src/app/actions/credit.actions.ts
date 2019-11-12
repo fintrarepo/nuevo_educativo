@@ -28,7 +28,7 @@ export class SendPreApplicationError implements Action {
 
 export class SendPreApplicationNotAproved implements Action {
     readonly type = PreApplicationActionTypes.SendPreApplicationNotAproved;
-    constructor(public payload: any) { }
+   
 }
 
 
