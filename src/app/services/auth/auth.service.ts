@@ -66,5 +66,13 @@ export class AuthService {
     localStorage.setItem('cambio_clave', cambio_clave);
   }
 
+  get id_usuario() {
+    return localStorage.getItem('idusuario')
+  }
+
+  set id_usuario(user) {
+    localStorage.setItem('idusuario', user)
+  }
+
 
 }

@@ -59,6 +59,7 @@ export class AuthEffects {
             this.auth.name = v.data.name;
             this.auth.tipo_usuario = v.data.tipo_usuario;
             this.auth.cambio_clave = v.data.cambio_clave;
+            this.auth.id_usuario = v.data.idusuario;
 
         }),
         exhaustMap((Response) => {

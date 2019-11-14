@@ -1,6 +1,6 @@
 <div class="wrapper" [ngClass]="{'blur-page': (blurPage$ | async)}">
   <!-- Sidebar -->
-  <nav id="sidebar" [ngClass]="{'show-menu': showMenu}">
+  <nav id="sidebar" [ngClass]="{'show-menu': showMenu, 'menu-asesor': auth.tipo_usuario == 'E'}">
     <button href="#menu-toggle" id="menu-toggle" class="navbar-brand" (click)="toggleMenu()">
       <!-- <img src="/assets/images/Icon_BurgerMenu_Mobile.svg" alt=""> -->
 
@@ -8,7 +8,7 @@
       <img src="/assets/images/iconos-web-edu-2.png" alt="" *ngIf="!showMenu">
     </button>
     <div class="sidebar-header">
-      <img src="/assets/images/Logo Fintra.svg" class="logo-fintra">
+      <img src="/assets/images/LOGO SIN SLOGAN FINTRA (BLANCO).png" class="logo-fintra">
     </div>
 
     <ul class="list-unstyled list-menu components">
@@ -55,13 +55,13 @@
 
     <div class="footer-menu">
       <button (click)="closeSession()">CERRAR SESIÓN
-        <img src="/assets/images/menu/Cerrar-Sesion-SEL.png" alt="">
+        <img src="/assets/images/menu/Cerrar-Sesion-NO-SEL.png" alt="">
       </button>
     </div>
   </nav>
 
   <!-- Page Content -->
-  <div id="content" [ngClass]="{'show-menu': showMenu}">
+  <div id="content" >
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
         <div class="row" style="width:100%;">
@@ -69,7 +69,7 @@
             <span class="light-blue-font">
               Nombre cliente
             </span>
-            <h5 class="dark-blue-font">
+            <h5 class="dark-blue-font" style="text-transform: uppercase;">
               {{auth.name}}
             </h5>
           </div>

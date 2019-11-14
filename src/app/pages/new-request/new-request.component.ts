@@ -136,6 +136,7 @@ export class NewRequestComponent implements OnInit {
       .loadAfiliates(this.form.controls.ciudad.value)
       .subscribe(afiliates => {
         this.afiliates = afiliates.data;
+        console.log(this.afiliates)
       })
   }
 
@@ -221,15 +222,28 @@ export class NewRequestComponent implements OnInit {
 
   buildDues() {
     let currentAffiliate = this.afiliates.filter(x => x.nit_afiliado == this.form.controls['afiliado'].value)[0]
-
+    let cuotaInicial = currentAffiliate.cuota_inicial
+    let cuotaFinal = currentAffiliate.cuota_final
     if (this.form.controls['tipo_carrera'].value == 'POSGRADO') {
-      currentAffiliate.cuota_inicial = 6;
-      currentAffiliate.cuota_final = 18;
+      cuotaInicial = 6;
+      cuotaFinal = 18;
+
+      const monto = this.form.controls['monto'].value;
+      cuotaInicial = 6;
+      if (monto >= 0 && monto <= 5000000) {
+        cuotaFinal = 12;
+      } else if (monto > 5000000 && monto <= 10000000) {
+        cuotaFinal = 18;
+      } else if (monto > 10000000 && monto <= 20000000) {
+        cuotaFinal = 24;
+      } else if (monto > 20000000) {
+        cuotaFinal = 36;
+      }
     } else if (this.form.controls['tipo_carrera'].value == 'CONTINUADA') {
-      currentAffiliate.cuota_final = 4;
-      currentAffiliate.cuota_inicial = 4;
+      cuotaFinal = 4;
+      cuotaInicial = 4;
     }
-    this.dues = this.buildArrayDues(currentAffiliate.cuota_inicial, currentAffiliate.cuota_final)
+    this.dues = this.buildArrayDues(cuotaInicial, cuotaFinal)
   }
 
   private formValidation() {

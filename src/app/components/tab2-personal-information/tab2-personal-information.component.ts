@@ -314,7 +314,7 @@ export class Tab2PersonalInformationComponent implements OnInit {
     dataForm.telefono = parseInt(dataForm.telefono)
     dataForm.celular = parseInt(dataForm.celular)
     dataForm.semestre = parseInt(dataForm.semestre)
-    dataForm.identificacion = String(dataForm.identificacion)
+    dataForm.identificacion = parseInt(dataForm.identificacion)
     return dataForm;
   }
 

@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import * as reducers from '../../reducers/reducers';
 import { GetListRequest } from 'src/app/actions/list-requests.actions';
 import { shareReplay, } from 'rxjs/operators';
+import { AuthService } from '../../services/auth/auth.service'
 
 @Component({
   selector: 'app-list-request',
@@ -19,7 +20,7 @@ export class ListRequestComponent implements OnInit {
 
   @Input('type') type_list: any;
 
-  constructor(private store: Store<reducers.State>) { }
+  constructor(private store: Store<reducers.State>, public auth: AuthService) { }
 
   ngOnInit() {
     this.listRequest$.subscribe(data => {
@@ -31,17 +32,21 @@ export class ListRequestComponent implements OnInit {
   routerLink(item) {
     if (item.etapa == 0) {
       return "/app/credit-application/" + item.numero_solicitud
-    } else if (item.etapa == 3) {
-      return "/app/upload/" + item.numero_solicitud
+    } else if (item.etapa > 0) {
+      return "/app/upload/" + item.cod_neg
     }
   }
 
 
-  getTitleButton(etapa) {
-    if (etapa == 0) {
+  getTitleButton(item) {
+    if (item.etapa == 0) {
       return "Formulario"
-    } else if (etapa == 3) {
+    } else if (item.etapa > 0 && item.adjuntar != 't') {
       return "Adjuntar"
     }
+  }
+
+  validateButton(item) {
+    return (item.etapa == 0 || (item.etapa > 0 && item.adjuntar != 't'))
   }
 }

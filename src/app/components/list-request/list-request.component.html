@@ -14,10 +14,16 @@
 
       <div class="col-lg-6">
         <div class="row">
-          <div class="col-lg-6 col-sm-6">
+          <div class="col-lg-6 col-sm-6" *ngIf="auth.tipo_usuario != 'E'">
             <span>Nombre Estudiante</span>
             <h2 [ngStyle]="{'visibility': item.nombre_estudiante? 'visible' : 'hidden' }">
               {{item?.nombre_estudiante}}
+            </h2>
+          </div>
+          <div class="col-lg-6 col-sm-6" *ngIf="auth.tipo_usuario == 'E'">
+            <span>Nombre Solicitante</span>
+            <h2>
+              {{item?.primer_nombre}} {{item?.primer_apellido}}
             </h2>
           </div>
           <div class="col-lg-6 col-md-6" *ngIf="item.monto_credito && type_list=='requests'">
@@ -126,8 +132,8 @@
           </div>
           <div class="col-lg-12 col-6 justify-content-end text-right" *ngIf="type_list=='requests'">
 
-            <button class="btn button-blue" style=" margin-top:1em;" [routerLink]="routerLink(item)">
-              {{getTitleButton(item.etapa)}}
+            <button class="btn button-blue" style=" margin-top:1em;" [routerLink]="routerLink(item)" *ngIf="validateButton(item)">
+              {{getTitleButton(item)}}
             </button>
 
           </div>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpService } from '../http/http.service';
 import { ISimulator, IPreApplication, listFile } from '../../models/credits.model';
 import { HttpHeaders } from '@angular/common/http';
+import { environment } from '../../../environments/environment'
 @Injectable({
   providedIn: 'root'
 })
@@ -47,7 +48,7 @@ export class CreditsService {
   }
 
   loadFileList(data: listFile) {
-    return this.http.get('http://piloto.fintra.co:8094/fintra/EndPointCoreServlet?'
+    return this.http.get(environment.fintra + '/EndPointCoreServlet?'
       + 'option=' + data.option
       + '&numero_solicitud=' + data.numero_solicitud
       + '&user=' + data.user
@@ -58,11 +59,11 @@ export class CreditsService {
     return this.http.post('/FileUploadServlet', data, options);
   }
 
-  registerUser(data){
+  registerUser(data) {
     console.log(data);
     const options = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'     
+        'Content-Type': 'application/json'
       })
     };
     return this.http.put('/webresources/login/create_account', data, options);

@@ -5,7 +5,7 @@ import { listFile } from '../../models/credits.model';
 import { promise } from 'protractor';
 import { resolve, reject } from 'q';
 import { HttpHeaders, HttpEventType } from '@angular/common/http';
-
+import { AuthService } from '../../services/auth/auth.service'
 
 @Component({
   selector: 'app-uploads',
@@ -23,7 +23,7 @@ export class UploadsComponent implements OnInit {
 
   allFileUploaded: boolean = false;
 
-  constructor(private creditService: CreditsService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private creditService: CreditsService, private route: ActivatedRoute, private router: Router, private auth : AuthService) { }
 
   ngOnInit() {
     this.loadListFile();
@@ -33,7 +33,7 @@ export class UploadsComponent implements OnInit {
     const params: listFile = {
       option: 2,
       numero_solicitud: this.route.snapshot.paramMap.get('id'),
-      user: 'MAURICIOJZB@GMAIL.COM',
+      user: this.auth.id_usuario,
       und_negocio: 31
     };
     this.creditService.loadFileList(params).subscribe(list => {

@@ -103,7 +103,7 @@ export class Tab1PersonalInformationComponent implements OnInit {
       visible: true,
       numero: this.form.controls.numero.value,
       fieldDestinity: "tab1SubTab1" + field
-      
+
     }));
   }
 
@@ -204,6 +204,7 @@ export class Tab1PersonalInformationComponent implements OnInit {
     dataForm.fecha_expedicion_id = this.utils.buildDate(dataForm.fecha_expedicion_id)
     dataForm.fecha_nacimiento = this.utils.buildDate(dataForm.fecha_nacimiento)
     dataForm.estrato = parseInt(dataForm.estrato)
+    dataForm.identificacion = parseInt(dataForm.identificacion)
     return dataForm;
   }
 

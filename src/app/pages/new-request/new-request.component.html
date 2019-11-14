@@ -36,7 +36,7 @@
           </div>
           <div class="form-group col-md-6 col-lg-4">
             <label class="subtitle-form">Fecha primer pago</label>
-            <select class="form-control" formControlName="fecha_pago">
+            <select class="form-control" formControlName="fecha_pago" (change)="buildDues()">
               <option value="">Seleccione fecha primer pago</option>
               <option [value]="date" *ngFor="let date of dates">{{date}}</option>
             </select>
@@ -44,7 +44,7 @@
           <div class="form-group col-md-6 col-lg-4">
             <label class="subtitle-form">Valor semestre
               {{form.controls.monto.value | currency:'USD':true:'1.0-0'}}</label>
-            <input type="number" class="form-control" formControlName="monto">
+            <input type="number" class="form-control" formControlName="monto" (change)="buildDues()">
           </div>
           <div class="form-group col-md-6 col-lg-4">
             <label class="subtitle-form">Plazo crédito(Meses)</label>
@@ -99,10 +99,7 @@
           <div class="form-group col-md-6 col-lg-4">
             <label class="subtitle-form">Fecha de nacimiento</label>
             <input type="date" class="form-control" formControlName="fecha_nacimiento" readonly ngbDatepicker
-              #d2="ngbDatepicker" (click)="d2.toggle()"
-              [maxDate]="maxDate"
-              [minDate]="{year: 1967, month: 1, day: 1}"
-              >
+              #d2="ngbDatepicker" (click)="d2.toggle()" [maxDate]="maxDate" [minDate]="{year: 1967, month: 1, day: 1}">
           </div>
           <div class="form-group col-md-6 col-lg-4">
             <label class="subtitle-form">Primer Apellido</label>
@@ -120,7 +117,7 @@
             <label class="subtitle-form">Telefono</label>
             <input type="number" class="form-control" formControlName="telefono" />
           </div>
-          
+
         </div>
 
 
@@ -183,7 +180,8 @@
             <input type="checkbox" [(ngModel)]="acceptTerms">
             <span class="checkmark"></span>
           </label>
-          <a style="margin: 0;" href="/assets/pdf/Términos y Condiciones - Fintra.pdf" target="_blank" style="color: #37BFFA;">
+          <a style="margin: 0;" href="/assets/pdf/Términos y Condiciones - Fintra.pdf" target="_blank"
+            style="color: #37BFFA;">
             Acepto los términos y condiciones
           </a>
         </div>

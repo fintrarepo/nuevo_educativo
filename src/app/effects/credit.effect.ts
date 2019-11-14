@@ -28,6 +28,7 @@ export class CreditEffects {
         exhaustMap(action => {
             return this.credit.send(action).pipe(
                 map(Response => {
+                    console.log(Response)
                     return Response.data.estado_sol == 'R' ?
                         new SendPreApplicationNotAproved()
                         : new SendPreApplicationSucess({ result: Response })
@@ -72,9 +73,7 @@ export class CreditEffects {
     )
 
 
-    @Effect({
-        dispatch: false
-    })
+    @Effect()
     SendPreApplicationNotAproved: Observable<Action> = this.actions$.pipe(
         ofType<SendPreApplicationNotAproved>(PreApplicationActionTypes.SendPreApplicationNotAproved),
         switchMap(v => [

@@ -4,7 +4,7 @@
       <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
     </div> -->
     <form [formGroup]="loginForm" (submit)="login($event)">
-      <img src="/assets/images/Logo Fintra.svg" alt="Fintra Educativo Logo" title="Fintra Educativo Logo">
+      <img src="/assets/images/LOGO-FINTRACREDIT-WEB.png" alt="Fintra Educativo Logo" title="Fintra Educativo Logo">
       <h1>Inicio de Sesión</h1>
 
       <div class="form-group">
@@ -21,12 +21,12 @@
       </div>
       <a (click)="openRecovery()" style="cursor: pointer !important;">¿Olvidaste tu contraseña?</a>
 
-      <!-- <button 
+      <button 
           class="btn btn-outline button-outline-border-white" 
-          type="submit" 
+          routerLink="/register" 
           >
         ¡ABRE UNA CUENTA!
-      </button> -->
+      </button>
     </form>
 
   </div>
@@ -44,7 +44,7 @@
 
       <div class="col-lg-1 col-sm-1 column-footer d-sm-block d-none d-sm-block"></div>
       <div class="col-lg-2 col-sm-4 column-footer">
-        <button class="btn btn-outline button-outline-border-orange">SOLICITA TU CRÉDITO</button>
+        <a class="btn btn-outline button-outline-border-orange" href="https://fintra.co/credito-educativo" style="padding: 9px;">SOLICITA TU CRÉDITO</a>
       </div>
     </div>
   </div>
