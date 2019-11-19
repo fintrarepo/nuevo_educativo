@@ -88,6 +88,7 @@ export class NewRequestComponent implements OnInit {
       "primer_nombre": ['', Validators.compose([Validators.maxLength(50),])],
       "primer_apellido": ['', Validators.compose([Validators.maxLength(50),])],
       "email": ['', Validators.compose([Validators.maxLength(50), , Validators.email, this.ValidateUrl])],
+      "email-validation": ['', Validators.compose([Validators.maxLength(50), , Validators.email, this.ValidateUrl, this.confirmEmail])],
       "departamento": ['', Validators.compose([Validators.maxLength(50),])],
       "telefono": ['', Validators.compose([Validators.min(100000), Validators.max(9999999999),])],
       "fecha_nacimiento": ['', Validators.compose([Validators.maxLength(50),])],
@@ -106,7 +107,7 @@ export class NewRequestComponent implements OnInit {
       this.form.controls.primer_nombre.setValidators([Validators.required, Validators.maxLength(100)])
       this.form.controls.primer_apellido.setValidators([Validators.required, Validators.maxLength(100)])
       this.form.controls.email.setValidators([Validators.required, Validators.maxLength(100), Validators.email, this.ValidateUrl])
-      // this.form.controls.departamento.setValidators([Validators.required, Validators.maxLength(100)])
+      this.form.controls['email-validation'].setValidators([Validators.required, Validators.maxLength(100), Validators.email, this.ValidateUrl, this.confirmEmail])
       this.form.controls.telefono.setValidators([Validators.required, Validators.maxLength(100)])
       this.form.controls.fecha_nacimiento.setValidators([Validators.required, Validators.maxLength(100)])
 
@@ -147,7 +148,7 @@ export class NewRequestComponent implements OnInit {
 
         if (this.currentRenew.politica == "T") {
           let date = this.currentRenew.fecha_vencimiento_ultima_cuota.split('-');
-          this.dates = this.utils.carcularFecha(date[0], date[1], date[2]);
+          this.dates = this.utils.carcularFecha(this.currentRenew.fecha_vencimiento_ultima_cuota);
         }
       })
   }
@@ -155,7 +156,7 @@ export class NewRequestComponent implements OnInit {
   simulate() {
     this.form.markAllAsTouched()
     if (this.formValidation()) {
-      if (this.isRenewCredit) {
+      if (this.isRenewCredit && this.currentRenew.politica != 'T') {
         this.simulateRenewCredit()
       } else {
         this.simulateNewRequest()
@@ -199,14 +200,19 @@ export class NewRequestComponent implements OnInit {
   sendRenewCredit() {
     const politica = this.currentRenew.politica
     let dataForm = { ...this.buildDataForm(), tipo_usuario: this.auth.tipo_usuario }
-    const data = {
+    let data = {
       ...dataForm,
-      monto_renovacion: this.currentSimulation.saldo_credito_anterior,
+      monto_renovacion: this.currentRenew.politica == 'T' ? 0 : this.currentSimulation.saldo_credito_anterior,
       politica,
       negocio_origen: this.route.snapshot.paramMap.get('id'),
-      valor_cuota: this.currentSimulation.nueva_cuota_aproximada,
-      valor_aval: this.currentSimulation.nuevo_valor_aval
+
     }
+
+    if (this.currentRenew.politica != 'T') {
+      data.valor_cuota = this.currentSimulation.nueva_cuota_aproximada
+      data.valor_aval = this.currentSimulation.nuevo_valor_aval
+    }
+    console.log(data)
     const action = new SendPreApplication(data)
     this.store.dispatch(action)
   }
@@ -301,6 +307,17 @@ export class NewRequestComponent implements OnInit {
       control.value.includes('@selectrik.co') ||
       control.value.includes('@selectrik.com')) {
       return { validUrl: true };
+    }
+    return null;
+  }
+
+
+  private confirmEmail(control: AbstractControl) {
+    if (!control.parent) {
+      return null;
+    }
+    if (control.value != control.parent.get('email').value) {
+      return { validEmail: true };
     }
     return null;
   }

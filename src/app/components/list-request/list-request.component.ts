@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter  } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as reducers from '../../reducers/reducers';
 import { GetListRequest } from 'src/app/actions/list-requests.actions';
@@ -19,6 +19,7 @@ export class ListRequestComponent implements OnInit {
   credits = false;
 
   @Input('type') type_list: any;
+  @Output() finishList =  new EventEmitter<any>();
 
   constructor(private store: Store<reducers.State>, public auth: AuthService) { }
 
@@ -48,5 +49,9 @@ export class ListRequestComponent implements OnInit {
 
   validateButton(item) {
     return (item.etapa == 0 || (item.etapa > 0 && item.adjuntar != 't'))
+  }
+
+  loadMore(){
+    this.finishList.emit('Hola Guapo');
   }
 }

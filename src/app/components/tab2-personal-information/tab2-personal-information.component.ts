@@ -223,7 +223,7 @@ export class Tab2PersonalInformationComponent implements OnInit {
     this.form.controls.fecha_nacimiento.setValidators(validator);
     this.form.controls.dpto_nacimiento.setValidators(validator);
     this.form.controls.ciudad_nacimiento.setValidators(validator);
-    this.form.controls.telefono.setValidators(validator);
+    // this.form.controls.telefono.setValidators(validator);
     this.form.controls.email.setValidators(validator);
     this.form.controls.celular.setValidators(validator);
     this.form.controls.direccion.setValidators(validator);

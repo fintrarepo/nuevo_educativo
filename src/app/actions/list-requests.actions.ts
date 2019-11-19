@@ -11,7 +11,7 @@ export enum ListRequestsActionTypes {
 
 export class GetListRequest implements Action {
     readonly type = ListRequestsActionTypes.GetListRequest;
-    constructor(public payload: { filter: any, credits: boolean, identificacion: any }) { }
+    constructor(public payload: { filter: any, credits: boolean, identificacion: any, limit?: any, offset?: any }) { }
 }
 
 export class GetListRequestSuccess implements Action {

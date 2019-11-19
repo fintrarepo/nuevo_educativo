@@ -111,10 +111,10 @@
           <div class="col-lg-2 col-md-2" *ngIf="item.mora && type_list=='credits'">
             <div>
               <span>Estado</span>
-              <h5 *ngIf="item.mora == 't'">
+              <h5 *ngIf="item.mora == 'f'">
                 Al Dia
               </h5>
-              <h5 *ngIf="item.mora == 'f'">
+              <h5 *ngIf="item.mora == 't'">
                 En mora
               </h5>
             </div>
@@ -132,7 +132,8 @@
           </div>
           <div class="col-lg-12 col-6 justify-content-end text-right" *ngIf="type_list=='requests'">
 
-            <button class="btn button-blue" style=" margin-top:1em;" [routerLink]="routerLink(item)" *ngIf="validateButton(item)">
+            <button class="btn button-blue" style=" margin-top:1em;" [routerLink]="routerLink(item)"
+              *ngIf="validateButton(item)">
               {{getTitleButton(item)}}
             </button>
 
@@ -142,9 +143,9 @@
             style="transform: translateY(120%)">
 
             <button class="btn button-blue" style=" margin-top:1em;" routerLink="/app/renew-credit/{{item.negocio}}"
-              *ngIf="item.cumple_renovacion == 't'">renovar credito</button>
-            <button class="btn button-blue" style=" margin-top:1em;" *ngIf="item.cumple_renovacion == 'f'"
-              disabled>renovar
+              *ngIf="(item.cumple_renovacion == 't' || item.politica=='T')">renovar credito</button>
+            <button class="btn button-blue" style=" margin-top:1em;"
+              *ngIf="!(item.cumple_renovacion == 't' || item.politica=='T')" disabled>renovar
               credito</button>
 
           </div>
@@ -162,6 +163,11 @@
         <button class="btn btn-not-aproved" [disabled]="true">CRÉDITO RECHAZADO</button>
       </div>
 
+    </div>
+
+
+    <div style="display: flex; justify-content: center;" *ngIf="type_list=='requests'">
+      <button class="btn button-white" (click)="loadMore()">Cargar Mas</button>
     </div>
   </div>
 </div>

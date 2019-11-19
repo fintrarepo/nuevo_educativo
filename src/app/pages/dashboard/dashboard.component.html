@@ -41,7 +41,7 @@
     </div>
   </div>
 
-  <app-list-request *ngIf=" type_list == 'requests'" [type]="'requests'"></app-list-request>
+  <app-list-request *ngIf=" type_list == 'requests'" [type]="'requests'" (finishList)="loadMore()"></app-list-request>
 
   <app-list-request *ngIf=" type_list == 'credits'" [type]="'credits'"></app-list-request>
 

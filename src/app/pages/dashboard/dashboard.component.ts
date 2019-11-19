@@ -16,11 +16,16 @@ export class DashboardComponent implements OnInit {
   type_list: String;
   credits: boolean = false;
   historyc: any[] = [];
-  identificacion= "";
+  identificacion = "";
 
   showLoadingHistory: boolean = false;
   historyIsLoaded: boolean = false;
   routerSubscription: any;
+
+  limit = 10;
+  offset = 0;
+
+  step = 10;
 
   constructor(private route: ActivatedRoute, private router: Router, private store: Store<reducers.State>,
     private creditserv: CreditsService, public auth: AuthService) {
@@ -55,7 +60,12 @@ export class DashboardComponent implements OnInit {
 
   getCredits(credits) {
     this.credits = credits;
-    this.store.dispatch(new GetListRequest({ filter: null, credits: this.credits, identificacion: this.identificacion }));
+    this.store.dispatch(new GetListRequest({ filter: null, credits: this.credits, identificacion: this.identificacion, limit: this.limit, offset: this.offset }));
+  }
+
+  loadMore() {
+    this.limit = this.limit + this.step;
+    this.getCredits(this.credits)
   }
 
   getHistory(data?: any) {

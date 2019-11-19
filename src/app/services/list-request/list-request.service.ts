@@ -9,8 +9,8 @@ export class ListRequestService {
   constructor(private http: HttpService) { }
 
 
-  getRequests(etapa = "-2") {
-    return this.http.post("/webresources/loans/pre-approved", { etapa: etapa })
+  getRequests(etapa = "-2", limit = 10, offset = 0) {
+    return this.http.post("/webresources/loans/pre-approved", { etapa: etapa, limit, offset })
   }
 
   getLoans(identificacion = "") {

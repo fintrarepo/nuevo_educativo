@@ -94,12 +94,12 @@
           <div class="form-group col-md-6 col-lg-4">
             <label class="subtitle-form">Fecha de expedición de la cédula</label>
             <input type="date" class="form-control" formControlName="fecha_expedicion" readonly ngbDatepicker
-              #d1="ngbDatepicker" (click)="d1.toggle()" [minDate]="{year: 1967, month: 1, day: 1}">
+              #d1="ngbDatepicker" (click)="d1.toggle()" [minDate]="{year: 1950, month: 1, day: 1}">
           </div>
           <div class="form-group col-md-6 col-lg-4">
             <label class="subtitle-form">Fecha de nacimiento</label>
             <input type="date" class="form-control" formControlName="fecha_nacimiento" readonly ngbDatepicker
-              #d2="ngbDatepicker" (click)="d2.toggle()" [maxDate]="maxDate" [minDate]="{year: 1967, month: 1, day: 1}">
+              #d2="ngbDatepicker" (click)="d2.toggle()" [maxDate]="maxDate" [minDate]="{year: 1950, month: 1, day: 1}">
           </div>
           <div class="form-group col-md-6 col-lg-4">
             <label class="subtitle-form">Primer Apellido</label>
@@ -112,6 +112,10 @@
           <div class="form-group col-md-6 col-lg-4">
             <label class="subtitle-form">Email activo</label>
             <input type="email" class="form-control" formControlName="email" />
+          </div>
+          <div class="form-group col-md-6 col-lg-4">
+            <label class="subtitle-form">Validar Email</label>
+            <input type="email" class="form-control" formControlName="email-validation" onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete=off/>
           </div>
           <div class="form-group col-md-6 col-lg-4">
             <label class="subtitle-form">Telefono</label>
@@ -128,7 +132,7 @@
     <div class="row">
       <div class="col-lg-7 col-md-7" *ngIf="!(resultSimulation$ | async)">
       </div>
-      <div class="col-lg-7 col-md-7" *ngIf="(resultSimulation$ | async) && isRenewCredit">
+      <div class="col-lg-7 col-md-7" *ngIf="(resultSimulation$ | async) && (isRenewCredit && currentRenew.politica!='T')">
         <div class="row">
           <div class="col-md-12">
             <span class="light-blue-font">Valor total nuevo crédito</span>
@@ -164,7 +168,7 @@
 
 
       </div>
-      <div class="col-lg-7 col-md-7 col-12 content-simulation" *ngIf="(resultSimulation$ | async) &&  !isRenewCredit">
+      <div class="col-lg-7 col-md-7 col-12 content-simulation" *ngIf="(resultSimulation$ | async) &&  (!isRenewCredit || currentRenew.politica=='T')">
         <div class="content-text-simulation">
           <img src="/assets/images/Icon_FlechaAprobado.svg" alt="">
           <h3 class="label-simulation">SIMULACIÓN DE CRÉDITO</h3>
