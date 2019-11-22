@@ -1,18 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as reducers from '../../reducers/reducers';
 import { ToggleBlurPage, ShowOrHiddeApproved } from '../../actions/platform.actions';
 import { UtilsService } from '../../services/utils/utils.service';
 import { ActivatedRoute } from "@angular/router";
 import { Router } from '@angular/router';
-import { NgbDateStruct, NgbCalendar, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbCalendar, NgbDatepickerConfig, NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import * as moment from 'moment';
 
 // getWeekday
 @Component({
   selector: 'app-popup-approved',
   templateUrl: './popup-approved.component.html',
   styleUrls: ['./popup-approved.component.scss'],
-  providers: [NgbDatepickerConfig] 
+  providers: [NgbDatepickerConfig]
 })
 export class PopupApprovedComponent implements OnInit {
 
@@ -20,15 +21,21 @@ export class PopupApprovedComponent implements OnInit {
   currentStep: number = 1;
   addressSelected;
   hourSelected;
-  date: NgbDateStruct;
+  date: NgbDateStruct = null;
+  public dateValid: boolean = false;
+  minDate;
+  dateSelected : boolean = false;
 
   constructor(private store: Store<reducers.State>,
     private utils: UtilsService,
     private router: Router,
     private calendar: NgbCalendar,
     private config: NgbDatepickerConfig,
+    private zone : NgZone,
     private route: ActivatedRoute) {
-    
+    const date = moment().add("day", 1)
+  
+    this.minDate = new NgbDate(date.year(), (date.month() + 1), date.date())
   }
 
   ngOnInit() {
@@ -64,6 +71,18 @@ export class PopupApprovedComponent implements OnInit {
     this.store.dispatch(new ShowOrHiddeApproved(false))
   }
 
+  validateDate() {
+    this.dateSelected = true;
+    this.utils.validateDay(this.date).subscribe( data => {
+      this.zone.run(()=>{
+        this.dateValid = data[0].dia_habil == "t" ? true : false;
+      })
+    })
+  }
+
+  get isValidaDate(){
+    return (!this.dateValid && this.dateSelected)
+  }
 
   save() {
     this.business = this.getBussinnes()

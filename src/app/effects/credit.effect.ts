@@ -6,7 +6,7 @@ import { Action, Store } from '@ngrx/store';
 import * as reducers from '../reducers/reducers';
 import { OpenAlert } from '../actions/alert.actions';
 import { CreditsService } from '../services/credits/credits.service';
-import { InfoFormRequest, PlatformActionTypes, InfoFormRequestResponse, LoadCitysResponse, LoadCitys, ToggleBlurPage, ShowNotApproved } from '../actions/platform.actions'
+import { InfoFormRequest, PlatformActionTypes, InfoFormRequestResponse, LoadCitysResponse, LoadCitys, ToggleBlurPage, ShowNotApproved, ShowOrHiddenLoadingForm } from '../actions/platform.actions';
 import { SendPreApplication, PreApplicationActionTypes, SendPreApplicationSucess, SendPreApplicationError, SendPreApplicationNotAproved } from '../actions/credit.actions';
 import { Router } from '@angular/router';
 
@@ -47,6 +47,8 @@ export class CreditEffects {
         tap(v => this.router.navigate(['/'])),
         map(action => action.payload),
         exhaustMap((error: any) => [
+            new ToggleBlurPage(),
+            new ShowOrHiddenLoadingForm(false),
             new OpenAlert({
                 open: true,
                 title: "LISTO",
@@ -63,6 +65,8 @@ export class CreditEffects {
         map(action => action.payload.error),
 
         switchMap((error: any) => [
+            new ToggleBlurPage(),
+            new ShowOrHiddenLoadingForm(false),
             new OpenAlert({
                 open: true,
                 title: error.title,
@@ -77,7 +81,8 @@ export class CreditEffects {
     SendPreApplicationNotAproved: Observable<Action> = this.actions$.pipe(
         ofType<SendPreApplicationNotAproved>(PreApplicationActionTypes.SendPreApplicationNotAproved),
         switchMap(v => [
-            new ToggleBlurPage(),
+            // new ToggleBlurPage(),
+            new ShowOrHiddenLoadingForm(false),
             new ShowNotApproved(true)
         ])
 

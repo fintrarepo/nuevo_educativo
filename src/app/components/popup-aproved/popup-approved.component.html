@@ -1,6 +1,6 @@
 <div class="popup-fintra">
   <div class="content-popup">
-    <div class="step-popup" *ngIf="currentStep==-1">
+    <div class="step-popup" [hidden]="currentStep!=-1">
       <img src="/assets/images/Icon_Recordatorio.svg" alt="">
       <h1 class="title-form">¡Antes de seguir, recuerda!</h1>
       <span style="margin-top: 10px;">
@@ -13,7 +13,7 @@
     </div>
 
 
-    <div class="step-popup" *ngIf="currentStep==1">
+    <div class="step-popup" [hidden]="currentStep!=1">
       <img src="/assets/images/Icon_Trofeo.svg" alt="">
       <h1 class="title-form">Felicitaciones!</h1>
       <h1 class="title-form">¡Tu crédito ha sido Aprobado!</h1>
@@ -35,7 +35,7 @@
       </div>
     </div>
 
-    <div class="step-popup" *ngIf="currentStep==2">
+    <div class="step-popup" [hidden]="currentStep!=2">
       <h1 class="title-form">Programa tu visita</h1>
       <span> Completa estos campos para agendar la visita</span>
       <p>¿a dónde deseas que vayamos a recoger las firmas?</p>
@@ -52,23 +52,23 @@
 
     </div>
 
-    <div class="step-popup" *ngIf="currentStep==3">
+    <div class="step-popup" [hidden]="currentStep!=3">
       <h1 class="title-form">Programa tu visita</h1>
       <span> Completa estos campos para agendar la visita</span>
       <p>¿Qué día deseas que vayamos a recoger las firmas?</p>
 
       <div class="evident-container">
         <input type="text" class="form-control" readonly ngbDatepicker #d1="ngbDatepicker" (click)="d1.toggle()"
-          style="width: 300px;" [(ngModel)]="date"/>
-
+          style="width: 300px;" [(ngModel)]="date"  (ngModelChange)="validateDate()"  [minDate]="minDate"/>
+          <span style="color:red" *ngIf="isValidaDate">La fecha seleccionada no esta disponible para recogida de firmas</span>
         <button class="btn button-blue" (click)="nextStep()" style="margin-top: 30px;"
-          [disabled]="!date">Siguiente</button>
+          [disabled]="!date || !dateValid">Siguiente</button>
         <button class="btn btn-outline" (click)="cancel()" style="margin-top: 10px;">Cancelar</button>
       </div>
 
     </div>
 
-    <div class="step-popup" *ngIf="currentStep==4">
+    <div class="step-popup" [hidden]="currentStep!=4">
       <h1 class="title-form">Programa tu visita</h1>
       <span> Completa estos campos para agendar la visita</span>
       <p>¿En qué horario deseas que vayamos a recoger las firmas?</p>
@@ -84,7 +84,7 @@
     </div>
 
 
-    <div class="step-popup" *ngIf="currentStep==5">
+    <div class="step-popup" [hidden]="currentStep!=5">
       <img src="/assets/images/Icon_FinEtapa.svg" alt="">
       <h1 class="title-form">¡Estupendo!
         Hemos terminado lo más difícil</h1>
