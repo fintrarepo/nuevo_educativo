@@ -49,6 +49,11 @@ export class UtilsService {
     return object.year + "-" + month + "-" + day
   }
 
+
+  validateDay(date) {
+    return this.http.get('/webresources/form/business_day/' + this.buildDate(date))
+  }
+
   carcularFecha(fecha1?) {
     // alert(document.getElementById("fechainicio").value);
     var opcion0;
@@ -63,7 +68,7 @@ export class UtilsService {
     var days = date.getDate();
     var fecha = "0099-01-01";
     var mes = date.getMonth() + 1;
-    var anio = date.getFullYear();  
+    var anio = date.getFullYear();
 
 
     if (days >= 1 && days <= 2) {

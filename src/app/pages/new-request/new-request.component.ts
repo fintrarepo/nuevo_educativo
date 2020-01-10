@@ -11,6 +11,7 @@ import { AuthService } from '../../services/auth/auth.service';
 import { ListRequestService } from '../../services/list-request/list-request.service'
 import * as reducers from '../../reducers/reducers';
 import * as moment from 'moment';
+import { ShowOrHiddenLoadingForm, ToggleBlurPage } from '../../actions/platform.actions';
 
 @Component({
   selector: 'app-new-request',
@@ -173,11 +174,20 @@ export class NewRequestComponent implements OnInit {
 
   simulateRenewCredit() {
     let dataForm = this.buildDataForm()
+
+   
+
+
     const action = new SendSimulationRenewCredit({ ...this.buildObjectBySimulation(dataForm), negocio: this.route.snapshot.paramMap.get('id') })
     this.store.dispatch(action)
   }
 
   send() {
+    const loadingAction = new ShowOrHiddenLoadingForm(true)
+    this.store.dispatch(loadingAction)
+
+    const blur = new ToggleBlurPage()
+    this.store.dispatch(blur)
 
     this.form.updateValueAndValidity()
     if (this.formValidation()) {
