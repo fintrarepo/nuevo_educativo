@@ -28,7 +28,13 @@ export class SimulatorEffects {
         exhaustMap(action => {
             return this.credit.simulate(action).pipe(
                 map(Response => {
-                    return new SendSimulationSuccess({ result: Response })
+                    return Response.valor_cuota <= 100000 ?
+                        new OpenAlert({
+                            open: true,
+                            title: "Cuota no permitida",
+                            subTitle: "La cuota del credito debe ser mayor a $100.000",
+                            type: "danger"
+                        }) : new SendSimulationSuccess({ result: Response })
                 }),
                 catchError(error => of(new SendSimulationError({ requests: Response })))
             )
@@ -52,7 +58,7 @@ export class SimulatorEffects {
     )
 
 
-    
+
 
     // @Effect()
     // GetListRequestError: Observable<Action> = this.actions$.pipe(
