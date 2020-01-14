@@ -39,7 +39,7 @@
                                     <div class="form-group">
                                         <label class="text-white" for="expedicion">Fecha Expedicion</label>
                                         <input type="text" class="form-control" id="expedicion" ngbDatepicker
-                                        #d1="ngbDatepicker" (click)="d1.toggle()" formControlName="fecha_expedicion" required readonly>
+                                        #d1="ngbDatepicker" (click)="d1.toggle()" formControlName="fecha_expedicion" required readonly [minDate]="{year: 1950, month: 1, day: 1}">
                                     </div>
                                 </div>
                                 <!-- <div class="col-md-6 form--der">
