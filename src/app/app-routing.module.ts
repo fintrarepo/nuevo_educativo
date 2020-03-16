@@ -4,6 +4,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from "./pages/register/register.component";
 import { NotApprovedComponent } from './pages/not-approved/not-approved.component';
 import { ApprovedComponent } from './pages/approved/approved.component';
+import { UpdateInfoComponent } from './update-info/update-info.component';
 
 
 //GUARDS
@@ -19,6 +20,10 @@ const routes: Routes = [
     canActivate: [NoAuthGuard]
   },
   {
+    path: 'login/:user/:saggicUser',
+    component: LoginComponent,
+  },
+  {
     path: 'register',
     component: RegisterComponent
   },
@@ -29,6 +34,10 @@ const routes: Routes = [
   {
     path: 'approved',
     component: ApprovedComponent
+  },
+  {
+    path: 'update-info',
+    component: UpdateInfoComponent
   },
   {
     path: '',

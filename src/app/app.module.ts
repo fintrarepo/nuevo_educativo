@@ -46,8 +46,9 @@ import { Tab1SubTab2Effects } from './effects/tab1SubTab2.effect';
 import { Tab1SubTab3Effects } from './effects/tab1SubTab3.effect';
 import { Tab2SubTab1Effects } from './effects/tab2SubTab1.effects';
 import { Tab2SubTab2Effects } from './effects/tab2SubTab2.effects';
+import { UpdateInfoComponent } from './update-info/update-info.component';
 
-
+import { AddressFormComponent } from './components/address-form/address-form.component';
 
 
 
@@ -87,7 +88,9 @@ const NGRX_IMPORTS = [
     ApprovedComponent,
     RecoverPasswordComponent,
     ChangePasswordComponent,
-    RegisterComponent
+    RegisterComponent,
+    UpdateInfoComponent,
+    AddressFormComponent
     
   ],
   imports: [

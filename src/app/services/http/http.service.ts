@@ -5,7 +5,7 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { environment } from '../../../environments/environment'
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -21,12 +21,12 @@ export class HttpService {
 
   post(url: string, body: any, options?: any): Observable<any> {
     return this.http
-      .post(this.buildUrl(url), body, this.optionsRequest(options))
+      .post(this.buildUrl(url), this.buildBody(body), this.optionsRequest(options))
   }
 
   put(url: string, body: any, options?: any): Observable<any> {
     return this.http
-      .put(this.buildUrl(url), body, this.optionsRequest(options))
+      .put(this.buildUrl(url), this.buildBody(body), this.optionsRequest(options))
   }
 
   delete(url: string, body: any): Observable<any> {
@@ -34,6 +34,10 @@ export class HttpService {
       .delete(this.buildUrl(url), body)
   }
 
+
+  private buildBody(body) {
+    return localStorage.getItem('saggic_id') ? { ...body, sagicc_id: localStorage.getItem('saggic_id') } : body
+  }
 
   private optionsRequest(options) {
     return options ?

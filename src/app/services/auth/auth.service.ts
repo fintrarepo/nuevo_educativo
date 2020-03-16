@@ -74,5 +74,13 @@ export class AuthService {
     localStorage.setItem('idusuario', user)
   }
 
+  get saggic_id() {
+    return localStorage.getItem('saggic_id')
+  }
+
+  set saggic_id(user) {
+    localStorage.setItem('saggic_id', user)
+  }
+
 
 }

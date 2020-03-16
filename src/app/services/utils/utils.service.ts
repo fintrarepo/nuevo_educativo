@@ -37,6 +37,22 @@ export class UtilsService {
     return this.http.post('/webresources/form/continue_tab', data)
   }
 
+  getEmails() {
+    return this.http.get('/webresources/form/email_domain')
+  }
+
+  getUserInfoByUpdateInfo(nit) {
+    return this.http.get('http://zeus.fintra.co:5002/users?nit=' + nit)
+  }
+
+  updateUser(data) {
+    return this.http.post('http://zeus.fintra.co:5002/users', data)
+  }
+
+  sendSmsCode(identification, phone) {
+    return this.http.post('http://zeus.fintra.co:5002/users/' + identification + "/sendsms", { phone })
+  }
+
   buildDate(object) {
     if (!(object.year && object.month && object.day)) {
       return "";

@@ -25,6 +25,7 @@ export class NewRequestComponent implements OnInit {
   cities: any[] = [];
   afiliates: any[] = [];
   dues: any[] = [];
+  emails: any[] = [];
   acceptTerms: boolean = false;
   maxDate: any;
   now: any;
@@ -89,9 +90,10 @@ export class NewRequestComponent implements OnInit {
       "primer_nombre": ['', Validators.compose([Validators.maxLength(50),])],
       "primer_apellido": ['', Validators.compose([Validators.maxLength(50),])],
       "email": ['', Validators.compose([Validators.maxLength(50), , Validators.email, this.ValidateUrl])],
-      "email-validation": ['', Validators.compose([Validators.maxLength(50), , Validators.email, this.ValidateUrl, this.confirmEmail])],
+      "email_domain": ['', Validators.compose([Validators.maxLength(50), , Validators.email, this.ValidateEmail])],
+      // "email-validation": ['', Validators.compose([Validators.maxLength(50), , Validators.email, this.ValidateUrl, this.confirmEmail])],
       "departamento": ['', Validators.compose([Validators.maxLength(50),])],
-      "telefono": ['', Validators.compose([Validators.min(100000), Validators.max(9999999999),])],
+      "telefono": ['', Validators.compose([Validators.min(100000), Validators.max(9999999999)])],
       "fecha_nacimiento": ['', Validators.compose([Validators.maxLength(50),])],
     })
 
@@ -105,12 +107,15 @@ export class NewRequestComponent implements OnInit {
       this.form.controls.tipo_identificacion.setValidators([Validators.required, Validators.maxLength(100)])
       this.form.controls.identificacion.setValidators([Validators.required, Validators.maxLength(50)])
       this.form.controls.fecha_expedicion.setValidators([Validators.required, Validators.maxLength(100)])
-      this.form.controls.primer_nombre.setValidators([Validators.required, Validators.maxLength(100)])
+      this.form.controls.primer_nombre.setValidators([Validators.required, Validators.maxLength(100), Validators.minLength(3)])
       this.form.controls.primer_apellido.setValidators([Validators.required, Validators.maxLength(100)])
-      this.form.controls.email.setValidators([Validators.required, Validators.maxLength(100), Validators.email, this.ValidateUrl])
-      this.form.controls['email-validation'].setValidators([Validators.required, Validators.maxLength(100), Validators.email, this.ValidateUrl, this.confirmEmail])
-      this.form.controls.telefono.setValidators([Validators.required, Validators.maxLength(100)])
+      this.form.controls.email.setValidators([Validators.required, Validators.maxLength(100), this.ValidateEmail])
+      this.form.controls['email_domain'].setValidators([Validators.required])
+      // this.form.controls['email-validation'].setValidators([Validators.required, Validators.maxLength(100), Validators.email, this.ValidateUrl, this.confirmEmail])
+      this.form.controls.telefono.setValidators([Validators.required, Validators.max(9999999999), Validators.min(999999999)])
       this.form.controls.fecha_nacimiento.setValidators([Validators.required, Validators.maxLength(100)])
+
+      this.loadEmails()
 
     }
   }
@@ -139,6 +144,15 @@ export class NewRequestComponent implements OnInit {
       .subscribe(afiliates => {
         this.afiliates = afiliates.data;
         console.log(this.afiliates)
+      })
+  }
+
+  loadEmails() {
+    this.utils
+      .getEmails()
+      .subscribe(emails => {
+        this.emails = emails.data
+        console.log(this.emails)
       })
   }
 
@@ -175,7 +189,7 @@ export class NewRequestComponent implements OnInit {
   simulateRenewCredit() {
     let dataForm = this.buildDataForm()
 
-   
+
 
 
     const action = new SendSimulationRenewCredit({ ...this.buildObjectBySimulation(dataForm), negocio: this.route.snapshot.paramMap.get('id') })
@@ -201,7 +215,10 @@ export class NewRequestComponent implements OnInit {
   }
 
   sendPreApplication() {
-    let dataForm = { ...this.buildDataForm(), tipo_usuario: this.auth.tipo_usuario }
+    let dataForm = {
+      ...this.buildDataForm(), tipo_usuario: this.auth.tipo_usuario,
+      email: this.form.controls.email.value + this.form.controls['email_domain'].value
+    }
 
     const action = new SendPreApplication(dataForm)
     this.store.dispatch(action)
@@ -215,7 +232,7 @@ export class NewRequestComponent implements OnInit {
       monto_renovacion: this.currentRenew.politica == 'T' ? 0 : this.currentSimulation.saldo_credito_anterior,
       politica,
       negocio_origen: this.route.snapshot.paramMap.get('id'),
-
+      email: this.form.controls.email.value + this.form.controls['email_domain'].value
     }
 
     if (this.currentRenew.politica != 'T') {
@@ -327,6 +344,16 @@ export class NewRequestComponent implements OnInit {
       return null;
     }
     if (control.value != control.parent.get('email').value) {
+      return { validEmail: true };
+    }
+    return null;
+  }
+
+  ValidateEmail(control: AbstractControl) {
+    if (!control.value) {
+      return null;
+    }
+    if (control.value.indexOf('@') > 0) {
       return { validEmail: true };
     }
     return null;

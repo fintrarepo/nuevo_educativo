@@ -40,7 +40,8 @@ export class AuthEffects {
             console.log(auth)
             return this.auth.login(auth).pipe(
                 map(Response => {
-                    return new LoggedUser(Response)
+                    let data = auth.saggic_id ? { ...Response, saggic_id: auth.saggic_id } : Response
+                    return new LoggedUser(data)
                 }),
                 catchError(error => {
                     console.log(error);
@@ -55,11 +56,15 @@ export class AuthEffects {
         ofType<LoggedUser>(AuthActionTypes.LoggedUser),
         map(action => action.payload),
         tap(v => {
+
+            localStorage.clear()
             this.auth.token = v.data.token;
             this.auth.name = v.data.name;
             this.auth.tipo_usuario = v.data.tipo_usuario;
             this.auth.cambio_clave = v.data.cambio_clave;
             this.auth.id_usuario = v.data.idusuario;
+            if (v.saggic_id)
+                this.auth.saggic_id = v.saggic_id
 
         }),
         exhaustMap((Response) => {
