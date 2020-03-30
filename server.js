@@ -3,6 +3,7 @@ var app = express();
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var cors = require('cors');
+var users = require('./api/controllers/user')
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({
@@ -18,6 +19,8 @@ app.use(function (req, res, next) {
   next();
 });
 app.use(express.static('dist/educativo'));
+
+app.use('/users', users)
 app.get('*', function (req, res) {
   res.sendfile('./dist/educativo/index.html');
 });

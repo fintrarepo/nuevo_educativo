@@ -5,8 +5,10 @@ import { HttpService } from '../http/http.service';
   providedIn: 'root'
 })
 export class UtilsService {
-
-  constructor(private http: HttpService) { }
+  apiHost;
+  constructor(private http: HttpService) {
+    this.apiHost = window.location.origin
+  }
 
 
   loadCitys() {
@@ -42,15 +44,15 @@ export class UtilsService {
   }
 
   getUserInfoByUpdateInfo(nit) {
-    return this.http.get('http://zeus.fintra.co:5002/users?nit=' + nit)
+    return this.http.post(this.apiHost + '/users?nit=' + nit, null)
   }
 
   updateUser(data) {
-    return this.http.post('http://zeus.fintra.co:5002/users', data)
+    return this.http.post(this.apiHost + '/users', data)
   }
 
   sendSmsCode(identification, phone) {
-    return this.http.post('http://zeus.fintra.co:5002/users/' + identification + "/sendsms", { phone })
+    return this.http.post(this.apiHost + '/users/' + identification + "/sendsms", { phone })
   }
 
   buildDate(object) {
