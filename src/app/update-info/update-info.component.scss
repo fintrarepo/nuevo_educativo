@@ -1,3 +1,6 @@
+*{
+    font-family: 'Montserrat', sans-serif !important;
+}
 .update-info {
 
     .block-form {
@@ -6,13 +9,17 @@
 
     h1.title-form {
         color: #707070;
-        font-weight: 300 !important;
-        font-family: "GotHam Book";
+        font-weight: 500 !important;
+        // font-family: "GotHam Book";
     }
 
 
     span {
         color: #707070;
+        font-family: 'Montserrat', sans-serif !important;
+        a{
+            font-family: 'Montserrat', sans-serif !important; 
+        }
     }
 
     input,
@@ -22,6 +29,8 @@
         padding-left: 1.3em !important;
         height: 50px !important;
         font-size: 13px !important;
+        font-family: 'Montserrat', sans-serif !important; 
+       
     }
 }
 
@@ -98,5 +107,10 @@
 
     span{
         margin-bottom: -4px;
+        font-family: 'Montserrat', sans-serif !important;
+        font-size: .85rem;
+        a{
+            font-family: 'Montserrat', sans-serif !important;
+        }
     }
 }

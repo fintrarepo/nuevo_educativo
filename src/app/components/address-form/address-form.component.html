@@ -1,6 +1,8 @@
 <div [hidden]="!(isVisible$ | async)">
   <div class="popup-fintra">
-
+   
+      <button class="button-cerrar btn btn-secondary btn-sm" (click)="closeAlert()">Cerrar</button>
+    
   </div>
   <div class="form-address">
     <h1 class="title-form" style="margin-bottom: 0">Dirección de residencia</h1>
