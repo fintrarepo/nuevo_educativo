@@ -16,6 +16,12 @@ class Db {
 
     connect() {
         this.client = new Client(connectionData)
+        
+        this.client.on('error', error => {
+            // ⋮
+            this.connect();
+        });
+
         this.client.connect()
             .then(() => {
                 console.log('Conectado')
