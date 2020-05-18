@@ -33,7 +33,7 @@ router.post('/:identification/sendsms', (req, res) => {
 
                 sms.sendSms(req.body.phone, code, authSagicc.access_token)
                     .then(data => {
-                        console.log(data)
+                        //console.log(data)
                         res.json({})
                     }).catch(err => {
                         res.status(400).send(err)
@@ -47,7 +47,7 @@ router.post('/:identification/sendsms', (req, res) => {
 })
 
 
-router.post('/', (req, res) => {
+router.post('/update', (req, res) => {
 
     const body = req.body;
     const identification = req.body.nit;

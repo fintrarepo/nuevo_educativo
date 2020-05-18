@@ -48,7 +48,7 @@ export class UtilsService {
   }
 
   updateUser(data) {
-    return this.http.post(this.apiHost + '/users', data)
+    return this.http.post(this.apiHost + '/users/update', data)
   }
 
   sendSmsCode(identification, phone) {
