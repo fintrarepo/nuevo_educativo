@@ -101,8 +101,17 @@
 </div>
 
 
-<div *ngIf="state=='DATE_UPDATED'">
+<div *ngIf="state=='DATE_UPDATED'" class="data_updated">
 
-    <h1>Datos actualizados correctamente</h1>
+    <!-- <h1>Datos actualizados correctamente</h1> -->
+
+    <div class="content-updated-info">
+        <img src="/assets/images/ok.png" alt="">
+        <h1>
+            Gracias, los datos se actualizaron correctamente.
+        </h1>
+
+        <button class="btn btn-primary" (click)="goToFintra()">Aceptar</button>
+    </div>
     
 </div>

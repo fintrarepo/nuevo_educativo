@@ -55,6 +55,10 @@ export class UpdateInfoComponent implements OnInit {
     this.store.dispatch(new InfoFormRequest());
   }
 
+  goToFintra(){
+    window.top.location.href = "https://www.fintra.co";
+  }
+
   loadCitys(dpto) {
     this.credit.loadCitys(dpto)
       .subscribe(response => {

@@ -116,3 +116,43 @@
 button{
     font-family: "Gotham Book";
 }
+
+.data_updated{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: white;
+    opacity: .16;
+    position: relative;
+
+    .content-updated-info{
+        box-sizing: border-box;
+        background: white;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        max-width: 90%;
+        padding: 2em 1em;
+        width: 450px;
+        border-radius: 20px;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        img{
+            margin-bottom: 2em;
+        }
+        h1{
+            text-align: center;
+            color: #707070;
+            font-size: 1.3rem;
+            margin-bottom: 2em;
+        }
+    }
+
+}
