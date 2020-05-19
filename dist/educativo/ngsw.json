@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1589815939362,
+  "timestamp": 1589901093204,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -11,8 +11,8 @@
         "/3-es5.5e133fdde371a872d033.js",
         "/4-es2015.38e0acee8fa384a262f6.js",
         "/index.html",
-        "/main-es2015.d7a2ee463fc54df1afb1.js",
-        "/main-es5.7fe2b638d85324091698.js",
+        "/main-es2015.d9154885c51b6a3b8363.js",
+        "/main-es5.815a27b29720a69ef2c9.js",
         "/polyfills-es2015.551225243b1eb435bb30.js",
         "/polyfills-es5.7d557f3a1ecba44264aa.js",
         "/runtime-es2015.950ce99eccb4ca951d35.js",
@@ -142,8 +142,8 @@
         "/assets/images/menu/Pre-solicitud-SEL.png",
         "/assets/images/menu/Renueva-NO-SEL.png",
         "/assets/images/menu/Renueva-SEL.png",
-        "/assets/pdf/Política de tratamiento de datos personales - Fintra.pdf",
-        "/assets/pdf/Términos y Condiciones - Fintra.pdf"
+        "/assets/pdf/Términos y Condiciones - Fintra.pdf",
+        "/assets/pdf/politica.pdf"
       ],
       "patterns": []
     }
@@ -268,11 +268,11 @@
     "/assets/images/menu/Pre-solicitud-SEL.png": "fe8cc4f9bb9c7a76042f4f535455131ee55631d5",
     "/assets/images/menu/Renueva-NO-SEL.png": "c6814037c9cc6d6d3fd08551a33b8e5e79290176",
     "/assets/images/menu/Renueva-SEL.png": "51f2ed1429009cbe8fe1de51d5ab37b2e0cdf5c0",
-    "/assets/pdf/Política de tratamiento de datos personales - Fintra.pdf": "e395f0ca17b104994722dee73aecb8b9d31a3a94",
     "/assets/pdf/Términos y Condiciones - Fintra.pdf": "4ecb4c2e2e926435e54e6682ae6fb1c837a550a3",
-    "/index.html": "7b71c8fe9f07dfba5ec691fa07bad454db91ddaa",
-    "/main-es2015.d7a2ee463fc54df1afb1.js": "b24cc5fba7591107a3f0268962e9237d3b330cfa",
-    "/main-es5.7fe2b638d85324091698.js": "045b240ef6fb1754abc1f1493156abaee93523d9",
+    "/assets/pdf/politica.pdf": "e395f0ca17b104994722dee73aecb8b9d31a3a94",
+    "/index.html": "280ba54a21d04bbcc271272e9445ad59994d8c16",
+    "/main-es2015.d9154885c51b6a3b8363.js": "d51c9fb07825c4cfc21febe068b008eeac38b19f",
+    "/main-es5.815a27b29720a69ef2c9.js": "bd8f6c2110752660e4c54bfe2b7a83b625f17933",
     "/polyfills-es2015.551225243b1eb435bb30.js": "fa3294dc18f74d99ffb7812c33dbbdb3daf098ca",
     "/polyfills-es5.7d557f3a1ecba44264aa.js": "6c9688c6586bfcf669879655ba5874ef1d2b4bcf",
     "/runtime-es2015.950ce99eccb4ca951d35.js": "95a020044edf0a0952b1fe38299226c576119468",
