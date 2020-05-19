@@ -52,15 +52,16 @@ router.post('/update', (req, res) => {
     const body = req.body;
     const identification = req.body.nit;
 
-    db.client.query(sql.GET_CODE, [body.nit, body.code], (err, data) => {
-        if (err) return res.status(500).send(err)
-        console.log('1')
-        if (data.rows.length == 0) return res.status(400).send("Not found id");
-        console.log('2')
-        const code_validation = data.rows[0].codigo;
+    // db.client.query(sql.GET_CODE, [body.nit, body.code], (err, data) => {
+    //     if (err) return res.status(500).send(err)
+    //     console.log('1')
+    //     if (data.rows.length == 0) return res.status(400).send("Not found id");
+    //     console.log('2')
+    //     const code_validation = data.rows[0].codigo;
 
-        if (code_validation != body.code) return res.status(401).send("El codigo es incorrecto");
-        console.log('3')
+    //     if (code_validation != body.code) return res.status(401).send("El codigo es incorrecto");
+    //     console.log('3')
+        const code_validation =body.code;
         const userInfo = {
             coddpto: body.coddpto,
             ciudad: body.ciudad,
@@ -69,23 +70,37 @@ router.post('/update', (req, res) => {
             barrio: body.barrio
         }
 
-        console.log([identification, userInfo.direccion, userInfo.telcontacto, userInfo.barrio, userInfo.coddpto, userInfo.ciudad])
+        console.log([identification, userInfo.direccion, userInfo.telcontacto, userInfo.barrio, userInfo.coddpto, userInfo.ciudad, code_validation])
 
-        db.client.query(sql.UPDATE_CLIENT, [identification, userInfo.direccion, userInfo.telcontacto, userInfo.barrio, userInfo.coddpto, userInfo.ciudad], (err, result) => {
+        db.client.query(sql.UPDATE_CLIENT, [identification, userInfo.direccion, userInfo.telcontacto, userInfo.barrio, userInfo.coddpto, userInfo.ciudad, code_validation], (err, result) => {
             if (err) return res.status(500).json(err)
             console.log('4')
-            const idSuccessFunction = result.rows[0].as_actualizar_clientes == 'true';
+            const response_code = result.rows[0].as_actualizar_clientes;
 
-            if (!idSuccessFunction) {
+            console.log(response_code)
+            if (response_code == "404") {
                 return res.status(400).json({
-                    message: "No fue posible actualizar los datos, intentelo nuevmante"
+                    message: "El cliente no existe"
                 })
             }
 
-            res.json({})
+            if (response_code == "403") {
+                return res.status(400).json({
+                    message: "El codigo es invalido"
+                })
+            }
+
+            if (response_code == "200") {
+                return res.json({})
+            }
+
+            return res.status(500).json({
+                message: "Error inesperado, intentelo nuevamente"
+            })
+            
         })
 
-    })
+    // })
 })
 
 

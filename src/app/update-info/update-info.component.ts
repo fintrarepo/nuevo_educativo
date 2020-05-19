@@ -85,7 +85,7 @@ export class UpdateInfoComponent implements OnInit {
       .subscribe(data => {
         this.state = 'DATE_UPDATED';
       }, err => {
-        alert('Ha ocurrido un error al actualizar los datos, intentalo nuevamente')
+        alert(err.error.message || 'Ha ocurrido un error al actualizar los datos, intentalo nuevamente')
       })
   }
 

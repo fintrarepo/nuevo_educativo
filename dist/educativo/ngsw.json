@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1589901093204,
+  "timestamp": 1589906471373,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -11,8 +11,8 @@
         "/3-es5.5e133fdde371a872d033.js",
         "/4-es2015.38e0acee8fa384a262f6.js",
         "/index.html",
-        "/main-es2015.d9154885c51b6a3b8363.js",
-        "/main-es5.815a27b29720a69ef2c9.js",
+        "/main-es2015.30e0c81793bd907b4f93.js",
+        "/main-es5.90663a8285f3590904ec.js",
         "/polyfills-es2015.551225243b1eb435bb30.js",
         "/polyfills-es5.7d557f3a1ecba44264aa.js",
         "/runtime-es2015.950ce99eccb4ca951d35.js",
@@ -270,9 +270,9 @@
     "/assets/images/menu/Renueva-SEL.png": "51f2ed1429009cbe8fe1de51d5ab37b2e0cdf5c0",
     "/assets/pdf/Términos y Condiciones - Fintra.pdf": "4ecb4c2e2e926435e54e6682ae6fb1c837a550a3",
     "/assets/pdf/politica.pdf": "e395f0ca17b104994722dee73aecb8b9d31a3a94",
-    "/index.html": "280ba54a21d04bbcc271272e9445ad59994d8c16",
-    "/main-es2015.d9154885c51b6a3b8363.js": "d51c9fb07825c4cfc21febe068b008eeac38b19f",
-    "/main-es5.815a27b29720a69ef2c9.js": "bd8f6c2110752660e4c54bfe2b7a83b625f17933",
+    "/index.html": "ea1c5c99d4d3b4da417413634e1cb52e59e142c0",
+    "/main-es2015.30e0c81793bd907b4f93.js": "25e6d59587876d5ac79ee1cba68a1fc912ebcfeb",
+    "/main-es5.90663a8285f3590904ec.js": "1a52c6b304dbe65c003d8afd4ecfaba57bc6d9d9",
     "/polyfills-es2015.551225243b1eb435bb30.js": "fa3294dc18f74d99ffb7812c33dbbdb3daf098ca",
     "/polyfills-es5.7d557f3a1ecba44264aa.js": "6c9688c6586bfcf669879655ba5874ef1d2b4bcf",
     "/runtime-es2015.950ce99eccb4ca951d35.js": "95a020044edf0a0952b1fe38299226c576119468",

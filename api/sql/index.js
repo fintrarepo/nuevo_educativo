@@ -16,7 +16,7 @@ module.exports = {
     (cedula, codigo)
     VALUES($2, $1);`,
 
-    GET_CODE: `select * from tem.actualizar_usuarios_code where cedula = $1 and codigo = $2`,
+    GET_CODE: `select * from tem.actualizar_usuarios_code where cedula = $1 and codigo = $2 and activo = true;`,
 
     // UPDATE_PORTAL_USER: `update apicredit.usuarios_portal  set celular = $1,  last_update = now() where identificacion = $2;`,
     // UPDATE_NIT: `update nit set direccion = $1, coddpto = $2 , codciu = $3, celular = $4, barrio = $5, fechaultact = now() where cedula = $6 ;`,
@@ -26,6 +26,6 @@ module.exports = {
     //     VALUES($1, $2, $3, $4, $5, $6, $7, $8, now());
     //     `
 
-    UPDATE_CLIENT:`select as_actualizar_clientes($1, $2, $3, $4, $5, $6);`
+    UPDATE_CLIENT:`select as_actualizar_clientes($1, $2, $3, $4, $5, $6, $7);`
 
 }
