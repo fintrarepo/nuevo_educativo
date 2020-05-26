@@ -1,0 +1,100 @@
+<div class="header-extract">
+  <img src="/assets/images/bg-extract.png" class="bg-extract" />
+
+  <div class="title-extract">
+    <img src="/assets/images/logo-white.png" alt="" />
+    <h1>
+      Realiza tus pagos desde casa Ahora somos <b>#masdigital</b>
+    </h1>
+  </div>
+</div>
+
+<div class="body-extract" *ngIf="extract">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-12 text-center row-name-client">
+                <h1>{{extract.nombre_cliente}}</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 text-right">
+                <a href="https://www.banco.colpatria.com.co/PagosElectronicos/Referencias.aspx?IdConvenio=5562" class="href-extract href-extract-pay">PAGA AQUÍ</a>
+            </div>
+            <div class="col-md-6 text-left">
+                <a href="https://prometheus.fintra.co:8444/fintra/inv/{{extract.id_extracto}}" class="href-extract href-extract-view">VER EXTRACTO</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 text-center row-name-client">
+                <h1 style="font-weight: 500;">Resumen de tu extracto</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="content-title-item">
+                    <span>Valor total a pagar:</span>
+                </div>
+            </div>
+            <div class="col-md-6 offset-md-3">
+                <div class="content-title-value">
+                    <span>{{extract.valor_extracto  | currency:'USD':true:'1.0-0'}}</span>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="content-title-item">
+                    <span>Fecha limite de pago:</span>
+                </div>
+            </div>
+            <div class="col-md-6 offset-md-3">
+                <div class="content-title-value">
+                    <span>{{extract.fecha_limite_pago}}</span>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="content-title-item">
+                    <span>Mes facturado:</span>
+                </div>
+            </div>
+            <div class="col-md-6 offset-md-3">
+                <div class="content-title-value">
+                    <span>{{extract.periodo}}</span>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="content-title-item">
+                    <span>Referencia de pago:</span>
+                </div>
+            </div>
+            <div class="col-md-6 offset-md-3">
+                <div class="content-title-value">
+                    <span>{{extract.id_extracto}}</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="footer-extract">
+    <span>© 2020 Fintra, Inc.</span>
+</div>

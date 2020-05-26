@@ -5,6 +5,7 @@ import { RegisterComponent } from "./pages/register/register.component";
 import { NotApprovedComponent } from './pages/not-approved/not-approved.component';
 import { ApprovedComponent } from './pages/approved/approved.component';
 import { UpdateInfoComponent } from './update-info/update-info.component';
+import { GetExtractComponent } from './pages/get-extract/get-extract.component'
 
 
 //GUARDS
@@ -38,6 +39,10 @@ const routes: Routes = [
   {
     path: 'update-info',
     component: UpdateInfoComponent
+  },
+  {
+    path: 'get-extract/:id',
+    component: GetExtractComponent
   },
   {
     path: '',

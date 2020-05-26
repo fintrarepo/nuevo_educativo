@@ -49,6 +49,7 @@ import { Tab2SubTab2Effects } from './effects/tab2SubTab2.effects';
 import { UpdateInfoComponent } from './update-info/update-info.component';
 
 import { AddressFormComponent } from './components/address-form/address-form.component';
+import { GetExtractComponent } from './pages/get-extract/get-extract.component';
 
 
 
@@ -90,7 +91,8 @@ const NGRX_IMPORTS = [
     ChangePasswordComponent,
     RegisterComponent,
     UpdateInfoComponent,
-    AddressFormComponent
+    AddressFormComponent,
+    GetExtractComponent
     
   ],
   imports: [

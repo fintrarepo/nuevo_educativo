@@ -1,0 +1,132 @@
+.header-extract{
+    width: 100%;
+    height: 250px;
+    position: relative;
+
+    img.bg-extract{
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+
+    .title-extract{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        img{
+            margin-bottom: 1em;
+            height: 40px;
+        }
+
+        h1{
+            color: white;
+            text-align: center;
+            font-weight: 400 !important;
+            font-size: 1.6rem;
+        }
+    }
+}
+
+
+.body-extract{
+    padding: 1em;
+    h1{
+        color: #707070;
+        font-size: 1.7rem;
+        font-weight: bold;
+    }
+
+    .href-extract{
+        height: 50px;
+        width: 350px;
+        display: block;
+        border-radius: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-weight: 700;
+        margin-bottom: 20px;
+
+        &.href-extract-pay{
+            background: #FFA412;
+        }
+
+        &.href-extract-view{
+            background: #BCCF00;
+        }
+    }
+
+
+    .text-right{
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .text-left{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+
+    .row-name-client{
+        margin-bottom: 2em;
+        margin-top: 2em;
+    }
+
+    .content-title-item{
+        width: 100%;
+        height: 50px;
+        border: 2px solid #32BEFA;
+        border-radius: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        span{
+            color: #32BEFA;
+            font-weight: 700;
+        }
+    }
+
+    .content-title-value{
+        width: 100%;
+        height: 50px;
+        border-radius: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        span{
+            color: #707070;
+            font-weight: 700;
+        }
+    }
+    
+}
+
+
+.footer-extract{
+    margin-top: 6em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    background: #32BEFA;
+
+    span{
+        color: white;
+    }
+}
