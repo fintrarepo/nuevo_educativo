@@ -26,12 +26,37 @@ router.post('/isMydata', (req, res) => {
                 return res.status(500).send(err)
             }
             const userData = result.rows[0]
-            db.client.query(sql.INSERT_TEMP, [userData.nomcli, userData.email, userData.telcontacto, userData.nit, userData.direccion, userData.coddpto, userData.ciudad, userData.barrio],
-                (err_insert, result) => {
+
+            
+            
+            db.client.query(sql.UPDATE_CLIENT, [userData.nit, userData.direccion, userData.telcontacto, userData.barrio, userData.coddpto, userData.ciudad, "000000"],
+                (err_insert, result_function) => {
                     if (err_insert) {
-                        return res.status(500).send(err)
+                        return res.status(500).json({
+                            message: "Ha ocurrido un error inesperado, intentelo nuevamente"
+                        })
                     }
-                    res.json(result)
+                    
+                    const response_code = result_function.rows[0].as_actualizar_clientes;
+                    if (response_code == "404") {
+                        return res.status(400).json({
+                            message: "El cliente no existe"
+                        })
+                    }
+            
+                    if (response_code == "403") {
+                        return res.status(400).json({
+                            message: "El codigo es invalido"
+                        })
+                    }
+            
+                    if (response_code == "200") {
+                        return res.json({})
+                    }
+            
+                    return res.status(500).json({
+                        message: "Error inesperado, intentelo nuevamente"
+                    })
                 })
         })
 })
