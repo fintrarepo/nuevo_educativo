@@ -52,6 +52,10 @@ export class UtilsService {
     return this.http.post(this.apiHost + "/users/update", data);
   }
 
+  isMyData(data){
+    return this.http.post(this.apiHost + "/users/isMydata", data);
+  }
+
   getExtract(id) {
     return this.http.get("/webresources/loans/info-extractos/" + id);
   }

@@ -19,6 +19,24 @@ router.post('/', (req, res) => {
 });
 
 
+router.post('/isMydata', (req, res) => {
+    db.client.query(sql.GET_CLIENT, [req.body.nit],
+        (err, result) => {
+            if (err) {
+                return res.status(500).send(err)
+            }
+            const userData = result.rows[0]
+            db.client.query(sql.INSERT_TEMP, [userData.nomcli, userData.email, userData.telcontacto, userData.nit, userData.direccion, userData.coddpto, userData.ciudad, userData.barrio],
+                (err_insert, result) => {
+                    if (err_insert) {
+                        return res.status(500).send(err)
+                    }
+                    res.json(result)
+                })
+        })
+})
+
+
 
 router.post('/:identification/sendsms', (req, res) => {
 
@@ -61,44 +79,44 @@ router.post('/update', (req, res) => {
 
     //     if (code_validation != body.code) return res.status(401).send("El codigo es incorrecto");
     //     console.log('3')
-        const code_validation =body.code;
-        const userInfo = {
-            coddpto: body.coddpto,
-            ciudad: body.ciudad,
-            direccion: body.direccion,
-            telcontacto: body.telcontacto,
-            barrio: body.barrio
+    const code_validation = body.code;
+    const userInfo = {
+        coddpto: body.coddpto,
+        ciudad: body.ciudad,
+        direccion: body.direccion,
+        telcontacto: body.telcontacto,
+        barrio: body.barrio
+    }
+
+    console.log([identification, userInfo.direccion, userInfo.telcontacto, userInfo.barrio, userInfo.coddpto, userInfo.ciudad, code_validation])
+
+    db.client.query(sql.UPDATE_CLIENT, [identification, userInfo.direccion, userInfo.telcontacto, userInfo.barrio, userInfo.coddpto, userInfo.ciudad, code_validation], (err, result) => {
+        if (err) return res.status(500).json(err)
+        console.log('4')
+        const response_code = result.rows[0].as_actualizar_clientes;
+
+        console.log(response_code)
+        if (response_code == "404") {
+            return res.status(400).json({
+                message: "El cliente no existe"
+            })
         }
 
-        console.log([identification, userInfo.direccion, userInfo.telcontacto, userInfo.barrio, userInfo.coddpto, userInfo.ciudad, code_validation])
-
-        db.client.query(sql.UPDATE_CLIENT, [identification, userInfo.direccion, userInfo.telcontacto, userInfo.barrio, userInfo.coddpto, userInfo.ciudad, code_validation], (err, result) => {
-            if (err) return res.status(500).json(err)
-            console.log('4')
-            const response_code = result.rows[0].as_actualizar_clientes;
-
-            console.log(response_code)
-            if (response_code == "404") {
-                return res.status(400).json({
-                    message: "El cliente no existe"
-                })
-            }
-
-            if (response_code == "403") {
-                return res.status(400).json({
-                    message: "El codigo es invalido"
-                })
-            }
-
-            if (response_code == "200") {
-                return res.json({})
-            }
-
-            return res.status(500).json({
-                message: "Error inesperado, intentelo nuevamente"
+        if (response_code == "403") {
+            return res.status(400).json({
+                message: "El codigo es invalido"
             })
-            
+        }
+
+        if (response_code == "200") {
+            return res.json({})
+        }
+
+        return res.status(500).json({
+            message: "Error inesperado, intentelo nuevamente"
         })
+
+    })
 
     // })
 })

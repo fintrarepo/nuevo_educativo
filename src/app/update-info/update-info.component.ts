@@ -93,6 +93,16 @@ export class UpdateInfoComponent implements OnInit {
       })
   }
 
+
+  validateData(){
+    this.utils.isMyData({ ...this.form.value})
+      .subscribe(data => {
+        this.state = 'DATE_UPDATED';
+      }, err => {
+        alert(err.error.message || 'Ha ocurrido un error al actualizar los datos, intentalo nuevamente')
+      })
+  }
+
   fillForm(data) {
     for (let i in data) {
       if (this.form.controls[i]) {

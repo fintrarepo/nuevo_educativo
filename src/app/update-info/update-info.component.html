@@ -1,52 +1,86 @@
-<div class="wrapper" [ngClass]="{'blur-page': (blurPage$ | async)}" *ngIf="state=='FILL_FORM'">
-    <form style="padding: 14px;" class="update-info" [formGroup]="form">
-        <!-- [formGroup]="form" -->
-        <div class="block-form">
-            <h1 class="title-form">Actualiza tu información</h1>
-            <div class="form-row">
+<div
+  class="wrapper"
+  [ngClass]="{ 'blur-page': blurPage$ | async }"
+  *ngIf="state == 'FILL_FORM'"
+>
+  <form style="padding: 14px;" class="update-info" [formGroup]="form">
+    <!-- [formGroup]="form" -->
+    <div class="block-form">
+      <h1 class="title-form">Actualiza tu información</h1>
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="No. Documento de Identidad"
+            formControlName="nit"
+            (change)="getUserInfo()"
+          />
+        </div>
 
-                <div class="form-group col-md-4">
-                    <input type="text" class="form-control" placeholder="No. Documento de Identidad"
-                        formControlName="nit" (change)="getUserInfo()">
-                </div>
+        <div class="form-group col-md-4">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Nombre Cliente"
+            formControlName="nomcli"
+            [readOnly]="true"
+          />
+        </div>
 
-                <div class="form-group col-md-4">
-                    <input type="text" class="form-control" placeholder="Nombre Cliente" formControlName="nomcli"
-                        [readOnly]="true" />
-                </div>
+        <div class="form-group col-md-4">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Dirección"
+            formControlName="direccion"
+            (click)="openForm('direccion')"
+            readonly
+          />
+        </div>
 
-                <div class="form-group col-md-4">
-                    <input type="text" class="form-control" placeholder="Dirección" formControlName="direccion"
-                        (click)="openForm('direccion')" readonly />
-                </div>
+        <div class="form-group col-md-4">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Barrio"
+            formControlName="barrio"
+          />
+        </div>
 
-                <div class="form-group col-md-4">
-                    <input type="text" class="form-control" placeholder="Barrio" formControlName="barrio" />
-                </div>
+        <div class="form-group col-md-4">
+          <!-- <input type="text" class="form-control" placeholder="Departamento" formControlName="coddpto" /> -->
+          <select
+            class="form-control"
+            formControlName="coddpto"
+            (change)="loadCitys(form.controls.coddpto.value)"
+          >
+            <option value="">Seleccione departamento</option>
+            <option [value]="item.table_code" *ngFor="let item of dpt"
+              >{{ item.dato }}
+            </option>
+          </select>
+        </div>
 
-                <div class="form-group col-md-4">
-                    <!-- <input type="text" class="form-control" placeholder="Departamento" formControlName="coddpto" /> -->
-                    <select class="form-control" formControlName="coddpto"
-                        (change)="loadCitys(form.controls.coddpto.value)">
-                        <option value="">Seleccione departamento</option>
-                        <option [value]="item.table_code" *ngFor="let item of dpt">{{item.dato}}
-                        </option>
-                    </select>
-                </div>
+        <div class="form-group col-md-4">
+          <select class="form-control" formControlName="ciudad">
+            <option value="">Seleccione ciudad</option>
+            <option [value]="item.codciu" *ngFor="let item of citys"
+              >{{ item.nomciu }}
+            </option>
+          </select>
+        </div>
 
-                <div class="form-group col-md-4">
-                    <select class="form-control" formControlName="ciudad">
-                        <option value="">Seleccione ciudad</option>
-                        <option [value]="item.codciu" *ngFor="let item of citys">{{item.nomciu}}
-                        </option>
-                    </select>
-                </div>
+        <div class="form-group col-md-4">
+          <input
+            type="number"
+            class="form-control"
+            placeholder="Celular"
+            formControlName="telcontacto"
+          />
+        </div>
 
-                <div class="form-group col-md-4">
-                    <input type="number" class="form-control" placeholder="Celular" formControlName="telcontacto" />
-                </div>
-
-                <!-- <div class="form-group col-md-4">
+        <!-- <div class="form-group col-md-4">
                     <input type="text" class="form-control" placeholder="Email" formControlName="email" />
                 </div>
 
@@ -54,64 +88,93 @@
                     <input type="text" class="form-control" placeholder="Confirmar Email"
                         formControlName="email_validator" />
                 </div> -->
-
-            </div>
-        </div>
-
-        <div class="block-form">
-            <div class="checkbox-container">
-                <label class="container">
-                    <input type="checkbox" [checked]="termsAndConditions"
-                        (change)="termsAndConditions = !termsAndConditions">
-                    <span class="checkmark"></span>
-                </label>
-                <span>Acepto <a  target="_blank" href="/assets/pdf/politica.pdf">Políticas de Privacidad</a> de datos personales. Aplican condiciones y
-                    restricciones</span>
-            </div>
-        </div>
-
-        <div class="block-form">
-            <button class="btn btn-primary" [disabled]="!form.valid || termsAndConditions==false"
-                (click)="sendSmsCode()">Guardar información</button>
-        </div>
-
-    </form>
-</div>
-
-
-<div *ngIf="state=='FILL_CODE'">
-    <form style="padding: 14px;" class="update-info">
-        <!-- [formGroup]="form" -->
-        <div class="block-form">
-            <h1 class="title-form">Digita el codigo que se envio a {{ form.controls.telcontacto.value}}</h1>
-            <div class="form-row">
-
-                <div class="form-group col-md-4">
-                    <input type="text" class="form-control" placeholder="Codigo de validación" [(ngModel)]="code"
-                        name="code">
-                </div>
-            </div>
-        </div>
-
-        <div class="block-form">
-            <button class="btn btn-primary" (click)="sendData()" >Validar código</button>
-        </div>
-
-    </form>
-</div>
-
-
-<div *ngIf="state=='DATE_UPDATED'" class="data_updated">
-
-    <!-- <h1>Datos actualizados correctamente</h1> -->
-
-    <div class="content-updated-info">
-        <img src="/assets/images/ok.png" alt="">
-        <h1>
-            Gracias, los datos se actualizaron correctamente.
-        </h1>
-
-        <button class="btn btn-primary" (click)="goToFintra()">Aceptar</button>
+      </div>
     </div>
-    
+
+    <div class="block-form">
+      <div class="checkbox-container">
+        <label class="container">
+          <input
+            type="checkbox"
+            [checked]="termsAndConditions"
+            (change)="termsAndConditions = !termsAndConditions"
+          />
+          <span class="checkmark"></span>
+        </label>
+        <span
+          >Acepto
+          <a target="_blank" href="/assets/pdf/politica.pdf"
+            >Políticas de Privacidad</a
+          >
+          de datos personales. Aplican condiciones y restricciones</span
+        >
+      </div>
+    </div>
+
+    <div class="block-form" style="display: flex; align-items: center; flex-wrap: wrap;">
+      <button
+        class="btn btn-primary"
+        [disabled]="!form.valid || termsAndConditions == false"
+        (click)="sendSmsCode()"
+        style="
+          margin-right: 10px;
+          margin-bottom: 20px;
+          background: #31befa;
+          border: none;
+          width: 290px; max-width: 100%
+        "
+      >
+        Guardar información
+      </button>
+      <button
+        style="background: #ffc939; border: none; width: 290px; max-width: 100%; margin-bottom: 20px;"
+        class="btn btn-warning"
+        (click)="validateData()"
+        [disabled]="!form.valid || termsAndConditions == false"
+      >
+        Confirmar datos actuales
+      </button>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="state == 'FILL_CODE'">
+  <form style="padding: 14px;" class="update-info">
+    <!-- [formGroup]="form" -->
+    <div class="block-form">
+      <h1 class="title-form">
+        Digita el codigo que se envio a {{ form.controls.telcontacto.value }}
+      </h1>
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Codigo de validación"
+            [(ngModel)]="code"
+            name="code"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="block-form">
+      <button class="btn btn-primary" (click)="sendData()">
+        Validar código
+      </button>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="state == 'DATE_UPDATED'" class="data_updated">
+  <!-- <h1>Datos actualizados correctamente</h1> -->
+
+  <div class="content-updated-info">
+    <img src="/assets/images/ok.png" alt="" />
+    <h1>
+      Gracias, los datos se actualizaron correctamente.
+    </h1>
+
+    <button class="btn btn-primary" (click)="goToFintra()">Aceptar</button>
+  </div>
 </div>
