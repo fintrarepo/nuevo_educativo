@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1591106987671,
+  "timestamp": 1594828848623,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -11,8 +11,8 @@
         "/3-es5.5e133fdde371a872d033.js",
         "/4-es2015.38e0acee8fa384a262f6.js",
         "/index.html",
-        "/main-es2015.9bd5f31ddaaf22974f8c.js",
-        "/main-es5.d15639e2eaeec9bfd8b0.js",
+        "/main-es2015.2e03d57677fa60e915c3.js",
+        "/main-es5.228b428e918c36b7872f.js",
         "/polyfills-es2015.551225243b1eb435bb30.js",
         "/polyfills-es5.7d557f3a1ecba44264aa.js",
         "/runtime-es2015.950ce99eccb4ca951d35.js",
@@ -276,9 +276,9 @@
     "/assets/images/ok.png": "9d9128370136497b770b439177dc4a624e183a89",
     "/assets/pdf/Términos y Condiciones - Fintra.pdf": "4ecb4c2e2e926435e54e6682ae6fb1c837a550a3",
     "/assets/pdf/politica.pdf": "e395f0ca17b104994722dee73aecb8b9d31a3a94",
-    "/index.html": "8b9755d27c41386ebb58799da12433a3ccc3b9ce",
-    "/main-es2015.9bd5f31ddaaf22974f8c.js": "ecdf2e217967be9234767c4aa4a2644f8df6a8e2",
-    "/main-es5.d15639e2eaeec9bfd8b0.js": "91bc6a420240181f2e7181ae035fd2aedb5ee8d8",
+    "/index.html": "c79bb94b2d554eeb09419c190cb2ddf34d5e3045",
+    "/main-es2015.2e03d57677fa60e915c3.js": "3d6fd5d8fe68bef2eaac8bd69a2b7a64c9c046b5",
+    "/main-es5.228b428e918c36b7872f.js": "bd38be1c10379ae9e5fcdfa4aa77d18515440088",
     "/polyfills-es2015.551225243b1eb435bb30.js": "fa3294dc18f74d99ffb7812c33dbbdb3daf098ca",
     "/polyfills-es5.7d557f3a1ecba44264aa.js": "6c9688c6586bfcf669879655ba5874ef1d2b4bcf",
     "/runtime-es2015.950ce99eccb4ca951d35.js": "95a020044edf0a0952b1fe38299226c576119468",
