@@ -6,7 +6,7 @@ import { NotApprovedComponent } from './pages/not-approved/not-approved.componen
 import { ApprovedComponent } from './pages/approved/approved.component';
 import { UpdateInfoComponent } from './update-info/update-info.component';
 import { GetExtractComponent } from './pages/get-extract/get-extract.component'
-
+import { RequestCreditComponent } from './request-credit/request-credit.component'
 
 //GUARDS
 import { NoAuthGuard } from './auth.guard';
@@ -43,6 +43,10 @@ const routes: Routes = [
   {
     path: 'get-extract/:id',
     component: GetExtractComponent
+  },
+  {
+    path: 'request-credit',
+    component: RequestCreditComponent
   },
   {
     path: '',

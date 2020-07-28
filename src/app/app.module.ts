@@ -50,6 +50,7 @@ import { UpdateInfoComponent } from './update-info/update-info.component';
 
 import { AddressFormComponent } from './components/address-form/address-form.component';
 import { GetExtractComponent } from './pages/get-extract/get-extract.component';
+import { RequestCreditComponent } from './request-credit/request-credit.component';
 
 
 
@@ -92,7 +93,8 @@ const NGRX_IMPORTS = [
     RegisterComponent,
     UpdateInfoComponent,
     AddressFormComponent,
-    GetExtractComponent
+    GetExtractComponent,
+    RequestCreditComponent
     
   ],
   imports: [

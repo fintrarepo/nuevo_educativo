@@ -1,0 +1,432 @@
+<div class="content-request-credit">
+    <div class="title-section">
+        <h1>Tu crédito educativo en 3 pasos</h1>
+    </div>
+    <div class="step-buttons">
+        <!-- <div class="dashed"></div> -->
+
+        <div class="content-button-step" [ngClass]="{'selected': currentStep == 1, 'visited': currentStep > 1}">
+            <div class="button-step">
+                1
+            </div>
+            <span>Simula tu crédito</span>
+            <div class="lines-step"></div>
+        </div>
+
+        <div class="content-button-step" [ngClass]="{'selected': currentStep == 2, 'visited': currentStep > 2}">
+            <div class="button-step">
+                2
+            </div>
+            <span>Crea tu perfil</span>
+            <div class="lines-step"></div>
+        </div>
+
+        <div class="content-button-step" [ngClass]="{'selected': currentStep == 3}">
+            <div class="button-step">
+                3
+            </div>
+            <span>Obtén tu Crédito</span>
+        </div>
+
+    </div>
+
+    <div class="wrapper-step-content" *ngIf="currentStep == 1">
+        <div class="step-content" *ngIf="currentSubStep==1">
+            <div class="subtitle-step">
+                <p>
+                    Ingresa los datos reales del titular del crédito y descubre cómo quedarían las cuotas
+                    aproximadamente.
+                </p>
+            </div>
+
+            <div class="block-form">
+                <form ngNativeValidate (submit)="firstStepSend()">
+                    <div class="form-row">
+                        <div class="form-group col-md-6 col-lg-4">
+                            <label class="subtitle-form">Primer nombre</label>
+                            <input type="text" class="form-control" [(ngModel)]="form.primer_nombre"
+                                name="primer_nombre" required="true" pattern="^[a-zA-Z]*$"
+                                title="No está permitido espacios, ni caracteres especiales" />
+                        </div>
+                        <div class="form-group col-md-6 col-lg-4">
+                            <label class="subtitle-form">Celular</label>
+                            <input type="number" class="form-control" [(ngModel)]="form.telefono" name="telefono"
+                                required="true" max="9999999999" title="Celular invalido" />
+                        </div>
+                        <div class="form-group col-md-6 col-lg-4">
+                            <label class="subtitle-form">Correo electrónico</label>
+                            <input type="email" class="form-control" [(ngModel)]="form.email" name="email"
+                                required="true" />
+                        </div>
+                    </div>
+
+                    <div class="content-button-step">
+                        <button class="btn btn-outline-form">Continuar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+        <div class="step-content" *ngIf="currentSubStep==2">
+            <div class="subtitle-step">
+                <p>
+                    ¡Lo estas haciendo bien! Estos datos son del estudiante
+                </p>
+            </div>
+
+            <div class="block-form">
+                <form ngNativeValidate (submit)="simulate()" #myForm="ngForm">
+                    <div class="form-row">
+                        <div class="form-group col-md-6 col-lg-4">
+                            <label class="subtitle-form">Ubicación institución</label>
+                            <select class="form-control" (change)="loadAfiliates()" [(ngModel)]="form.ciudad"
+                                name="ciudad" required="true">
+                                <option value="">Seleccione una ciudad</option>
+                                <option [value]="city.codigo" *ngFor="let city of cities">{{city.ciudad}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6 col-lg-4">
+                            <label class="subtitle-form">Nombre institución</label>
+                            <select class="form-control" (change)="buildDues()" [(ngModel)]="form.afiliado"
+                                name="afiliado" required="true">
+                                <option value="">Seleccione una nstitución educativa</option>
+                                <option [value]="item.nit_afiliado" *ngFor="let item of afiliates">
+                                    {{item.nombre_afiliado}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6 col-lg-4">
+                            <label class="subtitle-form">Tipo de estudio</label>
+                            <select class="form-control" [(ngModel)]="form.tipo_carrera" name="tipo_carrera"
+                                (change)="buildDues()" required="true">
+                                <option value="">Seleccione un tipo de estudio</option>
+                                <option value="PREGRADO">Pregrado</option>
+                                <option value="POSGRADO">Posgrado</option>
+                                <option value="CONTINUADA">Educación Continuada</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6 col-lg-4">
+                            <label class="subtitle-form">Valor matrícula</label>
+                            <input type="number" class="form-control" [(ngModel)]="form.monto" name="monto"
+                                (change)="buildDues()" required="true">
+                        </div>
+                        <div class="form-group col-md-6 col-lg-4">
+
+                            <div style="display: flex; justify-content: space-between;">
+                                <label class="subtitle-form">Plazo del crédito</label>
+                                <div class="mytooltip top">
+                                    <div class="information-icon">
+                                        i
+                                    </div>
+                                    <span class="tiptext">Indica el # de cuotas en que desearías diferir tu</span>
+                                </div>
+                            </div>
+
+                            <select class="form-control" [(ngModel)]="form.num_cuotas" name="num_cuotas"
+                                required="true">
+                                <option value="">Seleccione plazo del crédito</option>
+                                <option [value]="item" *ngFor="let item of dues">{{item}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6 col-lg-4">
+
+                            <div style="display: flex; justify-content: space-between;">
+                                <label class="subtitle-form">Fecha primer pago</label>
+                                <div class="mytooltip top">
+                                    <div class="information-icon">
+                                        i
+                                    </div>
+                                    <span class="tiptext">Se refiere al día en que realizarías tus pagos cada
+                                        mes.</span>
+                                </div>
+                            </div>
+                            <select class="form-control" [(ngModel)]="form.fecha_pago" name="fecha_pago"
+                                (change)="buildDues()" required="true">
+                                <option value="">Seleccione fecha primer pago</option>
+                                <option [value]="date" *ngFor="let date of dates">{{date}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="terms-and-conditions">
+                        <label class="container" style="padding: 0; margin-top: 5px;
+                        margin-right: 10px;">
+                            <input type="checkbox" [(ngModel)]="polite" name="polite">
+                            <span class="checkmark"></span>
+                        </label>
+                        <span>Acepto <a
+                                href="https://fintra.co/documentos/Politica-de-tratamiento-de-datos-personales-Fintra.pdf"
+                                target="_blank">Política de tratamiento de datos personales.</a></span>
+                    </div>
+
+                    <div class="content-button-step">
+                        <button class="btn btn-outline-form" (click)="currentSubStep = 1;">volver</button>
+                        <button class="btn btn-outline-form" type="submit" value="Simular"
+                            [disabled]="!myForm.form.valid || !polite"> Simular</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="step-content" *ngIf="currentSubStep==3">
+            <div class="subtitle-step">
+                <p style="width: 100%;">
+                    Resultado de tu Simulación
+                </p>
+            </div>
+
+            <div class="content-simulation">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p class="title-item-simulation">
+                            Nombre Solicitante
+                        </p>
+                        <p class="value-item-simulation">
+                            {{form.primer_nombre}}
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="title-item-simulation">
+                            Correo electrónico
+                        </p>
+                        <p class="value-item-simulation">
+                            {{form.email}}
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="title-item-simulation">
+                            Celular
+                        </p>
+                        <p class="value-item-simulation">
+                            {{form.telefono}}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <p class="title-item-simulation">
+                            Tipo de estudio
+                        </p>
+                        <p class="value-item-simulation">
+                            {{form.tipo_carrera}}
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="title-item-simulation">
+                            Ubicación estudio
+                        </p>
+                        <p class="value-item-simulation">
+                            {{getNameCity(form.ciudad)}}
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="title-item-simulation">
+                            Nombre institución
+                        </p>
+                        <p class="value-item-simulation">
+                            {{getNameAfiliafo(form.afiliado)}}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <p class="title-item-simulation">
+                            Valor de matrícula
+                        </p>
+                        <p class="value-item-simulation">
+                            {{form.monto | currency:'USD':true:'1.0-0'}}
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="title-item-simulation">
+                            Plazo del crédito
+                        </p>
+                        <p class="value-item-simulation">
+                            {{form.num_cuotas}}
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="title-item-simulation">
+                            Fecha primer pago
+                        </p>
+                        <p class="value-item-simulation">
+                            {{form.fecha_pago}}
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 offset-md-4">
+                        <div class="result-cuota-content">
+                            <span>Valor cuota aproximada</span>
+                            <h2>{{valor_cuota | currency:'USD':true:'1.0-0'}}</h2>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+
+            <div class="row message-result-simulation">
+                <h2>¡Genial! Ya estás a un paso de tu Pre-aprobado</h2>
+                <span>*Verifica tus datos antes de continuar</span>
+            </div>
+
+            <div class="content-button-step">
+                <button class="btn btn-outline-form" (click)="currentSubStep = 2;">volver</button>
+                <button class="btn btn-outline-form" type="submit" value="Simular"
+                    (click)="currentStep = 2; currentSubStep = 1;">continuar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper-step-content" *ngIf="currentStep == 2">
+        <div class="step-content" *ngIf="currentSubStep==1">
+            <div class="subtitle-step">
+                <p>
+                    ¡Ya estás cerca! <br>
+                    Ingresa estos datos y solicítalo.
+                </p>
+            </div>
+
+            <div class="block-form">
+                <form ngNativeValidate (submit)="queryDataCredit()" #myFormClient="ngForm">
+                    <div class="form-row" style="justify-content: center;">
+                        <div class="form-group col-md-6 col-lg-4">
+                            <label class="subtitle-form">Primer apellido</label>
+                            <input type="text" class="form-control" [(ngModel)]="form.primer_apellido"
+                                name="primer_apellido" required="true" />
+                        </div>
+                        <div class="form-group col-md-6 col-lg-4">
+                            <label class="subtitle-form"># de cédula</label>
+                            <input type="number" class="form-control" [(ngModel)]="form.identificacion"
+                                name="identificacion" required="true" />
+                        </div>
+                    </div>
+                    <div class="terms-and-conditions">
+                        <label class="container" style="padding: 0; margin-top: 5px;
+                        margin-right: 10px;">
+                            <input type="checkbox" [(ngModel)]="terms" name="terms">
+                            <span class="checkmark"></span>
+                        </label>
+                        <span style="max-width: 574px;">Autorizo que la información entregada sea consultada en
+                            centrales de riesgo. Para
+                            continuar, debes aceptar los <a (click)="showModal = true;" style="cursor: pointer;">Términos y Condiciones.</a></span>
+                    </div>
+                    <div class="content-button-step">
+                        <button class="btn btn-outline-form"
+                            (click)="currentStep = 1; currentSubStep = 3;">volver</button>
+                        <button class="btn btn-outline-form" type="submit" value="Simular"
+                            [disabled]="!myFormClient.form.valid || !terms">Solicitar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="wrapper-step-content" *ngIf="currentStep == 3">
+
+        <div class="step-content" *ngIf="currentSubStep==1">
+            <div class="content-message-information">
+                <h2>Vemos que ya eres cliente Fintra</h2>
+
+                <p>
+                    Para ingresar a tu cuenta, inicia sesión con tu usuario (correo registrado). Si olvidaste tu
+                    contraseña has click aquí.
+                </p>
+
+                <button class="btn btn-outline-form" routerLink="https://edu.fintra.co/login" target="_blank">INICIAR
+                    SESIÓN</button>
+            </div>
+        </div>
+
+
+        <div class="step-content" *ngIf="currentSubStep==2">
+            <div class="content-message-information">
+                <img src="/assets/images/No aprobado_icon-02.png" style="width: 200px; margin-bottom: 2em;">
+                <h2>¡Felicidades, tu crédito fue Pre-aprobado!</h2>
+
+                <p>
+                    Para obtener tu crédito Fintra, inicia sesión con tu usuario (correo registrado) y contraseña
+                    (cédula registrada)
+                </p>
+
+                <button class="btn btn-outline-form" routerLink="https://edu.fintra.co/login" target="_blank">INICIAR
+                    SESIÓN</button>
+            </div>
+        </div>
+
+
+        <div class="step-content" *ngIf="currentSubStep==3">
+            <div class="content-message-information">
+                <img src="/assets/images/No aprobado_icon-01-01.png" style="width: 200px; margin-bottom: 2em;">
+                <h2>Algo no salió bien, pero tranquilo</h2>
+
+                <p>
+                    Te ayudamos a encontrar más opciones. Contáctanos a nuestras líneas de atención disponibles.
+                </p>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="custom-modal" *ngIf="showModal">
+    <div class="wrapper-modal">
+        <div class="title-modal">
+            AUTORIZACIÓN PARA CONSULTA ENCENTRALES DE RIESGO
+        </div>
+
+        <div class="body-modal">
+            Declaro que la información que he suministrado es verídica y doy mi consentimiento expreso eirrevocable a
+            Fintra
+            S.A. con NIT. 802.022.016-1 a quien estoy solicitando un crédito para:Consultar en cualquier tiempo en las
+            centrales de riesgo, toda la información relevante para conocer midesempeño como deudor, mi capacidad de
+            pago
+            para valorar el riesgo de concederme un crédito.Reportar a las centrales información de riesgo datos, tanto
+            sobre el cumplimiento oportuno como sobreel incumplimiento, si lo hubiere, de mis obligaciones crediticias,
+            o de
+            mis deberes legales de contenidopatrimonial, de tal forma que éstas presenten una información veráz,
+            pertinente,
+            completa y exacta demi desempeño como deudor.Suministrar a las centrales de información de riesgos datos
+            relativos a mis solicitudes de crédito, asícomo otros atinentes a mis relaciones comerciales, financieras y
+            de
+            servicio con el fin de que estos lasutilicen en sus estudios estadísticos y de desarrollo de herrmanientas
+            para
+            prevenir el fraude.En mi calidad de Titular de la información, actuando libre y voluntariamente, autorizo a
+            Fintra S.A.- y/o aExperian Colombia S.A. (en adelante DataCrédito Experian), Carrera 7 No. 76-35 Tel 3191400
+            de
+            Bogotá D.C.,o quien represente sus derechos, a acceder a mis datos personales contenidos en la base de datos
+            deMareigua Ltda. (Mareigua Ltda. con NIT 800.167.353-4), Aportes en Línea (Aportes En Línea
+            S.A.900147238-2),
+            Colfondos y/o administradoras de pensiones, y demás Operadores de información deseguridad social autorizados
+            por
+            el Ministerio de Salud y Protección Social, a mis datos personalesrecolectados por medio del presente
+            formulario, y a mis datos personales contenidos en la base dedatos de DataCrédito Experian (Operador de
+            información crediticia), en adelante mi informaciónpersonal, para darle tratamiento en los términos
+            expresados
+            en la Política de Tratamiento de laInformación Personal de Fintra S.A. y/o DataCrédito Experian y para
+            finalidades de gestión de riesgocrediticio tales como: (i) elaboración y circulación a terceros de scores
+            crediticios, herramientas devalidación de ingresos, herramientas predictivas de ingresos, herramientas para
+            evitar el fraude y engeneral, herramientas que le permitan a los Suscriptores de DataCrédito Experian,
+            adelantar
+            unaadecuada gestión del riesgo crediticio. (ii) Compararla, contrastarla y complementarla con la
+            informaciónfinanciera, comercial, crediticio, de servicios y proveniente de terceros países de DataCrédito
+            Experian.(iii) Compararla, contrastarla y complementarla con la información personal de Midatacrédito.
+        </div>
+
+        <div class="footer-modal">
+            <button class="btn btn-outline-form" (click)="terms = true; showModal = false;">Acepto ser consultado</button>
+        </div>
+    </div>
+</div>

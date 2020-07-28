@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1594828848623,
+  "timestamp": 1595950910011,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -8,15 +8,15 @@
       "installMode": "prefetch",
       "updateMode": "prefetch",
       "urls": [
-        "/3-es5.5e133fdde371a872d033.js",
-        "/4-es2015.38e0acee8fa384a262f6.js",
+        "/3-es5.d00691cf56135abb6caa.js",
+        "/4-es2015.75cc6d3ac5d56b7a05d6.js",
         "/index.html",
-        "/main-es2015.2e03d57677fa60e915c3.js",
-        "/main-es5.228b428e918c36b7872f.js",
+        "/main-es2015.8a281b79df6b7545b7e5.js",
+        "/main-es5.645806cbd2d22728efd6.js",
         "/polyfills-es2015.551225243b1eb435bb30.js",
         "/polyfills-es5.7d557f3a1ecba44264aa.js",
-        "/runtime-es2015.950ce99eccb4ca951d35.js",
-        "/runtime-es5.ae4465fbfe357864ae34.js",
+        "/runtime-es2015.42b961ad1aac4181f579.js",
+        "/runtime-es5.42ef19f63cd928c8fc83.js",
         "/styles.2a66685e33efbc9fdf56.css"
       ],
       "patterns": []
@@ -121,6 +121,8 @@
         "/assets/images/LOGO SIN SLOGAN FINTRA (BLANCO).png",
         "/assets/images/LOGO-FINTRACREDIT-WEB.png",
         "/assets/images/Logo Fintra.svg",
+        "/assets/images/No aprobado_icon-01-01.png",
+        "/assets/images/No aprobado_icon-02.png",
         "/assets/images/bg-extract.png",
         "/assets/images/iconos-web-edu-1.png",
         "/assets/images/iconos-web-edu-2.png",
@@ -153,8 +155,8 @@
   ],
   "dataGroups": [],
   "hashTable": {
-    "/3-es5.5e133fdde371a872d033.js": "063051490399ae60f3295283d6dc10b65a83d509",
-    "/4-es2015.38e0acee8fa384a262f6.js": "594bbf2914b3eb545de941b5b46f282e65397e44",
+    "/3-es5.d00691cf56135abb6caa.js": "3a24ef2bad21c917e74db5b13d4eb628766f7634",
+    "/4-es2015.75cc6d3ac5d56b7a05d6.js": "824c59a6d36bc474db3a7610634093050de8deb9",
     "/Gotham-Black.e29998d86afd3d3d0dfc.woff": "7e167c0c526bd2762198fab933ec6e176edd7273",
     "/Gotham-Bold.b51ec430e735ebae2edd.woff": "2bfa700e14ebb806bcbf45eedb34c9caa0a03e86",
     "/Gotham-BookItalic.cec78cc5a1d901e4874e.woff": "efe862a5cef8279e4cc02f9d11724ff67bd083b0",
@@ -250,6 +252,8 @@
     "/assets/images/LOGO SIN SLOGAN FINTRA (BLANCO).png": "721c880e5be9eabe7175e5d5cd7d091b688dfe5c",
     "/assets/images/LOGO-FINTRACREDIT-WEB.png": "631225ca9495187fbdb1832208ca5aed86d7033a",
     "/assets/images/Logo Fintra.svg": "eadf15049153e1e544b94d87a2e6f6cd2068a2ea",
+    "/assets/images/No aprobado_icon-01-01.png": "9b57d2423c8ddbfa8e5c28547ec0710fff9bdf6e",
+    "/assets/images/No aprobado_icon-02.png": "9a97b5bbfee84810142d4d7a5647de2321cfbbf9",
     "/assets/images/bg-extract.png": "d424bd9127480afd97c401663fc47cdfd0397219",
     "/assets/images/iconos-web-edu-1.png": "7ed1bf917f36621a142a628e8cd190f9442c3b5c",
     "/assets/images/iconos-web-edu-2.png": "a7f0ca5d01edd51ff297a3cfc277beaa3d7060ae",
@@ -276,13 +280,13 @@
     "/assets/images/ok.png": "9d9128370136497b770b439177dc4a624e183a89",
     "/assets/pdf/Términos y Condiciones - Fintra.pdf": "4ecb4c2e2e926435e54e6682ae6fb1c837a550a3",
     "/assets/pdf/politica.pdf": "e395f0ca17b104994722dee73aecb8b9d31a3a94",
-    "/index.html": "c79bb94b2d554eeb09419c190cb2ddf34d5e3045",
-    "/main-es2015.2e03d57677fa60e915c3.js": "3d6fd5d8fe68bef2eaac8bd69a2b7a64c9c046b5",
-    "/main-es5.228b428e918c36b7872f.js": "bd38be1c10379ae9e5fcdfa4aa77d18515440088",
+    "/index.html": "cd834cae1365fa8ff6362c0de364a74c66e53352",
+    "/main-es2015.8a281b79df6b7545b7e5.js": "5907463e7eef62c3fafee23b7194996e4ed0cdab",
+    "/main-es5.645806cbd2d22728efd6.js": "671031b4459d82866476bc7b0752175550fdde0c",
     "/polyfills-es2015.551225243b1eb435bb30.js": "fa3294dc18f74d99ffb7812c33dbbdb3daf098ca",
     "/polyfills-es5.7d557f3a1ecba44264aa.js": "6c9688c6586bfcf669879655ba5874ef1d2b4bcf",
-    "/runtime-es2015.950ce99eccb4ca951d35.js": "95a020044edf0a0952b1fe38299226c576119468",
-    "/runtime-es5.ae4465fbfe357864ae34.js": "cc0c7b9195498315a5b1da5d4ddc754500e3d6d5",
+    "/runtime-es2015.42b961ad1aac4181f579.js": "00dc202e45d34c855024ea346e2b442446e5345a",
+    "/runtime-es5.42ef19f63cd928c8fc83.js": "bfeb9d66b9cbb5f397bd6d6bc4b593b8ef650923",
     "/styles.2a66685e33efbc9fdf56.css": "41c3a45e6da8f417645ca28b404ba8914b383ca1"
   },
   "navigationUrls": [

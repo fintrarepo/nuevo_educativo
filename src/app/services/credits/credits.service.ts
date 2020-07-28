@@ -14,6 +14,9 @@ export class CreditsService {
   };
   constructor(private http: HttpService) { }
 
+  simulateNotToken(data) {
+    return this.http.post('/webresources/loans/approximate_fee', data);
+  }
 
   simulate(data: ISimulator) {
     return this.http.post('/webresources/loans/approximate_fee-2', data);
@@ -25,6 +28,18 @@ export class CreditsService {
 
   send(data: IPreApplication) {
     return this.http.put('/webresources/loans/edu-pre-approved', data);
+  }
+
+  send2(data) {
+    return this.http.put('/webresources/loans/edu-pre-approved-2', data);
+  }
+
+  saveSimulation(data) {
+    return this.http.put('/webresources/form/save_simulation', data);
+  }
+
+  clientExists(_identificacion) {
+    return this.http.get('/webresources/loans/validate_customer/' + _identificacion)
   }
 
   loanHistory(data) {
