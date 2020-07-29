@@ -42,6 +42,7 @@ export class RequestCreditComponent implements OnInit {
   constructor(public utils: UtilsService, private credit: CreditsService) { }
 
   ngOnInit() {
+    console.log('Test')
     this.loadCitys()
     this.dates = this.utils.carcularFecha()
   }
