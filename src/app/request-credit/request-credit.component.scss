@@ -107,8 +107,8 @@
 
         &.visited {
             .button-step {
-                width: 96px;
-                height: 96px;
+                // width: 96px;
+                // height: 96px;
                 background: #37BFFA;
                 border: 5px solid #37BFFA;
                 color: white;
@@ -411,13 +411,13 @@
 }
 
 
-.title-section{
+.title-section {
     display: flex;
     width: 100%;
     justify-content: center;
     align-items: center;
 
-    h1{
+    h1 {
         text-align: center;
         color: #707070;
         font-weight: 600;
@@ -447,4 +447,83 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #dadada;
+}
+
+
+
+
+
+@media (max-width: 575.98px) {
+    .step-buttons .content-button-step .button-step {
+        width: 40px;
+        height: 40px;
+        font-size: 14px;
+    }
+
+
+    .step-buttons .content-button-step span {
+        font-size: 10px;
+    }
+
+
+    .step-buttons .content-button-step .lines-step {
+        width: 122px;
+        height: 0;
+        border: 2px dashed #CCCCCC;
+        position: absolute;
+        top: 58%;
+        right: -76px;
+
+        .selected{
+            width: 122px;
+            height: 0;
+            border: 2px dashed #CCCCCC;
+            position: absolute;
+            top: 58%;
+            right: -76px;
+        }
+
+        .visited{
+            width: 122px;
+            height: 0;
+            border: 2px dashed #CCCCCC;
+            position: absolute;
+            top: 58%;
+            right: -76px;
+        }
+    }
+
+
+    .step-content .subtitle-step {
+
+        margin-bottom: 0em;
+
+        p {
+            max-width: 95%;
+            margin-bottom: 0;
+        }
+
+    }
+
+    .title-section h1{
+        font-size: 1.5rem;
+    }
+
+
+    .content-button-step{
+        padding-top: 2em;
+    }
+    .content-simulation{
+        width: 90%;
+        padding: 2em;
+        margin-left: 5%;
+    }
+
+    .message-result-simulation h2 {
+        color: #37BFFA;
+        font-size: 24px;
+        max-width: 80%;
+        text-align: center;
+    }
+
 }
