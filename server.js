@@ -21,6 +21,10 @@ app.use(function (req, res, next) {
 app.use(express.static('dist/educativo'));
 
 app.use('/users', users)
+app.use((req, res, next) => {
+  res.set('Cache-Control', 'no-store')
+  next()
+})
 app.get('*', function (req, res) {
   res.sendfile('./dist/educativo/index.html');
 });
