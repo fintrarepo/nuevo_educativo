@@ -42,9 +42,10 @@
         height: 0;
         border: 2px dashed #CCCCCC;
 
-        &.visited{
+        &.visited {
             border: 2px dashed #37BFFA;
         }
+
         // position: absolute;
         // top: 56%;
         // right: -98px;
@@ -69,7 +70,7 @@
         align-items: center;
         justify-content: center;
         position: relative;
-        
+
 
         span {
             font-size: 24px;
@@ -260,7 +261,8 @@
     justify-content: center;
     width: 100%;
     margin-top: 3em;
-
+    padding-left: 5px;
+    padding-right: 5px;
 
     width: 90%;
     margin-left: 5%;
@@ -371,19 +373,33 @@
 }
 
 
-.mytooltip.top .tiptext {
+// .mytooltip.top .tiptext {
+//     margin-left: -60px;
+//     bottom: 150%;
+//     left: 50%;
+// }
+
+// .mytooltip.top .tiptext::after {
+//     margin-left: -5px;
+//     top: 100%;
+//     left: 50%;
+//     border-color: #2E2E2E transparent transparent transparent;
+// }
+
+
+
+
+.mytooltip.top .tiptext{
     margin-left: -60px;
     bottom: 150%;
     left: 50%;
 }
-
-.mytooltip.top .tiptext::after {
+.mytooltip.top .tiptext::after{
     margin-left: -5px;
     top: 100%;
     left: 50%;
     border-color: #2E2E2E transparent transparent transparent;
 }
-
 
 
 .custom-modal {
@@ -480,10 +496,12 @@
 
 
 @media (max-width: 575.98px) {
-    .step-buttons{
+  
+    .step-buttons {
         margin-top: 0;
         margin-bottom: 0;
     }
+
     .step-buttons .content-button-step .button-step {
         width: 40px;
         height: 40px;
@@ -571,7 +589,7 @@
     }
 
 
-    .step-content{
+    .step-content {
         padding-top: 2em;
     }
 
@@ -601,3 +619,112 @@
         transform: translate3d(4px, 0, 0);
     }
 }
+
+
+
+
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: transparent;
+    background-image: url("/assets/images/Grupo 1055.png");
+    background-repeat: no-repeat;
+    background-position-x: 99%;
+    background-position-y: 5px;
+    background-size: 27px;
+    padding-right: 38px;
+
+
+    option{
+        z-index: -1;
+    }
+
+
+
+    &.invalid.ng-invalid:not(form) {
+        background-color: #FFFAEB !important;
+        border: 1px solid #FFA412 !important;
+    }
+}
+
+input[type="text"], input[type="number"]{
+    &.invalid.ng-invalid:not(form) {
+        background-color: #FFFAEB !important;
+        border: 1px solid #FFA412 !important;
+    }
+}
+
+
+
+
+
+
+
+.container-new-check {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Hide the browser's default checkbox */
+  .container-new-check input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 22px;
+    width: 22px;
+    background-color: white;
+    border-radius: 5px;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .container-new-check:hover input ~ .checkmark {
+    background-color: white;
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+  .container-new-check input:checked ~ .checkmark {
+    background-color: #2196F3;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .container-new-check input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .container-new-check .checkmark:after {
+    left: 7px;
+    top: 3px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }

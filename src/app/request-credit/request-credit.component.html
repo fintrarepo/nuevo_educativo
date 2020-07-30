@@ -77,12 +77,12 @@
             </div>
 
             <div class="block-form">
-                <form ngNativeValidate (submit)="simulate()" #myForm="ngForm">
+                <form ngNativeValidate (submit)="simulate()" #myForm="ngForm" >
                     <div class="form-row">
                         <div class="form-group col-md-6 col-lg-4">
                             <label class="subtitle-form">Ubicación institución</label>
                             <select class="form-control" (change)="loadAfiliates()" [(ngModel)]="form.ciudad"
-                                name="ciudad" required="true">
+                                name="ciudad" required="true" [ngClass]="{'invalid': ciudad.invalid && changeFormStudent }" #ciudad="ngModel">
                                 <option value="">Seleccione una ciudad</option>
                                 <option [value]="city.codigo" *ngFor="let city of cities">{{city.ciudad}}</option>
                             </select>
@@ -90,8 +90,8 @@
                         <div class="form-group col-md-6 col-lg-4">
                             <label class="subtitle-form">Nombre institución</label>
                             <select class="form-control" (change)="buildDues()" [(ngModel)]="form.afiliado"
-                                name="afiliado" required="true">
-                                <option value="">Seleccione una nstitución educativa</option>
+                                name="afiliado" required="true" [ngClass]="{'invalid': afiliado.invalid && changeFormStudent }" #afiliado="ngModel">
+                                <option value="">Seleccione una institución educativa</option>
                                 <option [value]="item.nit_afiliado" *ngFor="let item of afiliates">
                                     {{item.nombre_afiliado}}</option>
                             </select>
@@ -99,7 +99,7 @@
                         <div class="form-group col-md-6 col-lg-4">
                             <label class="subtitle-form">Tipo de estudio</label>
                             <select class="form-control" [(ngModel)]="form.tipo_carrera" name="tipo_carrera"
-                                (change)="buildDues()" required="true">
+                                (change)="buildDues()" required="true" [ngClass]="{'invalid': tipo_carrera.invalid && changeFormStudent }" #tipo_carrera="ngModel">
                                 <option value="">Seleccione un tipo de estudio</option>
                                 <option value="PREGRADO">Pregrado</option>
                                 <option value="POSGRADO">Posgrado</option>
@@ -112,13 +112,13 @@
                         <div class="form-group col-md-6 col-lg-4">
                             <label class="subtitle-form">Valor matrícula</label>
                             <input type="text" class="form-control" [(ngModel)]="form.monto" name="monto"
-                                (change)="buildDues()" required="true" (keyup)="currency()">
+                                (change)="buildDues()" required="true" (keyup)="currency()" [ngClass]="{'invalid': monto.invalid && changeFormStudent }" #monto="ngModel">
                         </div>
                         <div class="form-group col-md-6 col-lg-4">
 
-                            <div style="display: flex; justify-content: space-between;">
+                            <div style="display: flex; ">
                                 <label class="subtitle-form">Plazo del crédito</label>
-                                <div class="mytooltip top">
+                                <div class="mytooltip top" style="margin-left: 10px;">
                                     <div class="information-icon">
                                         ?
                                     </div>
@@ -127,16 +127,16 @@
                             </div>
 
                             <select class="form-control" [(ngModel)]="form.num_cuotas" name="num_cuotas"
-                                required="true">
+                                required="true" [ngClass]="{'invalid': num_cuotas.invalid && changeFormStudent }" #num_cuotas="ngModel">
                                 <option value="">Seleccione plazo del crédito</option>
                                 <option [value]="item" *ngFor="let item of dues">{{item}}</option>
                             </select>
                         </div>
                         <div class="form-group col-md-6 col-lg-4">
 
-                            <div style="display: flex; justify-content: space-between;">
+                            <div style="display: flex;">
                                 <label class="subtitle-form">Fecha primer pago</label>
-                                <div class="mytooltip top">
+                                <div class="mytooltip top" style="margin-left: 10px;">
                                     <div class="information-icon">
                                         ?
                                     </div>
@@ -145,7 +145,7 @@
                                 </div>
                             </div>
                             <select class="form-control" [(ngModel)]="form.fecha_pago" name="fecha_pago"
-                                (change)="buildDues()" required="true">
+                                (change)="buildDues()" required="true" [ngClass]="{'invalid': fecha_pago.invalid && changeFormStudent }" #fecha_pago="ngModel">
                                 <option value="">Seleccione fecha primer pago</option>
                                 <option [value]="date" *ngFor="let date of dates">{{date}}</option>
                             </select>
@@ -153,11 +153,15 @@
                     </div>
 
                     <div class="terms-and-conditions">
-                        <label class="container" style="padding: 0; margin-top: 5px;
+                        <!-- <label class="container" style="padding: 0; margin-top: 5px;
                         margin-right: 10px;">
                             <input type="checkbox" [(ngModel)]="polite" name="polite">
                             <span class="checkmark"></span>
-                        </label>
+                        </label> -->
+                        <label class="container-new-check">
+                            <input type="checkbox" [(ngModel)]="polite" name="polite" (change)="changePolite()">
+                            <span class="checkmark"></span>
+                          </label>
                         <span>Acepto <a
                                 href="https://fintra.co/documentos/Politica-de-tratamiento-de-datos-personales-Fintra.pdf"
                                 target="_blank">Política de tratamiento de datos personales.</a></span>
@@ -306,20 +310,24 @@
                         <div class="form-group col-md-6 col-lg-4">
                             <label class="subtitle-form">Primer apellido</label>
                             <input type="text" class="form-control" [(ngModel)]="form.primer_apellido"
-                                name="primer_apellido" required="true" />
+                                name="primer_apellido" required="true" [ngClass]="{'invalid': primer_apellido.invalid && changeFormDataCredit }" #primer_apellido="ngModel"/>
                         </div>
                         <div class="form-group col-md-6 col-lg-4">
                             <label class="subtitle-form"># de cédula</label>
                             <input type="number" class="form-control" [(ngModel)]="form.identificacion"
-                                name="identificacion" required="true" />
+                                name="identificacion" required="true" [ngClass]="{'invalid': identificacion.invalid && changeFormDataCredit }" #identificacion="ngModel"/>
                         </div>
                     </div>
                     <div class="terms-and-conditions">
-                        <label class="container" style="padding: 0; margin-top: 5px;
+                        <!-- <label class="container" style="padding: 0; margin-top: 5px;
                         margin-right: 10px;">
                             <input type="checkbox" [(ngModel)]="terms" name="terms">
                             <span class="checkmark"></span>
-                        </label>
+                        </label> -->
+                        <label class="container-new-check">
+                            <input type="checkbox" [(ngModel)]="terms" name="terms" (change)="changeTerms()">
+                            <span class="checkmark"></span>
+                          </label>
                         <span style="max-width: 574px;">Autorizo que la información entregada sea consultada en
                             centrales de riesgo. Para
                             continuar, debes aceptar los <a (click)="showModal = true;" style="cursor: pointer;">Términos y Condiciones.</a></span>

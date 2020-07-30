@@ -246,12 +246,12 @@ select {
   }
 
   &.warning-input {
-    background: #FFFAEB !important;
+    background-color: #FFFAEB !important;
     border: 1px solid #FFA412 !important;
   }
 
   &.ng-touched.ng-invalid:not(form) {
-    background: #FFFAEB !important;
+    background-color: #FFFAEB !important;
     border: 1px solid #FFA412 !important;
   }
 

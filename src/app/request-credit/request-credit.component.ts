@@ -41,6 +41,9 @@ export class RequestCreditComponent implements OnInit {
     identificacion: ""
   }
 
+  changeFormStudent: boolean = false;
+  changeFormDataCredit: boolean = false;
+
   constructor(public utils: UtilsService, private credit: CreditsService) { }
 
   ngOnInit() {
@@ -60,7 +63,7 @@ export class RequestCreditComponent implements OnInit {
 
 
   simulate() {
-    
+
 
     this.credit.saveSimulation({
       primer_nombre: this.form.primer_nombre,
@@ -206,15 +209,23 @@ export class RequestCreditComponent implements OnInit {
     this.dues = this.buildArrayDues(cuotaInicial, cuotaFinal)
   }
 
-  validateSpaces(){
+  validateSpaces() {
     this.spaces = false;
     const name = this.form.primer_nombre;
-    for(var i = 0; i < name.length; i++){
-      if(name[i] == " "){
+    for (var i = 0; i < name.length; i++) {
+      if (name[i] == " ") {
         this.spaces = true;
         break;
       }
     }
+  }
+
+  changePolite() {
+    this.changeFormStudent = true;
+  }
+
+  changeTerms(){
+    this.changeFormDataCredit = true;
   }
 
   currency() {
@@ -222,9 +233,9 @@ export class RequestCreditComponent implements OnInit {
       this.form.monto
         .replace(/,/g, "")
         .toString()
-        .replace(/[^0-9]/g,'')
+        .replace(/[^0-9]/g, '')
         .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-        
+
 
   }
 
