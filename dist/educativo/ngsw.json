@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1596082824630,
+  "timestamp": 1596115087850,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -11,13 +11,13 @@
         "/3-es5.d00691cf56135abb6caa.js",
         "/4-es2015.75cc6d3ac5d56b7a05d6.js",
         "/index.html",
-        "/main-es2015.4562c6febea1be8471ee.js",
-        "/main-es5.51af43fcfa09b821b2a1.js",
+        "/main-es2015.34e8e74e63d2cde1ddf1.js",
+        "/main-es5.78a8e24d859ed1d9973e.js",
         "/polyfills-es2015.551225243b1eb435bb30.js",
         "/polyfills-es5.7d557f3a1ecba44264aa.js",
         "/runtime-es2015.42b961ad1aac4181f579.js",
         "/runtime-es5.42ef19f63cd928c8fc83.js",
-        "/styles.2a66685e33efbc9fdf56.css"
+        "/styles.ed0cb20d89cf16d5cc92.css"
       ],
       "patterns": []
     },
@@ -44,6 +44,7 @@
         "/GothamMedium.ba7ee4ffcdcd65f753a3.woff",
         "/GothamMediumItalic.3718793abbcecd542fb0.woff",
         "/GothamMedium_1.ba7ee4ffcdcd65f753a3.woff",
+        "/Hero.66ea2f27441b782f8f03.otf",
         "/assets/favicon.png",
         "/assets/fonts/Gotham-Black.woff",
         "/assets/fonts/Gotham-Bold.woff",
@@ -63,6 +64,7 @@
         "/assets/fonts/GothamMedium.woff",
         "/assets/fonts/GothamMediumItalic.woff",
         "/assets/fonts/GothamMedium_1.woff",
+        "/assets/fonts/Hero.otf",
         "/assets/fonts/example.html",
         "/assets/fonts/style.css",
         "/assets/icons/icon-128x128.png",
@@ -175,6 +177,7 @@
     "/GothamMedium.ba7ee4ffcdcd65f753a3.woff": "06c6d2b58449e04caa98d4f80da79f07b10b036a",
     "/GothamMediumItalic.3718793abbcecd542fb0.woff": "9339397c789fc3a0d0d3c89806a34e87bb1d2e55",
     "/GothamMedium_1.ba7ee4ffcdcd65f753a3.woff": "06c6d2b58449e04caa98d4f80da79f07b10b036a",
+    "/Hero.66ea2f27441b782f8f03.otf": "1c08357af7ecb4b2524743bf17c49d86c6d8ee5a",
     "/assets/favicon.png": "cf404830d3304adddf0358a92cdc58ac5eb6216e",
     "/assets/fonts/Gotham-Black.woff": "7e167c0c526bd2762198fab933ec6e176edd7273",
     "/assets/fonts/Gotham-Bold.woff": "2bfa700e14ebb806bcbf45eedb34c9caa0a03e86",
@@ -194,8 +197,9 @@
     "/assets/fonts/GothamMedium.woff": "06c6d2b58449e04caa98d4f80da79f07b10b036a",
     "/assets/fonts/GothamMediumItalic.woff": "9339397c789fc3a0d0d3c89806a34e87bb1d2e55",
     "/assets/fonts/GothamMedium_1.woff": "06c6d2b58449e04caa98d4f80da79f07b10b036a",
+    "/assets/fonts/Hero.otf": "1c08357af7ecb4b2524743bf17c49d86c6d8ee5a",
     "/assets/fonts/example.html": "a3297d64be90f7b68cad31796af036957a7f295f",
-    "/assets/fonts/style.css": "2fae683e2058011723b7c3788cca8663eb5b9f3f",
+    "/assets/fonts/style.css": "77fd4ad2716a380c5c3401f82f8f61dc59f06dd9",
     "/assets/icons/icon-128x128.png": "185fe2a1b5537d0954708edb93c372dedafca01f",
     "/assets/icons/icon-144x144.png": "1cb9b61aeda9e2ca4ece12a91e00ae385dc577a0",
     "/assets/icons/icon-152x152.png": "1cb9b61aeda9e2ca4ece12a91e00ae385dc577a0",
@@ -280,14 +284,14 @@
     "/assets/images/ok.png": "9d9128370136497b770b439177dc4a624e183a89",
     "/assets/pdf/Términos y Condiciones - Fintra.pdf": "4ecb4c2e2e926435e54e6682ae6fb1c837a550a3",
     "/assets/pdf/politica.pdf": "e395f0ca17b104994722dee73aecb8b9d31a3a94",
-    "/index.html": "a6ccaa1e28f0fb4627748625acc7290f29145b07",
-    "/main-es2015.4562c6febea1be8471ee.js": "e83e0029e9c42c24d6113936b4dba934a5793578",
-    "/main-es5.51af43fcfa09b821b2a1.js": "1f38f9496c38d1bf566b87cda31c280c194b365c",
+    "/index.html": "043bd5b3ab4fda809b15192989ca971bf5dc20ed",
+    "/main-es2015.34e8e74e63d2cde1ddf1.js": "34860d871c88714f459a9de8da9a645c1510192a",
+    "/main-es5.78a8e24d859ed1d9973e.js": "a0a0370a9d8e9225540d594b87b92f058aa66ed4",
     "/polyfills-es2015.551225243b1eb435bb30.js": "fa3294dc18f74d99ffb7812c33dbbdb3daf098ca",
     "/polyfills-es5.7d557f3a1ecba44264aa.js": "6c9688c6586bfcf669879655ba5874ef1d2b4bcf",
     "/runtime-es2015.42b961ad1aac4181f579.js": "00dc202e45d34c855024ea346e2b442446e5345a",
     "/runtime-es5.42ef19f63cd928c8fc83.js": "bfeb9d66b9cbb5f397bd6d6bc4b593b8ef650923",
-    "/styles.2a66685e33efbc9fdf56.css": "41c3a45e6da8f417645ca28b404ba8914b383ca1"
+    "/styles.ed0cb20d89cf16d5cc92.css": "816485cb604e5b34eb0666be6eac69b03c608482"
   },
   "navigationUrls": [
     {
