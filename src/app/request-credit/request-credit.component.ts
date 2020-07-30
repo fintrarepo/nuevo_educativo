@@ -58,7 +58,7 @@ export class RequestCreditComponent implements OnInit {
 
 
   simulate() {
-    console.log(window.parent.parent.scrollTo(0, 0))
+    
 
     this.credit.saveSimulation({
       primer_nombre: this.form.primer_nombre,
