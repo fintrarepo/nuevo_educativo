@@ -20,7 +20,7 @@ export class RequestCreditComponent implements OnInit {
   dates: any[] = [];
   valor_cuota;
   valor_aval;
-  showModal : boolean = false;
+  showModal: boolean = false;
 
   form = {
 
@@ -52,15 +52,19 @@ export class RequestCreditComponent implements OnInit {
 
   firstStepSend() {
     this.currentSubStep = 2;
+
+
   }
 
 
   simulate() {
+    console.log(window.parent.parent.scrollTo(0, 0))
+
     this.credit.saveSimulation({
       primer_nombre: this.form.primer_nombre,
       telefono: this.form.telefono,
       email: this.form.email,
-      monto: this.form.monto,
+      monto: this.form.monto.replace(/,/g, ""),
       fecha_pago: this.form.fecha_pago,
       num_cuotas: this.form.num_cuotas
     })
@@ -70,7 +74,7 @@ export class RequestCreditComponent implements OnInit {
 
 
     this.credit.simulateNotToken({
-      "monto": this.form.monto,
+      "monto": this.form.monto.replace(/,/g, ""),
       "num_cuotas": parseInt(this.form.num_cuotas),
       "fecha_pago": this.form.fecha_pago,
       "id_convenio": 58,
@@ -121,7 +125,7 @@ export class RequestCreditComponent implements OnInit {
     this.credit.send2({
       entidad: "EDUCATIVO",
       afiliado: this.form.afiliado,
-      monto: this.form.monto,
+      monto: this.form.monto.replace(/,/g, ""),
       producto: "01",
       num_cuotas: this.form.num_cuotas,
       fecha_pago: this.form.fecha_pago,
@@ -182,7 +186,7 @@ export class RequestCreditComponent implements OnInit {
       cuotaInicial = 6;
       cuotaFinal = 18;
 
-      const monto = this.form.monto;
+      const monto = this.form.monto.replace(/,/g, "");
       cuotaInicial = 6;
       if (monto >= 0 && monto <= 5000000) {
         cuotaFinal = 12;
@@ -198,6 +202,16 @@ export class RequestCreditComponent implements OnInit {
       cuotaInicial = 4;
     }
     this.dues = this.buildArrayDues(cuotaInicial, cuotaFinal)
+  }
+
+
+  currency() {
+    this.form.monto =
+      this.form.monto
+        .replace(/,/g, "")
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+
   }
 
   private loadCitys() {

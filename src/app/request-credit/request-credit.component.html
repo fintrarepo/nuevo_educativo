@@ -30,7 +30,7 @@
 
     </div>
 
-    <div class="wrapper-step-content" *ngIf="currentStep == 1">
+    <div id="wrapper-step-content" class="wrapper-step-content" *ngIf="currentStep == 1">
         <div class="step-content" *ngIf="currentSubStep==1">
             <div class="subtitle-step">
                 <p>
@@ -71,7 +71,7 @@
         <div class="step-content" *ngIf="currentSubStep==2">
             <div class="subtitle-step">
                 <p>
-                    ¡Lo estas haciendo bien! Estos datos son del estudiante
+                    ¡Lo éstas haciendo bien! Estos datos son del estudiante
                 </p>
             </div>
 
@@ -110,8 +110,8 @@
                     <div class="form-row">
                         <div class="form-group col-md-6 col-lg-4">
                             <label class="subtitle-form">Valor matrícula</label>
-                            <input type="number" class="form-control" [(ngModel)]="form.monto" name="monto"
-                                (change)="buildDues()" required="true">
+                            <input type="text" class="form-control" [(ngModel)]="form.monto" name="monto"
+                                (change)="buildDues()" required="true" (keyup)="currency()">
                         </div>
                         <div class="form-group col-md-6 col-lg-4">
 
@@ -239,7 +239,7 @@
                             Valor de matrícula
                         </p>
                         <p class="value-item-simulation">
-                            {{form.monto | currency:'USD':true:'1.0-0'}}
+                            ${{form.monto}}
                         </p>
                     </div>
                     <div class="col-md-4">
