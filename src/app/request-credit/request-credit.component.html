@@ -40,13 +40,14 @@
             </div>
 
             <div class="block-form">
-                <form ngNativeValidate (submit)="firstStepSend()">
+                <form ngNativeValidate (submit)="firstStepSend()"  #initForm="ngForm">
                     <div class="form-row">
                         <div class="form-group col-md-6 col-lg-4">
                             <label class="subtitle-form">Primer nombre</label>
                             <input type="text" class="form-control" [(ngModel)]="form.primer_nombre"
                                 name="primer_nombre" required="true" pattern="^[a-zA-Z]*$"
-                                title="No está permitido espacios, ni caracteres especiales" />
+                                title="No está permitido espacios, ni caracteres especiales" (keyup)="validateSpaces()"/>
+                            <span *ngIf="spaces" style="color: #dc3545!important;">El primer nombre no debe tener espacios</span>
                         </div>
                         <div class="form-group col-md-6 col-lg-4">
                             <label class="subtitle-form">Celular</label>
@@ -61,7 +62,7 @@
                     </div>
 
                     <div class="content-button-step">
-                        <button class="btn btn-outline-form">Continuar</button>
+                        <button class="btn btn-outline-form" [disabled]="!initForm.form.valid">Continuar</button>
                     </div>
                 </form>
             </div>

@@ -11,6 +11,8 @@ export class RequestCreditComponent implements OnInit {
   currentStep = 1;
   currentSubStep = 1;
 
+  spaces: boolean = false;
+
   polite: boolean = false;
   terms: boolean = false;
 
@@ -204,6 +206,16 @@ export class RequestCreditComponent implements OnInit {
     this.dues = this.buildArrayDues(cuotaInicial, cuotaFinal)
   }
 
+  validateSpaces(){
+    this.spaces = false;
+    const name = this.form.primer_nombre;
+    for(var i = 0; i < name.length; i++){
+      if(name[i] == " "){
+        this.spaces = true;
+        break;
+      }
+    }
+  }
 
   currency() {
     this.form.monto =
