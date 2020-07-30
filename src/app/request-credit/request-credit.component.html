@@ -161,12 +161,16 @@
                                 href="https://fintra.co/documentos/Politica-de-tratamiento-de-datos-personales-Fintra.pdf"
                                 target="_blank">Política de tratamiento de datos personales.</a></span>
                     </div>
-
+                    <div class="content-button-step" *ngIf="!myForm.form.valid && polite">
+                        <span style="color: #dc3545!important; text-align: center; max-width: 90%;">Verifique que todos los campos estén diligenciados para poder continuar</span>
+                    </div>
                     <div class="content-button-step">
                         <button class="btn btn-outline-form" (click)="currentSubStep = 1;">volver</button>
                         <button class="btn btn-outline-form" type="submit" value="Simular"
                             [disabled]="!myForm.form.valid || !polite"> Simular</button>
                     </div>
+
+                    
                 </form>
             </div>
         </div>
@@ -277,7 +281,7 @@
                 <h2>¡Genial! Ya estás a un paso de tu Pre-aprobado</h2>
                 <span>*Verifica tus datos antes de continuar</span>
             </div>
-
+            
             <div class="content-button-step">
                 <button class="btn btn-outline-form" (click)="currentSubStep = 2;">volver</button>
                 <button class="btn btn-outline-form" type="submit" value="Simular"
@@ -318,6 +322,9 @@
                         <span style="max-width: 574px;">Autorizo que la información entregada sea consultada en
                             centrales de riesgo. Para
                             continuar, debes aceptar los <a (click)="showModal = true;" style="cursor: pointer;">Términos y Condiciones.</a></span>
+                    </div>
+                    <div class="content-button-step" *ngIf="!myFormClient.form.valid && terms">
+                        <span style="color: #dc3545!important; text-align: center; max-width: 90%;">Verifique que todos los campos estén diligenciados para poder continuar</span>
                     </div>
                     <div class="content-button-step">
                         <button class="btn btn-outline-form"
