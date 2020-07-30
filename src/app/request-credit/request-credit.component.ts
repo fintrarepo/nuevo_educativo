@@ -210,7 +210,9 @@ export class RequestCreditComponent implements OnInit {
       this.form.monto
         .replace(/,/g, "")
         .toString()
+        .replace(/[^0-9]/g,'')
         .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        
 
   }
 

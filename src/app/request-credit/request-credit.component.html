@@ -10,17 +10,17 @@
                 1
             </div>
             <span>Simula tu crédito</span>
-            <div class="lines-step"></div>
+            
         </div>
-
+        <div class="lines-step" [ngClass]="{'visited': currentStep > 1}"></div>
         <div class="content-button-step" [ngClass]="{'selected': currentStep == 2, 'visited': currentStep > 2}">
             <div class="button-step">
                 2
             </div>
             <span>Crea tu perfil</span>
-            <div class="lines-step"></div>
+            
         </div>
-
+        <div class="lines-step" [ngClass]="{'visited': currentStep > 2}"></div>
         <div class="content-button-step" [ngClass]="{'selected': currentStep == 3}">
             <div class="button-step">
                 3
@@ -161,10 +161,10 @@
                                 href="https://fintra.co/documentos/Politica-de-tratamiento-de-datos-personales-Fintra.pdf"
                                 target="_blank">Política de tratamiento de datos personales.</a></span>
                     </div>
-                    <div class="content-button-step" *ngIf="!myForm.form.valid && polite">
+                    <div class="content-button-step" *ngIf="!myForm.form.valid && polite" style="margin-top: 1em; margin-bottom: 1em;">
                         <span style="color: #dc3545!important; text-align: center; max-width: 90%;">Verifique que todos los campos estén diligenciados para poder continuar</span>
                     </div>
-                    <div class="content-button-step">
+                    <div class="content-button-step" style="margin-top: 1em; margin-bottom: 1em;">
                         <button class="btn btn-outline-form" (click)="currentSubStep = 1;">volver</button>
                         <button class="btn btn-outline-form" type="submit" value="Simular"
                             [disabled]="!myForm.form.valid || !polite"> Simular</button>
@@ -282,7 +282,7 @@
                 <span>*Verifica tus datos antes de continuar</span>
             </div>
             
-            <div class="content-button-step">
+            <div class="content-button-step" style="margin-top: 1em; margin-bottom: 1em;">
                 <button class="btn btn-outline-form" (click)="currentSubStep = 2;">volver</button>
                 <button class="btn btn-outline-form" type="submit" value="Simular"
                     (click)="currentStep = 2; currentSubStep = 1;">continuar</button>
@@ -323,10 +323,10 @@
                             centrales de riesgo. Para
                             continuar, debes aceptar los <a (click)="showModal = true;" style="cursor: pointer;">Términos y Condiciones.</a></span>
                     </div>
-                    <div class="content-button-step" *ngIf="!myFormClient.form.valid && terms">
+                    <div class="content-button-step" *ngIf="!myFormClient.form.valid && terms" style="margin-top: 1em; margin-bottom: 1em;">
                         <span style="color: #dc3545!important; text-align: center; max-width: 90%;">Verifique que todos los campos estén diligenciados para poder continuar</span>
                     </div>
-                    <div class="content-button-step">
+                    <div class="content-button-step" style="margin-top: 1em; margin-bottom: 1em;">
                         <button class="btn btn-outline-form"
                             (click)="currentStep = 1; currentSubStep = 3;">volver</button>
                         <button class="btn btn-outline-form" type="submit" value="Simular"

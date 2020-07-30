@@ -28,10 +28,27 @@
 
 .step-buttons {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     max-width: 920px;
     position: relative;
+    margin-bottom: 3em;
+    margin-top: 3em;
+
+    .lines-step {
+        // width: 200px;
+        min-width: 200px;
+        height: 0;
+        border: 2px dashed #CCCCCC;
+
+        &.visited{
+            border: 2px dashed #37BFFA;
+        }
+        // position: absolute;
+        // top: 56%;
+        // right: -98px;
+    }
 
     .dashed {
         width: 100%;
@@ -45,27 +62,29 @@
 
     .content-button-step {
         // background: white;
+        width: 70px;
+        height: 70px;
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
         position: relative;
-
+        
 
         span {
             font-size: 24px;
             font-weight: 500;
             color: #CCCCCC;
             font-family: 'Poppins', sans-serif;
+            position: absolute;
+            bottom: -43px;
+            text-align: center;
+            left: 50%;
+            transform: translateX(-50%);
+            min-width: 250px;
         }
 
-        .lines-step {
-            width: 200px;
-            height: 0;
-            border: 2px dashed #CCCCCC;
-            position: absolute;
-            top: 56%;
-            right: -98px;
-        }
+
 
 
         .button-step {
@@ -122,10 +141,10 @@
             }
 
             .lines-step {
-                
+
                 border: 2px dashed #37BFFA;
-               
-                
+
+
             }
         }
 
@@ -150,8 +169,9 @@
         display: flex;
         justify-content: center;
         font-size: 18px;
-        margin-bottom: 2em;
+        margin-bottom: 1em;
         font-family: 'Hero', sans-serif;
+
         p {
             max-width: 60%;
             text-align: center;
@@ -164,7 +184,7 @@
     display: flex;
     justify-content: center;
     width: 100%;
-    padding-top: 4em;
+    // padding-top: 4em;
 
     button {
         margin: 0 20px;
@@ -252,6 +272,7 @@
         font-size: 16px;
         font-weight: 500;
         font-family: 'Hero', sans-serif;
+
         a {
             color: #37BFFA;
             font-family: 'Hero', sans-serif;
@@ -268,7 +289,7 @@
     h2 {
         color: #37BFFA;
         font-size: 24px;
-        animation: shake 1.2s cubic-bezier(.36,.07,.19,.97) infinite;
+        animation: shake 1.2s cubic-bezier(.36, .07, .19, .97) infinite;
     }
 
     span {
@@ -459,6 +480,10 @@
 
 
 @media (max-width: 575.98px) {
+    .step-buttons{
+        margin-top: 0;
+        margin-bottom: 0;
+    }
     .step-buttons .content-button-step .button-step {
         width: 40px;
         height: 40px;
@@ -468,16 +493,18 @@
 
     .step-buttons .content-button-step span {
         font-size: 0.7rem;
+        bottom: -10px;
     }
 
 
-    .step-buttons .content-button-step .lines-step {
-        width: 112px !important;
+    .step-buttons .lines-step {
+        width: auto !important;
         height: 0;
         border: 2px dashed #CCCCCC;
-        position: absolute;
-        top: 56% !important;
-        right: -74px !important;
+        min-width: 40px;
+        // position: absolute;
+        // top: 56% !important;
+        // right: -74px !important;
 
         // .selected{
         //     width: 122px;
@@ -511,15 +538,16 @@
 
     }
 
-    .title-section h1{
+    .title-section h1 {
         font-size: 1.5rem;
     }
 
 
-    .content-button-step{
-        padding-top: 2em;
+    .content-button-step {
+        // padding-top: 2em;
     }
-    .content-simulation{
+
+    .content-simulation {
         width: 90%;
         padding: 2em;
         margin-left: 5%;
@@ -533,31 +561,43 @@
     }
 
 
-    .content-button-step{
+    .content-button-step {
         flex-wrap: wrap;
-        button{
+
+        button {
             width: 100%;
             margin-bottom: .5em;
         }
+    }
+
+
+    .step-content{
+        padding-top: 2em;
     }
 
 }
 
 
 @keyframes shake {
-    10%, 90% {
-      transform: translate3d(-1px, 0, 0);
+
+    10%,
+    90% {
+        transform: translate3d(-1px, 0, 0);
     }
-    
-    20%, 80% {
-      transform: translate3d(2px, 0, 0);
+
+    20%,
+    80% {
+        transform: translate3d(2px, 0, 0);
     }
-  
-    30%, 50%, 70% {
-      transform: translate3d(-4px, 0, 0);
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-4px, 0, 0);
     }
-  
-    40%, 60% {
-      transform: translate3d(4px, 0, 0);
+
+    40%,
+    60% {
+        transform: translate3d(4px, 0, 0);
     }
-  }
+}
