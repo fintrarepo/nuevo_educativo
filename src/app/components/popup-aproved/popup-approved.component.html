@@ -21,18 +21,20 @@
       <span>
         Siguiente etapa: Adjunta tus documentos.
       </span>
-      <p>
+      <!-- <p>
         ¿Deseas programar la firma de tu crédito a domicilio?
-      </p>
+      </p> -->
 
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-6">
           <button class="btn button-white" (click)="cancel()">No</button>
         </div>
         <div class="col-6">
           <button class="btn button-blue" (click)="nextStep()">Si</button>
         </div>
-      </div>
+      </div> -->
+
+      <button class="btn button-blue" (click)="nextPage()" style="margin-top: 1.5em;">Siguiente etapa</button>
     </div>
 
     <div class="step-popup" [hidden]="currentStep!=2">

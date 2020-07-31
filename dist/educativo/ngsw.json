@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1596129329773,
+  "timestamp": 1596216542391,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -8,15 +8,15 @@
       "installMode": "prefetch",
       "updateMode": "prefetch",
       "urls": [
-        "/3-es5.d00691cf56135abb6caa.js",
-        "/4-es2015.75cc6d3ac5d56b7a05d6.js",
+        "/3-es5.7154e1dc16220c7d344a.js",
+        "/4-es2015.b6fb1ba6966144bec87d.js",
         "/index.html",
         "/main-es2015.c4c52fe97fec9c0b710c.js",
         "/main-es5.a0310c1aa4ee2f6e37f5.js",
         "/polyfills-es2015.551225243b1eb435bb30.js",
         "/polyfills-es5.7d557f3a1ecba44264aa.js",
-        "/runtime-es2015.42b961ad1aac4181f579.js",
-        "/runtime-es5.42ef19f63cd928c8fc83.js",
+        "/runtime-es2015.20a25539ba670d810b65.js",
+        "/runtime-es5.6b3212865244746e0c2c.js",
         "/styles.02bdd05344f4ba065f47.css"
       ],
       "patterns": []
@@ -158,8 +158,8 @@
   ],
   "dataGroups": [],
   "hashTable": {
-    "/3-es5.d00691cf56135abb6caa.js": "3a24ef2bad21c917e74db5b13d4eb628766f7634",
-    "/4-es2015.75cc6d3ac5d56b7a05d6.js": "824c59a6d36bc474db3a7610634093050de8deb9",
+    "/3-es5.7154e1dc16220c7d344a.js": "476d71378fc06894a553cebf206f7db26f3c1a1d",
+    "/4-es2015.b6fb1ba6966144bec87d.js": "5f5100712fb7f5a8717d96a52105dacc33652984",
     "/Gotham-Black.e29998d86afd3d3d0dfc.woff": "7e167c0c526bd2762198fab933ec6e176edd7273",
     "/Gotham-Bold.b51ec430e735ebae2edd.woff": "2bfa700e14ebb806bcbf45eedb34c9caa0a03e86",
     "/Gotham-BookItalic.cec78cc5a1d901e4874e.woff": "efe862a5cef8279e4cc02f9d11724ff67bd083b0",
@@ -286,13 +286,13 @@
     "/assets/images/ok.png": "9d9128370136497b770b439177dc4a624e183a89",
     "/assets/pdf/Términos y Condiciones - Fintra.pdf": "4ecb4c2e2e926435e54e6682ae6fb1c837a550a3",
     "/assets/pdf/politica.pdf": "e395f0ca17b104994722dee73aecb8b9d31a3a94",
-    "/index.html": "d0d1710eafcd7d1f71c91d8e52255888cb92be75",
+    "/index.html": "74db602302c09fd06b0f9d7e5c2c157d97a279ba",
     "/main-es2015.c4c52fe97fec9c0b710c.js": "fbc0797e34cb429bbdf8f57b78cc8aa98cd81d8a",
     "/main-es5.a0310c1aa4ee2f6e37f5.js": "1868188778b729f3502db92a0092db38ea330354",
     "/polyfills-es2015.551225243b1eb435bb30.js": "fa3294dc18f74d99ffb7812c33dbbdb3daf098ca",
     "/polyfills-es5.7d557f3a1ecba44264aa.js": "6c9688c6586bfcf669879655ba5874ef1d2b4bcf",
-    "/runtime-es2015.42b961ad1aac4181f579.js": "00dc202e45d34c855024ea346e2b442446e5345a",
-    "/runtime-es5.42ef19f63cd928c8fc83.js": "bfeb9d66b9cbb5f397bd6d6bc4b593b8ef650923",
+    "/runtime-es2015.20a25539ba670d810b65.js": "7582f570cc5aa38e607cada4ec303ed75f8a4f96",
+    "/runtime-es5.6b3212865244746e0c2c.js": "8d8c22390369f5bb337e14c22c495d212d350680",
     "/styles.02bdd05344f4ba065f47.css": "1e269a2eecf60c91f47eb194a0d0ffb3ab1bb095"
   },
   "navigationUrls": [
