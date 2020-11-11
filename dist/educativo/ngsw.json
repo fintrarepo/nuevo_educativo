@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1596661351888,
+  "timestamp": 1605056515633,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -11,10 +11,10 @@
         "/3-es5.7154e1dc16220c7d344a.js",
         "/4-es2015.b6fb1ba6966144bec87d.js",
         "/index.html",
-        "/main-es2015.00682e5bd7eb4a1547dd.js",
-        "/main-es5.fe1293f78db6d0e24373.js",
+        "/main-es2015.f7b300ac569fa0ef6410.js",
+        "/main-es5.67c9d774316a363a4abf.js",
         "/polyfills-es2015.551225243b1eb435bb30.js",
-        "/polyfills-es5.7d557f3a1ecba44264aa.js",
+        "/polyfills-es5.fdab6b769da451ba6a00.js",
         "/runtime-es2015.20a25539ba670d810b65.js",
         "/runtime-es5.6b3212865244746e0c2c.js",
         "/styles.02bdd05344f4ba065f47.css"
@@ -286,11 +286,11 @@
     "/assets/images/ok.png": "9d9128370136497b770b439177dc4a624e183a89",
     "/assets/pdf/Términos y Condiciones - Fintra.pdf": "4ecb4c2e2e926435e54e6682ae6fb1c837a550a3",
     "/assets/pdf/politica.pdf": "e395f0ca17b104994722dee73aecb8b9d31a3a94",
-    "/index.html": "2e00f09aeaf67dec988c133dd681dde18e09f88e",
-    "/main-es2015.00682e5bd7eb4a1547dd.js": "2d967e719421dbd1d38a4fff522baf62f49db15b",
-    "/main-es5.fe1293f78db6d0e24373.js": "0e6b888e8ce0c3aac33d219d715a5a982eb0163f",
+    "/index.html": "bef83ae73a8e07fc74baa6fcf4efe1ab54f9a04b",
+    "/main-es2015.f7b300ac569fa0ef6410.js": "a8c9d9c9da3074fad578688a1b76652e47c43fa3",
+    "/main-es5.67c9d774316a363a4abf.js": "2ab5fac9674d90b96b1586bea14faf60eaa525d5",
     "/polyfills-es2015.551225243b1eb435bb30.js": "fa3294dc18f74d99ffb7812c33dbbdb3daf098ca",
-    "/polyfills-es5.7d557f3a1ecba44264aa.js": "6c9688c6586bfcf669879655ba5874ef1d2b4bcf",
+    "/polyfills-es5.fdab6b769da451ba6a00.js": "6c9688c6586bfcf669879655ba5874ef1d2b4bcf",
     "/runtime-es2015.20a25539ba670d810b65.js": "7582f570cc5aa38e607cada4ec303ed75f8a4f96",
     "/runtime-es5.6b3212865244746e0c2c.js": "8d8c22390369f5bb337e14c22c495d212d350680",
     "/styles.02bdd05344f4ba065f47.css": "1e269a2eecf60c91f47eb194a0d0ffb3ab1bb095"

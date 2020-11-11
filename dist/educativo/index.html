@@ -1,11 +1,12 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>Educativo</title>
   <base href="/">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <link rel="icon" type="image/png" href="/assets/favicon.png">
 
   <link rel="manifest" href="manifest.webmanifest">
@@ -13,8 +14,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
   <meta name="theme-color" content="#1976d2">
 <link rel="stylesheet" href="styles.02bdd05344f4ba065f47.css"></head>
+
 <body>
   <app-root></app-root>
   <noscript>Please enable JavaScript to continue using this application.</noscript>
-<script src="runtime-es2015.20a25539ba670d810b65.js" type="module"></script><script src="polyfills-es2015.551225243b1eb435bb30.js" type="module"></script><script src="runtime-es5.6b3212865244746e0c2c.js" nomodule></script><script src="polyfills-es5.7d557f3a1ecba44264aa.js" nomodule></script><script src="main-es2015.00682e5bd7eb4a1547dd.js" type="module"></script><script src="main-es5.fe1293f78db6d0e24373.js" nomodule></script></body>
+
+  <script>
+    navigator.serviceWorker.getRegistrations().then(function (registrations) {
+      for (let registration of registrations) {
+        registration.unregister()
+      }
+    })
+  </script>
+<script src="runtime-es2015.20a25539ba670d810b65.js" type="module"></script><script src="polyfills-es2015.551225243b1eb435bb30.js" type="module"></script><script src="runtime-es5.6b3212865244746e0c2c.js" nomodule></script><script src="polyfills-es5.fdab6b769da451ba6a00.js" nomodule></script><script src="main-es2015.f7b300ac569fa0ef6410.js" type="module"></script><script src="main-es5.67c9d774316a363a4abf.js" nomodule></script></body>
+
 </html>

@@ -8,7 +8,8 @@ import { CreditsService } from '../services/credits/credits.service';
   styleUrls: ['./request-credit.component.scss']
 })
 export class RequestCreditComponent implements OnInit {
-  currentStep = 1;
+  loadingRequest: boolean = false;
+  currentStep = 2;
   currentSubStep = 1;
 
   spaces: boolean = false;
@@ -123,6 +124,7 @@ export class RequestCreditComponent implements OnInit {
   }
 
   queryDataCredit() {
+    this.loadingRequest = true;
     var d = new Date();
     var month = d.getMonth() + 1;
     var day = d.getDate();
@@ -158,6 +160,7 @@ export class RequestCreditComponent implements OnInit {
       negocio_origen: "",
       tipo_carrera: this.form.tipo_carrera
     }).subscribe(response => {
+      this.loadingRequest = false;
       console.log(response)
       if (response.data.estado_sol == 'P') {
         this.currentStep = 3;
@@ -167,6 +170,7 @@ export class RequestCreditComponent implements OnInit {
         this.currentSubStep = 3;
       }
     }, err => {
+      this.loadingRequest = false;
       this.currentStep = 3;
       this.currentSubStep = 3;
     })
@@ -224,7 +228,7 @@ export class RequestCreditComponent implements OnInit {
     this.changeFormStudent = true;
   }
 
-  changeTerms(){
+  changeTerms() {
     this.changeFormDataCredit = true;
   }
 

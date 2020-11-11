@@ -105,8 +105,7 @@ const NGRX_IMPORTS = [
     FormsModule,
     NgbModule,
     NgxMyDatePickerModule.forRoot(),
-    ...NGRX_IMPORTS,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ...NGRX_IMPORTS
   ],
   providers: [],
   bootstrap: [AppComponent]
