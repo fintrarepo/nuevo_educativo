@@ -9,7 +9,7 @@ import { CreditsService } from '../services/credits/credits.service';
 })
 export class RequestCreditComponent implements OnInit {
   loadingRequest: boolean = false;
-  currentStep = 2;
+  currentStep = 1;
   currentSubStep = 1;
 
   spaces: boolean = false;
