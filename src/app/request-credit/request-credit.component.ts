@@ -52,6 +52,8 @@ export class RequestCreditComponent implements OnInit {
   iFrameContainer;
   auth;
   validacion;
+  procesoConvenioGuid;
+  token;
 
   constructor(public utils: UtilsService, private credit: CreditsService, private route: ActivatedRoute) {
     this.referred = this.route.snapshot.queryParamMap.get('referido');
@@ -84,14 +86,31 @@ export class RequestCreditComponent implements OnInit {
       clave: "12345"
     }
 
-    window.onmessage = (event) => {
+    window.onmessage = async (event) => {
       console.log(`Received message: ${event.data}`, event.data);
       if (event.data.for === "resultData") {
         // alert("Proceso terminado, Estado:" + event.data.isSuccess);
         this.iFrameContainer.classList.add('hide');
         this.iFrameContainer.classList.remove('show');
         if (event.data.isSuccess) {
-          this.queryDataCredit()
+          // this.queryDataCredit()
+          await this.ConsultarValidacion("https://demorcs.olimpiait.com:6314/Validacion/ConsultarValidacion", this.token).then((resp: any) => {
+            if (resp && resp.code == 200) {
+              const data = resp.data;
+              // --(finalizado = TRUE and EstadoProceso = (1: enrolamiento) and cacelado =false) // Paso las validaciones de identidad  
+              // --(finalizado = TRUE and EstadoProceso = (2: validacion) and cancelado =false and aprobado=true  ) // Pasa cliente enrolados previamente
+              if (data.finalizado == true && data.estadoProceso == 1 && data.cancelado == false) {
+                return this.queryDataCredit();
+              }
+              if (data.finalizado == true && data.estadoProceso == 2 && data.cancelado == false && data.aprobado == true) {
+                return this.queryDataCredit();
+              }
+
+              this.loadingRequest = false;
+              this.currentStep = 3;
+              this.currentSubStep = 3;
+            }
+          });
         } else {
           this.loadingRequest = false;
           this.currentStep = 3;
@@ -228,8 +247,8 @@ export class RequestCreditComponent implements OnInit {
       tipo_carrera: this.form.tipo_carrera
     }
 
-    if(this.referred){
-      dataToSend['referido'] =  this.referred;
+    if (this.referred) {
+      dataToSend['referido'] = this.referred;
     }
     this.credit.send2(dataToSend).subscribe(response => {
       this.loadingRequest = false;
@@ -301,15 +320,17 @@ export class RequestCreditComponent implements OnInit {
     this.loadingRequest = true;
     this.validacion = { ...this.validacion, numDoc: this.form.identificacion.toString(), email: this.form.email, }
     //this.validacion = {...this.validacion,  numDoc: "1143444600", email: "antoniojsh93@gmail.com" }
-    let token;
+    // let token;
     let url;
     await this.Post("https://demorcs.olimpiait.com:6317/TraerToken", this.auth).then((resp: any) => {
-      token = resp.accessToken;
+      this.token = resp.accessToken;
     });
     //SOLICITAR VALIDACIÓN
-    await this.Post("https://demorcs.olimpiait.com:6314/Validacion/SolicitudValidacion", this.validacion, token).then((resp: any) => {
+    await this.Post("https://demorcs.olimpiait.com:6314/Validacion/SolicitudValidacion", this.validacion, this.token).then((resp: any) => {
       if (resp && resp.code == 200) {
+        console.log(resp.data)
         url = resp.data.url;
+        this.procesoConvenioGuid = resp.data.procesoConvenioGuid
       }
     });
     if (url) {
@@ -342,6 +363,39 @@ export class RequestCreditComponent implements OnInit {
       };
       // Send the request
       request.send(JSON.stringify(dataRequest));
+    });
+  }
+
+  ConsultarValidacion(url, token = "") {
+
+
+    let data = {
+      "guidConv": "7aacec4f-2f02-4901-81f8-1d5772653434",
+      "procesoConvenioGuid": this.procesoConvenioGuid,
+      "usuario": "Fintra",
+      "clave": "12345"
+    }
+
+    return new Promise(function (resolve, reject) {
+      var request = new XMLHttpRequest();
+      request.open('POST', url);
+      if (token !== "") {
+        request.setRequestHeader("Authorization", "Bearer " + token);
+      };
+      request.setRequestHeader('Content-type', 'application/json');
+      request.responseType = 'json';
+      request.onload = function () {
+        if (request.status === 200) {
+          resolve(request.response);
+        } else {
+          reject(Error('No fue posible hacer la verificación:' + request.statusText));
+        }
+      };
+      request.onerror = function () {
+        reject(Error('Ocurrio un error de red.'));
+      };
+      // Send the request
+      request.send(JSON.stringify(data));
     });
   }
 
