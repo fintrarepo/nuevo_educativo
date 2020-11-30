@@ -83,4 +83,16 @@ export class AuthService {
   }
 
 
+  get codigo_venta() {
+    return localStorage.getItem('codigo_venta')
+  }
+
+  set codigo_venta(user) {
+    localStorage.setItem('codigo_venta', user)
+  }
+
+
+  
+
+
 }

@@ -6,6 +6,7 @@ import * as reducers from '../../reducers/reducers';
 import { CreditsService } from '../../services/credits/credits.service';
 import { AuthService } from '../../services/auth/auth.service';
 import { Observable } from 'rxjs';
+import { ToggleBlurPage } from 'src/app/actions/platform.actions';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,9 +27,16 @@ export class DashboardComponent implements OnInit {
   offset = 0;
 
   step = 10;
+  showPopupReferidos = false;
+  baseURl = "https://www.fintra.co/credito-educativo?codigo_referido=";
+  code;
+  fullUrl;
 
   constructor(private route: ActivatedRoute, private router: Router, private store: Store<reducers.State>,
     private creditserv: CreditsService, public auth: AuthService) {
+    this.code = localStorage.getItem('codigo_venta');
+
+    this.fullUrl = this.baseURl + this.code;
 
   }
 
@@ -54,6 +62,11 @@ export class DashboardComponent implements OnInit {
     } else if (this.type_list == 'credits') {
       this.getCredits(true);
     } else if (this.type_list == 'requests') {
+      const referidos = this.route.snapshot.queryParamMap.get('referidos');
+      if (referidos) {
+        this.showPopupReferidos = true;
+        // this.store.dispatch(new ToggleBlurPage())
+      }
       this.getCredits(false);
     }
   }

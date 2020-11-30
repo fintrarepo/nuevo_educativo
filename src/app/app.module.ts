@@ -9,7 +9,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { NgxMyDatePickerModule } from 'ngx-mydatepicker';
 
-
 //ngrx
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -56,7 +55,6 @@ import { RequestCreditComponent } from './request-credit/request-credit.componen
 
 
 
-
 const effects = [
   AuthEffects,
   AddressFormEffects,
@@ -95,7 +93,7 @@ const NGRX_IMPORTS = [
     AddressFormComponent,
     GetExtractComponent,
     RequestCreditComponent
-    
+
   ],
   imports: [
     BrowserModule,

@@ -1,8 +1,8 @@
 <div [hidden]="!(isVisible$ | async)">
   <div class="popup-fintra">
-   
-      <button class="button-cerrar btn btn-secondary btn-sm" (click)="closeAlert()">Cerrar</button>
-    
+
+    <button class="button-cerrar btn btn-secondary btn-sm" (click)="closeAlert()">Cerrar</button>
+
   </div>
   <div class="form-address">
     <h1 class="title-form" style="margin-bottom: 0">Dirección de residencia</h1>
@@ -20,7 +20,7 @@
           <div class="form-group col-md-6 col-lg-6">
             <label class="subtitle-form">Ciudad</label>
             <select class="form-control" formControlName="ciudad"
-            (change)="getAddress(addressForm.controls.ciudad.value)">
+              (change)="getAddress(addressForm.controls.ciudad.value)">
               <option value="">Seleccione una ciudad</option>
               <option [value]="item.codciu" *ngFor="let item of ciudades">{{item.nomciu}}</option>
             </select>
@@ -32,31 +32,40 @@
             </select>
           </div>
           <div class="form-group col-md-3 col-lg-4">
-            <input type="text" class="form-control" id="inputPassword4" formControlName="via_principal"
-              placeholder="Vía principal">
+            <input type="text" class="form-control" formControlName="via_principal" placeholder="Vía principal">
+
+            <div *ngIf="addressForm.controls.via_principal.errors?.validUrl" class="alert alert-danger">
+              Numero invalido
+            </div>
           </div>
           <div class="col-md-1 col-lg-1 text-center">
             <p>#</p>
           </div>
           <div class="form-group col-md-3 col-lg-4">
-            <input type="text" class="form-control" id="inputPassword4" formControlName="via_secundaria"
-              placeholder="Vía secundaria">
+            <input type="text" class="form-control" formControlName="via_secundaria" placeholder="Vía secundaria">
+            <div *ngIf="addressForm.controls.via_secundaria.errors?.validUrl" class="alert alert-danger">
+              Numero invalido
+            </div>
           </div>
           <div class="col-md-1 col-lg-1 text-center">
             <p>-</p>
           </div>
           <div class="form-group col-md-3 col-lg-2">
-            <input type="text" class="form-control" id="inputPassword4" formControlName="numero">
+            <input type="text" class="form-control" formControlName="numero">
+            <div *ngIf="addressForm.controls.numero.errors?.validUrl" class="alert alert-danger">
+              Numero invalido
+            </div>
           </div>
 
           <div class="form-group col-md-8 col-lg-8">
             <label class="subtitle-form">Complemento de Dirección</label>
-            <input type="text" class="form-control" id="inputPassword4" formControlName="complemento">
+            <input type="text" class="form-control" formControlName="complemento">
           </div>
 
           <div class="form-group col-md-4 col-lg-4 text-right align-items-center" (click)="confirmAddress()"
             style="padding-top: 21px;">
-            <button class="btn button-blue " [disabled]="!addressForm.valid" style="margin-top: 7px; height: 44px;">Guardar</button>
+            <button class="btn button-blue " [disabled]="!addressForm.valid"
+              style="margin-top: 7px; height: 44px;">Guardar</button>
           </div>
 
         </div>

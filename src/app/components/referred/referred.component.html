@@ -1,0 +1,25 @@
+<div class="white-box">
+
+    <div id="wrapper-login referred">
+        <div class="login-center-wrapper referred">
+
+            <img src="/assets/images/preferidos.png" alt="preferidos plan fintra" class="img-preferidos">
+
+            <h1>¡Referirnos si paga!</h1>
+
+            <p>
+                Refiere a tus conocidos y obtén <span>$17.000 por cada uno</span>,<br> si estos realizan un crédito con Fintra.
+            </p>
+
+            <a [href]="fullUrl" target="_blank">
+                Comparte este vínculo con tus conocidos para que soliciten el crédito
+                <a href="{{fullUrl}}" id="url"  target="_blank">{{fullUrl}}</a>
+            </a>
+
+            <button class="btn btn-primary" (click)="copy()">
+                <img src="/assets/images/copy.png" alt=""> COPIAR VÍNCULO
+            </button>
+        </div>
+    </div>
+
+</div>

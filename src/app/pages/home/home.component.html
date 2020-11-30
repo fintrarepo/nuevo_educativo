@@ -42,6 +42,16 @@
         </a>
 
       </li>
+
+      <li [ngClass]="{'active': currenturl == '/app/referir'}" title="Nueva pre-solicitud">
+        <a routerLink="/app/referir" [ngClass]="{'dark-blue-font': currenturl == '/app/referir'}">
+          REFERIR A ALGUIEN
+          <img src="/assets/images/menu/referir-blue-NO-SEL.png" alt=""
+            *ngIf="currenturl != '/app/referir'" />
+          <img src="/assets/images/menu/referir-blue-SEL.png" alt="" *ngIf="currenturl == '/app/referir'" />
+        </a>
+
+      </li>
       <!-- <li [ngClass]="{'active': false}">
         <a href="#">otros servicios</a>
       </li>
@@ -61,7 +71,7 @@
   </nav>
 
   <!-- Page Content -->
-  <div id="content" >
+  <div id="content">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
         <div class="row" style="width:100%;">

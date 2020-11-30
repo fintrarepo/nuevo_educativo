@@ -1,4 +1,4 @@
-<div id="dashboard" class="white-box">
+<div id="dashboard" class="white-box" [ngClass]="{blur: showPopupReferidos}">
   <div class="row">
     <div class="col-md-6 col-8">
       <h3 class="light-blue-yellow-dark" *ngIf="type_list=='requests'">Pre-solicitudes</h3>
@@ -49,4 +49,32 @@
     *ngIf="type_list == 'history'">
   </app-history-request>
 
+</div>
+
+
+<div class="popupReferidos" *ngIf="showPopupReferidos">
+  <div class="filter-referidos"></div>
+  <div id="wrapper-login referred">
+    <div class="login-center-wrapper referred">
+
+      <img src="/assets/images/preferidos.png" alt="preferidos plan fintra" class="img-preferidos">
+
+      <h1>¡Referirnos si paga!</h1>
+
+      <p>
+        Refiere a tus conocidos y obtén <span>$17.000 por cada uno</span>,<br> si estos realizan un crédito con Fintra.
+      </p>
+
+      <a [href]="fullUrl" id="url">
+        Comparte este vínculo con tus conocidos para que soliciten el crédito
+        {{fullUrl}}
+      </a>
+
+      <div class="buttons-options-referido">
+        <button class="btn btn-primary" routerLink="/app/referir">REFERIR AHORA
+        </button>
+        <button class="btn button-white" (click)="showPopupReferidos= false;">MÁS TARDE</button>
+      </div>
+    </div>
+  </div>
 </div>

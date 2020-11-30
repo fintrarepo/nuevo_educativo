@@ -19,7 +19,7 @@ export class NotApprovedComponent implements OnInit {
   cancelAndClose() {
     this.store.dispatch(new ToggleBlurPage())
     this.store.dispatch(new ShowNotApproved(false))
-    this.router.navigate(['/'])
+    this.router.navigate(['/app/dashboard/requests?referidos=true'])
   }
 
 }

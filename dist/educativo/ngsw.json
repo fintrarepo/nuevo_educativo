@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1605106428940,
+  "timestamp": 1605579535196,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -8,16 +8,16 @@
       "installMode": "prefetch",
       "updateMode": "prefetch",
       "urls": [
-        "/3-es5.7154e1dc16220c7d344a.js",
-        "/4-es2015.b6fb1ba6966144bec87d.js",
+        "/3-es5.8a3c07ddf2e3a5649c7f.js",
+        "/4-es2015.ed4d9eb8046a1bc50fec.js",
         "/index.html",
-        "/main-es2015.0a360fc5e885dcf7b455.js",
-        "/main-es5.bafb35328412492fe3e7.js",
+        "/main-es2015.6296c1f0b2f6964ec92e.js",
+        "/main-es5.d15ace26427e041d377d.js",
         "/polyfills-es2015.551225243b1eb435bb30.js",
         "/polyfills-es5.fdab6b769da451ba6a00.js",
-        "/runtime-es2015.20a25539ba670d810b65.js",
-        "/runtime-es5.6b3212865244746e0c2c.js",
-        "/styles.02bdd05344f4ba065f47.css"
+        "/runtime-es2015.c1b901c0637aa35765ff.js",
+        "/runtime-es5.6bd99236ab5c4aeeb8ed.js",
+        "/styles.869c737e539927445dab.css"
       ],
       "patterns": []
     },
@@ -151,15 +151,20 @@
         "/assets/images/menu/Renueva-SEL.png",
         "/assets/images/ok.png",
         "/assets/pdf/Términos y Condiciones - Fintra.pdf",
-        "/assets/pdf/politica.pdf"
+        "/assets/pdf/politica.pdf",
+        "/fontawesome-webfont.674f50d287a8c48dc19b.eot",
+        "/fontawesome-webfont.912ec66d7572ff821749.svg",
+        "/fontawesome-webfont.af7ae505a9eed503f8b8.woff2",
+        "/fontawesome-webfont.b06871f281fee6b241d6.ttf",
+        "/fontawesome-webfont.fee66e712a8a08eef580.woff"
       ],
       "patterns": []
     }
   ],
   "dataGroups": [],
   "hashTable": {
-    "/3-es5.7154e1dc16220c7d344a.js": "476d71378fc06894a553cebf206f7db26f3c1a1d",
-    "/4-es2015.b6fb1ba6966144bec87d.js": "5f5100712fb7f5a8717d96a52105dacc33652984",
+    "/3-es5.8a3c07ddf2e3a5649c7f.js": "94ccbb19c97d0d7375c54f347033ab115da33ada",
+    "/4-es2015.ed4d9eb8046a1bc50fec.js": "f7ed17f692ba59e44d790c077fd008a8e87e7298",
     "/Gotham-Black.e29998d86afd3d3d0dfc.woff": "7e167c0c526bd2762198fab933ec6e176edd7273",
     "/Gotham-Bold.b51ec430e735ebae2edd.woff": "2bfa700e14ebb806bcbf45eedb34c9caa0a03e86",
     "/Gotham-BookItalic.cec78cc5a1d901e4874e.woff": "efe862a5cef8279e4cc02f9d11724ff67bd083b0",
@@ -286,14 +291,19 @@
     "/assets/images/ok.png": "9d9128370136497b770b439177dc4a624e183a89",
     "/assets/pdf/Términos y Condiciones - Fintra.pdf": "4ecb4c2e2e926435e54e6682ae6fb1c837a550a3",
     "/assets/pdf/politica.pdf": "e395f0ca17b104994722dee73aecb8b9d31a3a94",
-    "/index.html": "7101236c3ee269ed0bf5714ad3aeba130635c8d5",
-    "/main-es2015.0a360fc5e885dcf7b455.js": "e1b4a475c1dc660d295162cad0e95cc3653efd50",
-    "/main-es5.bafb35328412492fe3e7.js": "45dac261e5bb623b797b0decf288c9b958c19857",
+    "/fontawesome-webfont.674f50d287a8c48dc19b.eot": "d980c2ce873dc43af460d4d572d441304499f400",
+    "/fontawesome-webfont.912ec66d7572ff821749.svg": "98a8aa5cf7d62c2eff5f07ede8d844b874ef06ed",
+    "/fontawesome-webfont.af7ae505a9eed503f8b8.woff2": "d6f48cba7d076fb6f2fd6ba993a75b9dc1ecbf0c",
+    "/fontawesome-webfont.b06871f281fee6b241d6.ttf": "13b1eab65a983c7a73bc7997c479d66943f7c6cb",
+    "/fontawesome-webfont.fee66e712a8a08eef580.woff": "28b782240b3e76db824e12c02754a9731a167527",
+    "/index.html": "849c231f0662d7564af8c1a542f7f75fd935c6a6",
+    "/main-es2015.6296c1f0b2f6964ec92e.js": "00c83440c51dee032ddae7962219697ea3b5a4d5",
+    "/main-es5.d15ace26427e041d377d.js": "e4357f6c425c46870809d8cb9138b3fabbcfb1fa",
     "/polyfills-es2015.551225243b1eb435bb30.js": "fa3294dc18f74d99ffb7812c33dbbdb3daf098ca",
     "/polyfills-es5.fdab6b769da451ba6a00.js": "6c9688c6586bfcf669879655ba5874ef1d2b4bcf",
-    "/runtime-es2015.20a25539ba670d810b65.js": "7582f570cc5aa38e607cada4ec303ed75f8a4f96",
-    "/runtime-es5.6b3212865244746e0c2c.js": "8d8c22390369f5bb337e14c22c495d212d350680",
-    "/styles.02bdd05344f4ba065f47.css": "1e269a2eecf60c91f47eb194a0d0ffb3ab1bb095"
+    "/runtime-es2015.c1b901c0637aa35765ff.js": "d173b3d7fcdd2d3b892d1c8266d9f0a8e064ea49",
+    "/runtime-es5.6bd99236ab5c4aeeb8ed.js": "6dde254c7a9cc59d8dc5a88ea55d505b93c7c1f9",
+    "/styles.869c737e539927445dab.css": "4934fa94072f1d901f04b986a5fd030530a4e9ed"
   },
   "navigationUrls": [
     {

@@ -44,7 +44,7 @@ export class CreditEffects {
     @Effect({})
     SendPreApplicationSucess: Observable<Action> = this.actions$.pipe(
         ofType<SendPreApplicationSucess>(PreApplicationActionTypes.SendPreApplicationSucess),
-        tap(v => this.router.navigate(['/'])),
+        tap(v => this.router.navigate(['/app/dashboard/requests?referidos=true'])),
         map(action => action.payload),
         exhaustMap((error: any) => [
             new ToggleBlurPage(),

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as reducers from '../../reducers/reducers';
 import { ClosedForm } from 'src/app/actions/address-form.actions';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms'
+import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms'
 import { ConfirmAddress } from '../../actions/address-form.actions';
 import { LoadCitys } from '../../actions/platform.actions';
 import { UtilsService } from '../../services/utils/utils.service'
@@ -29,9 +29,9 @@ export class AddressFormComponent implements OnInit {
       departamento: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
       ciudad: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
       tipo_via: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
-      via_principal: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
-      via_secundaria: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
-      numero: ['', Validators.compose([Validators.maxLength(60), Validators.required])],
+      via_principal: ['', Validators.compose([Validators.maxLength(60), Validators.required, this.notZero])],
+      via_secundaria: ['', Validators.compose([Validators.maxLength(60), Validators.required, this.notZero])],
+      numero: ['', Validators.compose([Validators.maxLength(60), Validators.required, this.notZero])],
       complemento: ['', Validators.compose([Validators.maxLength(160)])]
     })
 
@@ -85,16 +85,29 @@ export class AddressFormComponent implements OnInit {
 
 
   private loadedData(data) {
+    console.log(data)
     for (let i in data) {
       if (this.addressForm.controls[i])
         this.addressForm.controls[i].setValue(data[i])
     }
 
-    if(data.departamento){
+    if (data.departamento) {
       this.loadCitys(data.departamento)
       this.getAddress(data.ciudad)
     }
   }
+
+
+  notZero(control: AbstractControl) {
+
+    if (control.value == '0') {
+      return { validUrl: true };
+
+    } else {
+      return null
+    }
+  }
+
 
 
 }

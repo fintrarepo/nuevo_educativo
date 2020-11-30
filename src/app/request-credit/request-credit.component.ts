@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UtilsService } from '../services/utils/utils.service';
 import { CreditsService } from '../services/credits/credits.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-request-credit',
@@ -44,19 +45,80 @@ export class RequestCreditComponent implements OnInit {
 
   changeFormStudent: boolean = false;
   changeFormDataCredit: boolean = false;
+  referred;
 
-  constructor(public utils: UtilsService, private credit: CreditsService) { }
+  txtSend;
+  iFrame;
+  iFrameContainer;
+  auth;
+  validacion;
+
+  constructor(public utils: UtilsService, private credit: CreditsService, private route: ActivatedRoute) {
+    this.referred = this.route.snapshot.queryParamMap.get('referido');
+
+
+  }
 
   ngOnInit() {
     console.log('Test')
     this.loadCitys()
-    this.dates = this.utils.carcularFecha()
+    this.dates = this.utils.carcularFecha();
+    this.txtSend = document.getElementById('txtSend');
+    this.iFrame = document.getElementById('iFrame');
+    this.iFrameContainer = document.getElementById('iFrameContainer');
+    this.auth = {
+      clientId: "FINTRA",
+      clientSecret: "F1ntr4P@$$w0rd"
+    };
+
+    this.validacion = {
+      guidConv: "7aacec4f-2f02-4901-81f8-1d5772653434",
+      tipoValidacion: "1",
+      asesor: "Fintra",
+      sede: "344889",
+      tipoDoc: "CC",
+      numDoc: "",
+      email: "",
+      celular: "3057671931",
+      usuario: "Fintra",
+      clave: "12345"
+    }
+
+    window.onmessage = (event) => {
+      console.log(`Received message: ${event.data}`, event.data);
+      if (event.data.for === "resultData") {
+        // alert("Proceso terminado, Estado:" + event.data.isSuccess);
+        this.iFrameContainer.classList.add('hide');
+        this.iFrameContainer.classList.remove('show');
+        if (event.data.isSuccess) {
+          this.queryDataCredit()
+        } else {
+          this.loadingRequest = false;
+          this.currentStep = 3;
+          this.currentSubStep = 3;
+        }
+      }
+    }
   }
 
 
 
 
   firstStepSend() {
+    this.credit.saveSimulation({
+      primer_nombre: this.form.primer_nombre,
+      telefono: this.form.telefono,
+      email: this.form.email,
+      monto: "",
+      fecha_pago: "",
+      num_cuotas: "",
+      paso: 1
+    })
+      .subscribe(reponse => {
+        console.log('SAVED SIMULATION')
+      });
+
+
     this.currentSubStep = 2;
 
 
@@ -66,13 +128,16 @@ export class RequestCreditComponent implements OnInit {
   simulate() {
 
 
+
+
     this.credit.saveSimulation({
       primer_nombre: this.form.primer_nombre,
       telefono: this.form.telefono,
       email: this.form.email,
       monto: this.form.monto.replace(/,/g, ""),
       fecha_pago: this.form.fecha_pago,
-      num_cuotas: this.form.num_cuotas
+      num_cuotas: this.form.num_cuotas,
+      paso: 2
     })
       .subscribe(reponse => {
         console.log('SAVED SIMULATION')
@@ -118,6 +183,7 @@ export class RequestCreditComponent implements OnInit {
           this.currentSubStep = 1;
         } else {
           this.queryDataCredit()
+          //this.runValidation();
         }
       })
 
@@ -129,7 +195,8 @@ export class RequestCreditComponent implements OnInit {
     var month = d.getMonth() + 1;
     var day = d.getDate();
     var fecha_credito = d.getFullYear() + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day + " " + "00:00:00";
-    this.credit.send2({
+
+    let dataToSend = {
       entidad: "EDUCATIVO",
       afiliado: this.form.afiliado,
       monto: this.form.monto.replace(/,/g, ""),
@@ -159,7 +226,12 @@ export class RequestCreditComponent implements OnInit {
       politica: "",
       negocio_origen: "",
       tipo_carrera: this.form.tipo_carrera
-    }).subscribe(response => {
+    }
+
+    if(this.referred){
+      dataToSend['referido'] =  this.referred;
+    }
+    this.credit.send2(dataToSend).subscribe(response => {
       this.loadingRequest = false;
       console.log(response)
       if (response.data.estado_sol == 'P') {
@@ -222,6 +294,55 @@ export class RequestCreditComponent implements OnInit {
         break;
       }
     }
+  }
+
+
+  async runValidation() {
+    this.loadingRequest = true;
+    this.validacion = { ...this.validacion, numDoc: this.form.identificacion.toString(), email: this.form.email, }
+    //this.validacion = {...this.validacion,  numDoc: "1143444600", email: "antoniojsh93@gmail.com" }
+    let token;
+    let url;
+    await this.Post("https://demorcs.olimpiait.com:6317/TraerToken", this.auth).then((resp: any) => {
+      token = resp.accessToken;
+    });
+    //SOLICITAR VALIDACIÓN
+    await this.Post("https://demorcs.olimpiait.com:6314/Validacion/SolicitudValidacion", this.validacion, token).then((resp: any) => {
+      if (resp && resp.code == 200) {
+        url = resp.data.url;
+      }
+    });
+    if (url) {
+      this.iFrame.src = url;
+      this.iFrameContainer.classList.remove('hide');
+      this.iFrameContainer.classList.add('show');
+    }
+    console.log(url);
+
+  }
+
+  Post(url, dataRequest, token = "") {
+    return new Promise(function (resolve, reject) {
+      var request = new XMLHttpRequest();
+      request.open('POST', url);
+      if (token !== "") {
+        request.setRequestHeader("Authorization", "Bearer " + token);
+      };
+      request.setRequestHeader('Content-type', 'application/json');
+      request.responseType = 'json';
+      request.onload = function () {
+        if (request.status === 200) {
+          resolve(request.response);
+        } else {
+          reject(Error('No fue posible hacer la verificación:' + request.statusText));
+        }
+      };
+      request.onerror = function () {
+        reject(Error('Ocurrio un error de red.'));
+      };
+      // Send the request
+      request.send(JSON.stringify(dataRequest));
+    });
   }
 
   changePolite() {

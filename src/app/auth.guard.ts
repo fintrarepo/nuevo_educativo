@@ -44,7 +44,7 @@ export class NoAuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     //   console.log(localStorage.getItem('user'))
     // if (localStorage.getItem('user') != null) {
-    //   this.router.navigate(['/'])
+    //   this.router.navigate(['/app/dashboard/requests?referidos=true'])
     //   return false;
     // }
     

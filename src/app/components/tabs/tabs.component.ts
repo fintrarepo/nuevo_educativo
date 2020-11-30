@@ -113,7 +113,7 @@ export class TabsComponent implements OnInit {
   }
 
   selectTab1SubTab2(state) {
-    console.log(this.tabsComponent.activeId)
+    //console.log(this.tabsComponent.activeId)
     if (state.active && this.tabsComponent.activeId != "tab1SubTab2") {
       this.disableAllTabs();
       this.disabledTab1 = false;

@@ -76,6 +76,6 @@ export class UploadsComponent implements OnInit {
 
 
   save(){
-    this.router.navigate(['/'])
+    this.router.navigate(['/app/dashboard/requests?referidos=true'])
   }
 }

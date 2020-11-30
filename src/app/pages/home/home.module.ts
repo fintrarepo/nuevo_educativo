@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ArchwizardModule } from 'angular-archwizard';
 import { FormsModule } from '@angular/forms';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 //Pages
 import { HomeComponent } from './home.component';
@@ -30,7 +31,9 @@ import { HistoryRequestComponent } from '../../components/history-request/histor
 import { CreditComponent } from '../../components/credit/credit.component';
 import { LoadingFormsComponent } from '../../components/loading-forms/loading-forms.component';
 import { UpdateInfoComponent } from '../../components/update-info/update-info.component';
-import { NotApprovedComponent } from '../../components/not-approved/not-approved.component'
+import { NotApprovedComponent } from '../../components/not-approved/not-approved.component';
+import { ReferredComponent } from '../../components/referred/referred.component';
+
 
 //GUARDS
 import { AuthGuard } from '../../auth.guard';
@@ -44,6 +47,7 @@ const routes: Routes = [
     component: HomeComponent,
     canActivate: [AuthGuard],
     children: [
+      
       {
         path: '',
         redirectTo: 'dashboard/requests',
@@ -77,7 +81,11 @@ const routes: Routes = [
       {
         path: 'renew-credit/:id',
         component: NewRequestComponent
-      }
+      },
+      {
+        path: 'referir',
+        component: ReferredComponent
+      },
 
     ],
   },
@@ -112,7 +120,8 @@ const components = [
   CreditComponent,
   LoadingFormsComponent,
   UpdateInfoComponent,
-  NotApprovedComponent
+  NotApprovedComponent,
+  ReferredComponent
 ]
 
 const directives = [
@@ -131,6 +140,7 @@ const directives = [
     ReactiveFormsModule,
     ArchwizardModule,
     FormsModule,
+    AngularFontAwesomeModule,
     ...boostrapModules
   ],
   exports: [RouterModule]

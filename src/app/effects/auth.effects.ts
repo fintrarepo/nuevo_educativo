@@ -63,6 +63,7 @@ export class AuthEffects {
             this.auth.tipo_usuario = v.data.tipo_usuario;
             this.auth.cambio_clave = v.data.cambio_clave;
             this.auth.id_usuario = v.data.idusuario;
+            this.auth.codigo_venta = v.data.codigo_venta
             if (v.saggic_id)
                 this.auth.saggic_id = v.saggic_id
 

@@ -63,7 +63,7 @@ export class PopupApprovedComponent implements OnInit {
 
   cancelAndClose() {
     this.close()
-    this.router.navigate(['/'])
+    this.router.navigate(['/app/dashboard/requests?referidos=true'])
   }
 
   close() {

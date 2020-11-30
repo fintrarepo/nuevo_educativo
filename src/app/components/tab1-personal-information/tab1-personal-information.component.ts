@@ -52,15 +52,15 @@ export class Tab1PersonalInformationComponent implements OnInit {
       "estado_civil": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "tipo_id": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "identificacion": ['', Validators.compose([Validators.maxLength(10), Validators.required, Validators.pattern('^[0-9]*$')])],
-      "fecha_expedicion_id": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
+      "fecha_expedicion_id": ['', Validators.compose([Validators.maxLength(50), Validators.required, this.ageValidator])],
       "dpto_expedicion_id": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
-      "ciudad_expedicion_id": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
+      "ciudad_expedicion_id": ['', Validators.compose([Validators.maxLength(50), Validators.required,])],
       "fecha_nacimiento": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "dpto_nacimiento": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "ciudad_nacimiento": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "telefono": ['', Validators.compose([Validators.maxLength(10), Validators.pattern('^[0-9]*$')])],
       "email": ['', Validators.compose([Validators.maxLength(50), Validators.required, Validators.email])],
-      "celular": ['', Validators.compose([Validators.maxLength(10), Validators.required, Validators.pattern('^[0-9]*$')])],
+      "celular": ['', Validators.compose([Validators.maxLength(10), Validators.minLength(10), Validators.required, Validators.pattern('^[0-9]*$')])],
       "direccion": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "barrio": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "tipo_vivienda": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
@@ -212,6 +212,12 @@ export class Tab1PersonalInformationComponent implements OnInit {
     let remoteDate = date.split('-')
     return { year: parseInt(remoteDate[0]), month: parseInt(remoteDate[1]), day: parseInt(remoteDate[2]) };
   }
+
+  private ageValidator(control: AbstractControl): { [key: string]: boolean } | null {
+  //  console.log(control.value);
+  //  console.log(this.form.get("fecha_nacimiento").value)
+    return null;
+  };
 
 
 
