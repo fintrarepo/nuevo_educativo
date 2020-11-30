@@ -109,9 +109,9 @@ export class RequestCreditComponent implements OnInit {
       primer_nombre: this.form.primer_nombre,
       telefono: this.form.telefono,
       email: this.form.email,
-      monto: "",
-      fecha_pago: "",
-      num_cuotas: "",
+      monto: 0,
+      fecha_pago: "0100-01-01",
+      num_cuotas: 0,
       paso: 1
     })
       .subscribe(reponse => {
