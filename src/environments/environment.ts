@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   apiPath: "http://piloto.fintra.co:8084/fintracredit",
-  fintra: "https://prometheus.fintra.co:8444/fintra"
+  fintra: "http://piloto.fintra.co:8094/fintra"
 };
 // apiPath: "http://192.168.140.65:8084/fintracredit"
 /*

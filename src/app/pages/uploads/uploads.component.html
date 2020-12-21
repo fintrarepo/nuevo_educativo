@@ -1,25 +1,32 @@
 <div class="white-box">
-  <h1 class="title-form">Documentos por Adjuntar</h1>
-  <p>Adjunta los documentos aquí. Todos tus documentos se guardarán automáticamente</p>
+  <h1 class="title-form">Sube tus Documentos</h1>
+  <p>*Recomendaciones: Asegúrate que la información se vea lo más nítida y cerca posible. Sube en PDF los documentos que tengan más de 1 hoja.</p>
 
   <p class="content-loading" *ngIf="isLoading" [ngStyle]="{'padding-top': '2%'}">
     <img src="/assets/images/loading.gif" alt="">
   </p>
 
-  <div class="files-content" *ngFor="let list of listFiles">
-    <div class="file">
-      <div>
-        <img src="{{ path + ''+ list.icon + '.svg'}}" alt="">
-        <p>{{list.descripcion}}</p><br>
-        <!-- <span *ngIf="list.file_name">{{list.file_name}}</span> -->
+  <div class="container">
+    <div class="col-md-12 files-content" *ngFor="let list of listFiles; let i = index">
+      <div class="file">
+        <div>
+          <img src="{{ path + ''+ (i + 1) + '.svg'}}" alt="documento fintra" class="image-file-big">
+          <p>{{list.descripcion}}</p><br>
+          <!-- <span *ngIf="list.file_name">{{list.file_name}}</span> -->
+        </div>
+        <input type="file" style="display: none" #fileInputFron (change)="onFileSelected(list, $event)"
+          [disabled]="list.url != '' ? true : false">
+        <div class="options-file">
+          <img src="/assets/images/download.png" (click)="downloadFile(list)" *ngIf="showDownload(list)">
+          <img src="/assets/images/clip.png" alt="" (click)='fileInputFron.click()'>
+          <img src="/assets/images/trash.png" alt="">
+        </div>
+        <!-- <button class="btn btn-outline button-blue" (click)='fileInputFron.click()'
+          [ngClass]="list.url != '' ? 'up' : ''">
+          <span *ngIf="list.url == ''">{{ adj }}</span>
+          <span *ngIf="list.url != ''">{{ adt }}</span>
+        </button> -->
       </div>
-      <input type="file" style="display: none" #fileInputFron (change)="onFileSelected(list, $event)"
-        [disabled]="list.url != '' ? true : false">
-      <button class="btn btn-outline button-blue" (click)='fileInputFron.click()'
-        [ngClass]="list.url != '' ? 'up' : ''">
-        <span *ngIf="list.url == ''">{{ adj }}</span>
-        <span *ngIf="list.url != ''">{{ adt }}</span>
-      </button>
     </div>
   </div>
   <div class="row" style="margin-top: 3em;">

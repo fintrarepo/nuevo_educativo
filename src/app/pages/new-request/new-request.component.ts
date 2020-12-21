@@ -159,7 +159,9 @@ export class NewRequestComponent implements OnInit {
   loadDataRenew(negocio) {
     this.request.getLoan(negocio)
       .subscribe(data => {
+        console.log(data)
         this.currentRenew = data[0]
+        console.log(this.currentRenew)
 
         if (this.currentRenew.politica == "T") {
           let date = this.currentRenew.fecha_vencimiento_ultima_cuota.split('-');

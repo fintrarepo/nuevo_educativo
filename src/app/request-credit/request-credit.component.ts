@@ -97,6 +97,7 @@ export class RequestCreditComponent implements OnInit {
           await this.ConsultarValidacion("https://demorcs.olimpiait.com:6314/Validacion/ConsultarValidacion", this.token).then((resp: any) => {
             if (resp && resp.code == 200) {
               const data = resp.data;
+              this.saveReconocerID(data)
               // --(finalizado = TRUE and EstadoProceso = (1: enrolamiento) and cacelado =false) // Paso las validaciones de identidad  
               // --(finalizado = TRUE and EstadoProceso = (2: validacion) and cancelado =false and aprobado=true  ) // Pasa cliente enrolados previamente
               if (data.finalizado == true && data.estadoProceso == 1 && data.cancelado == false) {
@@ -121,6 +122,12 @@ export class RequestCreditComponent implements OnInit {
   }
 
 
+  saveReconocerID(data) {
+    this.credit.saveReconocerID(this.form.identificacion, data)
+      .subscribe(data => {
+        console.log('Saved reconocer ID');
+      })
+  }
 
 
   firstStepSend() {
@@ -131,7 +138,10 @@ export class RequestCreditComponent implements OnInit {
       monto: 0,
       fecha_pago: "0100-01-01",
       num_cuotas: 0,
-      paso: 1
+      paso: 1,
+      cod_referido: this.referred ? this.referred : -100,
+      agencia: "",
+      afiliado: ""
     })
       .subscribe(reponse => {
         console.log('SAVED SIMULATION')
@@ -156,7 +166,11 @@ export class RequestCreditComponent implements OnInit {
       monto: this.form.monto.replace(/,/g, ""),
       fecha_pago: this.form.fecha_pago,
       num_cuotas: this.form.num_cuotas,
-      paso: 2
+      paso: 2,
+
+      cod_referido: this.referred ? this.referred : -100,
+      agencia: this.form.ciudad,
+      afiliado: this.form.afiliado
     })
       .subscribe(reponse => {
         console.log('SAVED SIMULATION')
