@@ -113,6 +113,7 @@ export class RequestCreditComponent implements OnInit {
             }
           });
         } else {
+          this.saveReconocerID(event.data);
           this.loadingRequest = false;
           this.currentStep = 3;
           this.currentSubStep = 3;
