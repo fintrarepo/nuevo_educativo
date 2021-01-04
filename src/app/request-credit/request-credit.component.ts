@@ -12,7 +12,7 @@ export class RequestCreditComponent implements OnInit {
   loadingRequest: boolean = false;
   currentStep = 1;
   currentSubStep = 1;
-
+  messageError = "";
   spaces: boolean = false;
 
   polite: boolean = false;
@@ -276,6 +276,7 @@ export class RequestCreditComponent implements OnInit {
         this.currentSubStep = 3;
       }
     }, err => {
+      this.messageError = err.error.detail
       this.loadingRequest = false;
       this.currentStep = 3;
       this.currentSubStep = 3;
