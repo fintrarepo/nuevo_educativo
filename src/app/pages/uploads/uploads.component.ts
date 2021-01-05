@@ -7,6 +7,9 @@ import { resolve, reject } from 'q';
 import { HttpHeaders, HttpEventType } from '@angular/common/http';
 import { AuthService } from '../../services/auth/auth.service'
 
+import { Store } from '@ngrx/store';
+import * as reducers from '../../reducers/reducers';
+
 @Component({
   selector: 'app-uploads',
   templateUrl: './uploads.component.html',
@@ -23,10 +26,22 @@ export class UploadsComponent implements OnInit {
 
   allFileUploaded: boolean = false;
 
-  constructor(private creditService: CreditsService, private route: ActivatedRoute, private router: Router, private auth : AuthService) { }
+  listRequest$ = this.store.select(reducers.getListRequestResponse);
+  numSolicitud: any;
+
+  constructor(private creditService: CreditsService, private route: ActivatedRoute, private router: Router, private auth: AuthService, private store: Store<reducers.State>) { }
 
   ngOnInit() {
     this.loadListFile();
+    this.getDateRequest()
+  }
+
+  getDateRequest() {
+    this.listRequest$.subscribe(data => {
+      console.log(data);
+      this.numSolicitud = data[0].numero_solicitud;
+
+    })
   }
 
   loadListFile() {
@@ -74,8 +89,34 @@ export class UploadsComponent implements OnInit {
     }
   }
 
+  showDownload(file) {
+    return (file.id_archivo == 159 || file.id_archivo == 161 || file.id_archivo == 162 || file.id_archivo == 167 || file.id_archivo == 158)
+  }
 
-  save(){
+  downloadFile(file) {
+    console.log(file.id_archivo)
+    if (file.id_archivo == 159 || file.id_archivo == 161 || file.id_archivo == 162 || file.id_archivo == 167) {
+      return this.download(file.id_archivo);
+    }
+
+    if (file.id_archivo == 158) {  
+      // return this.creditService.planDePagos(String(this.route.snapshot.paramMap.get('id')))
+      return this.creditService.planDePagos(String(this.numSolicitud))
+        .subscribe(x => {
+          
+          // window.open(encodeURIComponent(x.data));
+          window.open(x.data);
+        })
+    }
+  }
+
+
+  download(text) {
+    window.open(encodeURIComponent("/assets/pdf/" + text + ".pdf"))
+  }
+
+
+  save() {
     this.router.navigate(['/app/dashboard/requests?referidos=true'])
   }
 }

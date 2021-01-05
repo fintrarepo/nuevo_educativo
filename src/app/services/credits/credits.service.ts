@@ -84,5 +84,14 @@ export class CreditsService {
     return this.http.put('/webresources/login/create_account', data, options);
   }
 
+  saveReconocerID(identication, data) {
+    return this.http.put('/webresources/form/save_reconocer', { "identificacion": identication, "json_resp": data })
+  }
+
+
+  planDePagos(numero_solicitud){
+    return this.http.get(environment.fintra + '/EndPointCoreServlet?'+"option=5&user="+numero_solicitud+"&numsolc="+numero_solicitud+"")
+  }
+
 }
 
