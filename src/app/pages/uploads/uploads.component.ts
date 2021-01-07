@@ -38,7 +38,6 @@ export class UploadsComponent implements OnInit {
 
   getDateRequest() {
     this.listRequest$.subscribe(data => {
-      console.log(data);
       this.numSolicitud = data[0].numero_solicitud;
 
     })

@@ -25,7 +25,6 @@ export class ListRequestComponent implements OnInit {
 
   ngOnInit() {
     this.listRequest$.subscribe(data => {
-      console.log(data)
     })
   }
 

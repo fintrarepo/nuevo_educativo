@@ -90,7 +90,7 @@ export class CreditsService {
 
 
   planDePagos(numero_solicitud){
-    return this.http.get(environment.fintra + '/EndPointCoreServlet?'+"option=5&user="+numero_solicitud+"&numsolc="+numero_solicitud+"")
+    return this.http.get(environment.fintra + '/EndPointCoreServlet?'+"option=5&user="+numero_solicitud+"&numsolc="+numero_solicitud+"", this.options)
   }
 
 }
