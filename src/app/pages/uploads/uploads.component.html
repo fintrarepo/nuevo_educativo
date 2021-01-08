@@ -19,7 +19,7 @@
         <div class="options-file">
           <img src="/assets/images/download.png" (click)="downloadFile(list)" *ngIf="showDownload(list)">
           <img src="/assets/images/clip.png" alt="" (click)='fileInputFron.click()'>
-          <img src="/assets/images/trash.png" alt="">
+          <img src="/assets/images/trash.png" alt="" (click)="deleteFile(list)">
         </div>
         <!-- <button class="btn btn-outline button-blue" (click)='fileInputFron.click()'
           [ngClass]="list.url != '' ? 'up' : ''">

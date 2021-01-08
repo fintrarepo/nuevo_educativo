@@ -70,6 +70,15 @@ export class CreditsService {
       + '&und_negocio=' + data.und_negocio, this.options);
   }
 
+  deleteFile(data: listFile) {
+    return this.http.get(environment.fintra + '/EndPointCoreServlet?'
+      + 'option=' + data.option
+      + '&numero_solicitud=' + data.numero_solicitud
+      + '&user=' + data.user
+      + '&und_negocio=' + data.und_negocio
+      + '&id_archivo=' + data.id_archivo, this.options);
+  }
+
   uploadImage(data, options) {
     return this.http.post('/FileUploadServlet', data, options);
   }

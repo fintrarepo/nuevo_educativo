@@ -2,7 +2,8 @@ export interface listFile {
     'option': number,
     'numero_solicitud': String,
     'user': String,
-    'und_negocio': number
+    'und_negocio': number,
+    id_archivo?: number
 }
 
 

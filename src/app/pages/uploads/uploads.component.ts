@@ -60,6 +60,19 @@ export class UploadsComponent implements OnInit {
     });
   }
 
+  deleteFile(list) {
+    const params: listFile = {
+      option: 4,
+      numero_solicitud: this.route.snapshot.paramMap.get('id'),
+      user: this.auth.id_usuario,
+      und_negocio: 31,
+      id_archivo: list.id_archivo
+    };
+    this.creditService.deleteFile(params).subscribe(list => {
+      this.isLoading = false;
+    });
+  }
+
   onFileSelected(obj: any, input: any) {
     console.log("uploading file: ");
     let options: any;
