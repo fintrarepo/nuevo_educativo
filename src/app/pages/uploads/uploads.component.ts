@@ -9,6 +9,7 @@ import { AuthService } from '../../services/auth/auth.service'
 
 import { Store } from '@ngrx/store';
 import * as reducers from '../../reducers/reducers';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-uploads',
@@ -19,21 +20,31 @@ export class UploadsComponent implements OnInit {
   attached: boolean;
   selectedFile: any = null;
   listFiles: any = [];
+  signinFiles: any = [];
   public adj = 'Adjuntar';
   public adt = 'Adjuntado';
   path = '/assets/images/Icon_Adjuntar ';
   isLoading: boolean = true;
-
+  tabFiles: number;
+  documentsForm: FormGroup;
   allFileUploaded: boolean = false;
 
   listRequest$ = this.store.select(reducers.getListRequestResponse);
   numSolicitud: any;
 
-  constructor(private creditService: CreditsService, private route: ActivatedRoute, private router: Router, private auth: AuthService, private store: Store<reducers.State>) { }
+  constructor(
+    private creditService: CreditsService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private auth: AuthService,
+    private store: Store<reducers.State>,
+    private formBuilder: FormBuilder
+  ) { }
 
   ngOnInit() {
     this.loadListFile();
     this.getDateRequest()
+    this.tabFiles = 1;
   }
 
   getDateRequest() {
@@ -41,6 +52,12 @@ export class UploadsComponent implements OnInit {
       this.numSolicitud = data[0].numero_solicitud;
 
     })
+    this.documentsForm = this.formBuilder.group({
+      planpagos: ['', Validators.requiredTrue],
+      asesoria: ['', Validators.requiredTrue],
+      aval: ['', Validators.requiredTrue],
+      terminos: ['', [Validators.requiredTrue]]
+    });
   }
 
   loadListFile() {
@@ -52,7 +69,10 @@ export class UploadsComponent implements OnInit {
     };
     this.creditService.loadFileList(params).subscribe(list => {
       this.isLoading = false;
-      this.listFiles = list.data.filter(x => x.visible === 'S');
+      const allFiles = list.data.filter(x => x.visible === 'S');
+      this.signinFiles = allFiles.filter(x => (x.id_archivo == 159 || x.id_archivo == 161 || x.id_archivo == 162 || x.id_archivo == 167 || x.id_archivo == 158))
+      this.listFiles = allFiles.filter(x => (x.id_archivo == 150 || x.id_archivo == 151 || x.id_archivo == 415 || x.id_archivo == 416 || x.id_archivo == 160))
+
 
       const filesUploaded = this.listFiles.filter(x => x.url != '')
       this.allFileUploaded = filesUploaded.length == 3 ? true : false;
@@ -111,11 +131,11 @@ export class UploadsComponent implements OnInit {
       return this.download(file.id_archivo);
     }
 
-    if (file.id_archivo == 158) {  
+    if (file.id_archivo == 158) {
       // return this.creditService.planDePagos(String(this.route.snapshot.paramMap.get('id')))
       return this.creditService.planDePagos(String(this.numSolicitud))
         .subscribe(x => {
-          
+
           // window.open(encodeURIComponent(x.data));
           window.open(x.data);
         })
@@ -130,5 +150,9 @@ export class UploadsComponent implements OnInit {
 
   save() {
     this.router.navigate(['/app/dashboard/requests?referidos=true'])
+  }
+
+  nextTap(tap) {
+    this.tabFiles = tap;
   }
 }

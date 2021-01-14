@@ -33,6 +33,7 @@ import { LoadingFormsComponent } from '../../components/loading-forms/loading-fo
 import { UpdateInfoComponent } from '../../components/update-info/update-info.component';
 import { NotApprovedComponent } from '../../components/not-approved/not-approved.component';
 import { ReferredComponent } from '../../components/referred/referred.component';
+import { SigningComponent } from '../signing/signing.component';
 
 
 //GUARDS
@@ -86,6 +87,10 @@ const routes: Routes = [
         path: 'referir',
         component: ReferredComponent
       },
+      {
+        path: 'signing',
+        component: SigningComponent
+      }
 
     ],
   },
@@ -101,7 +106,8 @@ const pagesComponets = [
   DashboardComponent,
   UploadsComponent,
   CreditApplicationComponent,
-  NewRequestComponent
+  NewRequestComponent,
+  SigningComponent
 ]
 
 const components = [
