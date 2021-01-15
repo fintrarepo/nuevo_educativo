@@ -1,0 +1,42 @@
+.white-box {
+  h1 {
+    color: #707070;
+  }
+
+  .content-porcentaje {
+    background-color: #cccccc;
+    height: 10px;
+    border-radius: 4px;
+    margin-bottom: 25px;
+
+    .porcentaje {
+      height: inherit;
+      background-color: #32BEFA;
+
+      &.medio {
+        width: 50%;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+      }
+    }
+  }
+
+  h2,
+  p {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  h2 {
+    font-size: 1.1em;
+    color: #1B77BA;
+    font-weight: 600;
+  }
+
+  p {
+    font-size: 1em;
+    color: #37BFFA;
+  }
+  button {
+      height: 50px;
+  }
+}

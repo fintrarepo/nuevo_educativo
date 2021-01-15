@@ -79,6 +79,14 @@ export class CreditsService {
       + '&id_archivo=' + data.id_archivo, this.options);
   }
 
+  sendOtp() {
+    return this.http.get(environment.apiPath + '/webresources/firma/codigo-otp');
+  }
+
+  validateOtp(data) {
+    return this.http.post('/webresources/firma/validar-otp', data);
+  }
+
   uploadImage(data, options) {
     return this.http.post('/FileUploadServlet', data, options);
   }
@@ -98,8 +106,8 @@ export class CreditsService {
   }
 
 
-  planDePagos(numero_solicitud){
-    return this.http.get(environment.fintra + '/EndPointCoreServlet?'+"option=5&user="+numero_solicitud+"&numsolc="+numero_solicitud+"", this.options)
+  planDePagos(numero_solicitud) {
+    return this.http.get(environment.fintra + '/EndPointCoreServlet?' + "option=5&user=" + numero_solicitud + "&numsolc=" + numero_solicitud + "", this.options)
   }
 
 }

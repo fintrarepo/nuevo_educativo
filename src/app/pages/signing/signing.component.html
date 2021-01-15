@@ -1,1 +1,35 @@
-<p>signing works!</p>
+<div class="white-box">
+  <h1 class="title-form text-center">Sube tus Documentos</h1>
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <div class="content-porcentaje">
+        <div class="porcentaje medio"></div>
+      </div>
+      <div [ngSwitch]="tapSigning">
+        <div *ngSwitchCase="1">
+          <h2>
+            Ingrese clave dinámica de verificación
+          </h2>
+          <p>Digite la clave dinámica de verificación enviada al celular: <b>3202121211</b></p>
+          <form [formGroup]="otpForm">
+            <div class="mb-3">
+              <label for="otpInput" class="form-label">Clave dinámica de verificación</label>
+              <input type="number" class="form-control" formControlName="otp" id="otpInput">
+              <div class="alert alert-danger" role="alert" *ngIf="code.errors && code.dirty && notfound">
+                <p >Es obligatorio marcar todos los documentos</p>
+              </div>
+            </div>
+          </form>
+          <div class="row justify-content-center">
+            <button class="btn btn-outline-form" (click)="backUpdate()">ATRAS</button>
+            <button class="btn button-blue" (click)="validarOtp()"  [disabled]="!otpForm.valid">
+              VALIDAR FIRMA
+            </button>
+          </div>
+        </div>
+        <div *ngSwitchCase="2">firma</div>
+        <div *ngSwitchDefault>output2</div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -39,12 +39,21 @@ export class UploadsComponent implements OnInit {
     private auth: AuthService,
     private store: Store<reducers.State>,
     private formBuilder: FormBuilder
-  ) { }
+  ) {
+    this.documentsForm = this.formBuilder.group({
+      plan_de_pago: ['', Validators.requiredTrue],
+      otros_soportes_1_titular: ['', Validators.requiredTrue],
+      seguro_titular: ['', Validators.requiredTrue],
+      terminos_y_condiciones: ['', [Validators.requiredTrue]],
+      fianza_titular: ['', [Validators.requiredTrue]]
+    });
+
+  }
 
   ngOnInit() {
     this.loadListFile();
     this.getDateRequest()
-    this.tabFiles = 1;
+    this.tabFiles = 2;
   }
 
   getDateRequest() {
@@ -52,12 +61,6 @@ export class UploadsComponent implements OnInit {
       this.numSolicitud = data[0].numero_solicitud;
 
     })
-    this.documentsForm = this.formBuilder.group({
-      planpagos: ['', Validators.requiredTrue],
-      asesoria: ['', Validators.requiredTrue],
-      aval: ['', Validators.requiredTrue],
-      terminos: ['', [Validators.requiredTrue]]
-    });
   }
 
   loadListFile() {
@@ -151,8 +154,30 @@ export class UploadsComponent implements OnInit {
   save() {
     this.router.navigate(['/app/dashboard/requests?referidos=true'])
   }
+  goSigning() {
+    this.isLoading = false;
+    this.creditService.sendOtp().subscribe(list => {
+      this.router.navigate(['/app/signing'])
+      console.log(list)
+    })
+  }
 
   nextTap(tap) {
     this.tabFiles = tap;
+  }
+  get planpago() {
+    return this.documentsForm.get('plan_de_pago');
+  }
+  get asesoria() {
+    return this.documentsForm.get('otros_soportes_1_titular');
+  }
+  get poliza() {
+    return this.documentsForm.get('seguro_titular');
+  }
+  get terminos() {
+    return this.documentsForm.get('terminos_y_condiciones');
+  }
+  get aval() {
+    return this.documentsForm.get('fianza_titular');
   }
 }

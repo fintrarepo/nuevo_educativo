@@ -528,3 +528,24 @@ input[type="number"] {
     display: none;
   }
 }
+
+.btn-outline-form {
+  border: 2px solid #37BFFA;
+  color: #37BFFA;
+  text-transform: uppercase;
+  border-radius: 10px;
+  padding: 12px 50px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  margin-right: 60px;
+
+  &:hover {
+    color: #37BFFA;
+  }
+
+  &:disabled {
+    background: #CCCCCC;
+    border: none;
+    color: white;
+  }
+}

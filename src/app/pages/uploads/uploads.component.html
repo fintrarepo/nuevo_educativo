@@ -69,44 +69,31 @@
     <div *ngSwitchCase="2" class="upload-files">
 
       <div class="row justify-content-center">
-        <div class="col-lg-8">
+        <div class="col-lg-7">
           <h1 class="title-form text-center my-2">Documentos por firmar</h1>
           <p class="text-center mb-0">Los siguientes documentos se requieren para legalizar tu crédito
             acepta en los recuadros uno a uno los términos y condiciones si estás de acuerdo.</p>
         </div>
       </div>
+      <p class="content-loading" *ngIf="isLoading" [ngStyle]="{'padding-top': '2%'}">
+        <img src="/assets/images/loading.gif" alt="">
+      </p>
       <div class="row justify-content-center content-form">
-        <form [formGroup]="documentsForm" (ngSubmit)="onSubmit()">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" formControlName="planpagos" value="1" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
-              Plan de pagos
+        <form [formGroup]="documentsForm" >
+          <div class="form-check" *ngFor="let list of signinFiles">
+            <input class="form-check-input" type="checkbox" [formControlName]="list.nombre_archivo"  [value]="list.id_archivo" [id]="list.nombre_archivo">
+            <!-- <label class="form-check-label" [for]="list.nombre_archivo" (click)="downloadFile(list)"> -->
+            <label class="form-check-label" (click)="downloadFile(list)">
+              {{list.descripcion}}
             </label>
           </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" formControlName="asesoria" value="2" id="flexCheckChecked"
-              checked>
-            <label class="form-check-label" for="flexCheckChecked">
-              Asesoría de crédito
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" formControlName="aval" value="3" id="flexCheckDefault2">
-            <label class="form-check-label" for="flexCheckDefault2">
-              Aval de crédito
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" formControlName="terminos" value="4" id="flexCheckChecked3"
-              checked>
-            <label class="form-check-label" for="flexCheckChecked3">
-              Términos y condiciones
-            </label>
+          <div class="alert alert-danger" role="alert" *ngIf="(planpago.errors && planpago.dirty) || (asesoria.errors && asesoria.dirty) || (poliza.errors && poliza.dirty) || (terminos.errors && terminos.dirty) || (aval.errors && aval.dirty)">
+            <p >Es obligatorio marcar todos los documentos</p>
           </div>
         </form>
       </div>
       <div class="row justify-content-center">
-        <div class="col-lg-8">
+        <div class="col-lg-7">
           <p class="text-center mb-4">Confirmo que he leído, comprendido, y estoy de acuerdo con los términos y
             condiciones
             planteados en los
@@ -115,7 +102,7 @@
       </div>
       <div class="row justify-content-center">
         <button class="btn btn-outline-form" (click)="nextTap(1)">ATRAS</button>
-        <button class="btn button-blue" [disabled]="!documentsForm.valid">
+        <button class="btn button-blue" (click)="goSigning()" [disabled]="!documentsForm.valid">
           IR A FIRMAR
         </button>
       </div>
