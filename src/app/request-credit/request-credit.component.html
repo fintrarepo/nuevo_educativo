@@ -64,7 +64,7 @@
                     </div>
 
                     <div class="content-button-step">
-                        <button class="btn btn-outline-form" [disabled]="!initForm.form.valid">Continuar</button>
+                        <button class="btn btn-outline-form" id="continuar_pasouno" [disabled]="!initForm.form.valid">Continuar</button>
                     </div>
                 </form>
             </div>
@@ -181,7 +181,7 @@
                     </div>
                     <div class="content-button-step" style="margin-top: 1em; margin-bottom: 1em;">
                         <button class="btn btn-outline-form" (click)="currentSubStep = 1;">volver</button>
-                        <button class="btn btn-outline-form" type="submit" value="Simular"
+                        <button id="simular_educativo" class="btn btn-outline-form" type="submit" value="Simular"
                             [disabled]="!myForm.form.valid || !polite"> Simular</button>
                     </div>
 
@@ -299,7 +299,7 @@
 
             <div class="content-button-step" style="margin-top: 1em; margin-bottom: 1em;">
                 <button class="btn btn-outline-form" (click)="currentSubStep = 2;">volver</button>
-                <button class="btn btn-outline-form" type="submit" value="Simular"
+                <button class="btn btn-outline-form" type="submit" value="Simular" id="simulado_solicitud"
                     (click)="currentStep = 2; currentSubStep = 1;">continuar</button>
             </div>
         </div>
