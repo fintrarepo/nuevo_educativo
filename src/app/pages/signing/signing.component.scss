@@ -18,7 +18,18 @@
         border-top-left-radius: 4px;
         border-bottom-left-radius: 4px;
       }
+
+      &.completo {
+        width: 100%;
+        border-radius: 4px;
+        // border-bottom-left-radius: 4px;
+      }
     }
+  }
+
+  p.content-loading {
+    position: absolute;
+    z-index: 1;
   }
 
   h2,
@@ -36,7 +47,74 @@
     font-size: 1em;
     color: #37BFFA;
   }
+
+  form.form-code {
+    .content-form {
+      position: relative;
+
+      input {
+        margin-bottom: 50px;
+      }
+
+      .alert.alert-danger {
+
+        margin-top: -46px;
+        position: absolute;
+        padding: 1px 20px;
+
+        p {
+          margin-bottom: 0px;
+          font-size: 0.8rem;
+          color: inherit;
+        }
+      }
+    }
+  }
+
+  .list-requirements {
+    li {
+      margin-bottom: 10px;
+      font-size: .8rem;
+      position: relative;
+      left: 36px;
+
+      &::before {
+        padding: 3px 8px;
+        border-radius: 50%;
+        border: 1px solid #ccc;
+        display: inline-block;
+        position: absolute;
+        left: -36px;
+        font-size: .7rem;
+      }
+    }
+
+    li:nth-child(1) {
+      &::before {
+        content: "1";
+      }
+    }
+
+    li:nth-child(2) {
+      &::before {
+        content: "2";
+      }
+    }
+
+    li:nth-child(3) {
+      &::before {
+        content: "3";
+      }
+    }
+
+    li:nth-child(4) {
+      &::before {
+        content: "4";
+      }
+    }
+  }
+
   button {
-      height: 50px;
+    height: 50px;
   }
 }

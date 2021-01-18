@@ -1,9 +1,12 @@
 <div class="white-box">
-  <h1 class="title-form text-center">Sube tus Documentos</h1>
+  <h1 class="title-form text-center">Generar firma electrónica</h1>
   <div class="row justify-content-center">
     <div class="col-lg-6">
+      <p class="content-loading" *ngIf="isLoading" [ngStyle]="{'padding-top': '2%'}">
+        <img src="/assets/images/loading.gif" alt="">
+      </p>
       <div class="content-porcentaje">
-        <div class="porcentaje medio"></div>
+        <div class="porcentaje completo"></div>
       </div>
       <div [ngSwitch]="tapSigning">
         <div *ngSwitchCase="1">
@@ -11,12 +14,13 @@
             Ingrese clave dinámica de verificación
           </h2>
           <p>Digite la clave dinámica de verificación enviada al celular: <b>3202121211</b></p>
-          <form [formGroup]="otpForm">
-            <div class="mb-3">
+          <form [formGroup]="otpForm" class="form-code">
+            <div class="mb-3 content-form">
               <label for="otpInput" class="form-label">Clave dinámica de verificación</label>
               <input type="number" class="form-control" formControlName="otp" id="otpInput">
-              <div class="alert alert-danger" role="alert" *ngIf="code.errors && code.dirty && notfound">
-                <p >Es obligatorio marcar todos los documentos</p>
+              <div class="alert alert-danger" role="alert" *ngIf="(code.errors && code.dirty) || notfound">
+                <p *ngIf="code.hasError('required')">El código es obligatorio</p>
+                <p *ngIf="notfound">{{textError}}</p>
               </div>
             </div>
           </form>
@@ -27,7 +31,33 @@
             </button>
           </div>
         </div>
-        <div *ngSwitchCase="2">firma</div>
+        <div *ngSwitchCase="2">
+          <p>Digite la clave que va a asignar para su firma electronica</p>
+          
+          <form [formGroup]="signingForm" >
+            <div class="form-check mb-4" >
+              <input class="form-check-input" type="checkbox" formControlName="conditions" >
+              <label class="form-check-label" >
+                Acepto condiciones
+              </label>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Ingrese nueva clave</label>
+              <input type="email" class="form-control" formControlName="contrasena" id="password">
+            </div>
+            <div class="mb-3">
+              <label for="confirmpassword" class="form-label">Confirme nueva clave</label>
+              <input type="email" class="form-control" formControlName="confirmcontrasena" id="confirmpassword">
+            </div>
+          </form>
+          <p>Recuerda. La clave debe cumplir con los siguientes requisitos.</p>
+          <ul class="list-requirements">
+            <li [ngStyle]="{'color': contra.dirty && contra.errors?.minlength  ? '#ccc' : '#707070' }">Debe tener mínimo 8 caracteres y máximo 15</li>
+            <li [ngStyle]="{'color': contra.dirty && contra.errors?.notNumber  ? '#ccc' : '#707070' }">Debe tener al menos un (1) número</li>
+            <li [ngStyle]="{'color': contra.dirty && contra.errors?.notLowerUpper  ? '#ccc' : '#707070' }">Debe tener almenos dos letras de la a-z ya sea mayúsculas o minúsculas. Mínimo debe tener una mayúscula</li>
+            <li >No debe tener más de 5 caracteres seguidos con las misma letra (Ejemplo: aaaaa1)</li>
+          </ul>
+        </div>
         <div *ngSwitchDefault>output2</div>
       </div>
     </div>
