@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import * as reducers from '../../reducers/reducers';
 import { Store } from '@ngrx/store';
 import { CreditsService } from '../../services/credits/credits.service';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { ModalTermns } from '../modals/terminos/modalTermns';
 
 @Component({
   selector: 'app-signing',
@@ -26,6 +28,7 @@ export class SigningComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private store: Store<reducers.State>,
+    private modalService: NgbModal,
     private creditService: CreditsService
   ) {
     this.tapSigning = 2;
@@ -71,6 +74,12 @@ export class SigningComponent implements OnInit {
 
   backUpdate() {
     this.router.navigate(['/app/upload/', this.inforequest.cod_neg])
+  }
+
+  aceptarTerminos(event: Event) {
+    event.preventDefault();
+    const modalRef: NgbModalRef = this.modalService.open(ModalTermns, { backdrop: 'static', centered: true, size: 'xl' });
+    modalRef.result.then(null, (imgModal: any) => { });
   }
 
   get code() {

@@ -41,6 +41,7 @@ import { AuthGuard } from '../../auth.guard';
 
 //DIRECTIVES
 import { InputDateDirective } from '../../directives/input-date.directive';
+import { ModalTermns } from '../modals/terminos/modalTermns';
 
 const routes: Routes = [
   {
@@ -107,7 +108,8 @@ const pagesComponets = [
   UploadsComponent,
   CreditApplicationComponent,
   NewRequestComponent,
-  SigningComponent
+  SigningComponent,
+  ModalTermns
 ]
 
 const components = [
@@ -149,6 +151,7 @@ const directives = [
     AngularFontAwesomeModule,
     ...boostrapModules
   ],
+  entryComponents: [ModalTermns],
   exports: [RouterModule]
 })
 export class HomeModule { }
