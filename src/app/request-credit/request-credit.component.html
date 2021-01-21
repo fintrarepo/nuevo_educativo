@@ -355,7 +355,7 @@
                     <div class="content-button-step" style="margin-top: 1em; margin-bottom: 1em;" *ngIf="!loadingRequest">
                         <button class="btn btn-outline-form"
                             (click)="currentStep = 1; currentSubStep = 3;">volver</button>
-                        <button class="btn btn-outline-form" type="submit" value="Simular"
+                        <button id="solicitar_credito" class="btn btn-outline-form" type="submit" value="Simular"
                             [disabled]="!myFormClient.form.valid || !terms">Solicitar</button>
                     </div>
 
