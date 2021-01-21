@@ -3,7 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     templateUrl: './modalTermns.html',
-    styleUrls: ['./modalTermns.css']
+    styleUrls: ['./modalTermns.scss']
 })
 
 // tslint:disable-next-line:component-class-suffix
