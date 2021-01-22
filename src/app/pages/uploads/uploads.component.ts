@@ -28,7 +28,7 @@ export class UploadsComponent implements OnInit {
   tabFiles: number;
   documentsForm: FormGroup;
   allFileUploaded: boolean = false;
-
+  condNegocio: string;
   listRequest$ = this.store.select(reducers.getListRequestResponse);
   numSolicitud: any;
 
@@ -38,7 +38,8 @@ export class UploadsComponent implements OnInit {
     private router: Router,
     private auth: AuthService,
     private store: Store<reducers.State>,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private activateRouter: ActivatedRoute
   ) {
     this.documentsForm = this.formBuilder.group({
       plan_de_pago: ['', Validators.requiredTrue],
@@ -47,7 +48,9 @@ export class UploadsComponent implements OnInit {
       terminos_y_condiciones: ['', [Validators.requiredTrue]],
       fianza_titular: ['', [Validators.requiredTrue]]
     });
-
+    this.activateRouter.params.subscribe(({id}) => {
+      this.condNegocio = id;      
+    })
   }
 
   ngOnInit() {
@@ -58,8 +61,8 @@ export class UploadsComponent implements OnInit {
 
   getDateRequest() {
     this.listRequest$.subscribe(data => {
-      this.numSolicitud = data[0].numero_solicitud;
-
+      this.numSolicitud = data[0]['numero_solicitud'];
+      console.log( this.numSolicitud);
     })
   }
 
@@ -157,7 +160,7 @@ export class UploadsComponent implements OnInit {
   goSigning() {
     this.isLoading = false;
     this.creditService.sendOtp().subscribe(list => {
-      this.router.navigate(['/app/signing'])
+      this.router.navigate(['/app/signing', this.condNegocio])
       console.log(list)
     })
   }

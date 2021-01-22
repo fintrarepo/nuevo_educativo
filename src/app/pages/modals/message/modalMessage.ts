@@ -2,26 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-    templateUrl: './modalTermns.html',
-    styleUrls: ['./modalTermns.scss']
+    templateUrl: './modalMessage.html',
+    styleUrls: ['./modalMessage.scss']
 })
 
 // tslint:disable-next-line:component-class-suffix
-export class ModalTermns implements OnInit {
+export class ModalMessage implements OnInit {
 
     constructor(
         private activeModal: NgbActiveModal
-    ) {
-    }
+    ) { }
 
     closeModal() {
-        this.activeModal.close();
+        this.activeModal.dismiss();
     }
 
     ngOnInit() {
-    }
-    acept(){
-        this.activeModal.dismiss(true);
-        
     }
 }

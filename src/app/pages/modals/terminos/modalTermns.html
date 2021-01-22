@@ -62,10 +62,16 @@
         <P class="unique-paragraph">Las partes acuerdan que <b>FINTRA S.A.</b> se exonera de cualquier responsabilidad, en caso de perdida de las claves y contraseñas de la Firma Electrónica o cualquier otra situación de fuerza mayor o caso fortuito, que impida el uso del instrumento por parte del suscriptor. Tampoco asume ni responde por los problemas que se presenten a causa de virus informáticos o virus malicioso en los equipos informáticos del suscriptor, como por fallas de Internet imputables a éste o su proveedor de Internet. Igualmente, <b>FINTRA S.A.</b> se exonera de cualquier prejuicio que ocasione el suscriptor a terceros de buena fe.</P>
         <b>He leído y acepto el Acuerdo de Firma Electónica</b>
     </div>
-    <div class="modal-footer">
+    <div class="row justify-content-center mb-4">
+        <button class="btn btn-outline-form" (click)="closeModal()">ATRAS</button>
+        <button class="btn button-blue" (click)="acept()">
+          ACEPTO
+        </button>
+    </div>
+    <!-- <div class="modal-footer">
         <button class="btn btn-default btn-circle" (click)="closeModal()">Cancelar</button>
 
         <button type="submit" 
             class="btn btn-primary" ></button>
-    </div>
+    </div> -->
 </form>

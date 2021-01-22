@@ -42,6 +42,7 @@ import { AuthGuard } from '../../auth.guard';
 //DIRECTIVES
 import { InputDateDirective } from '../../directives/input-date.directive';
 import { ModalTermns } from '../modals/terminos/modalTermns';
+import { ModalMessage } from '../modals/message/modalMessage';
 
 const routes: Routes = [
   {
@@ -89,7 +90,7 @@ const routes: Routes = [
         component: ReferredComponent
       },
       {
-        path: 'signing',
+        path: 'signing/:id',
         component: SigningComponent
       }
 
@@ -109,7 +110,8 @@ const pagesComponets = [
   CreditApplicationComponent,
   NewRequestComponent,
   SigningComponent,
-  ModalTermns
+  ModalTermns,
+  ModalMessage
 ]
 
 const components = [
@@ -151,7 +153,7 @@ const directives = [
     AngularFontAwesomeModule,
     ...boostrapModules
   ],
-  entryComponents: [ModalTermns],
+  entryComponents: [ModalTermns, ModalMessage],
   exports: [RouterModule]
 })
 export class HomeModule { }

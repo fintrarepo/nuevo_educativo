@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import * as reducers from '../../reducers/reducers';
 import { Store } from '@ngrx/store';
 import { CreditsService } from '../../services/credits/credits.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ModalTermns } from '../modals/terminos/modalTermns';
+import { ModalMessage } from '../modals/message/modalMessage';
 
 @Component({
   selector: 'app-signing',
@@ -14,24 +15,22 @@ import { ModalTermns } from '../modals/terminos/modalTermns';
 })
 export class SigningComponent implements OnInit {
 
-  listRequest$ = this.store.select(reducers.getListRequestResponse);
-
   tapSigning: number;
   otpForm: FormGroup;
   signingForm: FormGroup;
-  inforequest: any;
   notfound: boolean;
   isLoading: boolean = false;
   textError: string;
+  cod_negocio: string;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private store: Store<reducers.State>,
     private modalService: NgbModal,
-    private creditService: CreditsService
+    private creditService: CreditsService,
+    private activateRoter: ActivatedRoute
   ) {
-    this.tapSigning = 2;
+    this.tapSigning = 1;
     this.notfound = false;
     // form otp
     this.otpForm = this.formBuilder.group({
@@ -40,21 +39,21 @@ export class SigningComponent implements OnInit {
     // form contraseña firma
     this.signingForm = this.formBuilder.group({
       conditions: ['', Validators.requiredTrue],
-      contrasena: ['', [Validators.required, Validators.maxLength(15), Validators.minLength(8), this.numberValid,  this.lowercaseUppercaseValid]],
+      contrasena: ['', [Validators.required, Validators.maxLength(15), Validators.minLength(8), this.numberValid, this.lowercaseUppercaseValid]],
       confirmcontrasena: ['', Validators.required]
     }, { validator: this.confirmPassword });
   }
-  
+
   ngOnInit() {
-    this.listRequest$.subscribe(data => {
-      this.inforequest = data;
+    this.activateRoter.params.subscribe(({id}) => {
+      this.cod_negocio = id;
     })
   }
   validarOtp() {
     if (this.otpForm.valid) {
       this.isLoading = true;
       this.notfound = false;
-      this.creditService.validateOtp({'cod-otp':this.otpForm.value.otp}).subscribe(data => {
+      this.creditService.validateOtp({ 'cod-otp': this.otpForm.value.otp }).subscribe(data => {
         console.log(data.detail)
         this.tapSigning = 2;
         this.isLoading = false;
@@ -73,13 +72,43 @@ export class SigningComponent implements OnInit {
   }
 
   backUpdate() {
-    this.router.navigate(['/app/upload/', this.inforequest.cod_neg])
+    this.router.navigate(['/app/upload/', this.cod_negocio])
   }
 
   aceptarTerminos(event: Event) {
     event.preventDefault();
     const modalRef: NgbModalRef = this.modalService.open(ModalTermns, { backdrop: 'static', centered: true, size: 'xl' });
-    modalRef.result.then(null, (imgModal: any) => { });
+    modalRef.result.then(null, (acepted: any) => {
+      this.signingForm.patchValue({
+        conditions: acepted
+      })
+    });
+  }
+
+  firmar() {
+    if (this.signingForm.invalid) {
+      return;
+    }
+    const data = {
+      'firma': this.signingForm.value.contrasena,
+      'cod-negocio': this.cod_negocio,
+      'unidad': '31'
+    };
+    console.log(data);
+
+    this.creditService.signing(data).subscribe(data => {
+      const modalRef: NgbModalRef = this.modalService.open(ModalMessage, { backdrop: 'static', centered: true});
+      modalRef.result.then(null, () => {
+        this.router.navigate(['/app/dashboard/requests'])
+      });
+      console.log(data)
+    }, err => {
+      this.textError = err.error.detail;
+    })
+
+  }
+  goBack() {
+    this.tapSigning = 1;
   }
 
   get code() {

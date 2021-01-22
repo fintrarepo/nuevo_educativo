@@ -86,6 +86,10 @@ export class CreditsService {
   validateOtp(data) {
     return this.http.post('/webresources/firma/validar-otp', data);
   }
+  
+  signing(data){
+    return this.http.post('/webresources/firma/ingresar-firma', data);
+  }
 
   uploadImage(data, options) {
     return this.http.post('/FileUploadServlet', data, options);
