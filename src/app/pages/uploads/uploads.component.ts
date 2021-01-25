@@ -100,7 +100,6 @@ export class UploadsComponent implements OnInit {
   }
 
   onFileSelected(obj: any, input: any) {
-    console.log("uploading file: ");
     let options: any;
     if (input.target.files && input.target.files.length > 0) {
       this.selectedFile = input.target.files[0];
@@ -132,7 +131,6 @@ export class UploadsComponent implements OnInit {
   }
 
   downloadFile(file) {
-    console.log(file.id_archivo)
     if (file.id_archivo == 159 || file.id_archivo == 161 || file.id_archivo == 162 || file.id_archivo == 167) {
       return this.download(file.id_archivo);
     }
@@ -159,9 +157,8 @@ export class UploadsComponent implements OnInit {
   }
   goSigning() {
     this.isLoading = false;
-    this.creditService.sendOtp().subscribe(list => {
+    this.creditService.sendOtp().subscribe(() => {
       this.router.navigate(['/app/signing', this.condNegocio])
-      console.log(list)
     })
   }
 

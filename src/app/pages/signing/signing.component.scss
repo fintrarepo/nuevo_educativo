@@ -77,6 +77,7 @@
       font-size: .8rem;
       position: relative;
       left: 36px;
+      color: #cccccc;
 
       &::before {
         padding: 3px 8px;
@@ -86,6 +87,23 @@
         position: absolute;
         left: -36px;
         font-size: .7rem;
+      }
+
+    }
+
+    li.valid {
+      color: #198754;
+      &::before {
+        border: 1px solid #198754 !important;
+
+      }
+    }
+
+    li.invalid {
+      color: #dc3545;
+      &::before {
+        border: 1px solid #dc3545 !important;
+
       }
     }
 

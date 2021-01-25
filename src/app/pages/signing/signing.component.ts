@@ -30,7 +30,7 @@ export class SigningComponent implements OnInit {
     private creditService: CreditsService,
     private activateRoter: ActivatedRoute
   ) {
-    this.tapSigning = 1;
+    this.tapSigning = 2;
     this.notfound = false;
     // form otp
     this.otpForm = this.formBuilder.group({
@@ -39,7 +39,7 @@ export class SigningComponent implements OnInit {
     // form contraseña firma
     this.signingForm = this.formBuilder.group({
       conditions: ['', Validators.requiredTrue],
-      contrasena: ['', [Validators.required, Validators.maxLength(15), Validators.minLength(8), this.numberValid, this.lowercaseUppercaseValid]],
+      contrasena: ['', [Validators.required, Validators.maxLength(15), Validators.minLength(8), this.numberValid, this.lowercaseUppercaseValid, this.repeatLetter]],
       confirmcontrasena: ['', Validators.required]
     }, { validator: this.confirmPassword });
   }
@@ -54,13 +54,11 @@ export class SigningComponent implements OnInit {
       this.isLoading = true;
       this.notfound = false;
       this.creditService.validateOtp({ 'cod-otp': this.otpForm.value.otp }).subscribe(data => {
-        console.log(data.detail)
         this.tapSigning = 2;
         this.isLoading = false;
       }, err => {
         this.notfound = true;
         this.textError = err.error.detail;
-        console.log(this.textError);
       })
       this.isLoading = false;
     }
@@ -101,7 +99,6 @@ export class SigningComponent implements OnInit {
       modalRef.result.then(null, () => {
         this.router.navigate(['/app/dashboard/requests'])
       });
-      console.log(data)
     }, err => {
       this.textError = err.error.detail;
     })
@@ -134,6 +131,7 @@ export class SigningComponent implements OnInit {
     if (pass !== confirmpass) {
       group.controls.confirmcontrasena.setErrors({ notSame: true });
     }
+    return null;
   }
 
   /**
@@ -142,7 +140,7 @@ export class SigningComponent implements OnInit {
    */
   numberValid(control: FormControl): { [s: string]: boolean } {
     const mayuscula = new RegExp('.*[0-9].*');
-    if (!control.value.match(mayuscula) && control.value !== '') {
+    if (control.value !== '' && !control.value.match(mayuscula)) {
       return { notNumber: true };
     }
     return null;
@@ -156,11 +154,12 @@ export class SigningComponent implements OnInit {
     return null;
   }
 
-  // repeatLetter(control: FormControl): { [s: string]: boolean } {
-  //   const repeat = new RegExp('.*([a-z])\1\1\1\1.*');
-  //   if (!control.value.match(repeat) && control.value !== '') {
-  //     return { notRepite: true };
-  //   }
-  //   return null;
-  // }
+  repeatLetter(control: FormControl): { [s: string]: boolean } {
+    const repeat = new RegExp('.*([a-z])\\1{4,}.*');
+    if (control.value !== ''  && control.value.match(repeat)) {
+    // if (control.value !== '' && repeat.test(control.value)) {
+      return { notRepite: true };
+    }
+    return null;
+  }
 }

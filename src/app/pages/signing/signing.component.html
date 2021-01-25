@@ -32,7 +32,7 @@
           </div>
         </div>
         <div *ngSwitchCase="2">
-          <p>Digite la clave que va a asignar para su firma electronica</p>
+          <p>Digite la clave que va a asignar para su firma electrónica</p>
 
           <form [formGroup]="signingForm">
             <div class="form-check mb-4">
@@ -49,18 +49,23 @@
             <div class="mb-3">
               <label for="confirmpassword" class="form-label">Confirme nueva clave</label>
               <input type="password" class="form-control" formControlName="confirmcontrasena" id="confirmpassword">
+              <div class="alert alert-danger" role="alert" *ngIf="confContra.touched && confContra.errors?.notSame">
+                <p >Es obligatorio marcar todos los documentos</p>
+              </div>
+              
             </div>
           </form>
           <div>{{signingForm.value | json}}</div>
+          <div>{{signingForm.valid | json}}</div>
           <p>Recuerda. La clave debe cumplir con los siguientes requisitos.</p>
           <ul class="list-requirements">
-            <li [ngStyle]="{'color': contra.dirty && contra.errors?.minlength  ? '#ccc' : '#707070' }">Debe tener mínimo
+            <li [className]="contra.touched && (contra.errors?.minlength || contra.errors?.maxlength)  ? 'invalid' : 'valid'">Debe tener mínimo
               8 caracteres y máximo 15</li>
-            <li [ngStyle]="{'color': contra.dirty && contra.errors?.notNumber  ? '#ccc' : '#707070' }">Debe tener al
+            <li [className]="contra.touched && contra.errors?.notNumber  ? 'invalid' : 'valid'">Debe tener al
               menos un (1) número</li>
-            <li [ngStyle]="{'color': contra.dirty && contra.errors?.notLowerUpper  ? '#ccc' : '#707070' }">Debe tener
+            <li [className]="contra.touched && contra.errors?.notLowerUpper  ? 'invalid' : 'valid'">Debe tener
               almenos dos letras de la a-z ya sea mayúsculas o minúsculas. Mínimo debe tener una mayúscula</li>
-            <li>No debe tener más de 5 caracteres seguidos con las misma letra (Ejemplo: aaaaa1)</li>
+            <li [className]="contra.touched && !contra.errors?.notRepite  ? 'valid' : 'invalid'">No debe tener más de 5 caracteres seguidos con las misma letra (Ejemplo: aaaaa1)</li>
           </ul>
 
           <div class="row justify-content-center mb-4">
