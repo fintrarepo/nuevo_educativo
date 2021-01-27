@@ -30,7 +30,7 @@ export class SigningComponent implements OnInit {
     private creditService: CreditsService,
     private activateRoter: ActivatedRoute
   ) {
-    this.tapSigning = 2;
+    this.tapSigning = 1;
     this.notfound = false;
     // form otp
     this.otpForm = this.formBuilder.group({
@@ -59,8 +59,8 @@ export class SigningComponent implements OnInit {
       }, err => {
         this.notfound = true;
         this.textError = err.error.detail;
+        this.isLoading = false;
       })
-      this.isLoading = false;
     }
 
   }
@@ -87,6 +87,7 @@ export class SigningComponent implements OnInit {
     if (this.signingForm.invalid) {
       return;
     }
+    this.isLoading = true;
     const data = {
       'firma': this.signingForm.value.contrasena,
       'cod-negocio': this.cod_negocio,
@@ -95,11 +96,14 @@ export class SigningComponent implements OnInit {
     console.log(data);
 
     this.creditService.signing(data).subscribe(data => {
+      this.isLoading = false;
       const modalRef: NgbModalRef = this.modalService.open(ModalMessage, { backdrop: 'static', centered: true});
+      modalRef.componentInstance.message = data;
       modalRef.result.then(null, () => {
         this.router.navigate(['/app/dashboard/requests'])
       });
     }, err => {
+      this.isLoading = false;
       this.textError = err.error.detail;
     })
 

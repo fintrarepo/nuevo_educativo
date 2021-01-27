@@ -75,9 +75,9 @@
             acepta en los recuadros uno a uno los términos y condiciones si estás de acuerdo.</p>
         </div>
       </div>
-      <p class="content-loading" *ngIf="isLoading" [ngStyle]="{'padding-top': '2%'}">
+      <!-- <p class="content-loading" *ngIf="true" [ngStyle]="{'padding-top': '2%'}">
         <img src="/assets/images/loading.gif" alt="">
-      </p>
+      </p> -->
       <div class="row justify-content-center content-form">
         <form [formGroup]="documentsForm" >
           <div class="form-check" *ngFor="let list of signinFiles">
@@ -102,8 +102,12 @@
       </div>
       <div class="row justify-content-center">
         <button class="btn btn-outline-form" (click)="nextTap(1)">ATRAS</button>
-        <button class="btn button-blue" (click)="goSigning()" [disabled]="!documentsForm.valid">
+        <button *ngIf="!isLoading" class="btn button-blue" (click)="goSigning()" [disabled]="!documentsForm.valid">
           IR A FIRMAR
+        </button>
+        <button  *ngIf="isLoading" class="btn button-blue"  [disabled]="true">
+          <i class="fa fa-spin-sync"></i>
+          CARGANDO...
         </button>
       </div>
     </div>

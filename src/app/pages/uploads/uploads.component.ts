@@ -56,13 +56,12 @@ export class UploadsComponent implements OnInit {
   ngOnInit() {
     this.loadListFile();
     this.getDateRequest()
-    this.tabFiles = 2;
+    this.tabFiles = 1;
   }
 
   getDateRequest() {
     this.listRequest$.subscribe(data => {
       this.numSolicitud = data[0]['numero_solicitud'];
-      console.log( this.numSolicitud);
     })
   }
 
@@ -156,8 +155,9 @@ export class UploadsComponent implements OnInit {
     this.router.navigate(['/app/dashboard/requests?referidos=true'])
   }
   goSigning() {
-    this.isLoading = false;
+    this.isLoading = true;
     this.creditService.sendOtp().subscribe(() => {
+      this.isLoading = false;
       this.router.navigate(['/app/signing', this.condNegocio])
     })
   }
