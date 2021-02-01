@@ -57,24 +57,44 @@ button.button-blue {
 }
 
 .upload-files {
-  p{
+  p {
     line-height: 20px;
   }
+
   .content-form {
     margin: 36px 0px;
+
     form {
       .form-check {
+        margin-bottom: 10px;
+        font-family: 'Gotham Light Regular';
+
+        button {
+          padding: 6px 25px;
+          line-height: 12px;
+          font-size: 10px;
+          float: right;
+          background-color: #3cff96;
+          border-color: #39f792;
+          font-weight: bold;
+        }
+
         label {
-          font-family: 'Gotham Light Regular';
-          text-decoration: underline;
           cursor: pointer;
+          color: #707070;
+        }
+
+        &:last-child {
+          margin-bottom: 0px;
         }
       }
-      .alert.alert-danger{
+
+      .alert.alert-danger {
         margin-bottom: 0px;
         position: absolute;
         padding: 1px 20px;
-        p{
+
+        p {
           margin-bottom: 0px;
           font-size: 0.8rem;
           color: inherit;

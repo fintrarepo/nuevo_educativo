@@ -14,7 +14,8 @@
         <div class="col-md-12 files-content" *ngFor="let list of listFiles; let i = index">
           <div class="file">
             <div>
-              <img src="{{ path + ''+ (i + 1) + '.svg'}}" alt="documento fintra" class="image-file-big">
+              <img *ngIf="!(list.archivo_cargado != 'N')" src="{{ path + ''+ (i + 1) + '.svg'}}" alt="documento fintra" class="image-file-big">
+              <img *ngIf="list.archivo_cargado != 'N'" src="{{ pathD + ''+ (i + 1) + '.svg'}}" alt="documento fintra" class="image-file-big">
               <p>{{list.descripcion}}</p><br>
               <!-- <span *ngIf="list.file_name">{{list.file_name}}</span> -->
             </div>
@@ -23,7 +24,7 @@
             <div class="options-file">
               <img src="/assets/images/download.png" (click)="downloadFile(list)" *ngIf="showDownload(list)">
               <img src="/assets/images/clip.png" alt="" (click)='fileInputFron.click()'>
-              <img src="/assets/images/trash.png" alt="" (click)="deleteFile(list)">
+              <img *ngIf="list.archivo_cargado != 'N'" src="/assets/images/trash.png" alt="" (click)="openModal(list)">
             </div>
             <!-- <button class="btn btn-outline button-blue" (click)='fileInputFron.click()'
               [ngClass]="list.url != '' ? 'up' : ''">
@@ -48,7 +49,7 @@
                 FINALIZAR ETAPA
               </button>
 
-              <button class="btn btn-next" (click)="nextTap(2)">
+              <button class="btn btn-next" (click)="nextTap(2)" [disabled]="access() > 0">
                 <img src="/assets/images/Icon_ChevronRight.svg" alt="">
                 <span>
                   FIRMAR
@@ -71,7 +72,7 @@
       <div class="row justify-content-center">
         <div class="col-lg-7">
           <h1 class="title-form text-center my-2">Documentos por firmar</h1>
-          <p class="text-center mb-0">Los siguientes documentos se requieren para legalizar tu crédito
+          <p class="text-center mb-0">Los siguientes documentos se requieren para legalizar tu crédito,
             acepta en los recuadros uno a uno los términos y condiciones si estás de acuerdo.</p>
         </div>
       </div>
@@ -79,13 +80,14 @@
         <img src="/assets/images/loading.gif" alt="">
       </p> -->
       <div class="row justify-content-center content-form">
-        <form [formGroup]="documentsForm" >
+        <form [formGroup]="documentsForm"  class="col-lg-6">
           <div class="form-check" *ngFor="let list of signinFiles">
             <input class="form-check-input" type="checkbox" [formControlName]="list.nombre_archivo"  [value]="list.id_archivo" [id]="list.nombre_archivo">
-            <!-- <label class="form-check-label" [for]="list.nombre_archivo" (click)="downloadFile(list)"> -->
-            <label class="form-check-label" (click)="downloadFile(list)">
+            <label class="form-check-label" [for]="list.nombre_archivo">
+            <!-- <label class="form-check-label"> -->
               {{list.descripcion}}
             </label>
+            <button class="btn btn-success" (click)="downloadFile(list)">Ver</button>
           </div>
           <div class="alert alert-danger" role="alert" *ngIf="(planpago.errors && planpago.dirty) || (asesoria.errors && asesoria.dirty) || (poliza.errors && poliza.dirty) || (terminos.errors && terminos.dirty) || (aval.errors && aval.dirty)">
             <p >Es obligatorio marcar todos los documentos</p>
@@ -94,7 +96,7 @@
       </div>
       <div class="row justify-content-center">
         <div class="col-lg-7">
-          <p class="text-center mb-4">Confirmo que he leído, comprendido, y estoy de acuerdo con los términos y
+          <p class="text-center mb-3">Confirmo que he leído, comprendido, y estoy de acuerdo con los términos y
             condiciones
             planteados en los
             documentos anteriormente detallados.</p>
@@ -125,7 +127,8 @@
         <div class="col-md-12 files-content" *ngFor="let list of listFiles; let i = index">
           <div class="file">
             <div>
-              <img src="{{ path + ''+ (i + 1) + '.svg'}}" alt="documento fintra" class="image-file-big">
+              <img *ngIf="!(list.archivo_cargado != 'N')" src="{{ path + ''+ (i + 1) + '.svg'}}" alt="documento fintra" class="image-file-big">
+              <img *ngIf="list.archivo_cargado != 'N'" src="{{ pathD + ''+ (i + 1) + '.svg'}}" alt="documento fintra" class="image-file-big">
               <p>{{list.descripcion}}</p><br>
               <!-- <span *ngIf="list.file_name">{{list.file_name}}</span> -->
             </div>
@@ -134,7 +137,7 @@
             <div class="options-file">
               <img src="/assets/images/download.png" (click)="downloadFile(list)" *ngIf="showDownload(list)">
               <img src="/assets/images/clip.png" alt="" (click)='fileInputFron.click()'>
-              <img src="/assets/images/trash.png" alt="" (click)="deleteFile(list)">
+              <img *ngIf="list.archivo_cargado != 'N'" src="/assets/images/trash.png" alt="" (click)="openModal(list)">
             </div>
             <!-- <button class="btn btn-outline button-blue" (click)='fileInputFron.click()'
               [ngClass]="list.url != '' ? 'up' : ''">
@@ -159,7 +162,7 @@
                 FINALIZAR ETAPA
               </button>
 
-              <button class="btn btn-next" (click)="nextTap(2)">
+              <button class="btn btn-next" (click)="nextTap(2)" [disabled]="access() > 0">
                 <img src="/assets/images/Icon_ChevronRight.svg" alt="">
                 <span>
                   FIRMAR

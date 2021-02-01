@@ -10,6 +10,9 @@ import { AuthService } from '../../services/auth/auth.service'
 import { Store } from '@ngrx/store';
 import * as reducers from '../../reducers/reducers';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDelete } from '../modals/delete/modalDelete';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-uploads',
@@ -24,6 +27,7 @@ export class UploadsComponent implements OnInit {
   public adj = 'Adjuntar';
   public adt = 'Adjuntado';
   path = '/assets/images/Icon_Adjuntar ';
+  pathD = '/assets/images/Icon_Adjuntar_green ';
   isLoading: boolean = true;
   tabFiles: number;
   documentsForm: FormGroup;
@@ -39,7 +43,8 @@ export class UploadsComponent implements OnInit {
     private auth: AuthService,
     private store: Store<reducers.State>,
     private formBuilder: FormBuilder,
-    private activateRouter: ActivatedRoute
+    private activateRouter: ActivatedRoute,
+    private modalService: NgbModal
   ) {
     this.documentsForm = this.formBuilder.group({
       plan_de_pago: ['', Validators.requiredTrue],
@@ -48,15 +53,15 @@ export class UploadsComponent implements OnInit {
       terminos_y_condiciones: ['', [Validators.requiredTrue]],
       fianza_titular: ['', [Validators.requiredTrue]]
     });
-    this.activateRouter.params.subscribe(({id}) => {
-      this.condNegocio = id;      
+    this.activateRouter.params.subscribe(({ id }) => {
+      this.condNegocio = id;
     })
   }
 
   ngOnInit() {
     this.loadListFile();
     this.getDateRequest()
-    this.tabFiles = 1;
+    this.tabFiles = 2;
   }
 
   getDateRequest() {
@@ -85,7 +90,16 @@ export class UploadsComponent implements OnInit {
     });
   }
 
+  openModal(item) {
+    const modalRef: NgbModalRef = this.modalService.open(ModalDelete, { backdrop: 'static', centered: true });
+    modalRef.componentInstance.document = item;
+    modalRef.componentInstance.passEntry.subscribe((receivedEntry) => {
+      this.deleteFile(receivedEntry);
+    })
+  }
+
   deleteFile(list) {
+    this.isLoading = true;
     const params: listFile = {
       option: 4,
       numero_solicitud: this.route.snapshot.paramMap.get('id'),
@@ -95,6 +109,7 @@ export class UploadsComponent implements OnInit {
     };
     this.creditService.deleteFile(params).subscribe(list => {
       this.isLoading = false;
+      this.loadListFile();
     });
   }
 
@@ -114,7 +129,6 @@ export class UploadsComponent implements OnInit {
       };
 
       this.creditService.uploadImage(formData, options).subscribe(info => {
-        console.log(info);
         if (info.success) {
           this.loadListFile();
         }
@@ -160,6 +174,16 @@ export class UploadsComponent implements OnInit {
       this.isLoading = false;
       this.router.navigate(['/app/signing', this.condNegocio])
     })
+  }
+
+  access(){
+    if(this.listFiles.length > 0) {
+      let longitud = this.listFiles.filter(doc => doc.archivo_cargado === 'N');
+      
+      return longitud.length;
+    }
+    
+    return this.listFiles.length;
   }
 
   nextTap(tap) {

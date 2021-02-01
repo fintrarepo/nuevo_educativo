@@ -43,6 +43,7 @@ import { AuthGuard } from '../../auth.guard';
 import { InputDateDirective } from '../../directives/input-date.directive';
 import { ModalTermns } from '../modals/terminos/modalTermns';
 import { ModalMessage } from '../modals/message/modalMessage';
+import { ModalDelete } from '../modals/delete/modalDelete';
 
 const routes: Routes = [
   {
@@ -111,7 +112,8 @@ const pagesComponets = [
   NewRequestComponent,
   SigningComponent,
   ModalTermns,
-  ModalMessage
+  ModalMessage,
+  ModalDelete
 ]
 
 const components = [
@@ -153,7 +155,7 @@ const directives = [
     AngularFontAwesomeModule,
     ...boostrapModules
   ],
-  entryComponents: [ModalTermns, ModalMessage],
+  entryComponents: [ModalTermns, ModalMessage, ModalDelete],
   exports: [RouterModule]
 })
 export class HomeModule { }
