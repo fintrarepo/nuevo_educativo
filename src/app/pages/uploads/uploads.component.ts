@@ -66,7 +66,9 @@ export class UploadsComponent implements OnInit {
 
   getDateRequest() {
     this.listRequest$.subscribe(data => {
-      this.numSolicitud = data[0]['numero_solicitud'];
+      if (data) {
+        this.numSolicitud = data[0]['numero_solicitud'];
+      }
     })
   }
 
@@ -168,21 +170,24 @@ export class UploadsComponent implements OnInit {
   save() {
     this.router.navigate(['/app/dashboard/requests?referidos=true'])
   }
+
   goSigning() {
     this.isLoading = true;
-    this.creditService.sendOtp().subscribe(() => {
+
+    this.creditService.sendOtp().subscribe((response) => {
+      this.creditService.addMessage(response);
       this.isLoading = false;
       this.router.navigate(['/app/signing', this.condNegocio])
     })
   }
 
-  access(){
-    if(this.listFiles.length > 0) {
+  access() {
+    if (this.listFiles.length > 0) {
       let longitud = this.listFiles.filter(doc => doc.archivo_cargado === 'N');
-      
+
       return longitud.length;
     }
-    
+
     return this.listFiles.length;
   }
 

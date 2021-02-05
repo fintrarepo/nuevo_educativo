@@ -22,12 +22,16 @@ export class SigningComponent implements OnInit {
   isLoading: boolean = false;
   textError: string;
   cod_negocio: string;
+  mensaje: any;
+  numSolicitud: any;
+  listRequest$ = this.store.select(reducers.getListRequestResponse);
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private modalService: NgbModal,
     private creditService: CreditsService,
+    private store: Store<reducers.State>,
     private activateRoter: ActivatedRoute
   ) {
     this.tapSigning = 1;
@@ -45,10 +49,22 @@ export class SigningComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.activateRoter.params.subscribe(({id}) => {
+    this.activateRoter.params.subscribe(({ id }) => {
       this.cod_negocio = id;
     })
+    this.creditService.dataOto$.subscribe(dato => this.mensaje = dato);
+    this.getDateRequest();
   }
+
+
+  getDateRequest() {
+    this.listRequest$.subscribe(data => {
+      if (data) {
+        this.numSolicitud = data[0]['numero_solicitud'];
+      }
+    })
+  }
+
   validarOtp() {
     if (this.otpForm.valid) {
       this.isLoading = true;
@@ -91,13 +107,14 @@ export class SigningComponent implements OnInit {
     const data = {
       'firma': this.signingForm.value.contrasena,
       'cod-negocio': this.cod_negocio,
-      'unidad': '31'
+      'unidad': '31',
+      'cod-solicitud': this.numSolicitud
     };
     console.log(data);
 
     this.creditService.signing(data).subscribe(data => {
       this.isLoading = false;
-      const modalRef: NgbModalRef = this.modalService.open(ModalMessage, { backdrop: 'static', centered: true});
+      const modalRef: NgbModalRef = this.modalService.open(ModalMessage, { backdrop: 'static', centered: true });
       modalRef.componentInstance.message = data;
       modalRef.result.then(null, () => {
         this.router.navigate(['/app/dashboard/requests'])
@@ -160,8 +177,8 @@ export class SigningComponent implements OnInit {
 
   repeatLetter(control: FormControl): { [s: string]: boolean } {
     const repeat = new RegExp('.*([a-z])\\1{4,}.*');
-    if (control.value !== ''  && control.value.match(repeat)) {
-    // if (control.value !== '' && repeat.test(control.value)) {
+    if (control.value !== '' && control.value.match(repeat)) {
+      // if (control.value !== '' && repeat.test(control.value)) {
       return { notRepite: true };
     }
     return null;
