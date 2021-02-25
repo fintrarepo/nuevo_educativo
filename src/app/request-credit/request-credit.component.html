@@ -124,7 +124,7 @@
                         <div class="form-group col-md-6 col-lg-4">
 
                             <div style="display: flex; ">
-                                <label class="subtitle-form">Plazo del crédito</label>
+                                <label class="subtitle-form">Plazo del crédito (meses)</label>
                                 <div class="mytooltip top" style="margin-left: 10px;">
                                     <div class="information-icon">
                                         ?
@@ -315,7 +315,7 @@
             </div>
 
             <div class="block-form">
-                <form ngNativeValidate (submit)="queryDataCredit()" #myFormClient="ngForm">
+                <form ngNativeValidate (submit)="runValidation()" #myFormClient="ngForm">
                     <div class="form-row" style="justify-content: center;">
                         <div class="form-group col-md-6 col-lg-4">
                             <label class="subtitle-form">Primer apellido</label>
@@ -325,13 +325,14 @@
                                 #primer_apellido="ngModel" />
                         </div>
                         <div class="form-group col-md-6 col-lg-4">
-                            <label class="subtitle-form"># de cédula</label>
+                            <label class="subtitle-form">Número de cédula</label>
                             <input type="number" class="form-control" [(ngModel)]="form.identificacion"
                                 name="identificacion" required="true"
                                 [ngClass]="{'invalid': identificacion.invalid && changeFormDataCredit }"
                                 #identificacion="ngModel" />
                         </div>
                     </div>
+                    <p *ngIf="invalidCc" class="text-center text-danger">Error al intentar consultar su número de cedula</p>
                     <div class="terms-and-conditions">
                         <!-- <label class="container" style="padding: 0; margin-top: 5px;
                         margin-right: 10px;">
@@ -418,14 +419,29 @@
         <div class="step-content" *ngIf="currentSubStep==3">
             <div class="content-message-information">
                 <img src="/assets/images/No aprobado_icon-01-01.png" style="width: 140px; margin-bottom: 2em;">
-                <h2>Algo no salió bien, pero tranquilo</h2>
+                <!-- <h2>Algo no salió bien, pero tranquilo</h2> -->
+                <h2>{{messageError}}</h2>
 
                 <p>
                     <!-- Te ayudamos a encontrar más opciones. Contáctanos a nuestras líneas de atención disponibles. -->
-                    {{messageError}}
+                    
+                    Para ingresar a tu cuenta, inicia sesión con tu usuario (correo registrado) y contraseña
+                    (cédula registrada). <a [routerLink]="['/login']" >Ir a iniciar sesión</a>
                 </p>
 
 
+            </div>
+        </div>
+
+
+        <div class="step-content" *ngIf="currentSubStep==4">
+            <div class="content-message-information">
+                <img src="/assets/images/No aprobado_icon-01-01.png" style="width: 140px; margin-bottom: 2em;">
+                <h2>Algo no salió bien, pero tranquilo. Contáctanos directamente para poder ayudarte</h2>
+
+                <div class="content-button-step">
+                    <button class="btn btn-outline-form">Contáctanos</button>
+                </div>
             </div>
         </div>
     </div>

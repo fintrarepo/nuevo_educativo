@@ -89,7 +89,7 @@
             </label>
             <button class="btn btn-success" (click)="downloadFile(list)">Ver</button>
           </div>
-          <div class="alert alert-danger" role="alert" *ngIf="(planpago.errors && planpago.dirty) || (asesoria.errors && asesoria.dirty) || (poliza.errors && poliza.dirty) || (terminos.errors && terminos.dirty) || (aval.errors && aval.dirty)">
+          <div class="alert alert-danger" role="alert" *ngIf="(documentsForm.get('plan_de_pago').errors && documentsForm.get('plan_de_pago').dirty) || (documentsForm.get('otros_soportes_1_titular').errors && documentsForm.get('otros_soportes_1_titular').dirty) || (documentsForm.get('seguro_titular').errors && documentsForm.get('seguro_titular').dirty) || (documentsForm.get('terminos_y_condiciones').errors && documentsForm.get('terminos_y_condiciones').dirty) || (documentsForm.get('fianza_titular').errors && documentsForm.get('fianza_titular').dirty)">
             <p >Es obligatorio marcar todos los documentos</p>
           </div>
         </form>

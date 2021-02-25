@@ -41,10 +41,14 @@ import { AuthGuard } from '../../auth.guard';
 
 //DIRECTIVES
 import { InputDateDirective } from '../../directives/input-date.directive';
+
+// modals
 import { ModalTermns } from '../modals/terminos/modalTermns';
 import { ModalMessage } from '../modals/message/modalMessage';
 import { ModalDelete } from '../modals/delete/modalDelete';
-
+import { ModalPdf } from '../modals/pdf/modalPdf';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { SafePipe } from '../../pipes/safe.pipe';
 const routes: Routes = [
   {
     path: '',
@@ -113,7 +117,8 @@ const pagesComponets = [
   SigningComponent,
   ModalTermns,
   ModalMessage,
-  ModalDelete
+  ModalDelete,
+  ModalPdf
 ]
 
 const components = [
@@ -144,7 +149,8 @@ const directives = [
   declarations: [
     ...pagesComponets,
     ...components,
-    ...directives
+    ...directives,
+    SafePipe 
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -153,9 +159,10 @@ const directives = [
     ArchwizardModule,
     FormsModule,
     AngularFontAwesomeModule,
-    ...boostrapModules
+    ...boostrapModules,
+    NgxExtendedPdfViewerModule
   ],
-  entryComponents: [ModalTermns, ModalMessage, ModalDelete],
+  entryComponents: [ModalTermns, ModalMessage, ModalDelete, ModalPdf],
   exports: [RouterModule]
 })
 export class HomeModule { }

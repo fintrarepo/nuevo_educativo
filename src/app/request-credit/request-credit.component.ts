@@ -54,6 +54,7 @@ export class RequestCreditComponent implements OnInit {
   validacion;
   procesoConvenioGuid;
   token;
+  invalidCc: boolean = false;
 
   constructor(public utils: UtilsService, private credit: CreditsService, private route: ActivatedRoute) {
     this.referred = this.route.snapshot.queryParamMap.get('referido');
@@ -106,10 +107,17 @@ export class RequestCreditComponent implements OnInit {
               if (data.finalizado == true && data.estadoProceso == 2 && data.cancelado == false && data.aprobado == true) {
                 return this.queryDataCredit();
               }
+              if (data.finalizado == true && (data.estadoProceso == 2 || data.estadoProceso == 1) && data.cancelado == false && data.aprobado == false) {
+                // TODO la solicitud fue rechazada (la validación de reconocer no pasó los filtros)
+                this.loadingRequest = false;
+                this.currentStep = 4;
+                this.currentSubStep = 3;
+              }
 
-              this.loadingRequest = false;
-              this.currentStep = 3;
-              this.currentSubStep = 3;
+
+              // this.loadingRequest = false;
+              // this.currentStep = 3;
+              // this.currentSubStep = 3;
             }
           });
         } else {
@@ -333,6 +341,7 @@ export class RequestCreditComponent implements OnInit {
 
 
   async runValidation() {
+    this.invalidCc = false;
     this.loadingRequest = true;
     this.validacion = { ...this.validacion, numDoc: this.form.identificacion.toString(), email: this.form.email, }
     //this.validacion = {...this.validacion,  numDoc: "1143444600", email: "antoniojsh93@gmail.com" }
@@ -348,6 +357,10 @@ export class RequestCreditComponent implements OnInit {
         url = resp.data.url;
         this.procesoConvenioGuid = resp.data.procesoConvenioGuid
       }
+    })
+    .catch(err => {
+      this.loadingRequest = false;
+      this.invalidCc = true;
     });
     if (url) {
       this.iFrame.src = url;

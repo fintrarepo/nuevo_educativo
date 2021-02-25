@@ -13,6 +13,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ModalDelete } from '../modals/delete/modalDelete';
 import { filter } from 'rxjs/operators';
+import { ModalPdf } from '../modals/pdf/modalPdf';
 
 @Component({
   selector: 'app-uploads',
@@ -66,7 +67,9 @@ export class UploadsComponent implements OnInit {
 
   getDateRequest() {
     this.listRequest$.subscribe(data => {
-      this.numSolicitud = data[0]['numero_solicitud'];
+      if (data) {
+        this.numSolicitud = data[0]['numero_solicitud'];
+      }
     })
   }
 
@@ -96,6 +99,11 @@ export class UploadsComponent implements OnInit {
     modalRef.componentInstance.passEntry.subscribe((receivedEntry) => {
       this.deleteFile(receivedEntry);
     })
+  }
+
+  viewPdf(item) {
+    const modalRef: NgbModalRef = this.modalService.open(ModalPdf, { backdrop: 'static', centered: true, size: 'xl' });
+    modalRef.componentInstance.url_pdf = item;
   }
 
   deleteFile(list) {
@@ -145,7 +153,8 @@ export class UploadsComponent implements OnInit {
 
   downloadFile(file) {
     if (file.id_archivo == 159 || file.id_archivo == 161 || file.id_archivo == 162 || file.id_archivo == 167) {
-      return this.download(file.id_archivo);
+      // return this.download(file.id_archivo);
+      this.viewPdf("/assets/pdf/" + file.id_archivo + ".pdf");
     }
 
     if (file.id_archivo == 158) {
@@ -168,40 +177,43 @@ export class UploadsComponent implements OnInit {
   save() {
     this.router.navigate(['/app/dashboard/requests?referidos=true'])
   }
+
   goSigning() {
     this.isLoading = true;
-    this.creditService.sendOtp().subscribe(() => {
+
+    this.creditService.sendOtp().subscribe((response) => {
+      this.creditService.addMessage(response);
       this.isLoading = false;
       this.router.navigate(['/app/signing', this.condNegocio])
     })
   }
 
-  access(){
-    if(this.listFiles.length > 0) {
+  access() {
+    if (this.listFiles.length > 0) {
       let longitud = this.listFiles.filter(doc => doc.archivo_cargado === 'N');
-      
+
       return longitud.length;
     }
-    
+
     return this.listFiles.length;
   }
 
   nextTap(tap) {
     this.tabFiles = tap;
   }
-  get planpago() {
-    return this.documentsForm.get('plan_de_pago');
-  }
-  get asesoria() {
-    return this.documentsForm.get('otros_soportes_1_titular');
-  }
-  get poliza() {
-    return this.documentsForm.get('seguro_titular');
-  }
-  get terminos() {
-    return this.documentsForm.get('terminos_y_condiciones');
-  }
-  get aval() {
-    return this.documentsForm.get('fianza_titular');
-  }
+  // get planpago() {
+  //   return this.documentsForm.get('plan_de_pago');
+  // }
+  // get asesoria() {
+  //   return this.documentsForm.get('otros_soportes_1_titular');
+  // }
+  // get poliza() {
+  //   return this.documentsForm.get('seguro_titular');
+  // }
+  // get terminos() {
+  //   return this.documentsForm.get('terminos_y_condiciones');
+  // }
+  // get aval() {
+  //   return this.documentsForm.get('fianza_titular');
+  // }
 }

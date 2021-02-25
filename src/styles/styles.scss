@@ -549,3 +549,12 @@ input[type="number"] {
     color: white;
   }
 }
+select#scaleSelect, input#pageNumber {
+  font-size: 12px;
+  height: 26px !important;
+  cursor: pointer;
+  border-radius: 2px;
+  border-width: 1px;
+  border-style: solid !important;
+  border: 1px solid rgba(0,0,0,.4) !important;
+}

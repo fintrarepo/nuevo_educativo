@@ -3,6 +3,7 @@ import { HttpService } from '../http/http.service';
 import { ISimulator, IPreApplication, listFile } from '../../models/credits.model';
 import { HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment'
+import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,7 +13,18 @@ export class CreditsService {
       'Content-Type': 'application/json'
     })
   };
+
+  private messages: any = [];
+  private dataOto = new BehaviorSubject<any>([]);
+
+  dataOto$ = this.dataOto.asObservable();
+
   constructor(private http: HttpService) { }
+
+  addMessage(message: any) {
+    // this.messages = [message];
+    this.dataOto.next(message);
+  }
 
   simulateNotToken(data) {
     return this.http.post('/webresources/loans/approximate_fee', data);
@@ -96,7 +108,6 @@ export class CreditsService {
   }
 
   registerUser(data) {
-    console.log(data);
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
