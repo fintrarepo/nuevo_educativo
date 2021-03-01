@@ -177,6 +177,7 @@ export class Tab1PersonalInformationComponent implements OnInit {
         }
         else {
           this.form.controls[i].setValue(response.data[i])
+          this.form.controls['celular'].setValue(response.data['telefono'])
         }
       }
 
