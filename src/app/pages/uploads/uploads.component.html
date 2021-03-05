@@ -22,7 +22,7 @@
             <input type="file" style="display: none" #fileInputFron (change)="onFileSelected(list, $event)"
               [disabled]="list.url != '' ? true : false">
             <div class="options-file">
-              <img src="/assets/images/download.png" (click)="downloadFile(list)" *ngIf="showDownload(list)">
+              <img src="/assets/images/download.png" (click)="downloadFile(list)">
               <img src="/assets/images/clip.png" alt="" (click)='fileInputFron.click()'>
               <img *ngIf="list.archivo_cargado != 'N'" src="/assets/images/trash.png" alt="" (click)="openModal(list)">
             </div>
@@ -89,7 +89,7 @@
             </label>
             <button class="btn btn-success" (click)="downloadFile(list)">Ver</button>
           </div>
-          <div class="alert alert-danger" role="alert" *ngIf="(documentsForm.get('plan_de_pago').errors && documentsForm.get('plan_de_pago').dirty) || (documentsForm.get('otros_soportes_1_titular').errors && documentsForm.get('otros_soportes_1_titular').dirty) || (documentsForm.get('seguro_titular').errors && documentsForm.get('seguro_titular').dirty) || (documentsForm.get('terminos_y_condiciones').errors && documentsForm.get('terminos_y_condiciones').dirty) || (documentsForm.get('fianza_titular').errors && documentsForm.get('fianza_titular').dirty)">
+          <div class="alert alert-danger" role="alert" *ngIf="(documentsForm.get('pagare_deceval').errors && documentsForm.get('pagare_deceval').dirty) || (documentsForm.get('otros_soportes_1_titular').errors && documentsForm.get('otros_soportes_1_titular').dirty) || (documentsForm.get('seguro_titular').errors && documentsForm.get('seguro_titular').dirty) || (documentsForm.get('terminos_y_condiciones').errors && documentsForm.get('terminos_y_condiciones').dirty) || (documentsForm.get('fianza_titular').errors && documentsForm.get('fianza_titular').dirty)">
             <p >Es obligatorio marcar todos los documentos</p>
           </div>
         </form>
@@ -135,7 +135,7 @@
             <input type="file" style="display: none" #fileInputFron (change)="onFileSelected(list, $event)"
               [disabled]="list.url != '' ? true : false">
             <div class="options-file">
-              <img src="/assets/images/download.png" (click)="downloadFile(list)" *ngIf="showDownload(list)">
+              <img src="/assets/images/download.png" (click)="downloadFile(list)">
               <img src="/assets/images/clip.png" alt="" (click)='fileInputFron.click()'>
               <img *ngIf="list.archivo_cargado != 'N'" src="/assets/images/trash.png" alt="" (click)="openModal(list)">
             </div>

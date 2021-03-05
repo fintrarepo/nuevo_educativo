@@ -34,7 +34,6 @@ export class UploadsComponent implements OnInit {
   documentsForm: FormGroup;
   allFileUploaded: boolean = false;
   condNegocio: string;
-  listRequest$ = this.store.select(reducers.getListRequestResponse);
   numSolicitud: any;
 
   constructor(
@@ -42,13 +41,12 @@ export class UploadsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private auth: AuthService,
-    private store: Store<reducers.State>,
     private formBuilder: FormBuilder,
     private activateRouter: ActivatedRoute,
     private modalService: NgbModal
   ) {
     this.documentsForm = this.formBuilder.group({
-      plan_de_pago: ['', Validators.requiredTrue],
+      pagare_deceval: ['', Validators.requiredTrue],
       otros_soportes_1_titular: ['', Validators.requiredTrue],
       seguro_titular: ['', Validators.requiredTrue],
       terminos_y_condiciones: ['', [Validators.requiredTrue]],
@@ -60,37 +58,43 @@ export class UploadsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.numSolicitud = this.route.snapshot.paramMap.get('sol')
     this.loadListFile();
-    this.getDateRequest()
     this.tabFiles = 2;
   }
 
-  getDateRequest() {
-    this.listRequest$.subscribe(data => {
-      if (data) {
-        this.numSolicitud = data[0]['numero_solicitud'];
-      }
-    })
-  }
-
   loadListFile() {
+    const negocio = this.route.snapshot.paramMap.get('id');
     const params: listFile = {
-      option: 2,
-      numero_solicitud: this.route.snapshot.paramMap.get('id'),
+      option: 10,
+      numero_solicitud: negocio,
       user: this.auth.id_usuario,
       und_negocio: 31
     };
+    // documentos a firmar
     this.creditService.loadFileList(params).subscribe(list => {
       this.isLoading = false;
-      const allFiles = list.data.filter(x => x.visible === 'S');
-      this.signinFiles = allFiles.filter(x => (x.id_archivo == 159 || x.id_archivo == 161 || x.id_archivo == 162 || x.id_archivo == 167 || x.id_archivo == 158))
-      this.listFiles = allFiles.filter(x => (x.id_archivo == 150 || x.id_archivo == 151 || x.id_archivo == 415 || x.id_archivo == 416 || x.id_archivo == 160))
-
-
+      this.signinFiles = list.data;
       const filesUploaded = this.listFiles.filter(x => x.url != '')
       this.allFileUploaded = filesUploaded.length == 3 ? true : false;
 
     });
+
+    const params2: listFile = {
+      option: 11,
+      numero_solicitud: negocio,
+      user: this.auth.id_usuario,
+      und_negocio: 31
+    };
+    // documentos a subir
+    this.creditService.loadFileList(params2).subscribe(list => {
+      this.isLoading = false;
+      this.listFiles = list.data
+      const filesUploaded = this.listFiles.filter(x => x.url != '')
+      this.allFileUploaded = filesUploaded.length == 3 ? true : false;
+
+    });
+
   }
 
   openModal(item) {
@@ -152,18 +156,20 @@ export class UploadsComponent implements OnInit {
   }
 
   downloadFile(file) {
-    if (file.id_archivo == 159 || file.id_archivo == 161 || file.id_archivo == 162 || file.id_archivo == 167) {
+    if (file.url === '') {
       // return this.download(file.id_archivo);
       this.viewPdf("/assets/pdf/" + file.id_archivo + ".pdf");
     }
 
-    if (file.id_archivo == 158) {
+    if (file.url != '') {
       // return this.creditService.planDePagos(String(this.route.snapshot.paramMap.get('id')))
-      return this.creditService.planDePagos(String(this.numSolicitud))
+      const params = { "cod-solicitud": String(this.numSolicitud) }
+      return this.creditService.pagare(params)
         .subscribe(x => {
-
+          console.log(x.data);
+          this.viewPdf(x.data);
           // window.open(encodeURIComponent(x.data));
-          window.open(x.data);
+          // window.open(x.data);
         })
     }
   }
@@ -201,19 +207,4 @@ export class UploadsComponent implements OnInit {
   nextTap(tap) {
     this.tabFiles = tap;
   }
-  // get planpago() {
-  //   return this.documentsForm.get('plan_de_pago');
-  // }
-  // get asesoria() {
-  //   return this.documentsForm.get('otros_soportes_1_titular');
-  // }
-  // get poliza() {
-  //   return this.documentsForm.get('seguro_titular');
-  // }
-  // get terminos() {
-  //   return this.documentsForm.get('terminos_y_condiciones');
-  // }
-  // get aval() {
-  //   return this.documentsForm.get('fianza_titular');
-  // }
 }

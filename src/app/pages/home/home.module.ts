@@ -70,7 +70,7 @@ const routes: Routes = [
         component: DashboardComponent
       },
       {
-        path: 'upload/:id',
+        path: 'upload/:id/:sol',
         component: UploadsComponent
       },
       {
