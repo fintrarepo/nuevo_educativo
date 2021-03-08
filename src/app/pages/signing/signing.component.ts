@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import * as reducers from '../../reducers/reducers';
-import { Store } from '@ngrx/store';
 import { CreditsService } from '../../services/credits/credits.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ModalTermns } from '../modals/terminos/modalTermns';
@@ -24,17 +22,15 @@ export class SigningComponent implements OnInit {
   cod_negocio: string;
   mensaje: any;
   numSolicitud: any;
-  listRequest$ = this.store.select(reducers.getListRequestResponse);
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private modalService: NgbModal,
     private creditService: CreditsService,
-    private store: Store<reducers.State>,
     private activateRoter: ActivatedRoute
   ) {
-    this.tapSigning = 1;
+    this.tapSigning = 2;
     this.notfound = false;
     // form otp
     this.otpForm = this.formBuilder.group({
@@ -49,20 +45,11 @@ export class SigningComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.activateRoter.params.subscribe(({ id }) => {
+    this.activateRoter.params.subscribe(({ id, sol }) => {
       this.cod_negocio = id;
+      this.numSolicitud = sol;
     })
     this.creditService.dataOto$.subscribe(dato => this.mensaje = dato);
-    this.getDateRequest();
-  }
-
-
-  getDateRequest() {
-    this.listRequest$.subscribe(data => {
-      if (data) {
-        this.numSolicitud = data[0]['numero_solicitud'];
-      }
-    })
   }
 
   validarOtp() {
@@ -110,7 +97,6 @@ export class SigningComponent implements OnInit {
       'unidad': '31',
       'cod-solicitud': this.numSolicitud
     };
-    console.log(data);
 
     this.creditService.signing(data).subscribe(data => {
       this.isLoading = false;
@@ -127,19 +113,6 @@ export class SigningComponent implements OnInit {
   }
   goBack() {
     this.tapSigning = 1;
-  }
-
-  get code() {
-    return this.otpForm.get('otp');
-  }
-  get contra() {
-    return this.signingForm.get('contrasena');
-  }
-  get confContra() {
-    return this.signingForm.get('confirmcontrasena');
-  }
-  get condiciones() {
-    return this.otpForm.get('conditions');
   }
 
   /**

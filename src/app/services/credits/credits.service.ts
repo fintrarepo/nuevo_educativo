@@ -124,6 +124,7 @@ export class CreditsService {
   planDePagos(numero_solicitud) {
     return this.http.get(environment.fintra + '/EndPointCoreServlet?' + "option=5&user=" + numero_solicitud + "&numsolc=" + numero_solicitud + "", this.options)
   }
+
   pagare(params) {
     return this.http.post('/webresources/deceval/generar-pagare-pdf', params)
   }

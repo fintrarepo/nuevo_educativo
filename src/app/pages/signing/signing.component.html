@@ -15,12 +15,12 @@
           </h2>
           <p >Digite la clave dinámica de verificación enviada al celular: <b>{{mensaje.value}}</b></p>
           <form [formGroup]="otpForm" class="form-code">
-            <div class="mb-3 content-form">
+            <div class="mb-5 content-form">
               <label for="otpInput" class="form-label">Clave dinámica de verificación</label>
               <input type="number" class="form-control" formControlName="otp" id="otpInput">
-              <div class="alert alert-danger" role="alert" *ngIf="(code.errors && code.dirty) || notfound">
-                <p *ngIf="code.hasError('required')">El código es obligatorio</p>
-                <p *ngIf="notfound">{{textError}}</p>
+              <div class="alert alert-danger" role="alert" *ngIf="(otpForm.get('otp').errors && otpForm.get('otp').dirty) || notfound">
+                <span *ngIf="otpForm.get('otp').errors?.required">La clave de verificación es obligatoria</span>
+                <span *ngIf="notfound">{{textError}}</span>
               </div>
             </div>
           </form>
@@ -50,24 +50,24 @@
               <label for="password" class="form-label">Ingrese nueva clave</label>
               <input type="password" class="form-control" formControlName="contrasena" id="password">
             </div>
-            <div class="mb-3">
+            <div class="mb-5">
               <label for="confirmpassword" class="form-label">Confirme nueva clave</label>
               <input type="password" class="form-control" formControlName="confirmcontrasena" id="confirmpassword">
-              <div class="alert alert-danger" role="alert" *ngIf="confContra.touched && confContra.errors?.notSame">
-                <p >Es obligatorio marcar todos los documentos</p>
+              <div class="alert alert-danger" role="alert" *ngIf="signingForm.get('confirmcontrasena').touched && signingForm.get('confirmcontrasena').errors?.notSame">
+                <span >Las contraseñas no coinciden</span>
               </div>
               
             </div>
           </form>
           <p>Recuerda. La clave debe cumplir con los siguientes requisitos.</p>
           <ul class="list-requirements">
-            <li [className]="contra.touched && (contra.errors?.minlength || contra.errors?.maxlength)  ? 'invalid' : 'valid'">Debe tener mínimo
+            <li [className]="(signingForm.get('contrasena').errors?.minlength || signingForm.get('contrasena').errors?.maxlength)  ? 'invalid' : 'valid'">Debe tener mínimo
               8 caracteres y máximo 15</li>
-            <li [className]="contra.touched && contra.errors?.notNumber  ? 'invalid' : 'valid'">Debe tener al
+            <li [className]="signingForm.get('contrasena').errors?.notNumber  ? 'invalid' : 'valid'">Debe tener al
               menos un (1) número</li>
-            <li [className]="contra.touched && contra.errors?.notLowerUpper  ? 'invalid' : 'valid'">Debe tener
+            <li [className]="signingForm.get('contrasena').errors?.notLowerUpper  ? 'invalid' : 'valid'">Debe tener
               almenos dos letras de la a-z ya sea mayúsculas o minúsculas. Mínimo debe tener una mayúscula</li>
-            <li [className]="contra.touched && !contra.errors?.notRepite  ? 'valid' : 'invalid'">No debe tener más de 5 caracteres seguidos con las misma letra (Ejemplo: aaaaa1)</li>
+            <li [className]="!signingForm.get('contrasena').errors?.notRepite  ? 'valid' : 'invalid'">No debe tener más de 5 caracteres seguidos con las misma letra (Ejemplo: aaaaa1)</li>
           </ul>
 
           <div class="row justify-content-center mb-4">

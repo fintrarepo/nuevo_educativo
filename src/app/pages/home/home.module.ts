@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ArchwizardModule } from 'angular-archwizard';
 import { FormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 
 //Pages
 import { HomeComponent } from './home.component';
@@ -13,6 +14,7 @@ import { DashboardComponent } from '../dashboard/dashboard.component';
 import { UploadsComponent } from '../uploads/uploads.component';
 import { CreditApplicationComponent } from '../credit-application/credit-application.component';
 import { NewRequestComponent } from '../new-request/new-request.component';
+import { SigningComponent } from '../signing/signing.component';
 
 
 //Components
@@ -33,7 +35,6 @@ import { LoadingFormsComponent } from '../../components/loading-forms/loading-fo
 import { UpdateInfoComponent } from '../../components/update-info/update-info.component';
 import { NotApprovedComponent } from '../../components/not-approved/not-approved.component';
 import { ReferredComponent } from '../../components/referred/referred.component';
-import { SigningComponent } from '../signing/signing.component';
 
 
 //GUARDS
@@ -47,8 +48,9 @@ import { ModalTermns } from '../modals/terminos/modalTermns';
 import { ModalMessage } from '../modals/message/modalMessage';
 import { ModalDelete } from '../modals/delete/modalDelete';
 import { ModalPdf } from '../modals/pdf/modalPdf';
-import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { SafePipe } from '../../pipes/safe.pipe';
+import { SharedModule } from 'src/app/shared.module';
+
 const routes: Routes = [
   {
     path: '',
@@ -95,10 +97,9 @@ const routes: Routes = [
         component: ReferredComponent
       },
       {
-        path: 'signing/:id',
+        path: 'signing/:id/:sol',
         component: SigningComponent
       }
-
     ],
   },
   { path: '**', redirectTo: 'upload' }
@@ -114,7 +115,7 @@ const pagesComponets = [
   UploadsComponent,
   CreditApplicationComponent,
   NewRequestComponent,
-  SigningComponent,
+  // SigningComponent,
   ModalTermns,
   ModalMessage,
   ModalDelete,
@@ -159,10 +160,11 @@ const directives = [
     ArchwizardModule,
     FormsModule,
     AngularFontAwesomeModule,
-    ...boostrapModules,
-    NgxExtendedPdfViewerModule
+    NgxExtendedPdfViewerModule,
+    SharedModule,
+    ...boostrapModules
   ],
   entryComponents: [ModalTermns, ModalMessage, ModalDelete, ModalPdf],
-  exports: [RouterModule]
+  exports: [RouterModule, SigningComponent]
 })
 export class HomeModule { }
