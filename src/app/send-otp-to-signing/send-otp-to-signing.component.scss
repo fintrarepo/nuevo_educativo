@@ -2,8 +2,24 @@
   display: flex;
   align-items: center;
 
-  .upload-files, .validate-otp{
+  .content-button-step.spinner {
+    height: inherit;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .upload-files,
+  .validate-otp {
+    width: 100%;
+    position: relative;
+    
+    p.content-loading {
+      position: absolute;
+      z-index: 1;
+    }
+
     p {
       font-family: "Gotham Light Regular";
       color: #707070;
@@ -11,7 +27,7 @@
     }
 
     .content-form {
-      margin: 36px 0px;
+      margin: 36px 0px 55px 0px;
 
       form {
         .form-check {

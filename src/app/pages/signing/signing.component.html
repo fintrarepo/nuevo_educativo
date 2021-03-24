@@ -26,11 +26,10 @@
           </form>
           <div class="row justify-content-center">
             <button class="btn btn-outline-form" (click)="backUpdate()">ATRAS</button>
-            <button *ngIf="!isLoading" class="btn button-blue" (click)="validarOtp()" [disabled]="!otpForm.valid">
+            <button *ngIf="!isLoading" class="btn-outline-form2" (click)="validarOtp()" [disabled]="!otpForm.valid">
               VALIDAR OTP
             </button>
-            <button *ngIf="isLoading" class="btn button-blue"  [disabled]="true">
-              <i class="fa fa-spin-sync"></i>
+            <button *ngIf="isLoading" class="btn-outline-form2"  [disabled]="true">
               CARGANDO...
             </button>
           </div>
@@ -72,11 +71,10 @@
 
           <div class="row justify-content-center mb-4">
             <button class="btn btn-outline-form" (click)="goBack()">ATRAS</button>
-            <button *ngIf="!isLoading" class="btn button-blue" [disabled]="signingForm.invalid" (click)="firmar()">
+            <button *ngIf="!isLoading" class="btn btn-outline-form2" [disabled]="signingForm.invalid" (click)="firmar()">
               IR A FIRMAR
             </button>
-            <button *ngIf="isLoading" class="btn button-blue"  [disabled]="true">
-              <i class="fa fa-spin-sync"></i>
+            <button *ngIf="isLoading" class="btn btn-outline-form2"  [disabled]="true">
               CARGANDO...
             </button>
           </div>

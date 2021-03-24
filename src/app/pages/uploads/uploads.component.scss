@@ -57,8 +57,13 @@ button.button-blue {
 }
 
 .upload-files {
+  position: relative;
   p {
     line-height: 20px;
+  }
+  p.content-loading {
+    position: absolute;
+    z-index: 1;
   }
 
   .content-form {

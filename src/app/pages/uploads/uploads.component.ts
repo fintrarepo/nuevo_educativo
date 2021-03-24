@@ -7,8 +7,6 @@ import { resolve, reject } from 'q';
 import { HttpHeaders, HttpEventType } from '@angular/common/http';
 import { AuthService } from '../../services/auth/auth.service'
 
-import { Store } from '@ngrx/store';
-import * as reducers from '../../reducers/reducers';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ModalDelete } from '../modals/delete/modalDelete';
@@ -29,12 +27,14 @@ export class UploadsComponent implements OnInit {
   public adt = 'Adjuntado';
   path = '/assets/images/Icon_Adjuntar ';
   pathD = '/assets/images/Icon_Adjuntar_green ';
-  isLoading: boolean = true;
+  isLoading: boolean = false;
+  mDeceval: boolean = false;
   tabFiles: number;
   documentsForm: FormGroup;
   allFileUploaded: boolean = false;
   condNegocio: string;
   numSolicitud: any;
+  msjDeceval: string;
 
   constructor(
     private creditService: CreditsService,
@@ -52,15 +52,20 @@ export class UploadsComponent implements OnInit {
       terminos_y_condiciones: ['', [Validators.requiredTrue]],
       fianza_titular: ['', [Validators.requiredTrue]]
     });
-    this.activateRouter.params.subscribe(({ id }) => {
+    this.activateRouter.params.subscribe(({ id, sol }) => {
       this.condNegocio = id;
+      this.numSolicitud = sol;
     })
   }
 
   ngOnInit() {
-    this.numSolicitud = this.route.snapshot.paramMap.get('sol')
     this.loadListFile();
-    this.tabFiles = 2;
+    this.tabFiles = 1;
+    this.documentsForm.get('pagare_deceval').valueChanges.subscribe(validate => {
+      if (validate) {
+        this.verPagare();
+      }
+    });
   }
 
   loadListFile() {
@@ -146,6 +151,10 @@ export class UploadsComponent implements OnInit {
         }
 
 
+      },
+      err => {
+        console.log(err);
+        
       });
 
     }
@@ -162,16 +171,25 @@ export class UploadsComponent implements OnInit {
     }
 
     if (file.url != '') {
-      // return this.creditService.planDePagos(String(this.route.snapshot.paramMap.get('id')))
-      const params = { "cod-solicitud": String(this.numSolicitud) }
-      return this.creditService.pagare(params)
-        .subscribe(x => {
-          console.log(x.data);
-          this.viewPdf(x.data);
-          // window.open(encodeURIComponent(x.data));
-          // window.open(x.data);
-        })
+      this.verPagare();
     }
+  }
+
+  verPagare() {
+    this.isLoading = true;
+    const params = { "cod-solicitud": String(this.numSolicitud) }
+    return this.creditService.pagare(params)
+      .subscribe(
+        x => {
+          this.viewPdf(x.data);
+          this.isLoading = false;
+          this.mDeceval = false;
+        },
+        err => {
+          this.isLoading = false;
+          this.mDeceval = true;
+          this.msjDeceval = 'Error comunicación DECEVAL.'
+        })
   }
 
 
@@ -189,8 +207,8 @@ export class UploadsComponent implements OnInit {
 
     this.creditService.sendOtp().subscribe((response) => {
       this.creditService.addMessage(response);
-      this.isLoading = false;
-      this.router.navigate(['/app/signing', this.condNegocio])
+      // this.isLoading = false;
+      this.router.navigate([`/app/signing/${this.condNegocio}/${this.numSolicitud}`])
     })
   }
 

@@ -16,15 +16,15 @@
     <h1 class="title-form" [hidden]="tab1?.disabled">Información Laboral</h1>
     <div class="form-row">
       <div class="form-group col-md-6 col-lg-4 ">
-        <label class="subtitle-form">Actividad Economica</label>
+        <label class="subtitle-form">Actividad Económica</label>
         <select class="form-control" formControlName="actividad_economica"
           (change)="loadJobs(form.controls.actividad_economica.value)">
-          <option value="">Seleccione Actividad Economica</option>
+          <option value="">Seleccione Actividad Económica</option>
           <option [value]="item.table_code" *ngFor="let item of (formData$ | async)?.ACTECO">{{item.dato}}</option>
         </select>
       </div>
       <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">Ocupacion</label>
+        <label class="subtitle-form">Ocupación</label>
         <select class="form-control" formControlName="ocupacion">
           <option value="">Seleccione una ocupación</option>
           <option [value]="item.table_code" *ngFor="let item of jobs">{{item.dato}}</option>
@@ -54,7 +54,7 @@
           <span *ngIf="!validator('tipo_contrato')">(Opcional)</span>
         </div>
         <select class="form-control" formControlName="tipo_contrato">
-          <option value="">Seleccione Actividad Economica</option>
+          <option value="">Seleccione Actividad Económica</option>
           <option [value]="item.table_code" *ngFor="let item of (formData$ | async)?.TIPCON">{{item.dato}}</option>
         </select>
 
@@ -62,14 +62,14 @@
 
       <div class="form-group col-md-6 col-lg-4">
         <div class="label-input-content">
-          <label class="subtitle-form">Direccion empresa / negocio</label>
+          <label class="subtitle-form">Dirección empresa / negocio</label>
           <span *ngIf="!validator('direccion')">(Opcional)</span>
         </div>
         <input type="text" class="form-control" formControlName="direccion" (click)="openForm('direccion')" readonly>
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <div class="label-input-content">
-          <label class="subtitle-form">Telefono empresa / negocio</label>
+          <label class="subtitle-form">Teléfono empresa / negocio</label>
           <span *ngIf="!validator('telefono')">(Opcional)</span>
         </div>
         <input type="text" class="form-control" formControlName="telefono" maxlength="10  ">

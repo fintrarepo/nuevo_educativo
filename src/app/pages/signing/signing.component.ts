@@ -5,6 +5,7 @@ import { CreditsService } from '../../services/credits/credits.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ModalTermns } from '../modals/terminos/modalTermns';
 import { ModalMessage } from '../modals/message/modalMessage';
+import { SigningService } from '../../services/signing/signing.service';
 
 @Component({
   selector: 'app-signing',
@@ -22,15 +23,17 @@ export class SigningComponent implements OnInit {
   cod_negocio: string;
   mensaje: any;
   numSolicitud: any;
+  tipoUser: any;
+  uniNegocio: any;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private modalService: NgbModal,
     private creditService: CreditsService,
-    private activateRoter: ActivatedRoute
+    private activateRouter: ActivatedRoute,
+    private signingService: SigningService
   ) {
-    this.tapSigning = 2;
     this.notfound = false;
     // form otp
     this.otpForm = this.formBuilder.group({
@@ -45,10 +48,19 @@ export class SigningComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.activateRoter.params.subscribe(({ id, sol }) => {
+    this.activateRouter.params.subscribe(({ id, num, tipo, neg }) => {
       this.cod_negocio = id;
-      this.numSolicitud = sol;
+      this.numSolicitud = num;
+      this.tipoUser = tipo;
+      this.uniNegocio = neg;
     })
+    if (this.tipoUser && this.uniNegocio) {
+      this.tapSigning = 2;
+
+    } else {
+      this.tapSigning = 1;
+
+    }
     this.creditService.dataOto$.subscribe(dato => this.mensaje = dato);
   }
 
@@ -61,7 +73,7 @@ export class SigningComponent implements OnInit {
         this.isLoading = false;
       }, err => {
         this.notfound = true;
-        this.textError = err.error.detail;
+        this.textError = err.error.data.detail;
         this.isLoading = false;
       })
     }
@@ -73,7 +85,7 @@ export class SigningComponent implements OnInit {
   }
 
   backUpdate() {
-    this.router.navigate(['/app/upload/', this.cod_negocio])
+    this.router.navigate([`/app/upload/${this.cod_negocio}/${this.numSolicitud}`])
   }
 
   aceptarTerminos(event: Event) {
@@ -91,26 +103,52 @@ export class SigningComponent implements OnInit {
       return;
     }
     this.isLoading = true;
-    const data = {
-      'firma': this.signingForm.value.contrasena,
-      'cod-negocio': this.cod_negocio,
-      'unidad': '31',
-      'cod-solicitud': this.numSolicitud
-    };
 
-    this.creditService.signing(data).subscribe(data => {
-      this.isLoading = false;
-      const modalRef: NgbModalRef = this.modalService.open(ModalMessage, { backdrop: 'static', centered: true });
-      modalRef.componentInstance.message = data;
-      modalRef.result.then(null, () => {
-        this.router.navigate(['/app/dashboard/requests'])
-      });
-    }, err => {
-      this.isLoading = false;
-      this.textError = err.error.detail;
-    })
+    // codeudor
+    if (this.tipoUser && this.uniNegocio) {
+      const data = {
+        'firma': this.signingForm.value.contrasena,
+        'tipo': this.tipoUser,
+        'unidad': this.uniNegocio,
+        'cod-solicitud': this.numSolicitud
+      };
+
+      this.signingService.signing(data).subscribe(data => {
+        this.isLoading = false;
+        const modalRef: NgbModalRef = this.modalService.open(ModalMessage, { backdrop: 'static', centered: true });
+        modalRef.componentInstance.message = data;
+        modalRef.result.then(null, () => {
+          this.router.navigate(['send-sms/' + this.numSolicitud + '/' + this.tipoUser + '/' + this.uniNegocio])
+        });
+      }, err => {
+        this.isLoading = false;
+        this.textError = err.error.detail;
+      })
+    } else {
+      // firma tirular
+      const data = {
+        'firma': this.signingForm.value.contrasena,
+        'cod-negocio': this.cod_negocio,
+        'unidad': '31',
+        'cod-solicitud': this.numSolicitud
+      };
+
+      this.creditService.signing(data).subscribe(data => {
+        this.isLoading = false;
+        const modalRef: NgbModalRef = this.modalService.open(ModalMessage, { backdrop: 'static', centered: true });
+        modalRef.componentInstance.message = data;
+        modalRef.result.then(null, () => {
+          this.router.navigate(['/app/dashboard/requests'])
+        });
+      }, err => {
+        this.isLoading = false;
+        this.textError = err.error.detail;
+      })
+    }
 
   }
+
+
   goBack() {
     this.tapSigning = 1;
   }

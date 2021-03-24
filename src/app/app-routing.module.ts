@@ -53,11 +53,10 @@ const routes: Routes = [
   },
   {
     path: 'send-sms/:num/:tipo/:neg',
-    // path: 'send-sms/:id/:sol',
     component: SendOtpToSigningComponent
   },
   {
-    path: 'signing',
+    path: 'signing/:num/:tipo/:neg',
     component: SigningComponent
   },
   {

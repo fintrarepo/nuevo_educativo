@@ -63,7 +63,6 @@ export class RequestCreditComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('Test')
     this.loadCitys()
     this.dates = this.utils.carcularFecha();
     this.txtSend = document.getElementById('txtSend');
@@ -88,7 +87,6 @@ export class RequestCreditComponent implements OnInit {
     }
 
     window.onmessage = async (event) => {
-      console.log(`Received message: ${event.data}`, event.data);
       if (event.data.for === "resultData") {
         // alert("Proceso terminado, Estado:" + event.data.isSuccess);
         this.iFrameContainer.classList.add('hide');
@@ -212,14 +210,12 @@ export class RequestCreditComponent implements OnInit {
       .loadAfiliates(this.form.ciudad)
       .subscribe(afiliates => {
         this.afiliates = afiliates.data;
-        console.log(this.afiliates)
       })
   }
 
   requestCredit() {
     this.credit.clientExists(this.form.identificacion)
       .subscribe(response => {
-        console.log(response.escliente)
         if (response.escliente == true) {
           this.currentStep = 3;
           this.currentSubStep = 1;
@@ -275,7 +271,6 @@ export class RequestCreditComponent implements OnInit {
     }
     this.credit.send2(dataToSend).subscribe(response => {
       this.loadingRequest = false;
-      console.log(response)
       if (response.data.estado_sol == 'P') {
         this.currentStep = 3;
         this.currentSubStep = 2;
@@ -284,7 +279,11 @@ export class RequestCreditComponent implements OnInit {
         this.currentSubStep = 3;
       }
     }, err => {
-      this.messageError = err.error.detail
+      if(err.error.detail.msg){
+      this.messageError = err.error.detail.msg;
+      } else {
+         this.messageError = err.error.detail;
+      }
       this.loadingRequest = false;
       this.currentStep = 3;
       this.currentSubStep = 3;
@@ -353,7 +352,6 @@ export class RequestCreditComponent implements OnInit {
     //SOLICITAR VALIDACIÓN
     await this.Post("https://demorcs.olimpiait.com:6314/Validacion/SolicitudValidacion", this.validacion, this.token).then((resp: any) => {
       if (resp && resp.code == 200) {
-        console.log(resp.data)
         url = resp.data.url;
         this.procesoConvenioGuid = resp.data.procesoConvenioGuid
       }
@@ -367,7 +365,6 @@ export class RequestCreditComponent implements OnInit {
       this.iFrameContainer.classList.remove('hide');
       this.iFrameContainer.classList.add('show');
     }
-    console.log(url);
 
   }
 

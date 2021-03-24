@@ -9,7 +9,6 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 // tslint:disable-next-line:component-class-suffix
 export class ModalMessage implements OnInit {
     @Input() public message;
-
     constructor(
         private activeModal: NgbActiveModal
     ) { }
@@ -19,8 +18,7 @@ export class ModalMessage implements OnInit {
     }
 
     ngOnInit() {
-        console.log(this.message.value);
-        this.message.value = ' ' + this.returnEmailHiden(this.message.value);
+        this.message.value = this.message.value;
 
     }
 

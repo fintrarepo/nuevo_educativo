@@ -42,6 +42,10 @@ export class CreditsService {
     return this.http.put('/webresources/loans/edu-pre-approved', data);
   }
 
+  getNegocio(data: any) {
+    return this.http.put('/webresources/firma/obtener-negocio', data);
+  }
+
   send2(data) {
     return this.http.put('/webresources/loans/edu-pre-approved-2', data);
   }

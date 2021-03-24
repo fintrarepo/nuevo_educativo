@@ -6,7 +6,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ArchwizardModule } from 'angular-archwizard';
 import { FormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 
 //Pages
 import { HomeComponent } from './home.component';
@@ -44,10 +43,7 @@ import { AuthGuard } from '../../auth.guard';
 import { InputDateDirective } from '../../directives/input-date.directive';
 
 // modals
-import { ModalTermns } from '../modals/terminos/modalTermns';
-import { ModalMessage } from '../modals/message/modalMessage';
 import { ModalDelete } from '../modals/delete/modalDelete';
-import { ModalPdf } from '../modals/pdf/modalPdf';
 import { SafePipe } from '../../pipes/safe.pipe';
 import { SharedModule } from 'src/app/shared.module';
 
@@ -77,7 +73,7 @@ const routes: Routes = [
       },
       {
         path: 'credit-application/:id',
-        component: CreditApplicationComponent
+        component: CreditApplicationComponent                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
       },
       {
         path: 'history',
@@ -97,7 +93,7 @@ const routes: Routes = [
         component: ReferredComponent
       },
       {
-        path: 'signing/:id/:sol',
+        path: 'signing/:id/:num',
         component: SigningComponent
       }
     ],
@@ -115,11 +111,7 @@ const pagesComponets = [
   UploadsComponent,
   CreditApplicationComponent,
   NewRequestComponent,
-  // SigningComponent,
-  ModalTermns,
-  ModalMessage,
-  ModalDelete,
-  ModalPdf
+  ModalDelete
 ]
 
 const components = [
@@ -160,11 +152,10 @@ const directives = [
     ArchwizardModule,
     FormsModule,
     AngularFontAwesomeModule,
-    NgxExtendedPdfViewerModule,
     SharedModule,
     ...boostrapModules
   ],
-  entryComponents: [ModalTermns, ModalMessage, ModalDelete, ModalPdf],
+  entryComponents: [ModalDelete],
   exports: [RouterModule, SigningComponent]
 })
 export class HomeModule { }
