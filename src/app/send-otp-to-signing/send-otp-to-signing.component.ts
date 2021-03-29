@@ -7,6 +7,7 @@ import { SigningService } from '../services/signing/signing.service';
 import { ModalMessage } from '../pages/modals/message/modalMessage';
 import { CreditsService } from '../services/credits/credits.service';
 import { ModalPdf } from '../pages/modals/pdf/modalPdf';
+import { runInThisContext } from 'vm';
 
 @Component({
   selector: 'app-send-otp-to-signing',
@@ -21,7 +22,8 @@ export class SendOtpToSigningComponent implements OnInit {
 
   stepSigning: number = 0;
   isLoading: boolean = false;
-  notfound : boolean = false;
+  reconocer: boolean = false;
+  notfound: boolean = false;
   signinFiles: any = [];
   numSolicitud: string;
   tipoUser: string;
@@ -33,6 +35,13 @@ export class SendOtpToSigningComponent implements OnInit {
   errors: boolean;
   textError: any;
   msjDeceval: any;
+  auth;
+  procesoConvenioGuid;
+  token: any;
+  iFrameContainer;
+  iFrame: any;
+  validacion;
+  dataSigning: { cc: any; email: any; telefono: any; };
 
   constructor(
     private signingService: SigningService,
@@ -40,10 +49,67 @@ export class SendOtpToSigningComponent implements OnInit {
     private modalService: NgbModal,
     private activateRouter: ActivatedRoute,
     private creditService: CreditsService,
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit() {
+    this.iFrame = document.getElementById('iFrame');
+    this.iFrameContainer = document.getElementById('iFrameContainer');
+    this.auth = {
+      clientId: "FINTRA",
+      clientSecret: "F1ntr4P@$$w0rd"
+    };
+    this.validacion = {
+      guidConv: "7aacec4f-2f02-4901-81f8-1d5772653434",
+      tipoValidacion: "1",
+      asesor: "Fintra",
+      sede: "344889",
+      tipoDoc: "CC",
+      numDoc: "",
+      email: "",
+      celular: "",
+      usuario: "Fintra",
+      clave: "12345"
+    }
+
+    window.onmessage = async (event) => {
+      if (event.data.for === "resultData") {
+        // alert("Proceso terminado, Estado:" + event.data.isSuccess);
+        this.iFrameContainer.classList.add('hide');
+        this.iFrameContainer.classList.remove('show');
+        if (event.data.isSuccess) {
+
+          // this.queryDataCredit()
+          await this.ConsultarValidacion("https://demorcs.olimpiait.com:6314/Validacion/ConsultarValidacion", this.token).then((resp: any) => {
+            if (resp && resp.code == 200) {
+              const data = resp.data;
+              this.saveReconocerID(data)
+              // --(finalizado = TRUE and EstadoProceso = (1: enrolamiento) and cacelado =false) // Paso las validaciones de identidad  
+              // --(finalizado = TRUE and EstadoProceso = (2: validacion) and cancelado =false and aprobado=true  ) // Pasa cliente enrolados previamente
+              if (data.finalizado == true && data.estadoProceso == 1 && data.cancelado == false) {
+                this.stepSigning = 1;
+                this.loadListFile();
+
+              }
+              if (data.finalizado == true && data.estadoProceso == 2 && data.cancelado == false && data.aprobado == true) {
+                this.stepSigning = 1;
+                this.loadListFile();
+              }
+              if (data.finalizado == true && (data.estadoProceso == 2 || data.estadoProceso == 1) && data.cancelado == false && data.aprobado == false) {
+                // TODO la solicitud fue rechazada (la validación de reconocer no pasó los filtros)
+                this.loadingRequest = false;
+                // this.currentStep = 4;
+                // this.currentSubStep = 3;
+              }
+            }
+          });
+        } else {
+          this.saveReconocerID(event.data);
+          this.loadingRequest = false;
+        }
+      }
+    }
+
     this.main = window.innerHeight + 'px';
 
     this.phoneForm = this.fb.group({
@@ -95,7 +161,7 @@ export class SendOtpToSigningComponent implements OnInit {
           modalRef.componentInstance.message = res.data;
         }
         modalRef.result.then(null, () => {
-          this.stepSigning = 3;
+          this.stepSigning = 4;
           this.isLoading = false;
         });
       },
@@ -135,11 +201,12 @@ export class SendOtpToSigningComponent implements OnInit {
     this.signingService.validateDeceval(params)
       .subscribe(res => {
         if (res.success) {
-          this.loadListFile();
-          this.loadingRequest = false;
-          this.stepSigning = 1;
+          this.dataSigning = { cc: res.data.documento, email: res.data.email, telefono: res.data.celular }
+          console.log(this.dataSigning);
+          
+          this.runValidation();
           this.phoneForm.patchValue({
-            phone: res.data
+            phone: res.data.celular
           });
           this.showStep = true;
         } else {
@@ -182,6 +249,7 @@ export class SendOtpToSigningComponent implements OnInit {
       this.verPagare();
     }
   }
+
   verPagare() {
     this.isLoading = true;
     const params = { "cod-solicitud": String(this.numSolicitud) }
@@ -196,7 +264,7 @@ export class SendOtpToSigningComponent implements OnInit {
           this.isLoading = false;
           this.mDeceval = true;
           console.log(err);
-          
+
           // this.msjDeceval = err.error.detail.detail;
           this.msjDeceval = 'Error comunicación DECEVAL.';
         })
@@ -205,6 +273,101 @@ export class SendOtpToSigningComponent implements OnInit {
   viewPdf(item) {
     const modalRef: NgbModalRef = this.modalService.open(ModalPdf, { backdrop: 'static', centered: true, size: 'xl' });
     modalRef.componentInstance.url_pdf = item;
+  }
+
+  async runValidation() {
+
+    this.loadingRequest = true;
+    this.validacion = { ...this.validacion, numDoc: this.dataSigning.cc, email: this.dataSigning.email, celular:  this.dataSigning.telefono}
+    //this.validacion = {...this.validacion,  numDoc: "1143444600", email: "antoniojsh93@gmail.com" }
+    // let token;
+    let url;
+    
+    await this.Post("https://demorcs.olimpiait.com:6317/TraerToken", this.auth).then((resp: any) => {
+      this.token = resp.accessToken;
+    });
+    //SOLICITAR VALIDACIÓN
+    await this.Post("https://demorcs.olimpiait.com:6314/Validacion/SolicitudValidacion", this.validacion, this.token).then((resp: any) => {
+      if (resp && resp.code == 200) {
+        url = resp.data.url;
+        this.procesoConvenioGuid = resp.data.procesoConvenioGuid
+        this.loadingRequest = false;
+      }
+    })
+      .catch(err => {
+        this.loadingRequest = false;
+      });
+    if (url) {
+
+      this.iFrame.src = url;
+      this.iFrameContainer.classList.remove('hide');
+      this.iFrameContainer.classList.add('show');
+    }
+
+  }
+
+  Post(url, dataRequest, token = "") {
+    return new Promise(function (resolve, reject) {
+      var request = new XMLHttpRequest();
+      request.open('POST', url);
+      if (token !== "") {
+        request.setRequestHeader("Authorization", "Bearer " + token);
+      };
+      request.setRequestHeader('Content-type', 'application/json');
+      request.responseType = 'json';
+      request.onload = function () {
+        if (request.status === 200) {
+          resolve(request.response);
+        } else {
+          reject(Error('No fue posible hacer la verificación:' + request.statusText));
+        }
+      };
+      request.onerror = function () {
+        reject(Error('Ocurrio un error de red.'));
+      };
+      // Send the request
+      request.send(JSON.stringify(dataRequest));
+    });
+  }
+
+  ConsultarValidacion(url, token = "") {
+
+
+    let data = {
+      "guidConv": "7aacec4f-2f02-4901-81f8-1d5772653434",
+      "procesoConvenioGuid": this.procesoConvenioGuid,
+      "usuario": "Fintra",
+      "clave": "12345"
+    }
+
+    return new Promise(function (resolve, reject) {
+      var request = new XMLHttpRequest();
+      request.open('POST', url);
+      if (token !== "") {
+        request.setRequestHeader("Authorization", "Bearer " + token);
+      };
+      request.setRequestHeader('Content-type', 'application/json');
+      request.responseType = 'json';
+      request.onload = function () {
+        if (request.status === 200) {
+          resolve(request.response);
+        } else {
+          reject(Error('No fue posible hacer la verificación:' + request.statusText));
+        }
+      };
+      request.onerror = function () {
+        reject(Error('Ocurrio un error de red.'));
+      };
+      // Send the request
+      request.send(JSON.stringify(data));
+    });
+  }
+
+  saveReconocerID(data) {
+    this.creditService.saveReconocerID('1079884493', data)
+      .subscribe(data => {
+        console.log('Saved reconocer ID');
+      })
   }
 
 }

@@ -24,8 +24,8 @@ export class ListRequestComponent implements OnInit {
   constructor(private store: Store<reducers.State>, public auth: AuthService) { }
 
   ngOnInit() {
-    this.listRequest$.subscribe(data => {
-    })
+    // this.listRequest$.subscribe(data => {
+    // })
   }
 
 
@@ -33,7 +33,7 @@ export class ListRequestComponent implements OnInit {
     if (item.etapa == 0) {
       return "/app/credit-application/" + item.numero_solicitud
     } else if (item.etapa > 0) {
-      return "/app/upload/" + item.cod_neg + '/' + item.numero_solicitud
+      return "/app/reconocer/" + item.cod_neg + '/' + item.numero_solicitud
     }
   }
 

@@ -46,6 +46,7 @@ import { InputDateDirective } from '../../directives/input-date.directive';
 import { ModalDelete } from '../modals/delete/modalDelete';
 import { SafePipe } from '../../pipes/safe.pipe';
 import { SharedModule } from 'src/app/shared.module';
+import { ReconocerComponent } from '../reconocer/reconocer.component';
 
 const routes: Routes = [
   {
@@ -95,6 +96,10 @@ const routes: Routes = [
       {
         path: 'signing/:id/:num',
         component: SigningComponent
+      },
+      {
+        path: 'reconocer/:neg/:num',
+        component: ReconocerComponent
       }
     ],
   },
@@ -131,7 +136,8 @@ const components = [
   LoadingFormsComponent,
   UpdateInfoComponent,
   NotApprovedComponent,
-  ReferredComponent
+  ReferredComponent,
+  ReconocerComponent
 ]
 
 const directives = [
