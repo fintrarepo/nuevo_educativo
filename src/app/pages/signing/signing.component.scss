@@ -115,4 +115,22 @@
   button {
     height: 50px;
   }
+  .time {
+    span {
+      font-weight: 600;
+      font-size: 40px;
+      padding: 10px 5px;
+      position: relative;
+      color: #34b8f0;
+
+      &::after {
+        content: 'Segundos';
+        font-size: 11px;
+        position: absolute;
+        margin-left: 8px;
+        font-weight: 600;
+        bottom: 22px;
+      }
+    }
+  }
 }

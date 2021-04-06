@@ -6,6 +6,8 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ModalTermns } from '../modals/terminos/modalTermns';
 import { ModalMessage } from '../modals/message/modalMessage';
 import { SigningService } from '../../services/signing/signing.service';
+import { asyncScheduler, interval, Observable } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-signing',
@@ -14,11 +16,15 @@ import { SigningService } from '../../services/signing/signing.service';
 })
 export class SigningComponent implements OnInit {
 
+  counter$: Observable<number>;
+
   tapSigning: number;
+  seconds: number;
   otpForm: FormGroup;
   signingForm: FormGroup;
   notfound: boolean;
   isLoading: boolean = false;
+  showTime: boolean = true;
   textError: string;
   cod_negocio: string;
   mensaje: any;
@@ -45,6 +51,12 @@ export class SigningComponent implements OnInit {
       contrasena: ['', [Validators.required, Validators.maxLength(15), Validators.minLength(8), this.numberValid, this.lowercaseUppercaseValid, this.repeatLetter]],
       confirmcontrasena: ['', Validators.required]
     }, { validator: this.confirmPassword });
+    this.counter$ = interval(1000, asyncScheduler).pipe(
+      map(
+        x => 180 - x
+      ),
+      take(181)
+    );
   }
 
   ngOnInit() {
@@ -59,9 +71,21 @@ export class SigningComponent implements OnInit {
 
     } else {
       this.tapSigning = 1;
-
+      this.countDown();
     }
     this.creditService.dataOto$.subscribe(dato => this.mensaje = dato);
+  }
+
+  countDown() {
+    this.showTime = true;
+    this.counter$.subscribe(next => {
+      this.seconds = next;
+
+    },
+      err => { },
+      () => {
+        this.showTime = false;
+      })
   }
 
   validarOtp() {

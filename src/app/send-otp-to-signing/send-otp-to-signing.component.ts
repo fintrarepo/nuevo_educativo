@@ -7,7 +7,8 @@ import { SigningService } from '../services/signing/signing.service';
 import { ModalMessage } from '../pages/modals/message/modalMessage';
 import { CreditsService } from '../services/credits/credits.service';
 import { ModalPdf } from '../pages/modals/pdf/modalPdf';
-import { runInThisContext } from 'vm';
+import { asyncScheduler, interval, Observable } from 'rxjs';
+import { take, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-send-otp-to-signing',
@@ -16,23 +17,27 @@ import { runInThisContext } from 'vm';
 })
 export class SendOtpToSigningComponent implements OnInit {
 
+  counter$: Observable<any>;
+
   phoneForm: FormGroup;
   documentsForm: FormGroup;
   keyForm: FormGroup;
 
   stepSigning: number = 0;
+  seconds: number;
   isLoading: boolean = false;
   reconocer: boolean = false;
   notfound: boolean = false;
+  showStep: boolean;
+  loadingRequest: boolean = false;
+  mDeceval: boolean = false;
+  showTime: boolean = true;
+  errors: boolean;
   signinFiles: any = [];
   numSolicitud: string;
   tipoUser: string;
   uniNegocio: number;
-  showStep: boolean;
-  loadingRequest: boolean = false;
-  mDeceval: boolean = false;
   main: string;
-  errors: boolean;
   textError: any;
   msjDeceval: any;
   auth;
@@ -42,6 +47,7 @@ export class SendOtpToSigningComponent implements OnInit {
   iFrame: any;
   validacion;
   dataSigning: { cc: any; email: any; telefono: any; };
+  isLoading2: boolean;
 
   constructor(
     private signingService: SigningService,
@@ -53,6 +59,12 @@ export class SendOtpToSigningComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.counter$ = interval(1000, asyncScheduler).pipe(
+      map(
+        x => 180 - x
+      ),
+      take(181)
+    );
     this.iFrame = document.getElementById('iFrame');
     this.iFrameContainer = document.getElementById('iFrameContainer');
     this.auth = {
@@ -146,12 +158,9 @@ export class SendOtpToSigningComponent implements OnInit {
   }
 
   sendSms() {
-    if (!this.phoneForm.valid) {
-      return;
-    }
     this.isLoading = true;
     const params = {
-      "num-celular": this.phoneForm.value.phone
+      "num-celular": this.dataSigning.telefono
     }
     this.signingService.sendDinamicKey(params)
       .subscribe(res => {
@@ -161,8 +170,9 @@ export class SendOtpToSigningComponent implements OnInit {
           modalRef.componentInstance.message = res.data;
         }
         modalRef.result.then(null, () => {
-          this.stepSigning = 4;
+          this.stepSigning = 2;
           this.isLoading = false;
+          this.countDown();
         });
       },
         err => {
@@ -170,24 +180,36 @@ export class SendOtpToSigningComponent implements OnInit {
         })
   }
 
+  countDown() {
+    this.showTime = true;
+    this.counter$.subscribe(next => {
+      this.seconds = next;
+
+    },
+      err => { },
+      () => {
+        this.showTime = false;
+      })
+  }
+
   goSigning() {
     if (!this.keyForm.valid) {
       return;
     }
     this.notfound = true;
-    this.isLoading = true;
+    this.isLoading2 = true;
     const params = {
       "num-celular": this.phoneForm.value.phone,
       "cod-otp": this.keyForm.value.key
     }
     this.signingService.validateDinamicKey(params).subscribe(res => {
-      this.isLoading = false;
+      this.isLoading2 = false;
       this.router.navigate([`signing/${this.numSolicitud}/${this.tipoUser}/${this.uniNegocio}`]);
     },
       err => {
         this.notfound = true;
         this.textError = err.error.data.detail;
-        this.isLoading = false;
+        this.isLoading2 = false;
 
       })
   }
@@ -202,12 +224,8 @@ export class SendOtpToSigningComponent implements OnInit {
       .subscribe(res => {
         if (res.success) {
           this.dataSigning = { cc: res.data.documento, email: res.data.email, telefono: res.data.celular }
-          console.log(this.dataSigning);
-          
+
           this.runValidation();
-          this.phoneForm.patchValue({
-            phone: res.data.celular
-          });
           this.showStep = true;
         } else {
           this.showStep = false;
@@ -278,11 +296,11 @@ export class SendOtpToSigningComponent implements OnInit {
   async runValidation() {
 
     this.loadingRequest = true;
-    this.validacion = { ...this.validacion, numDoc: this.dataSigning.cc, email: this.dataSigning.email, celular:  this.dataSigning.telefono}
+    this.validacion = { ...this.validacion, numDoc: this.dataSigning.cc, email: this.dataSigning.email, celular: this.dataSigning.telefono }
     //this.validacion = {...this.validacion,  numDoc: "1143444600", email: "antoniojsh93@gmail.com" }
     // let token;
     let url;
-    
+
     await this.Post("https://demorcs.olimpiait.com:6317/TraerToken", this.auth).then((resp: any) => {
       this.token = resp.accessToken;
     });

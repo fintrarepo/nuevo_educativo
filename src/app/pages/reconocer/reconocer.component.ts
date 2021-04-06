@@ -2,7 +2,7 @@ import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { CreditsService } from '../../services/credits/credits.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import  * as reducers  from '../../reducers/reducers';
+import * as reducers from '../../reducers/reducers';
 import { Subscription } from 'rxjs';
 import { GetListRequest } from '../../actions/list-requests.actions';
 
@@ -18,7 +18,7 @@ export class ReconocerComponent implements OnInit, OnDestroy {
   iFrameContainer;
   iFrame: any;
   validacion;
-  loadingRequest: boolean ;
+  loadingRequest: boolean;
   showStep: boolean = false;
   numSolicitud: any;
   uniNegocio: any;
@@ -26,6 +26,7 @@ export class ReconocerComponent implements OnInit, OnDestroy {
 
   listRequest$ = this.store.select(reducers.getListRequestResponse);
   subReq$: Subscription;
+  dataUser: { telefono: any; email: any; cc: any; };
 
   constructor(
     private store: Store<reducers.State>,
@@ -33,7 +34,7 @@ export class ReconocerComponent implements OnInit, OnDestroy {
     private activateRouter: ActivatedRoute,
     private router: Router
   ) { }
-  
+
   ngOnDestroy(): void {
     this.subReq$.unsubscribe();
   }
@@ -43,11 +44,13 @@ export class ReconocerComponent implements OnInit, OnDestroy {
       this.numSolicitud = num;
       this.uniNegocio = neg;
     })
-    this.store.dispatch(new GetListRequest({ filter: null, credits: true, identificacion: ''}));
+
+    this.getCredits();
     this.subReq$ = this.listRequest$.subscribe(data => {
       let request = data.filter(req => req.numero_solicitud == this.numSolicitud);
-      console.log(request);
-      
+      if (request) {
+        this.dataUser = { telefono: request[0].celular, email: request[0].email, cc: request[0].identificacion }
+      }
     });
 
     this.iFrame = document.getElementById('iFrame');
@@ -56,6 +59,7 @@ export class ReconocerComponent implements OnInit, OnDestroy {
       clientId: "FINTRA",
       clientSecret: "F1ntr4P@$$w0rd"
     };
+
     this.validacion = {
       guidConv: "7aacec4f-2f02-4901-81f8-1d5772653434",
       tipoValidacion: "1",
@@ -68,8 +72,9 @@ export class ReconocerComponent implements OnInit, OnDestroy {
       usuario: "Fintra",
       clave: "12345"
     }
+
     this.runValidation();
-    
+
     this.main = (window.innerHeight - 150) + 'px';
 
     window.onmessage = async (event) => {
@@ -107,12 +112,16 @@ export class ReconocerComponent implements OnInit, OnDestroy {
     }
   }
 
+  getCredits() {
+    this.store.dispatch(new GetListRequest({ filter: null, credits: false, identificacion: '', limit: 1000, offset: 0 }));
+  }
+
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.main = (window.innerHeight - 150) + 'px';
   }
 
-  aceptar(){
+  aceptar() {
     localStorage.clear()
     this.router.navigate(['/login']);
   }
@@ -120,7 +129,7 @@ export class ReconocerComponent implements OnInit, OnDestroy {
   async runValidation() {
 
     this.loadingRequest = true;
-    this.validacion = { ...this.validacion, numDoc: '1079884493', email: 'cesariza2014@gmail.com', celular:  '3182294783'}
+    this.validacion = { ...this.validacion, numDoc: this.dataUser.cc, email: this.dataUser.email, celular: this.dataUser.telefono }
     // let token;
     let url;
     await this.Post("https://demorcs.olimpiait.com:6317/TraerToken", this.auth).then((resp: any) => {
