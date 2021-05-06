@@ -171,12 +171,18 @@ export class Tab1PersonalInformationComponent implements OnInit {
     for (let i in response.data) {
       if (this.form.controls[i]) {
         if (i == 'fecha_nacimiento') {
-          this.form.controls[i].setValue(this.cashDate(response.data.fecha_nacimiento))
+          if (response.data.fecha_nacimiento != '0099-01-01') {
+            this.form.controls[i].setValue(this.cashDate(response.data.fecha_nacimiento))
+          }
         } else if (i == 'fecha_expedicion_id') {
-          this.form.controls[i].setValue(this.cashDate(response.data.fecha_expedicion_id))
+          if (response.data.fecha_expedicion_id != '0099-01-01 00:00:00') {
+            this.form.controls[i].setValue(this.cashDate(response.data.fecha_expedicion_id))
+          }
         }
         else {
           this.form.controls[i].setValue(response.data[i])
+          this.form.controls['celular'].setValue(response.data['telefono'])
+          this.form.controls['telefono'].setValue('')
         }
       }
 
@@ -214,8 +220,8 @@ export class Tab1PersonalInformationComponent implements OnInit {
   }
 
   private ageValidator(control: AbstractControl): { [key: string]: boolean } | null {
-  //  console.log(control.value);
-  //  console.log(this.form.get("fecha_nacimiento").value)
+    //  console.log(control.value);
+    //  console.log(this.form.get("fecha_nacimiento").value)
     return null;
   };
 

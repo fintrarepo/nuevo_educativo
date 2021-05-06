@@ -16,42 +16,44 @@
     <h1 class="title-form" [hidden]="tab1?.disabled">Información Laboral</h1>
     <div class="form-row">
       <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">Actividad Economica</label>
+        <label class="subtitle-form">Ocupacion</label>
         <select class="form-control" formControlName="actividad_economica"
           (change)="loadJobs(form.controls.actividad_economica.value)">
-          <option value="">Seleccione Actividad Economica</option>
+          <option value="">Seleccione Ocupacion</option>
           <option [value]="item.table_code" *ngFor="let item of (formData$ | async)?.ACTECO">{{item.dato}}</option>
         </select>
       </div>
-      <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">Ocupacion</label>
+      <div *ngIf="!empleado" class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Actividad Económica</label>
         <select class="form-control" formControlName="ocupacion">
-          <option value="">Seleccione una ocupación</option>
+          <option value="">Seleccione una Actividad económica</option>
           <option [value]="item.table_code" *ngFor="let item of jobs">{{item.dato}}</option>
         </select>
       </div>
-      <div class="form-group col-md-6 col-lg-4">
+      <div *ngIf="!empleado" class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Actividad Específica</label>
+        <input type="text" class="form-control" formControlName="actividad_especifica">
+      </div>
+      <div *ngIf="empleado" class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Nombre de la Empresa / Negocio</label>
         <input type="text" class="form-control" formControlName="nombre_empresa">
       </div>
-      <div class="form-group col-md-6 col-lg-4">
+      <div *ngIf="empleado" class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Fecha de Ingreso / Actividad</label>
         <div class="calendar-container">
           <input type="text" formControlName="fecha_ingreso" class="form-control" readonly ngbDatepicker
-            #d2="ngbDatepicker" (click)="d2.toggle()" [minDate]="{year: 1950, month: 1, day: 1}"/>
+            #d2="ngbDatepicker" (click)="d2.toggle()" [minDate]="{year: 1950, month: 1, day: 1}" />
         </div>
       </div>
-      <div class="form-group col-md-6 col-lg-4">
+      <div *ngIf="empleado" class="form-group col-md-6 col-lg-4">
         <div class="label-input-content">
           <label class="subtitle-form">Cargo</label>
-          <span *ngIf="!validator('cargo')">(Opcional)</span>
         </div>
         <input type="text" class="form-control" formControlName="cargo">
       </div>
-      <div class="form-group col-md-6 col-lg-4">
+      <div *ngIf="empleado" class="form-group col-md-6 col-lg-4">
         <div class="label-input-content">
           <label class="subtitle-form">Tipo de Contrato</label>
-          <span *ngIf="!validator('tipo_contrato')">(Opcional)</span>
         </div>
         <select class="form-control" formControlName="tipo_contrato">
           <option value="">Seleccione de contrato</option>
@@ -59,18 +61,26 @@
         </select>
 
       </div>
-
       <div class="form-group col-md-6 col-lg-4">
         <div class="label-input-content">
-          <label class="subtitle-form">Direccion empresa / negocio</label>
-          <span *ngIf="!validator('direccion')">(Opcional)</span>
+          <label class="subtitle-form">Direccion {{empleado == true ? 'empresa' : 'negocio'}}</label>
         </div>
         <input type="text" class="form-control" formControlName="direccion" (click)="openForm('direccion')" readonly>
       </div>
-      <div class="form-group col-md-6 col-lg-4">
+      <div *ngIf="!empleado" class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Barrio</label>
+        <select class="form-control" formControlName="barrio">
+          <option value="">Seleccione un barrio</option>
+          <option [value]="item.value" *ngFor="let item of neighborhoods">{{item.name}}</option>
+        </select>
+      </div>
+      <div *ngIf="!empleado" class="form-group col-md-6 col-lg-4">
+        <label class="subtitle-form">Antiguedad del Negocio</label>
+        <input type="text" class="form-control" formControlName="actividad_especifica">
+      </div>
+      <div *ngIf="empleado" class="form-group col-md-6 col-lg-4">
         <div class="label-input-content">
           <label class="subtitle-form">Telefono empresa / negocio</label>
-          <span *ngIf="!validator('telefono')">(Opcional)</span>
         </div>
         <input type="number" class="form-control" formControlName="telefono">
       </div>
@@ -104,16 +114,6 @@
   <div class="block-form">
     <h1 class="title-form" [hidden]="tab1?.disabled">Información de Egresos</h1>
     <div class="form-row">
-      <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">Arriendo
-          {{ form.controls.arriendo_egr.value | currency: 'USD': true: '1.0-1' }}</label>
-        <input type="number" class="form-control" formControlName="arriendo_egr">
-      </div>
-      <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">Préstamos
-          {{ form.controls.prestamo_xnomina.value | currency: 'USD': true: '1.0-1' }}</label>
-        <input type="number" class="form-control" formControlName="prestamo_xnomina">
-      </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Pasivos
           {{ form.controls.total_pasivos.value | currency: 'USD': true: '1.0-1' }}</label>
