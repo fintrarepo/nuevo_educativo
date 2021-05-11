@@ -81,7 +81,7 @@ export class RequestCreditComponent implements OnInit {
       tipoDoc: "CC",
       numDoc: "",
       email: "",
-      celular: "3057671931",
+      celular: "",
       usuario: "Fintra",
       clave: "12345"
     }
@@ -96,6 +96,9 @@ export class RequestCreditComponent implements OnInit {
           await this.ConsultarValidacion("https://demorcs.olimpiait.com:6314/Validacion/ConsultarValidacion", this.token).then((resp: any) => {
             if (resp && resp.code == 200) {
               const data = resp.data;
+              const fuentes = data.fuentesAbiertas.fuentes.filter(fuente => fuente.score = 100)
+              // TODO: validaciones a hacer al momento de salir en las fuentes
+              
               this.saveReconocerID(data)
               // --(finalizado = TRUE and EstadoProceso = (1: enrolamiento) and cacelado =false) // Paso las validaciones de identidad  
               // --(finalizado = TRUE and EstadoProceso = (2: validacion) and cancelado =false and aprobado=true  ) // Pasa cliente enrolados previamente
@@ -342,7 +345,7 @@ export class RequestCreditComponent implements OnInit {
   async runValidation() {
     this.invalidCc = false;
     this.loadingRequest = true;
-    this.validacion = { ...this.validacion, numDoc: this.form.identificacion.toString(), email: this.form.email, }
+    this.validacion = { ...this.validacion, numDoc: this.form.identificacion.toString(), email: this.form.email, celular: this.form.telefono}
     //this.validacion = {...this.validacion,  numDoc: "1143444600", email: "antoniojsh93@gmail.com" }
     // let token;
     let url;

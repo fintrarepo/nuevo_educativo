@@ -70,7 +70,8 @@ export class ReconocerComponent implements OnInit, OnDestroy {
       email: "",
       celular: "",
       usuario: "Fintra",
-      clave: "12345"
+      clave: "12345",
+      consultaFuentes: true
     }
 
     this.runValidation();
@@ -89,7 +90,7 @@ export class ReconocerComponent implements OnInit, OnDestroy {
           await this.ConsultarValidacion("https://demorcs.olimpiait.com:6314/Validacion/ConsultarValidacion", this.token).then((resp: any) => {
             if (resp && resp.code == 200) {
               const data = resp.data;
-              this.saveReconocerID(data)
+              // this.saveReconocerID(data)
               // --(finalizado = TRUE and EstadoProceso = (1: enrolamiento) and cacelado =false) // Paso las validaciones de identidad  
               // --(finalizado = TRUE and EstadoProceso = (2: validacion) and cancelado =false and aprobado=true  ) // Pasa cliente enrolados previamente
               if (data.finalizado == true && data.estadoProceso == 1 && data.cancelado == false) {
