@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ArchwizardModule } from 'angular-archwizard';
 import { FormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { SelectDropDownModule } from 'ngx-select-dropdown'
 
 //Pages
 import { HomeComponent } from './home.component';
@@ -141,6 +142,7 @@ const directives = [
     ArchwizardModule,
     FormsModule,
     AngularFontAwesomeModule,
+    SelectDropDownModule,
     ...boostrapModules
   ],
   exports: [RouterModule]

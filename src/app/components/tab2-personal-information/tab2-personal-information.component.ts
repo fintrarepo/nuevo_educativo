@@ -22,6 +22,7 @@ export class Tab2PersonalInformationComponent implements OnInit {
   tab2;
   currentSelectDpto;
   business;
+  configSelect;
   estudentIsApplicant: boolean = false;
   estudentWorked: boolean = false;
 
@@ -99,6 +100,17 @@ export class Tab2PersonalInformationComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.configSelect = {
+      searchOnKey: 'name',
+      searchPlaceholder: 'Buscar',
+      moreText: 'Solo se puede seleccionar un barrio',
+      height: 'auto',
+      placeholder: 'Selecciona tu barrio',
+      search: true,
+      displayKey: 'name',
+      limitTo: 10,
+      noResultsFound: 'no se encontro ningun resultado'
+  };
     this.credits.autoComplete({
       "numero_solicitud": this.business, "tab": 4
     }).subscribe(this.responseAutoComplete.bind(this));
@@ -315,6 +327,7 @@ export class Tab2PersonalInformationComponent implements OnInit {
     dataForm.celular = parseInt(dataForm.celular)
     dataForm.semestre = parseInt(dataForm.semestre)
     dataForm.identificacion = parseInt(dataForm.identificacion)
+    dataForm.barrio = dataForm.barrio.value
     return dataForm;
   }
 

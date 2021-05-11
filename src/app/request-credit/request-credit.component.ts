@@ -38,6 +38,7 @@ export class RequestCreditComponent implements OnInit {
     num_cuotas: null,
     tipo_carrera: "",
     monto: null,
+    ingresos: null,
 
     primer_apellido: "",
     identificacion: ""
@@ -165,6 +166,7 @@ export class RequestCreditComponent implements OnInit {
       telefono: this.form.telefono,
       email: this.form.email,
       monto: this.form.monto.replace(/,/g, ""),
+      ingresos: this.form.ingresos.replace(/,/g, ""),
       fecha_pago: this.form.fecha_pago,
       num_cuotas: this.form.num_cuotas,
       paso: 2,
@@ -204,7 +206,6 @@ export class RequestCreditComponent implements OnInit {
       .loadAfiliates(this.form.ciudad)
       .subscribe(afiliates => {
         this.afiliates = afiliates.data;
-        console.log(this.afiliates)
       })
   }
 
@@ -423,9 +424,9 @@ export class RequestCreditComponent implements OnInit {
     this.changeFormDataCredit = true;
   }
 
-  currency() {
-    this.form.monto =
-      this.form.monto
+  currency(control) {
+    this.form[control] =
+      this.form[control]
         .replace(/,/g, "")
         .toString()
         .replace(/[^0-9]/g, '')

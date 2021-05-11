@@ -26,6 +26,7 @@ export class Tab1PersonalInformationComponent implements OnInit {
   currentSelectDpto;
   observerAddress;
   observerCity;
+  configSelect;
 
   //CITYS
   ciudad_expedicion_id: any[] = [];
@@ -89,6 +90,18 @@ export class Tab1PersonalInformationComponent implements OnInit {
     this.credits.autoComplete({
       "numero_solicitud": this.business, "tab": 1
     }).subscribe(this.responseAutoComplete.bind(this))
+
+    this.configSelect = {
+      searchOnKey: 'name',
+      searchPlaceholder: 'Buscar',
+      moreText: 'Solo se puede seleccionar un barrio',
+      height: 'auto',
+      placeholder: 'Selecciona tu barrio',
+      search: true,
+      displayKey: 'name',
+      limitTo: 10,
+      noResultsFound: 'no se encontro ningun resultado'
+  };
   }
 
   openForm(field) {
@@ -211,6 +224,7 @@ export class Tab1PersonalInformationComponent implements OnInit {
     dataForm.fecha_nacimiento = this.utils.buildDate(dataForm.fecha_nacimiento)
     dataForm.estrato = parseInt(dataForm.estrato)
     dataForm.identificacion = parseInt(dataForm.identificacion)
+    dataForm.barrio = dataForm.barrio.value
     return dataForm;
   }
 

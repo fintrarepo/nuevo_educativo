@@ -20,6 +20,7 @@ export class Tab1WorkingInformationComponent implements OnInit {
   form: FormGroup;
   tab1;
   business;
+  configSelect;
   jobs: any[] = [];
   neighborhoods: any[] = [];
 
@@ -55,7 +56,17 @@ export class Tab1WorkingInformationComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+    this.configSelect = {
+      searchOnKey: 'name',
+      searchPlaceholder: 'Buscar',
+      moreText: 'Solo se puede seleccionar un barrio',
+      height: 'auto',
+      placeholder: 'Selecciona tu barrio',
+      search: true,
+      displayKey: 'name',
+      limitTo: 10,
+      noResultsFound: 'no se encontro ningun resultado'
+  };
     this.form.get('actividad_economica').valueChanges.subscribe(validate => {
       this.credits.autoComplete({
         "numero_solicitud": this.business, "tab": 2

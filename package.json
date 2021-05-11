@@ -41,6 +41,7 @@
     "ng-bootstrap-icons": "^1.2.1",
     "ngrx-store-freeze": "^0.2.4",
     "ngx-mydatepicker": "^2.4.9",
+    "ngx-select-dropdown": "^1.1.0",
     "pg": "^7.18.2",
     "rxjs": "~6.4.0",
     "tslib": "^1.9.0",

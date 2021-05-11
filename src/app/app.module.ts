@@ -8,6 +8,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { NgxMyDatePickerModule } from 'ngx-mydatepicker';
+import { SelectDropDownModule } from 'ngx-select-dropdown'
 
 //ngrx
 import { StoreModule } from '@ngrx/store';
@@ -103,6 +104,7 @@ const NGRX_IMPORTS = [
     FormsModule,
     NgbModule,
     NgxMyDatePickerModule.forRoot(),
+    SelectDropDownModule,
     ...NGRX_IMPORTS
   ],
   providers: [],

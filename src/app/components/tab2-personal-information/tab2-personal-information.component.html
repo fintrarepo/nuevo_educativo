@@ -158,10 +158,12 @@
       </div>
       <div class="form-group col-md-6 col-lg-4" [hidden]="estudentIsApplicant">
         <label class="subtitle-form">Barrio</label>
-        <select class="form-control" formControlName="barrio">
+        <ngx-select-dropdown formControlName="barrio" [multiple]="false" [config]="configSelect"
+                                    [options]="neighborhoods"></ngx-select-dropdown>
+        <!-- <select class="form-control" formControlName="barrio">
           <option value="">Seleccione un barrio</option>
           <option [value]="item.value" *ngFor="let item of neighborhoods">{{item.name}}</option>
-        </select>
+        </select> -->
       </div>
       <div class="form-group col-md-6 col-lg-4" [hidden]="estudentIsApplicant">
         <label class="subtitle-form">Tipo de vivienda</label>
