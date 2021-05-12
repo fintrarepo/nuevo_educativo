@@ -34,6 +34,7 @@ export class RequestCreditComponent implements OnInit {
 
     fecha_pago: "",
     ciudad: "",
+    ocupacion: "",
     afiliado: "",
     num_cuotas: null,
     tipo_carrera: "",
@@ -173,6 +174,7 @@ export class RequestCreditComponent implements OnInit {
 
       cod_referido: this.referred ? this.referred : -100,
       agencia: this.form.ciudad,
+      ocupacion: this.form.ocupacion,
       afiliado: this.form.afiliado
     })
       .subscribe(reponse => {

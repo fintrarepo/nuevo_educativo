@@ -333,11 +333,22 @@
                                 #primer_apellido="ngModel" />
                         </div>
                         <div class="form-group col-md-6 col-lg-4">
-                            <label class="subtitle-form"># de cédula</label>
+                            <label class="subtitle-form">Número de cédula</label>
                             <input type="number" class="form-control" [(ngModel)]="form.identificacion"
                                 name="identificacion" required="true"
                                 [ngClass]="{'invalid': identificacion.invalid && changeFormDataCredit }"
                                 #identificacion="ngModel" />
+                        </div>
+                        <div class="form-group col-md-6 col-lg-4">
+                            <label class="subtitle-form">Ocupación</label>
+                            <select class="form-control" [(ngModel)]="form.ocupacion"
+                                name="ocupacion" required="true"
+                                [ngClass]="{'invalid': ocupacion.invalid && changeFormStudent }" #ocupacion="ngModel">
+                                <option value="">Seleccione una ocupación</option>
+                                <option value="1">Empleado</option>
+                                <option value="2">Independiente</option>
+                                <!-- <option [value]="city.codigo" *ngFor="let city of cities">{{city.ciudad}}</option> -->
+                            </select>
                         </div>
                     </div>
                     <div class="terms-and-conditions">
