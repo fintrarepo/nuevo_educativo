@@ -141,9 +141,11 @@ export class SendOtpToSigningComponent implements OnInit {
       this.tipoUser = tipo;
       this.uniNegocio = neg;
     })
+
     if (this.numSolicitud && this.tipoUser) {
       this.validateSigning();
     }
+  
     this.documentsForm.get('pagare_deceval').valueChanges.subscribe(validate => {
       if (validate) {
         this.verPagare();
@@ -199,7 +201,7 @@ export class SendOtpToSigningComponent implements OnInit {
     this.notfound = true;
     this.isLoading2 = true;
     const params = {
-      "num-celular": this.phoneForm.value.phone,
+      "num-celular": this.dataSigning.telefono,
       "cod-otp": this.keyForm.value.key
     }
     this.signingService.validateDinamicKey(params).subscribe(res => {
@@ -210,8 +212,9 @@ export class SendOtpToSigningComponent implements OnInit {
         this.notfound = true;
         this.textError = err.error.data.detail;
         this.isLoading2 = false;
-
+        
       })
+      this.isLoading2 = false;
   }
 
   validateSigning() {
