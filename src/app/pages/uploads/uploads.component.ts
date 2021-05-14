@@ -2,8 +2,8 @@ import { Component, OnInit, ɵConsole } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CreditsService } from '../../services/credits/credits.service';
 import { listFile } from '../../models/credits.model';
-import { promise } from 'protractor';
-import { resolve, reject } from 'q';
+// import { promise } from 'protractor';
+// import { resolve, reject } from 'q';
 import { HttpHeaders, HttpEventType } from '@angular/common/http';
 import { AuthService } from '../../services/auth/auth.service'
 
