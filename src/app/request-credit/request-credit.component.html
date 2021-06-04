@@ -323,7 +323,7 @@
             </div>
 
             <div class="block-form">
-                <form ngNativeValidate (submit)="queryDataCredit()" #myFormClient="ngForm">
+                <form ngNativeValidate (submit)="runValidation()" #myFormClient="ngForm">
                     <div class="form-row" style="justify-content: center;">
                         <div class="form-group col-md-6 col-lg-4">
                             <label class="subtitle-form">Primer apellido</label>
@@ -345,9 +345,7 @@
                                 name="ocupacion" required="true"
                                 [ngClass]="{'invalid': ocupacion.invalid && changeFormStudent }" #ocupacion="ngModel">
                                 <option value="">Seleccione una ocupación</option>
-                                <option value="1">Empleado</option>
-                                <option value="2">Independiente</option>
-                                <!-- <option [value]="city.codigo" *ngFor="let city of cities">{{city.ciudad}}</option> -->
+                                <option [value]="occupation.codigo" *ngFor="let occupation of occupations">{{occupation.nombre}}</option>
                             </select>
                         </div>
                     </div>

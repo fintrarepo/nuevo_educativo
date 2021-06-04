@@ -67,10 +67,13 @@ export class Tab1WorkingInformationComponent implements OnInit {
       limitTo: 10,
       noResultsFound: 'no se encontro ningun resultado'
   };
+  this.credits.autoComplete({
+    "numero_solicitud": this.business, "tab": 2
+  }).subscribe(this.responseAutoComplete.bind(this))
     this.form.get('actividad_economica').valueChanges.subscribe(validate => {
-      this.credits.autoComplete({
-        "numero_solicitud": this.business, "tab": 2
-      }).subscribe(this.responseAutoComplete.bind(this))
+      // this.credits.autoComplete({
+      //   "numero_solicitud": this.business, "tab": 2
+      // }).subscribe(this.responseAutoComplete.bind(this))
       // tslint:disable-next-line:triple-equals
       if (validate == 'EPLDO') {
         this.empleado = true;

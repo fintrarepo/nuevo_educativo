@@ -37,6 +37,13 @@ export class CreditsService {
   saveSimulation(data) {
     return this.http.put('/webresources/form/save_simulation', data);
   }
+  updateSimulation(data) {
+    return this.http.put('/webresources/form/update_simulation', data);
+  }
+
+  updateStateSimulation(data) {
+    return this.http.put('/webresources/form/update_state_simulation', data);
+  }
 
   clientExists(_identificacion) {
     return this.http.get('/webresources/loans/validate_customer/' + _identificacion)
@@ -44,6 +51,10 @@ export class CreditsService {
 
   loanHistory(data) {
     return this.http.get('/webresources/loans/loan-history', data);
+  }
+  
+  loadOccupation() {
+    return this.http.get('/webresources/form/get_tipo_empleo');
   }
 
   saveTab(data) {
@@ -93,8 +104,8 @@ export class CreditsService {
     return this.http.put('/webresources/login/create_account', data, options);
   }
 
-  saveReconocerID(identication, data) {
-    return this.http.put('/webresources/form/save_reconocer', { "identificacion": identication, "json_resp": data })
+  saveReconocerID(form, data) {
+    return this.http.put('/webresources/form/save_reconocer', { "identificacion": form.identificacion, "id_prospecto": form.id_prospecto, "json_resp": data })
   }
 
 

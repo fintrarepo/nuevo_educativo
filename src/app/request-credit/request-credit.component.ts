@@ -42,7 +42,8 @@ export class RequestCreditComponent implements OnInit {
     ingresos: null,
 
     primer_apellido: "",
-    identificacion: ""
+    identificacion: "",
+    id_prospecto: null
   }
 
   changeFormStudent: boolean = false;
@@ -56,6 +57,7 @@ export class RequestCreditComponent implements OnInit {
   validacion;
   procesoConvenioGuid;
   token;
+  occupations: any;
 
   constructor(public utils: UtilsService, private credit: CreditsService, private route: ActivatedRoute) {
     this.referred = this.route.snapshot.queryParamMap.get('referido');
@@ -65,6 +67,7 @@ export class RequestCreditComponent implements OnInit {
 
   ngOnInit() {
     console.log('Test')
+    this.loadOccupations()
     this.loadCitys()
     this.dates = this.utils.carcularFecha();
     this.txtSend = document.getElementById('txtSend');
@@ -126,7 +129,7 @@ export class RequestCreditComponent implements OnInit {
 
 
   saveReconocerID(data) {
-    this.credit.saveReconocerID(this.form.identificacion, data)
+    this.credit.saveReconocerID(this.form, data)
       .subscribe(data => {
         console.log('Saved reconocer ID');
       })
@@ -147,7 +150,8 @@ export class RequestCreditComponent implements OnInit {
       afiliado: ""
     })
       .subscribe(reponse => {
-        console.log('SAVED SIMULATION')
+        console.log(reponse)
+        this.form.id_prospecto = reponse.id_prospecto
       });
 
 
@@ -156,22 +160,33 @@ export class RequestCreditComponent implements OnInit {
 
   }
 
+  updatestate(){
+    this.credit.updateStateSimulation({
+      id_prospecto: this.form.id_prospecto,
+      estado_credito: "PR",
+      subestado_credito: "PRI",
+      numero_solicitud: ''
+    })
+      .subscribe(reponse => {
+        console.log('SAVED SIMULATION')
+      });
+  }
 
   simulate() {
 
 
 
 
-    this.credit.saveSimulation({
+    this.credit.updateSimulation({
       primer_nombre: this.form.primer_nombre,
       telefono: this.form.telefono,
       email: this.form.email,
       monto: this.form.monto.replace(/,/g, ""),
-      ingresos: this.form.ingresos.replace(/,/g, ""),
+      valor_ingresos_cliente: this.form.ingresos.replace(/,/g, ""),
       fecha_pago: this.form.fecha_pago,
       num_cuotas: this.form.num_cuotas,
       paso: 2,
-
+      id_prospecto: this.form.id_prospecto,
       cod_referido: this.referred ? this.referred : -100,
       agencia: this.form.ciudad,
       ocupacion: this.form.ocupacion,
@@ -248,7 +263,7 @@ export class RequestCreditComponent implements OnInit {
       primer_nombre: this.form.primer_nombre,
       primer_apellido: this.form.primer_apellido,
       email: this.form.email,
-      ingresos_usuario: 0,
+      ingresos_usuario: this.form.ingresos.replace(/,/g, ""),
       fecha_nacimiento: "",
       valor_cuota: this.valor_cuota,//Falta esto
       valor_aval: this.valor_aval,//Falta esto
@@ -262,9 +277,12 @@ export class RequestCreditComponent implements OnInit {
       monto_renovacion: "0",
       politica: "",
       negocio_origen: "",
-      tipo_carrera: this.form.tipo_carrera
+      tipo_carrera: this.form.tipo_carrera,
+      tipo_empleo: this.form.ocupacion,
+      id_prospecto: this.form.id_prospecto
     }
-
+    console.log(dataToSend);
+    
     if (this.referred) {
       dataToSend['referido'] = this.referred;
     }
@@ -347,6 +365,7 @@ export class RequestCreditComponent implements OnInit {
     //SOLICITAR VALIDACIÓN
     await this.Post("https://demorcs.olimpiait.com:6314/Validacion/SolicitudValidacion", this.validacion, this.token).then((resp: any) => {
       if (resp && resp.code == 200) {
+        this.updatestate();
         console.log(resp.data)
         url = resp.data.url;
         this.procesoConvenioGuid = resp.data.procesoConvenioGuid
@@ -357,7 +376,6 @@ export class RequestCreditComponent implements OnInit {
       this.iFrameContainer.classList.remove('hide');
       this.iFrameContainer.classList.add('show');
     }
-    console.log(url);
 
   }
 
@@ -441,6 +459,13 @@ export class RequestCreditComponent implements OnInit {
     this.utils.loadCitys()
       .subscribe(response => {
         this.cities = response
+      })
+  }
+  
+  private loadOccupations() {
+    this.credit.loadOccupation()
+      .subscribe(response => {
+        this.occupations = response
       })
   }
 
