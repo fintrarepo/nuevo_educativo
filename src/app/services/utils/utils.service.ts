@@ -44,6 +44,10 @@ export class UtilsService {
     return this.http.get("/webresources/form/email_domain");
   }
 
+  getSalary() {
+    return this.http.get("/webresources/form/get_smlv");
+  }
+
   getUserInfoByUpdateInfo(nit) {
     return this.http.post(this.apiHost + "/users?nit=" + nit, null);
   }

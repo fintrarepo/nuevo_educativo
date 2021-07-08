@@ -22,6 +22,7 @@ export class RequestCreditComponent implements OnInit {
   afiliates: any[] = [];
   dues: any[] = [];
   dates: any[] = [];
+  valor_salario;
   valor_cuota;
   valor_aval;
   showModal: boolean = false;
@@ -69,6 +70,7 @@ export class RequestCreditComponent implements OnInit {
     console.log('Test')
     this.loadOccupations()
     this.loadCitys()
+    this.loadSalary()
     this.dates = this.utils.carcularFecha();
     this.txtSend = document.getElementById('txtSend');
     this.iFrame = document.getElementById('iFrame');
@@ -103,14 +105,13 @@ export class RequestCreditComponent implements OnInit {
             if (resp && resp.code == 200) {
               const data = resp.data;
               this.saveReconocerID(data)
-              // --(finalizado = TRUE and EstadoProceso = (1: enrolamiento) and cacelado =false) // Paso las validaciones de identidad  
-              // --(finalizado = TRUE and EstadoProceso = (2: validacion) and cancelado =false and aprobado=true  ) // Pasa cliente enrolados previamente
-              if (data.finalizado == true && data.estadoProceso == 1 && data.cancelado == false) {
-                return this.queryDataCredit();
-              }
-              if (data.finalizado == true && data.estadoProceso == 2 && data.cancelado == false && data.aprobado == true) {
-                return this.queryDataCredit();
-              }
+              
+              this.credit.checkStatusReconoser(this.form.id_prospecto)
+                .subscribe(response => {
+                  if(response.aprobo){
+                    this.queryDataCredit()
+                  }
+                });
 
               this.loadingRequest = false;
               this.currentStep = 3;
@@ -160,7 +161,7 @@ export class RequestCreditComponent implements OnInit {
 
   }
 
-  updatestate(){
+  updatestate() {
     this.credit.updateStateSimulation({
       id_prospecto: this.form.id_prospecto,
       estado_credito: "PR",
@@ -282,7 +283,7 @@ export class RequestCreditComponent implements OnInit {
       id_prospecto: this.form.id_prospecto
     }
     console.log(dataToSend);
-    
+
     if (this.referred) {
       dataToSend['referido'] = this.referred;
     }
@@ -461,7 +462,13 @@ export class RequestCreditComponent implements OnInit {
         this.cities = response
       })
   }
-  
+  private loadSalary() {
+    this.utils.getSalary()
+      .subscribe(response => {
+        this.valor_salario = response
+      })
+  }
+
   private loadOccupations() {
     this.credit.loadOccupation()
       .subscribe(response => {

@@ -65,6 +65,25 @@ export class CreditsService {
     return this.http.post('/webresources/form/info_form', null)
   }
 
+  /**
+   * 
+   * @param id es el id del prospecto
+   * @returns un boolean en caso de estar aprobado o no
+   */
+  checkStatusReconoser(id) {
+    return this.http.post('/webresources/form/validar_reconoser', {"id_prospecto":id})
+  }
+
+  /**
+   * 
+   * @param cc es el número de la cedula del cliente
+   * 
+   * @returns un boolean que nos dice si hay credito en tramite
+   */
+  checkCredic(cc) {
+    return this.http.post('/webresources/form/validar_credito_activo', {"cedula":cc})
+  }
+
   autoComplete(data) {
     return this.http.post('/webresources/form/auto_complete', data)
   }
