@@ -25,7 +25,8 @@ export class UtilsService {
   }
 
   loadJobs(cod_actividad) {
-    return this.http.post("/webresources/form/job", { cod_actividad });
+    // return this.http.post("/webresources/form/job", { cod_actividad });
+    return this.http.post("/webresources/form/job_v2", { cod_actividad });
   }
 
   getAddress(cod_ciudad) {

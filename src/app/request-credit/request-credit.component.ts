@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UtilsService } from '../services/utils/utils.service';
 import { CreditsService } from '../services/credits/credits.service';
 import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-request-credit',
@@ -9,6 +10,11 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./request-credit.component.scss']
 })
 export class RequestCreditComponent implements OnInit {
+
+  formPresolicitud: FormGroup;
+  formPresolicitud2: FormGroup;
+  formPresolicitud3: FormGroup;
+
   loadingRequest: boolean = false;
   currentStep = 1;
   currentSubStep = 1;
@@ -27,26 +33,6 @@ export class RequestCreditComponent implements OnInit {
   valor_aval;
   showModal: boolean = false;
 
-  form = {
-
-    primer_nombre: "",
-    telefono: null,
-    email: "",
-
-    fecha_pago: "",
-    ciudad: "",
-    ocupacion: "",
-    afiliado: "",
-    num_cuotas: null,
-    tipo_carrera: "",
-    monto: null,
-    ingresos: null,
-
-    primer_apellido: "",
-    identificacion: "",
-    id_prospecto: null
-  }
-
   changeFormStudent: boolean = false;
   changeFormDataCredit: boolean = false;
   referred;
@@ -60,14 +46,38 @@ export class RequestCreditComponent implements OnInit {
   token;
   occupations: any;
 
-  constructor(public utils: UtilsService, private credit: CreditsService, private route: ActivatedRoute) {
+  constructor(public utils: UtilsService, private credit: CreditsService, private route: ActivatedRoute, private fb: FormBuilder) {
     this.referred = this.route.snapshot.queryParamMap.get('referido');
 
+    this.formPresolicitud = this.fb.group({
+      primer_nombre: ["cesar", [Validators.required, Validators.pattern('^[a-zA-Z]*$')]],
+      telefono: [3182294783, [Validators.required, Validators.maxLength(10)]],
+      email: ["cesariza2014@gmail.com", [Validators.required, Validators.email]]
+    });
+
+    this.formPresolicitud2 = this.fb.group({
+      fecha_pago: ["", Validators.required],
+      ciudad: ["", Validators.required],
+      afiliado: ["", Validators.required],
+      num_cuotas: [null, Validators.required],
+      tipo_carrera: ["", Validators.required],
+      monto: [null, Validators.required],
+      ingresos: [null, [Validators.required]],
+      polite: ['', Validators.requiredTrue],
+      id_prospecto: [null, Validators.required],
+      sala: [null, Validators.required]
+    }, { validator: this.checkSalary });
+
+    this.formPresolicitud3 = this.fb.group({
+      ocupacion: ["", Validators.required],
+      primer_apellido: ["", Validators.required],
+      identificacion: ["", Validators.required],
+      term: ["", Validators.requiredTrue]
+    });
 
   }
 
   ngOnInit() {
-    console.log('Test')
     this.loadOccupations()
     this.loadCitys()
     this.loadSalary()
@@ -88,7 +98,7 @@ export class RequestCreditComponent implements OnInit {
       tipoDoc: "CC",
       numDoc: "",
       email: "",
-      celular: "3057671931",
+      celular: "",
       usuario: "Fintra",
       clave: "12345"
     }
@@ -104,18 +114,20 @@ export class RequestCreditComponent implements OnInit {
           await this.ConsultarValidacion("https://demorcs.olimpiait.com:6314/Validacion/ConsultarValidacion", this.token).then((resp: any) => {
             if (resp && resp.code == 200) {
               const data = resp.data;
-              this.saveReconocerID(data)
-              
-              this.credit.checkStatusReconoser(this.form.id_prospecto)
-                .subscribe(response => {
-                  if(response.aprobo){
-                    this.queryDataCredit()
-                  }
-                });
-
-              this.loadingRequest = false;
-              this.currentStep = 3;
-              this.currentSubStep = 3;
+              this.saveReconocerID(data).subscribe(resp => {
+                if (resp.data === 'OK') {
+                  this.credit.checkStatusReconoser(this.formPresolicitud2.value.id_prospecto)
+                    .subscribe(response => {
+                      if (response.aprobo) {
+                        this.queryDataCredit()
+                      } else {
+                        this.loadingRequest = false;
+                        this.currentStep = 3;
+                        this.currentSubStep = 3;
+                      }
+                    });
+                }
+              })
             }
           });
         } else {
@@ -130,18 +142,13 @@ export class RequestCreditComponent implements OnInit {
 
 
   saveReconocerID(data) {
-    this.credit.saveReconocerID(this.form, data)
-      .subscribe(data => {
-        console.log('Saved reconocer ID');
-      })
+    return this.credit.saveReconocerID({ "identificacion": this.formPresolicitud3.value.identificacion, "id_prospecto": this.formPresolicitud2.value.id_prospecto, "json_resp": data })
   }
 
 
   firstStepSend() {
     this.credit.saveSimulation({
-      primer_nombre: this.form.primer_nombre,
-      telefono: this.form.telefono,
-      email: this.form.email,
+      ...this.formPresolicitud.value,
       monto: 0,
       fecha_pago: "0100-01-01",
       num_cuotas: 0,
@@ -151,8 +158,7 @@ export class RequestCreditComponent implements OnInit {
       afiliado: ""
     })
       .subscribe(reponse => {
-        console.log(reponse)
-        this.form.id_prospecto = reponse.id_prospecto
+        this.formPresolicitud2.patchValue({ id_prospecto: reponse.id_prospecto })
       });
 
 
@@ -163,7 +169,7 @@ export class RequestCreditComponent implements OnInit {
 
   updatestate() {
     this.credit.updateStateSimulation({
-      id_prospecto: this.form.id_prospecto,
+      id_prospecto: this.formPresolicitud2.value.id_prospecto,
       estado_credito: "PR",
       subestado_credito: "PRI",
       numero_solicitud: ''
@@ -175,23 +181,23 @@ export class RequestCreditComponent implements OnInit {
 
   simulate() {
 
-
+    if (this.formPresolicitud2.invalid) {
+      return;
+    }
 
 
     this.credit.updateSimulation({
-      primer_nombre: this.form.primer_nombre,
-      telefono: this.form.telefono,
-      email: this.form.email,
-      monto: this.form.monto.replace(/,/g, ""),
-      valor_ingresos_cliente: this.form.ingresos.replace(/,/g, ""),
-      fecha_pago: this.form.fecha_pago,
-      num_cuotas: this.form.num_cuotas,
+      ...this.formPresolicitud.value,
+      monto: this.formPresolicitud2.value.monto.replace(/,/g, ""),
+      valor_ingresos_cliente: this.formPresolicitud2.value.ingresos.replace(/,/g, ""),
+      fecha_pago: this.formPresolicitud2.value.fecha_pago,
+      num_cuotas: this.formPresolicitud2.value.num_cuotas,
       paso: 2,
-      id_prospecto: this.form.id_prospecto,
+      id_prospecto: this.formPresolicitud2.value.id_prospecto,
       cod_referido: this.referred ? this.referred : -100,
-      agencia: this.form.ciudad,
-      ocupacion: this.form.ocupacion,
-      afiliado: this.form.afiliado
+      agencia: this.formPresolicitud2.value.ciudad,
+      ocupacion: '',
+      afiliado: this.formPresolicitud2.value.afiliado
     })
       .subscribe(reponse => {
         console.log('SAVED SIMULATION')
@@ -199,9 +205,9 @@ export class RequestCreditComponent implements OnInit {
 
 
     this.credit.simulateNotToken({
-      "monto": this.form.monto.replace(/,/g, ""),
-      "num_cuotas": parseInt(this.form.num_cuotas),
-      "fecha_pago": this.form.fecha_pago,
+      "monto": this.formPresolicitud2.value.monto.replace(/,/g, ""),
+      "num_cuotas": parseInt(this.formPresolicitud2.value.num_cuotas),
+      "fecha_pago": this.formPresolicitud2.value.fecha_pago,
       "id_convenio": 58,
       "und_neg": 31,
       "identificacion": 0
@@ -221,16 +227,15 @@ export class RequestCreditComponent implements OnInit {
 
   loadAfiliates() {
     this.utils
-      .loadAfiliates(this.form.ciudad)
+      .loadAfiliates(this.formPresolicitud2.value.ciudad)
       .subscribe(afiliates => {
         this.afiliates = afiliates.data;
       })
   }
 
   requestCredit() {
-    this.credit.clientExists(this.form.identificacion)
+    this.credit.clientExists(this.formPresolicitud3.value.identificacion)
       .subscribe(response => {
-        console.log(response.escliente)
         if (response.escliente == true) {
           this.currentStep = 3;
           this.currentSubStep = 1;
@@ -251,49 +256,48 @@ export class RequestCreditComponent implements OnInit {
 
     let dataToSend = {
       entidad: "EDUCATIVO",
-      afiliado: this.form.afiliado,
-      monto: this.form.monto.replace(/,/g, ""),
+      afiliado: this.formPresolicitud2.value.afiliado,
+      monto: this.formPresolicitud2.value.monto.replace(/,/g, ""),
       producto: "01",
-      num_cuotas: this.form.num_cuotas,
-      fecha_pago: this.form.fecha_pago,
+      num_cuotas: this.formPresolicitud2.value.num_cuotas,
+      fecha_pago: this.formPresolicitud2.value.fecha_pago,
       id_convenio: "58",
       fecha_credito: fecha_credito,
       tipo_identificacion: "CED",
-      identificacion: this.form.identificacion,
+      identificacion: this.formPresolicitud3.value.identificacion,
       fecha_expedicion: "",
-      primer_nombre: this.form.primer_nombre,
-      primer_apellido: this.form.primer_apellido,
-      email: this.form.email,
-      ingresos_usuario: this.form.ingresos.replace(/,/g, ""),
+      primer_nombre: this.formPresolicitud.value.primer_nombre,
+      primer_apellido: this.formPresolicitud3.value.primer_apellido,
+      email: this.formPresolicitud.value.email,
+      ingresos_usuario: this.formPresolicitud2.value.ingresos.replace(/,/g, ""),
       fecha_nacimiento: "",
       valor_cuota: this.valor_cuota,//Falta esto
       valor_aval: this.valor_aval,//Falta esto
       empresa: "FINTRA",
-      telefono: this.form.telefono,
+      telefono: this.formPresolicitud.value.telefono,
       tipo_cliente: "",
       financia_aval: "f",
       und_neg: "31",
-      ciudad: this.form.ciudad,
+      ciudad: this.formPresolicitud2.value.ciudad,
       nit_empresa: "8020220161",
       monto_renovacion: "0",
       politica: "",
       negocio_origen: "",
-      tipo_carrera: this.form.tipo_carrera,
-      tipo_empleo: this.form.ocupacion,
-      id_prospecto: this.form.id_prospecto
+      tipo_carrera: this.formPresolicitud2.value.tipo_carrera,
+      tipo_empleo: this.formPresolicitud3.value.ocupacion,
+      id_prospecto: this.formPresolicitud2.value.id_prospecto
     }
-    console.log(dataToSend);
 
     if (this.referred) {
       dataToSend['referido'] = this.referred;
     }
     this.credit.send2(dataToSend).subscribe(response => {
       this.loadingRequest = false;
-      console.log(response)
       if (response.data.estado_sol == 'P') {
         this.currentStep = 3;
         this.currentSubStep = 2;
       } else {
+        this.messageError = response.data.msg
         this.currentStep = 3;
         this.currentSubStep = 3;
       }
@@ -317,14 +321,14 @@ export class RequestCreditComponent implements OnInit {
   }
 
   buildDues() {
-    let currentAffiliate = this.afiliates.filter(x => x.nit_afiliado == this.form.afiliado)[0]
+    let currentAffiliate = this.afiliates.filter(x => x.nit_afiliado == this.formPresolicitud2.value.afiliado)[0]
     let cuotaInicial = currentAffiliate.cuota_inicial
     let cuotaFinal = currentAffiliate.cuota_final
-    if (this.form.tipo_carrera == 'POSGRADO') {
+    if (this.formPresolicitud2.value.tipo_carrera == 'POSGRADO') {
       cuotaInicial = 6;
       cuotaFinal = 18;
 
-      const monto = this.form.monto.replace(/,/g, "");
+      const monto = this.formPresolicitud2.value.monto.replace(/,/g, "");
       cuotaInicial = 6;
       if (monto >= 0 && monto <= 5000000) {
         cuotaFinal = 12;
@@ -335,7 +339,7 @@ export class RequestCreditComponent implements OnInit {
       } else if (monto > 20000000) {
         cuotaFinal = 36;
       }
-    } else if (this.form.tipo_carrera == 'CONTINUADA') {
+    } else if (this.formPresolicitud2.value.tipo_carrera == 'CONTINUADA') {
       cuotaFinal = 4;
       cuotaInicial = 4;
     }
@@ -344,7 +348,7 @@ export class RequestCreditComponent implements OnInit {
 
   validateSpaces() {
     this.spaces = false;
-    const name = this.form.primer_nombre;
+    const name = this.formPresolicitud.value.primer_nombre;
     for (var i = 0; i < name.length; i++) {
       if (name[i] == " ") {
         this.spaces = true;
@@ -353,10 +357,20 @@ export class RequestCreditComponent implements OnInit {
     }
   }
 
+  checkCredit() {
+    this.credit.checkCredic(this.formPresolicitud3.value.identificacion).subscribe(resp => {
+      if (resp.success) {
+        this.currentStep = 3;
+        this.currentSubStep = 1;
+      } else {
+        this.runValidation();
+      }
+    })
+  }
 
   async runValidation() {
     this.loadingRequest = true;
-    this.validacion = { ...this.validacion, numDoc: this.form.identificacion.toString(), email: this.form.email, }
+    this.validacion = { ...this.validacion, celular: this.formPresolicitud.value.telefono, numDoc: this.formPresolicitud3.value.identificacion.toString(), email: this.formPresolicitud.value.email, }
     //this.validacion = {...this.validacion,  numDoc: "1143444600", email: "antoniojsh93@gmail.com" }
     // let token;
     let url;
@@ -367,7 +381,6 @@ export class RequestCreditComponent implements OnInit {
     await this.Post("https://demorcs.olimpiait.com:6314/Validacion/SolicitudValidacion", this.validacion, this.token).then((resp: any) => {
       if (resp && resp.code == 200) {
         this.updatestate();
-        console.log(resp.data)
         url = resp.data.url;
         this.procesoConvenioGuid = resp.data.procesoConvenioGuid
       }
@@ -446,13 +459,12 @@ export class RequestCreditComponent implements OnInit {
   }
 
   currency(control) {
-    this.form[control] =
-      this.form[control]
+    this.formPresolicitud2.value[control] =
+      this.formPresolicitud2.value[control]
         .replace(/,/g, "")
         .toString()
         .replace(/[^0-9]/g, '')
         .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-
 
   }
 
@@ -465,7 +477,9 @@ export class RequestCreditComponent implements OnInit {
   private loadSalary() {
     this.utils.getSalary()
       .subscribe(response => {
-        this.valor_salario = response
+        this.formPresolicitud2.patchValue({
+          sala: response.salario_minimo_mensual
+        });
       })
   }
 
@@ -485,4 +499,13 @@ export class RequestCreditComponent implements OnInit {
     return arrayDues;
   }
 
+  checkSalary(group: FormGroup) {
+    const salario = group.controls.ingresos.value;
+    const salarioMin = group.controls.sala.value;
+    if (salario !== '' && salario < salarioMin) {
+      group.controls.ingresos.setErrors({ notMayor: true });
+    } else {
+      group.controls.ingresos.setErrors(null);
+    }
+  }
 }

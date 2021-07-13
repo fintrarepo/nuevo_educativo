@@ -123,8 +123,8 @@ export class CreditsService {
     return this.http.put('/webresources/login/create_account', data, options);
   }
 
-  saveReconocerID(form, data) {
-    return this.http.put('/webresources/form/save_reconocer', { "identificacion": form.identificacion, "id_prospecto": form.id_prospecto, "json_resp": data })
+  saveReconocerID(data) {
+    return this.http.put('/webresources/form/save_reconocer', data)
   }
 
 
