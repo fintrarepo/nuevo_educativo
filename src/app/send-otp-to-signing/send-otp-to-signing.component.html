@@ -1,0 +1,166 @@
+<div class="content-confirm-sms">
+  <div class="row logo-firma"><img src="../../assets/images/LOGO SIN SLOGAN FINTRA (BLANCO).png" alt=""></div>
+  <div *ngIf="showStep" class="container" [ngStyle]="{'height': main, 'max-height': main}">
+    <div class="content-button-step spinner" *ngIf="loadingRequest">
+      <div class="lds-spinner">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+
+    <div *ngIf="stepSigning === 1" class="upload-files">
+      <div class="row justify-content-center">
+        <div class="col-lg-7">
+          <h1 class="title-form text-center my-2">Documentos por firmar</h1>
+          <p class="text-center mb-0">Los siguientes documentos se requieren para legalizar tu crédito,
+            acepta en los recuadros uno a uno los términos y condiciones si estás de acuerdo.</p>
+        </div>
+      </div>
+      <p class="content-loading" *ngIf="isLoading" [ngStyle]="{'padding-top': '2%'}">
+            <img src="/assets/images/loading.gif" alt="">
+          </p>
+      <div class="row justify-content-center content-form">
+        <form [formGroup]="documentsForm" class="col-lg-6">
+          <div class="form-check" *ngFor="let list of signinFiles">
+            <input class="form-check-input" type="checkbox" [formControlName]="list.nombre_archivo"
+              [value]="list.id_archivo" [id]="list.nombre_archivo">
+            <label class="form-check-label" [for]="list.nombre_archivo">
+              <!-- <label class="form-check-label"> -->
+              {{list.descripcion}}
+            </label>
+            <button class="btn btn-success" (click)="downloadFile(list)">Ver</button>
+          </div>
+          <div class="alert alert-danger" role="alert"
+            *ngIf="(documentsForm.get('pagare_deceval').errors && documentsForm.get('pagare_deceval').dirty)
+            || (documentsForm.get('terminos_y_condiciones').errors && documentsForm.get('terminos_y_condiciones').dirty)
+            || (documentsForm.get('fianza_titular').errors && documentsForm.get('fianza_titular').dirty)
+            || mDeceval">
+            <p *ngIf="documentsForm.invalid">Es obligatorio marcar todos los documentos</p>
+            <p *ngIf="mDeceval">{{msjDeceval}}</p>
+          </div>
+        </form>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-7">
+          <p class="text-center mb-3">Confirmo que he leído, comprendido, y estoy de acuerdo con los términos y
+            condiciones
+            planteados en los
+            documentos anteriormente detallados.</p>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <button class="btn btn-outline-form2" (click)="sendSms($event)" [disabled]="!documentsForm.valid">
+          IR A FIRMAR
+        </button>
+      </div>
+    </div>
+
+    <!-- <div *ngIf="stepSigning === 2" class="validate-otp">
+      <div class="row justify-content-center">
+        <div class="col-lg-6">
+          <h3 class="text-center title-form">Confirmación de número de celular</h3>
+          <form [formGroup]="phoneForm" class="form-code" (submit)="sendSms($event)">
+            <div class="form-group col-md-6 col-lg-12 mb-5">
+              <label class="subtitle-form">Número de Celular</label>
+              <input type="number" class="form-control" formControlName="phone" />
+              <div class="alert alert-danger" role="alert"
+                *ngIf="(phoneForm.get('phone').errors && phoneForm.get('phone').dirty)">
+                <span *ngIf="phoneForm.get('phone').errors?.required">El número de celular es requerido</span>
+              </div>
+            </div>
+          </form>
+          <div class="row justify-content-center">
+            <div class="content-button-step">
+              <button class="btn btn-outline-form" type="button">
+                VOLVER
+              </button>
+              <button *ngIf="!isLoading" class="btn btn-outline-form2" (click)="sendSms($event)" [disabled]="!phoneForm.valid" type="submit">
+                ENVIAR OTP
+              </button>
+              <button *ngIf="isLoading" class="btn btn-outline-form2" [disabled]="true">
+                CARGANDO...
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <div *ngIf="stepSigning === 2" class="validate-otp">
+      <div class="row justify-content-center">
+        <div class="col-lg-6">
+          <h3 class="text-center title-form">Validación código OTP</h3>
+          <div *ngIf="showTime" class="time">
+            <p class="text-center my-3"><span>{{seconds}}</span></p>
+            <p class="text-center">Tiempo de vida de la clave dinámica</p>
+          </div>
+          <form [formGroup]="keyForm" class="form-code" (submit)="goSigning()">
+            <!-- <div class="mb-5 content-form">
+              <label for="otpInput" class="form-label">Clave dinámica de verificación</label>
+              <input type="number" class="form-control" formControlName="phone" id="otpInput">
+            </div> -->
+            <div class="row justify-content-center">
+              <div class="form-group col-md-6 col-lg-12 mb-5">
+                <label class="subtitle-form">Clave dinámica de verificación</label>
+                <input type="number" class="form-control" formControlName="key" />
+                <div class="alert alert-danger" role="alert"
+                  *ngIf="(keyForm.get('key').errors && keyForm.get('key').dirty)  || notfound">
+                  <span *ngIf="keyForm.get('key').errors?.required">La clave de verificacón es requerida</span>
+                  <span *ngIf="notfound">{{textError}}</span>
+                </div>
+              </div>
+            </div>
+          </form>
+          <div class="row justify-content-center">
+            <div class="content-button-step">
+              <button *ngIf="!showTime" class="btn btn-outline-form2 mr-2" (click)="sendSms()" type="submit">
+                REENVIAR SMS
+              </button>
+              <button *ngIf="!isLoading2" class="btn btn-outline-form2" (click)="goSigning()" [disabled]="!keyForm.valid" type="submit">
+                VALIDAR OTP
+              </button>
+              <button *ngIf="isLoading2" class="btn btn-outline-form2" [disabled]="true">
+                CARGANDO...
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!showStep" class="container" [ngStyle]="{'height': main, 'max-height': main}">
+    <div *ngIf="errors" class="upload-files">
+      <div class="row justify-content-center">
+        <div class="col-lg-7">
+          <h3 class="title-form text-center my-2">
+            ¡Hola! algo salió mal
+          </h3>
+          <p class="text-center">Ponte en contacto con nosotros</p>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!errors" class="upload-files">
+      <div class="row justify-content-center">
+        <div class="col-lg-7">
+          <h3 class="title-form text-center my-2">
+            Tu proceso ya se encuentra en trámite o finalizado
+          </h3>
+          <p class="text-center">Favor validar tu correo electrónico</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="iFrameContainer" class="hide">
+  <iframe id="iFrame" allow="camera" class="iframe__wrapper" frameborder="0"></iframe>
+</div>

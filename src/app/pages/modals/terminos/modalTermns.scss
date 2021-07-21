@@ -1,0 +1,50 @@
+.modal-body.terminos {
+  padding-left: 100px;
+  padding-right: 100px;
+  font-family: 'Poppins';
+
+  h3 {
+    margin-bottom: 25px;
+  }
+
+  ul {
+    margin-bottom: 20px;
+
+    &.numericos {
+      list-style: decimal;
+      padding-left: 17px;
+    }
+
+    &.circle {
+      list-style: inside;
+    }
+
+    &.margen-ul {
+      padding-left: 25px;
+    }
+
+    li {
+      line-height: 18px;
+      margin-bottom: 6px;
+      text-align: justify;
+    }
+  }
+
+  h4 {
+    margin-bottom: 5px;
+  }
+
+  p {
+    margin-bottom: 6px;
+    text-align: justify;
+    line-height: 18px;
+  }
+
+  p.unique-paragraph {
+    margin-bottom: 20px;
+  }
+}
+
+button {
+  height: 50px;
+}

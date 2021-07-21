@@ -46,16 +46,33 @@
               <label class="subtitle-form">Primer nombre</label>
               <input type="text" class="form-control" formControlName="primer_nombre"
                 title="No está permitido espacios, ni caracteres especiales" (keyup)="validateSpaces()" />
-              <span *ngIf="spaces" style="color: #dc3545!important;">El primer nombre no debe tener
-                espacios</span>
+              <!-- <span *ngIf="spaces" style="color: #dc3545!important;">El primer nombre no debe tener
+                espacios</span> -->
+              <div class="alert alert-danger" role="alert"
+                *ngIf="formPresolicitud.get('primer_nombre').touched && formPresolicitud.get('primer_nombre').errors">
+                <span *ngIf="formPresolicitud.get('primer_nombre').errors?.required">El nombre es obligatorio</span>
+                <span *ngIf="formPresolicitud.get('primer_nombre').errors?.pattern">El primer nombre no debe tener
+                  espacios</span>
+              </div>
             </div>
             <div class="form-group col-md-6 col-lg-4">
               <label class="subtitle-form">Celular</label>
               <input type="number" class="form-control" formControlName="telefono" title="Celular invalido" />
+              <div class="alert alert-danger" role="alert"
+                *ngIf="formPresolicitud.get('telefono').touched && formPresolicitud.get('telefono').errors">
+                <span *ngIf="formPresolicitud.get('telefono').errors?.required">El celular es obligatorio</span>
+                <span *ngIf="formPresolicitud.get('telefono').errors?.min">El celular no puede tener menos de 10 dígitos </span>
+                <span *ngIf="formPresolicitud.get('telefono').errors?.max">El celular no puede tener mas de 10 dígitos </span>
+              </div>
             </div>
             <div class="form-group col-md-6 col-lg-4">
               <label class="subtitle-form">Correo electrónico</label>
               <input type="email" class="form-control" formControlName="email" />
+              <div class="alert alert-danger" role="alert"
+                *ngIf="formPresolicitud.get('email').touched && formPresolicitud.get('email').errors">
+                <span *ngIf="formPresolicitud.get('email').errors?.required">El Correo electrónico es obligatorio</span>
+                <span *ngIf="formPresolicitud.get('email').errors?.email">El correo ingresado no es valido</span>
+              </div>
             </div>
           </div>
 
@@ -85,6 +102,11 @@
                 <option value="">Seleccione una ciudad</option>
                 <option [value]="city.codigo" *ngFor="let city of cities">{{city.ciudad}}</option>
               </select>
+              <div class="alert alert-danger" role="alert"
+                *ngIf="formPresolicitud2.get('ciudad').touched && formPresolicitud2.get('ciudad').errors">
+                <span *ngIf="formPresolicitud2.get('ciudad').errors?.required">Seleccione una ubicación, es
+                  requerida.</span>
+              </div>
             </div>
             <div class="form-group col-md-6 col-lg-4">
               <label class="subtitle-form">Nombre institución</label>
@@ -94,6 +116,11 @@
                 <option [value]="item.nit_afiliado" *ngFor="let item of afiliates">
                   {{item.nombre_afiliado}}</option>
               </select>
+              <div class="alert alert-danger" role="alert"
+                *ngIf="formPresolicitud2.get('afiliado').touched && formPresolicitud2.get('afiliado').errors">
+                <span *ngIf="formPresolicitud2.get('afiliado').errors?.required">Seleccione una institución, es
+                  requerida.</span>
+              </div>
             </div>
             <div class="form-group col-md-6 col-lg-4">
               <label class="subtitle-form">Tipo de estudio</label>
@@ -104,14 +131,25 @@
                 <option value="POSGRADO">Posgrado</option>
                 <option value="CONTINUADA">Educación Continuada</option>
               </select>
+              <div class="alert alert-danger" role="alert"
+                *ngIf="formPresolicitud2.get('tipo_carrera').touched && formPresolicitud2.get('tipo_carrera').errors">
+                <span *ngIf="formPresolicitud2.get('tipo_carrera').errors?.required">Seleccione un tipo de estudio, es
+                  requerido.</span>
+              </div>
             </div>
           </div>
 
           <div class="form-row">
             <div class="form-group col-md-6 col-lg-4">
-              <label class="subtitle-form">Valor matrícula</label>
+              <label class="subtitle-form">Valor matrícula:
+                {{formPresolicitud2.controls.monto.value | currency:'USD':true:'1.0-0'}}</label>
               <input type="text" class="form-control" formControlName="monto" (change)="buildDues()"
                 (keyup)="currency('monto')" [ngClass]="{'invalid': changeFormStudent }">
+              <div class="alert alert-danger" role="alert"
+                *ngIf="formPresolicitud2.get('monto').touched && formPresolicitud2.get('monto').errors">
+                <span *ngIf="formPresolicitud2.get('monto').errors?.required">El valor de la matricula es
+                  requerido.</span>
+              </div>
             </div>
             <div class="form-group col-md-6 col-lg-4">
 
@@ -125,11 +163,15 @@
                 </div>
               </div>
 
-              <select class="form-control" formControlName="num_cuotas"
-                [ngClass]="{'invalid': changeFormStudent }">
+              <select class="form-control" formControlName="num_cuotas" [ngClass]="{'invalid': changeFormStudent }">
                 <option value="">Seleccione plazo del crédito</option>
                 <option [value]="item" *ngFor="let item of dues">{{item}}</option>
               </select>
+              <div class="alert alert-danger" role="alert"
+                *ngIf="formPresolicitud2.get('num_cuotas').touched && formPresolicitud2.get('num_cuotas').errors">
+                <span *ngIf="formPresolicitud2.get('num_cuotas').errors?.required">Seleccione un plazo de crédito, es
+                  requerido.</span>
+              </div>
             </div>
             <div class="form-group col-md-6 col-lg-4">
 
@@ -148,13 +190,26 @@
                 <option value="">Seleccione fecha primer pago</option>
                 <option [value]="date" *ngFor="let date of dates">{{date}}</option>
               </select>
+              <div class="alert alert-danger" role="alert"
+                *ngIf="formPresolicitud2.get('fecha_pago').touched && formPresolicitud2.get('fecha_pago').errors">
+                <span *ngIf="formPresolicitud2.get('fecha_pago').errors?.required">Seleccione la fecha del primer pago,
+                  es requerida.</span>
+              </div>
             </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-6 col-lg-4">
-              <label class="subtitle-form">Valor ingresos mensuales</label>
+              <label class="subtitle-form">Valor ingresos mensuales:
+                {{formPresolicitud2.controls.ingresos.value | currency:'USD':true:'1.0-0'}}</label>
               <input type="text" class="form-control" formControlName="ingresos"
-                 [ngClass]="{'invalid': formPresolicitud2.controls.ingresos.touched && formPresolicitud2.controls.ingresos.errors?.notMayor }">
+                [ngClass]="{'invalid': formPresolicitud2.controls.ingresos.touched && formPresolicitud2.controls.ingresos.errors?.notMayor }">
+              <div class="alert alert-danger" role="alert"
+                *ngIf="formPresolicitud2.get('ingresos').touched && formPresolicitud2.get('ingresos').errors">
+                <span *ngIf="formPresolicitud2.get('ingresos').errors?.required">El valor de ingresos mensuales
+                  requerido.</span>
+                <span *ngIf="formPresolicitud2.get('ingresos').errors?.notMayor">El valor ingresado no puede ser menor a
+                  {{formPresolicitud2.controls.sala.value | currency:'USD':true:'1.0-0'}}.</span>
+              </div>
             </div>
           </div>
           <div class="terms-and-conditions">
@@ -165,7 +220,14 @@
             <span>Acepto <a href="https://fintra.co/documentos/Politica-de-tratamiento-de-datos-personales-Fintra.pdf"
                 target="_blank">Política de tratamiento de datos personales.</a></span>
           </div>
-          <div class="content-button-step" *ngIf="formPresolicitud2.invalid"
+          <div class="content-button-step" *ngIf="(formPresolicitud2.get('ciudad').touched && formPresolicitud2.get('ciudad').errors) ||
+          (formPresolicitud2.get('afiliado').touched && formPresolicitud2.get('afiliado').errors) ||
+          (formPresolicitud2.get('tipo_carrera').touched && formPresolicitud2.get('tipo_carrera').errors) ||
+          (formPresolicitud2.get('monto').touched && formPresolicitud2.get('monto').errors) ||
+          (formPresolicitud2.get('num_cuotas').touched && formPresolicitud2.get('num_cuotas').errors) ||
+          (formPresolicitud2.get('ingresos').touched && formPresolicitud2.get('ingresos').errors) ||
+          (formPresolicitud2.get('fecha_pago').touched && formPresolicitud2.get('fecha_pago').errors) ||
+          (formPresolicitud2.get('polite').touched && formPresolicitud2.get('polite').errors)"
             style="margin-top: 1em; margin-bottom: 1em;">
             <span style="color: #dc3545!important; text-align: center; max-width: 90%;">Verifique que todos
               los campos estén diligenciados para poder continuar</span>
@@ -310,11 +372,22 @@
               <label class="subtitle-form">Primer apellido</label>
               <input type="text" class="form-control" formControlName="primer_apellido"
                 [ngClass]="{'invalid': changeFormDataCredit }" />
+              <div class="alert alert-danger" role="alert"
+                *ngIf="formPresolicitud3.get('primer_apellido').touched && formPresolicitud3.get('primer_apellido').errors">
+                <span *ngIf="formPresolicitud3.get('primer_apellido').errors?.required">El apellido es
+                  obligatorio</span>
+              </div>
             </div>
             <div class="form-group col-md-6 col-lg-4">
               <label class="subtitle-form">Número de cédula</label>
-              <input type="number" class="form-control" formControlName="identificacion"
+              <input   type="text" class="form-control" formControlName="identificacion"
                 [ngClass]="{'invalid': changeFormDataCredit }" />
+                <div class="alert alert-danger" role="alert"
+                *ngIf="formPresolicitud3.get('identificacion').touched && formPresolicitud3.get('identificacion').errors">
+                <span *ngIf="formPresolicitud3.get('identificacion').errors?.required">el número de cédula es obligatorio</span>
+                <span *ngIf="formPresolicitud3.get('identificacion').errors?.min">Los dígitos del número de cédula no puede ser menor a 6</span>
+                <span *ngIf="formPresolicitud3.get('identificacion').errors?.max">Los dígitos del número de cédula no puede ser mayor a 10</span>
+              </div>
             </div>
             <div class="form-group col-md-6 col-lg-4">
               <label class="subtitle-form">Ocupación</label>
@@ -336,10 +409,14 @@
               continuar, debes aceptar los <a (click)="showModal = true;" style="cursor: pointer;">Términos y
                 Condiciones.</a></span>
           </div>
-          <div class="content-button-step" *ngIf="formPresolicitud3.invalid"
+          <div class="content-button-step" *ngIf="formPresolicitud3.invalid && !invalidCc"
             style="margin-top: 1em; margin-bottom: 1em;">
             <span style="color: #dc3545!important; text-align: center; max-width: 90%;">Verifique que todos
               los campos estén diligenciados para poder continuar</span>
+          </div>
+          <div class="content-button-step" *ngIf="invalidCc" style="margin-top: 1em; margin-bottom: 1em;">
+            <span style="color: #dc3545!important; text-align: center; max-width: 90%;">Algo no salió bien. Un asesor se
+              pondrá en contacto contigo para ayudarte.</span>
           </div>
           <div class="content-button-step" style="margin-top: 1em; margin-bottom: 1em;" *ngIf="!loadingRequest">
             <button class="btn btn-outline-form" (click)="currentStep = 1; currentSubStep = 3;">volver</button>
@@ -377,8 +454,8 @@
         <h2>Vemos que ya eres cliente Fintra</h2>
 
         <p>
-          Para ingresar a tu cuenta, inicia sesión con tu usuario (correo registrado). Si olvidaste tu
-          contraseña has click aquí.
+          Para continuar con tu solicitud, comunícate con
+          uno de nuestros asesores a nuestra línea de atención al cliente <strong>+575 3782828</strong>
         </p>
 
         <button class="btn btn-outline-form" routerLink="https://edu.fintra.co/login" target="_blank">INICIAR
@@ -406,16 +483,44 @@
     <div class="step-content" *ngIf="currentSubStep==3">
       <div class="content-message-information">
         <img src="/assets/images/No aprobado_icon-01-01.png" style="width: 140px; margin-bottom: 2em;">
-        <h2>Algo no salió bien, pero tranquilo</h2>
+        <h2>¡Lo sentimos!</h2>
 
         <p>
-          <!-- Te ayudamos a encontrar más opciones. Contáctanos a nuestras líneas de atención disponibles. -->
-          {{messageError}}
+          En este momento no podemos procesar tu solicitud de crédito. Si
+          deseas conocer más información, comunícate con nuestra línea de atención al
+          público <strong>+575 3782828</strong>
         </p>
 
 
       </div>
     </div>
+
+
+    <div class="step-content" *ngIf="currentSubStep==4">
+      <div class="content-message-information">
+        <img src="/assets/images/No aprobado_icon-01-01.png" style="width: 140px; margin-bottom: 2em;">
+        <h2>Algo no salió bien, pero tranquilo. Contáctanos directamente para poder ayudarte</h2>
+
+        <div class="content-button-step">
+          <button class="btn btn-outline-form">Contáctanos</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-content" *ngIf="currentSubStep==5">
+      <div class="content-message-information">
+        <img src="/assets/images/No aprobado_icon-01-01.png" style="width: 140px; margin-bottom: 2em;">
+        <h2>Vemos que ya eres cliente Fintra</h2>
+
+        <p> Para ingresar a tu cuenta, inicia sesión con tu usuario (correo registrado) y
+          contraseña.
+        </p>
+
+        <button class="btn btn-outline-form" routerLink="https://edu.fintra.co/login" target="_blank">INICIAR
+          SESIÓN</button>
+      </div>
+    </div>
+
   </div>
 
 </div>
@@ -427,45 +532,39 @@
     </div>
 
     <div class="body-modal">
-      Declaro que la información que he suministrado es verídica y doy mi consentimiento expreso eirrevocable a
-      Fintra
-      S.A. con NIT. 802.022.016-1 a quien estoy solicitando un crédito para:Consultar en cualquier tiempo en las
-      centrales de riesgo, toda la información relevante para conocer midesempeño como deudor, mi capacidad de
-      pago
-      para valorar el riesgo de concederme un crédito.Reportar a las centrales información de riesgo datos, tanto
-      sobre el cumplimiento oportuno como sobreel incumplimiento, si lo hubiere, de mis obligaciones crediticias,
-      o de
-      mis deberes legales de contenidopatrimonial, de tal forma que éstas presenten una información veráz,
-      pertinente,
-      completa y exacta demi desempeño como deudor.Suministrar a las centrales de información de riesgos datos
-      relativos a mis solicitudes de crédito, asícomo otros atinentes a mis relaciones comerciales, financieras y
-      de
-      servicio con el fin de que estos lasutilicen en sus estudios estadísticos y de desarrollo de herrmanientas
-      para
-      prevenir el fraude.En mi calidad de Titular de la información, actuando libre y voluntariamente, autorizo a
-      Fintra S.A.- y/o aExperian Colombia S.A. (en adelante DataCrédito Experian), Carrera 7 No. 76-35 Tel 3191400
-      de
-      Bogotá D.C.,o quien represente sus derechos, a acceder a mis datos personales contenidos en la base de datos
-      deMareigua Ltda. (Mareigua Ltda. con NIT 800.167.353-4), Aportes en Línea (Aportes En Línea
-      S.A.900147238-2),
-      Colfondos y/o administradoras de pensiones, y demás Operadores de información deseguridad social autorizados
-      por
-      el Ministerio de Salud y Protección Social, a mis datos personalesrecolectados por medio del presente
-      formulario, y a mis datos personales contenidos en la base dedatos de DataCrédito Experian (Operador de
-      información crediticia), en adelante mi informaciónpersonal, para darle tratamiento en los términos
-      expresados
-      en la Política de Tratamiento de laInformación Personal de Fintra S.A. y/o DataCrédito Experian y para
-      finalidades de gestión de riesgocrediticio tales como: (i) elaboración y circulación a terceros de scores
-      crediticios, herramientas devalidación de ingresos, herramientas predictivas de ingresos, herramientas para
-      evitar el fraude y engeneral, herramientas que le permitan a los Suscriptores de DataCrédito Experian,
-      adelantar
-      unaadecuada gestión del riesgo crediticio. (ii) Compararla, contrastarla y complementarla con la
-      informaciónfinanciera, comercial, crediticio, de servicios y proveniente de terceros países de DataCrédito
-      Experian.(iii) Compararla, contrastarla y complementarla con la información personal de Midatacrédito.
+      Declaro que la información que he suministrado es verídica y doy mi consentimiento expreso e irrevocable a Fintra
+      S.A. con NIT. 802.022.016-1 a quien estoy solicitando un crédito para: Consultar en cualquier tiempo en las
+      centrales de riesgo, toda la información relevante para conocer mi desempeño como deudor, mi capacidad de pago
+      para valorar el riesgo de concederme un crédito. Reportar a las centrales información de riesgo datos, tanto sobre
+      el cumplimiento oportuno como sobre el incumplimiento, si lo hubiere, de mis obligaciones crediticias, o de mis
+      deberes legales de contenido patrimonial, de tal forma que éstas presenten una información verás, pertinente,
+      completa y exacta de mi desempeño como deudor. Suministrar a las centrales de información de riesgos datos
+      relativos a mis solicitudes de crédito, créditos como otros atinentes a mis relaciones comerciales, financieras y
+      de servicio con el fin de que estos las utilicen en sus estudios estadísticos y de desarrollo de herramientas para
+      prevenir el fraude. En mi calidad de Titular de la información, actuando libre y voluntariamente, autorizo a
+      Fintra S.A.- y/o a Experian Colombia S.A. (en adelante DataCrédito Experian), Carrera 7 No. 76-35 Tel 3191400 de
+      Bogotá D.C., o quien represente sus derechos, a acceder a mis datos personales contenidos en la base de datos de
+      Mareigua Ltda. (Mareigua Ltda. con NIT 800.167.353-4), Aportes en Línea (Aportes En Línea S.A.900147238-2),
+      Colfondos y/o administradoras de pensiones, y demás Operadores de información de seguridad social autorizados por
+      el Ministerio de Salud y Protección Social, a mis datos personales recolectados por medio del presente formulario,
+      y a mis datos personales contenidos en la base de datos de DataCrédito Experian (Operador de información
+      crediticia), en adelante mi información personal, para darle tratamiento en los términos expresados en la Política
+      de Tratamiento de la Información Personal de Fintra S.A. y/o Data Crédito Experian y para finalidades de gestión
+      de riesgo crediticio tales como:
+      <ul>
+        <li>Elaboración y circulación a terceros de scores crediticios, herramientas de validación de ingresos,
+          herramientas predictivas de ingresos, herramientas para evitar el fraude y en general, herramientas que le
+          permitan a los Suscriptores de DataCrédito Experian, adelantar una adecuada gestión del riesgo crediticio.
+        </li>
+        <li>Compararla, contrastarla y complementarla con la información financiera, comercial, crediticio, de servicios
+          y proveniente de terceros países de DataCrédito Experian.</li>
+        <li>Compararla, contrastarla y complementarla con la información personal de Mi DataCrédito.</li>
+      </ul>
     </div>
 
     <div class="footer-modal">
-      <button class="btn btn-outline-form" (click)="terms = true; showModal = false;">Acepto ser
+      <button style="padding-left: 8px; padding-right: 8px; box-sizing: content-box;" class="btn btn-outline-form"
+        (click)="terms = true; showModal = false;">Acepto ser
         consultado</button>
     </div>
   </div>

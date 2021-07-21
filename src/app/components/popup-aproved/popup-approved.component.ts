@@ -7,6 +7,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Router } from '@angular/router';
 import { NgbDateStruct, NgbCalendar, NgbDatepickerConfig, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
+import { CreditsService } from '../../services/credits/credits.service';
 
 // getWeekday
 @Component({
@@ -24,21 +25,36 @@ export class PopupApprovedComponent implements OnInit {
   date: NgbDateStruct = null;
   public dateValid: boolean = false;
   minDate;
-  dateSelected : boolean = false;
+  dateSelected: boolean = false;
+  condNegocio: any;
+  numSolicitud: any;
+  listRequest$ = this.store.select(reducers.getListRequestResponse);
 
-  constructor(private store: Store<reducers.State>,
+  constructor(
+    private store: Store<reducers.State>,
     private utils: UtilsService,
     private router: Router,
     private calendar: NgbCalendar,
     private config: NgbDatepickerConfig,
-    private zone : NgZone,
-    private route: ActivatedRoute) {
+    private zone: NgZone,
+    private route: ActivatedRoute,
+    private creditsService: CreditsService
+  ) {
     const date = moment().add("day", 1)
-  
+
     this.minDate = new NgbDate(date.year(), (date.month() + 1), date.date())
   }
 
   ngOnInit() {
+    this.route.params.subscribe(({ id }) => {
+      this.numSolicitud = id;
+      console.log(id);
+      
+    });
+    this.listRequest$.subscribe(data => {
+      console.log('DATA POPUP', data);
+    })
+    this.obtenerNegocio(this.numSolicitud);
     this.config.showWeekdays = false;
     this.store.dispatch(new ToggleBlurPage())
   }
@@ -54,7 +70,15 @@ export class PopupApprovedComponent implements OnInit {
   nextPage() {
     this.store.dispatch(new ToggleBlurPage())
     this.store.dispatch(new ShowOrHiddeApproved(false))
-    this.router.navigate(['/app/upload/' + this.getBussinnes()])
+    // this.router.navigate(['/app/upload/' + this.getBussinnes() + '/' + this.condNegocio])
+    this.router.navigate(['app/dashboard/requests'])
+  }
+
+  obtenerNegocio(solicitud) {
+    this.creditsService.getNegocio({ "cod-solicitud": solicitud }).subscribe(resp => {
+      console.log('EL NEGOCIO', resp);
+      this.condNegocio = resp.data.negocio;
+    })
   }
 
   cancel() {
@@ -73,14 +97,14 @@ export class PopupApprovedComponent implements OnInit {
 
   validateDate() {
     this.dateSelected = true;
-    this.utils.validateDay(this.date).subscribe( data => {
-      this.zone.run(()=>{
+    this.utils.validateDay(this.date).subscribe(data => {
+      this.zone.run(() => {
         this.dateValid = data[0].dia_habil == "t" ? true : false;
       })
     })
   }
 
-  get isValidaDate(){
+  get isValidaDate() {
     return (!this.dateValid && this.dateSelected)
   }
 

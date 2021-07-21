@@ -12,6 +12,7 @@ import { ListRequestService } from '../../services/list-request/list-request.ser
 import * as reducers from '../../reducers/reducers';
 import * as moment from 'moment';
 import { ShowOrHiddenLoadingForm, ToggleBlurPage } from '../../actions/platform.actions';
+import { CreditsService } from '../../services/credits/credits.service';
 
 @Component({
   selector: 'app-new-request',
@@ -38,13 +39,15 @@ export class NewRequestComponent implements OnInit {
   currentRenew: any;
 
   resultSimulation$ = this.store.select(reducers.getSimulatorResult)
+  occupations: any;
 
   constructor(public formBuilder: FormBuilder,
     private store: Store<reducers.State>,
     private route: ActivatedRoute,
     public auth: AuthService,
     private request: ListRequestService,
-    private utils: UtilsService) {
+    private utils: UtilsService,
+    private credit: CreditsService) {
     this.now = moment()
 
     this.adultDate = moment().subtract(18, "years");
@@ -65,6 +68,7 @@ export class NewRequestComponent implements OnInit {
       "fecha_credito": ['12'],//NO VAAAAA
 
       "ingresos_usuario": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
+      "ocupacion": ['', Validators.required],
 
       "valor_cuota": [''],
       "valor_aval": [''],
@@ -132,7 +136,7 @@ export class NewRequestComponent implements OnInit {
         this.valorAval = data.result.valor_aval;
       }
     })
-
+    this.loadOccupations();
     if (this.isRenewCredit) {
       this.loadDataRenew(this.route.snapshot.paramMap.get('id'))
     }
@@ -144,6 +148,13 @@ export class NewRequestComponent implements OnInit {
       .subscribe(afiliates => {
         this.afiliates = afiliates.data;
         console.log(this.afiliates)
+      })
+  }
+
+  private loadOccupations() {
+    this.credit.loadOccupation()
+      .subscribe(response => {
+        this.occupations = response
       })
   }
 

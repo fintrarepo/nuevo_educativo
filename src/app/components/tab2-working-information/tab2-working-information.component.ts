@@ -38,10 +38,10 @@ export class Tab2WorkingInformationComponent implements OnInit {
       "direccion": ['', Validators.compose([Validators.maxLength(50)])],
       "telefono": ['', Validators.compose([Validators.maxLength(10), Validators.pattern('^[0-9]*$')])],
       "salario_ing": ['', Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
-      "otros_ingresos": ['', Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
+      "otros_ingresos": [0, Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
       "total_activos": ['', Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
-      "arriendo_egr": ['', Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
-      "prestamo_xnomina": ['', Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
+      // "arriendo_egr": ['', Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
+      // "prestamo_xnomina": [0, Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
       "total_pasivos": ['', Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
       departamento: ['', Validators.compose([Validators.maxLength(60)])],
       ciudad: ['', Validators.compose([Validators.maxLength(60)])],
@@ -113,6 +113,8 @@ export class Tab2WorkingInformationComponent implements OnInit {
 
 
   loadJobs(activity) {
+    console.log('DATO OCUPACION', activity);
+    
     this.utils.loadJobs(activity).subscribe(response => {
       this.jobs = response.data;
     })
@@ -152,7 +154,7 @@ export class Tab2WorkingInformationComponent implements OnInit {
   }
 
   private buildDataForm() {
-    let dataForm = { ...this.form.value }
+    let dataForm = { ...this.form.value}
     dataForm.fecha_ingreso = this.utils.buildDate(dataForm.fecha_ingreso)
     return dataForm;
   }

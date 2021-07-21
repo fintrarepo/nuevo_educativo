@@ -1,0 +1,223 @@
+import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
+import { CreditsService } from '../../services/credits/credits.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import * as reducers from '../../reducers/reducers';
+import { Subscription } from 'rxjs';
+import { GetListRequest } from '../../actions/list-requests.actions';
+
+@Component({
+  selector: 'app-reconocer',
+  templateUrl: './reconocer.component.html',
+  styleUrls: ['./reconocer.component.scss']
+})
+export class ReconocerComponent implements OnInit, OnDestroy {
+  auth;
+  procesoConvenioGuid;
+  token: any;
+  iFrameContainer;
+  iFrame: any;
+  validacion;
+  loadingRequest: boolean;
+  showStep: boolean = false;
+  numSolicitud: any;
+  uniNegocio: any;
+  main: string;
+
+  listRequest$ = this.store.select(reducers.getListRequestResponse);
+  subReq$: Subscription;
+  dataUser: { telefono: any; email: any; cc: any; };
+
+  constructor(
+    private store: Store<reducers.State>,
+    private creditService: CreditsService,
+    private activateRouter: ActivatedRoute,
+    private router: Router
+  ) { }
+
+  ngOnDestroy(): void {
+    this.subReq$.unsubscribe();
+  }
+
+  ngOnInit() {
+    this.activateRouter.params.subscribe(({ num, neg }) => {
+      this.numSolicitud = num;
+      this.uniNegocio = neg;
+    })
+
+    this.getCredits();
+    this.subReq$ = this.listRequest$.subscribe(data => {
+      let request = data.filter(req => req.numero_solicitud == this.numSolicitud);
+      if (request) {        
+        this.dataUser = { telefono: request[0].celular, email: request[0].email, cc: request[0].identificacion }
+      }
+    });
+
+    this.iFrame = document.getElementById('iFrame');
+    this.iFrameContainer = document.getElementById('iFrameContainer');
+    this.auth = {
+      clientId: "FINTRA",
+      clientSecret: "F1ntr4P@$$w0rd"
+    };
+
+    this.validacion = {
+      guidConv: "7aacec4f-2f02-4901-81f8-1d5772653434",
+      tipoValidacion: "1",
+      asesor: "Fintra",
+      sede: "344889",
+      tipoDoc: "CC",
+      numDoc: "",
+      email: "",
+      celular: "",
+      usuario: "Fintra",
+      clave: "12345",
+      consultaFuentes: true
+    }
+
+    this.runValidation();
+
+    this.main = (window.innerHeight - 150) + 'px';
+
+    window.onmessage = async (event) => {
+      if (event.data.for === "resultData") {
+        // alert("Proceso terminado, Estado:" + event.data.isSuccess);
+        this.iFrameContainer.classList.add('hide');
+        this.iFrameContainer.classList.remove('show');
+        if (event.data.isSuccess) {
+          this.loadingRequest = false;
+
+          // this.queryDataCredit()
+          await this.ConsultarValidacion("https://demorcs.olimpiait.com:6314/Validacion/ConsultarValidacion", this.token).then((resp: any) => {
+            if (resp && resp.code == 200) {
+              const data = resp.data;
+              // this.saveReconocerID(data)
+              // --(finalizado = TRUE and EstadoProceso = (1: enrolamiento) and cacelado =false) // Paso las validaciones de identidad  
+              // --(finalizado = TRUE and EstadoProceso = (2: validacion) and cancelado =false and aprobado=true  ) // Pasa cliente enrolados previamente
+              if (data.finalizado == true && data.estadoProceso == 1 && data.cancelado == false) {
+                this.router.navigate([`/app/upload/${this.uniNegocio}/${this.numSolicitud}`]);
+              }
+              if (data.finalizado == true && data.estadoProceso == 2 && data.cancelado == false && data.aprobado == true) {
+                this.router.navigate([`/app/upload/${this.uniNegocio}/${this.numSolicitud}`]);
+              }
+              if (data.finalizado == true && (data.estadoProceso == 2 || data.estadoProceso == 1) && data.cancelado == false && data.aprobado == false) {
+                // TODO la solicitud fue rechazada (la validación de reconocer no pasó los filtros)
+                // this.currentStep = 4;
+                this.showStep = true;
+              }
+            }
+          });
+        } else {
+          this.saveReconocerID(event.data);
+        }
+      }
+    }
+  }
+
+  getCredits() {
+    this.store.dispatch(new GetListRequest({ filter: null, credits: false, identificacion: '', limit: 1000, offset: 0 }));
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.main = (window.innerHeight - 150) + 'px';
+  }
+
+  aceptar() {
+    localStorage.clear()
+    this.router.navigate(['/login']);
+  }
+
+  async runValidation() {
+
+    this.loadingRequest = true;
+    this.validacion = { ...this.validacion, numDoc: this.dataUser.cc, email: this.dataUser.email, celular: this.dataUser.telefono }
+    // let token;
+    let url;
+    await this.Post("https://demorcs.olimpiait.com:6317/TraerToken", this.auth).then((resp: any) => {
+      this.token = resp.accessToken;
+    });
+    //SOLICITAR VALIDACIÓN
+    await this.Post("https://demorcs.olimpiait.com:6314/Validacion/SolicitudValidacion", this.validacion, this.token).then((resp: any) => {
+      if (resp && resp.code == 200) {
+        url = resp.data.url;
+        this.procesoConvenioGuid = resp.data.procesoConvenioGuid
+        this.loadingRequest = false;
+      }
+    })
+      .catch(err => {
+        this.loadingRequest = false;
+      });
+    if (url) {
+
+      this.iFrame.src = url;
+      this.iFrameContainer.classList.remove('hide');
+      this.iFrameContainer.classList.add('show');
+    }
+
+  }
+
+  Post(url, dataRequest, token = "") {
+    return new Promise(function (resolve, reject) {
+      var request = new XMLHttpRequest();
+      request.open('POST', url);
+      if (token !== "") {
+        request.setRequestHeader("Authorization", "Bearer " + token);
+      };
+      request.setRequestHeader('Content-type', 'application/json');
+      request.responseType = 'json';
+      request.onload = function () {
+        if (request.status === 200) {
+          resolve(request.response);
+        } else {
+          reject(Error('No fue posible hacer la verificación:' + request.statusText));
+        }
+      };
+      request.onerror = function () {
+        reject(Error('Ocurrio un error de red.'));
+      };
+      // Send the request
+      request.send(JSON.stringify(dataRequest));
+    });
+  }
+
+  ConsultarValidacion(url, token = "") {
+
+    let data = {
+      "guidConv": "7aacec4f-2f02-4901-81f8-1d5772653434",
+      "procesoConvenioGuid": this.procesoConvenioGuid,
+      "usuario": "Fintra",
+      "clave": "12345"
+    }
+
+    return new Promise(function (resolve, reject) {
+      var request = new XMLHttpRequest();
+      request.open('POST', url);
+      if (token !== "") {
+        request.setRequestHeader("Authorization", "Bearer " + token);
+      };
+      request.setRequestHeader('Content-type', 'application/json');
+      request.responseType = 'json';
+      request.onload = function () {
+        if (request.status === 200) {
+          resolve(request.response);
+        } else {
+          reject(Error('No fue posible hacer la verificación:' + request.statusText));
+        }
+      };
+      request.onerror = function () {
+        reject(Error('Ocurrio un error de red.'));
+      };
+      // Send the request
+      request.send(JSON.stringify(data));
+    });
+  }
+
+  saveReconocerID(data) {
+    this.creditService.saveReconocerID(({ "identificacion": 123456, "id_prospecto": '', "json_resp": data })
+      // .subscribe(data => {
+      //   console.log('Saved reconocer ID');
+      // })
+      )
+  }
+
+}

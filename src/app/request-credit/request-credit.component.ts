@@ -45,13 +45,18 @@ export class RequestCreditComponent implements OnInit {
   procesoConvenioGuid;
   token;
   occupations: any;
+  invalidCc: boolean = false;
 
-  constructor(public utils: UtilsService, private credit: CreditsService, private route: ActivatedRoute, private fb: FormBuilder) {
+  constructor(
+    public utils: UtilsService,
+    private credit: CreditsService,
+    private route: ActivatedRoute,
+    private fb: FormBuilder) {
     this.referred = this.route.snapshot.queryParamMap.get('referido');
 
     this.formPresolicitud = this.fb.group({
       primer_nombre: ["cesar", [Validators.required, Validators.pattern('^[a-zA-Z]*$')]],
-      telefono: [3182294783, [Validators.required, Validators.maxLength(10)]],
+      telefono: ['', [Validators.required, Validators.max(9999999999), Validators.min(999999999)]],
       email: ["cesariza2014@gmail.com", [Validators.required, Validators.email]]
     });
 
@@ -71,10 +76,9 @@ export class RequestCreditComponent implements OnInit {
     this.formPresolicitud3 = this.fb.group({
       ocupacion: ["", Validators.required],
       primer_apellido: ["", Validators.required],
-      identificacion: ["", Validators.required],
+      identificacion: ["", [Validators.required, Validators.max(9999999999), Validators.min(99999)]],
       term: ["", Validators.requiredTrue]
     });
-
   }
 
   ngOnInit() {
@@ -104,7 +108,6 @@ export class RequestCreditComponent implements OnInit {
     }
 
     window.onmessage = async (event) => {
-      console.log(`Received message: ${event.data}`, event.data);
       if (event.data.for === "resultData") {
         // alert("Proceso terminado, Estado:" + event.data.isSuccess);
         this.iFrameContainer.classList.add('hide');
@@ -125,10 +128,16 @@ export class RequestCreditComponent implements OnInit {
                         this.currentStep = 3;
                         this.currentSubStep = 3;
                       }
+                    }, err => {
+                      this.sendError('Interna.')
                     });
                 }
+              }, err => {
+                this.sendError('Interna.')
               })
             }
+          }).catch(err => {
+            this.sendError('con Reconoser ID (Validación de identidad).')
           });
         } else {
           this.saveReconocerID(event.data);
@@ -175,7 +184,25 @@ export class RequestCreditComponent implements OnInit {
       numero_solicitud: ''
     })
       .subscribe(reponse => {
-        console.log('SAVED SIMULATION')
+        console.log('Estado actualizado')
+      }, err => {
+        this.sendError('interna.')
+      });
+  }
+
+  sendError(message: string) {
+    this.credit.notifyError({
+      id_prospecto: this.formPresolicitud2.value.id_prospecto,
+      unidad: 31,
+      "cod-solicitud": '',
+      correo: this.formPresolicitud.value.email,
+      celular: this.formPresolicitud.value.telefono,
+      nombres: this.formPresolicitud.value.primer_nombre + this.formPresolicitud3.value.primer_apellido,
+      cedula: this.formPresolicitud3.value.identificacion,
+      info: "error de comunicación + " + message //
+    })
+      .subscribe(reponse => {
+        console.log('SEND NOTIFICATION')
       });
   }
 
@@ -243,6 +270,8 @@ export class RequestCreditComponent implements OnInit {
           this.queryDataCredit()
           //this.runValidation();
         }
+      }, err => {
+
       })
 
   }
@@ -302,10 +331,15 @@ export class RequestCreditComponent implements OnInit {
         this.currentSubStep = 3;
       }
     }, err => {
-      this.messageError = err.error.detail
+      this.sendError('Interna.')
+      if (err.error.detail.msg) {
+        this.messageError = err.error.detail.msg;
+      } else {
+        this.messageError = err.error.detail;
+      }
       this.loadingRequest = false;
       this.currentStep = 3;
-      this.currentSubStep = 3;
+      this.currentSubStep = 4;
     })
 
 
@@ -360,15 +394,23 @@ export class RequestCreditComponent implements OnInit {
   checkCredit() {
     this.credit.checkCredic(this.formPresolicitud3.value.identificacion).subscribe(resp => {
       if (resp.success) {
-        this.currentStep = 3;
-        this.currentSubStep = 1;
+        if (resp.data.option == 2) {
+          this.runValidation();
+        } else {
+          this.currentStep = 3;
+          this.currentSubStep = 1;
+        }
       } else {
         this.runValidation();
       }
-    })
+    },
+      err => {
+        this.sendError('interna.')
+      })
   }
 
   async runValidation() {
+    this.invalidCc = false;
     this.loadingRequest = true;
     this.validacion = { ...this.validacion, celular: this.formPresolicitud.value.telefono, numDoc: this.formPresolicitud3.value.identificacion.toString(), email: this.formPresolicitud.value.email, }
     //this.validacion = {...this.validacion,  numDoc: "1143444600", email: "antoniojsh93@gmail.com" }
@@ -376,6 +418,8 @@ export class RequestCreditComponent implements OnInit {
     let url;
     await this.Post("https://demorcs.olimpiait.com:6317/TraerToken", this.auth).then((resp: any) => {
       this.token = resp.accessToken;
+    }).catch(err => {
+      this.sendError('con Reconoser ID (Validación de identidad).')
     });
     //SOLICITAR VALIDACIÓN
     await this.Post("https://demorcs.olimpiait.com:6314/Validacion/SolicitudValidacion", this.validacion, this.token).then((resp: any) => {
@@ -384,7 +428,12 @@ export class RequestCreditComponent implements OnInit {
         url = resp.data.url;
         this.procesoConvenioGuid = resp.data.procesoConvenioGuid
       }
-    });
+    })
+      .catch(err => {
+        this.loadingRequest = false;
+        this.invalidCc = true;
+        this.sendError('con Reconoser ID (Validación de identidad).')
+      });
     if (url) {
       this.iFrame.src = url;
       this.iFrameContainer.classList.remove('hide');

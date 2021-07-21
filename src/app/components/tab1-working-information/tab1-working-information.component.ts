@@ -9,7 +9,7 @@ import { UtilsService } from '../../services/utils/utils.service';
 import { CreditsService } from '../../services/credits/credits.service';
 import { SelecteTab1SubTab1 } from '../../actions/tabs.actions';
 import { OpenAlert } from '../../actions/alert.actions';
-var currencyFormatter = require('currency-formatter');
+// var currencyFormatter = require('currency-formatter');
 
 @Component({
   selector: 'app-tab1-working-information',
@@ -26,7 +26,7 @@ export class Tab1WorkingInformationComponent implements OnInit {
 
   formData$ = this.store.select(reducers.platformDataForm);
   addressState$ = this.store.select(reducers.getAddressFormState);
-  empleado: boolean = true;
+  empleado: boolean = false;
 
   constructor(private credits: CreditsService, private store: Store<reducers.State>,
     public formBuilder: FormBuilder,
@@ -70,7 +70,7 @@ export class Tab1WorkingInformationComponent implements OnInit {
   this.credits.autoComplete({
     "numero_solicitud": this.business, "tab": 2
   }).subscribe(this.responseAutoComplete.bind(this))
-    this.form.get('actividad_economica').valueChanges.subscribe(validate => {
+    this.form.get('ocupacion').valueChanges.subscribe(validate => {
       // this.credits.autoComplete({
       //   "numero_solicitud": this.business, "tab": 2
       // }).subscribe(this.responseAutoComplete.bind(this))
@@ -161,6 +161,8 @@ export class Tab1WorkingInformationComponent implements OnInit {
   }
 
   loadJobs(activity) {
+    console.log('CARGA DE ACTIVIDADES', activity);
+    
     this.utils.loadJobs(activity).subscribe(response => {
       this.jobs = response.data;
     })
@@ -193,12 +195,12 @@ export class Tab1WorkingInformationComponent implements OnInit {
     this.store.dispatch(new SelecteTab1SubTab1())
   }
 
-  // validator(control) {
-  //   const validator = this.form.get(control).validator({} as AbstractControl);
-  //   if (validator && validator.required) {
-  //     return true;
-  //   }
-  // }
+  validator(control) {
+    const validator = this.form.get(control).validator({} as AbstractControl);
+    if (validator && validator.required) {
+      return true;
+    }
+  }
 
 
 
@@ -208,8 +210,9 @@ export class Tab1WorkingInformationComponent implements OnInit {
         this.form.controls[i].setValue(response.data[i])
       }
     }
+    
+    this.loadJobs(this.form.controls.ocupacion.value)
     this.form.controls['fecha_ingreso'].setValue(this.cashDate(response.data.fecha_ingreso))
-    this.loadJobs(this.form.controls.actividad_economica.value)
   }
 
   private buildDataForm() {

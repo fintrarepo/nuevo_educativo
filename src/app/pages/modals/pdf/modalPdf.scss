@@ -1,0 +1,57 @@
+.modal-body.terminos {
+  padding-left: 35px;
+  padding-right: 35px;
+  font-family: 'Poppins';
+
+  ul {
+    margin-bottom: 20px;
+
+    &.numericos {
+      list-style: decimal;
+      padding-left: 17px;
+    }
+
+    &.circle {
+      list-style: inside;
+    }
+
+    &.margen-ul {
+      padding-left: 25px;
+    }
+
+    li {
+      line-height: 18px;
+      margin-bottom: 6px;
+      text-align: justify;
+    }
+  }
+
+  h4 {
+    margin-bottom: 5px;
+  }
+
+  p {
+    margin-bottom: 6px;
+    text-align: justify;
+    line-height: 18px;
+  }
+
+  p.unique-paragraph {
+    margin-bottom: 20px;
+  }
+}
+
+button {
+  height: 50px;
+}
+
+.titulo-modal {
+  font-size: 23px;
+  color: #37BFFA;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+select#scaleSelect {
+  height: 26px !important;
+}

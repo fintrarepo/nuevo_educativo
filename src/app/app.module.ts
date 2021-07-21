@@ -28,6 +28,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { AlertsComponent } from './components/alerts/alerts.component';
 import { RecoverPasswordComponent } from './components/recover-password/recover-password.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { SendOtpToSigningComponent } from './send-otp-to-signing/send-otp-to-signing.component';
 
 
 //reducers
@@ -51,6 +52,7 @@ import { UpdateInfoComponent } from './update-info/update-info.component';
 import { AddressFormComponent } from './components/address-form/address-form.component';
 import { GetExtractComponent } from './pages/get-extract/get-extract.component';
 import { RequestCreditComponent } from './request-credit/request-credit.component';
+import { SharedModule } from './shared.module';
 
 
 
@@ -93,8 +95,8 @@ const NGRX_IMPORTS = [
     UpdateInfoComponent,
     AddressFormComponent,
     GetExtractComponent,
-    RequestCreditComponent
-
+    RequestCreditComponent,
+    SendOtpToSigningComponent
   ],
   imports: [
     BrowserModule,
@@ -103,6 +105,7 @@ const NGRX_IMPORTS = [
     ReactiveFormsModule,
     FormsModule,
     NgbModule,
+    SharedModule,
     NgxMyDatePickerModule.forRoot(),
     SelectDropDownModule,
     ...NGRX_IMPORTS

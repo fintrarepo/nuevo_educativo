@@ -3,6 +3,7 @@ import { HttpService } from '../http/http.service';
 import { ISimulator, IPreApplication, listFile } from '../../models/credits.model';
 import { HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment'
+import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,7 +13,18 @@ export class CreditsService {
       'Content-Type': 'application/json'
     })
   };
+
+  private messages: any = [];
+  private dataOto = new BehaviorSubject<any>([]);
+
+  dataOto$ = this.dataOto.asObservable();
+
   constructor(private http: HttpService) { }
+
+  addMessage(message: any) {
+    // this.messages = [message];
+    this.dataOto.next(message);
+  }
 
   simulateNotToken(data) {
     return this.http.post('/webresources/loans/approximate_fee', data);
@@ -28,6 +40,10 @@ export class CreditsService {
 
   send(data: IPreApplication) {
     return this.http.put('/webresources/loans/edu-pre-approved', data);
+  }
+
+  getNegocio(data: any) {
+    return this.http.put('/webresources/firma/obtener-negocio', data);
   }
 
   send2(data) {
@@ -109,12 +125,36 @@ export class CreditsService {
       + '&id_archivo=' + data.id_archivo, this.options);
   }
 
+  sendOtp() {
+    return this.http.get(environment.apiPath + '/webresources/firma/codigo-otp');
+  }
+
+  validateOtp(data) {
+    return this.http.post('/webresources/firma/validar-otp', data);
+  }
+  
+  signing(data){
+    return this.http.post('/webresources/firma/ingresar-firma', data);
+  }
+  
+/**
+ * 
+ * @param data josn con el número de la solicitud y tipo, en este caso es solicitante
+ * @returns 
+ */
+  commercialFollowUp(data){
+    return this.http.post('/webresources/firma/seguimiento-comercial', data);
+  }
+
+  notifyError(data){
+    return this.http.post('/webresources/firma/fallo-reconser', data);
+  }
+
   uploadImage(data, options) {
     return this.http.post('/FileUploadServlet', data, options);
   }
 
   registerUser(data) {
-    console.log(data);
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -128,8 +168,12 @@ export class CreditsService {
   }
 
 
-  planDePagos(numero_solicitud){
-    return this.http.get(environment.fintra + '/EndPointCoreServlet?'+"option=5&user="+numero_solicitud+"&numsolc="+numero_solicitud+"", this.options)
+  planDePagos(numero_solicitud) {
+    return this.http.get(environment.fintra + '/EndPointCoreServlet?' + "option=5&user=" + numero_solicitud + "&numsolc=" + numero_solicitud + "", this.options)
+  }
+
+  pagare(params) {
+    return this.http.post('/webresources/deceval/generar-pagare-pdf', params)
   }
 
 }

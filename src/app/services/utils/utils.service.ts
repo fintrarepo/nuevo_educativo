@@ -24,9 +24,9 @@ export class UtilsService {
     return this.http.post("/webresources/form/neighborhood", { ciudad });
   }
 
-  loadJobs(cod_actividad) {
+  loadJobs(cod_ocupacion) {
     // return this.http.post("/webresources/form/job", { cod_actividad });
-    return this.http.post("/webresources/form/job_v2", { cod_actividad });
+    return this.http.post("/webresources/form/job_v2", { cod_ocupacion });
   }
 
   getAddress(cod_ciudad) {
