@@ -48,6 +48,7 @@ export class SendOtpToSigningComponent implements OnInit {
   validacion;
   dataSigning: { cc: any; email: any; telefono: any; };
   isLoading2: boolean;
+  messageLoading: string;
 
   constructor(
     private signingService: SigningService,
@@ -160,6 +161,7 @@ export class SendOtpToSigningComponent implements OnInit {
   }
 
   sendSms() {
+    this.messageLoading = 'Enviando mensaje...'
     this.isLoading = true;
     const params = {
       "num-celular": this.dataSigning.telefono
@@ -198,11 +200,11 @@ export class SendOtpToSigningComponent implements OnInit {
     if (!this.keyForm.valid) {
       return;
     }
-    this.notfound = true;
+    this.notfound = false;
     this.isLoading2 = true;
     const params = {
       "num-celular": this.dataSigning.telefono,
-      "cod-otp": this.keyForm.value.key
+      "cod-otp": (this.keyForm.value.key).toString()
     }
     this.signingService.validateDinamicKey(params).subscribe(res => {
       this.isLoading2 = false;
@@ -244,6 +246,7 @@ export class SendOtpToSigningComponent implements OnInit {
   }
 
   loadListFile() {
+    this.loadingRequest = true;
     const params: listFile = {
       option: 12,
       numero_solicitud: this.numSolicitud,
@@ -252,7 +255,7 @@ export class SendOtpToSigningComponent implements OnInit {
     };
     // documentos a firmar
     this.creditService.loadFileList(params).subscribe(list => {
-      this.isLoading = false;
+      this.loadingRequest = false;
       this.signinFiles = list.data;
       // const filesUploaded = this.listFiles.filter(x => x.url != '')
       // this.allFileUploaded = filesUploaded.length == 3 ? true : false;
@@ -272,6 +275,7 @@ export class SendOtpToSigningComponent implements OnInit {
   }
 
   verPagare() {
+    this.messageLoading = 'Generando pagaré'
     this.isLoading = true;
     const params = { "cod-solicitud": String(this.numSolicitud) }
     return this.creditService.pagare(params)
@@ -284,9 +288,6 @@ export class SendOtpToSigningComponent implements OnInit {
         err => {
           this.isLoading = false;
           this.mDeceval = true;
-          console.log(err);
-
-          // this.msjDeceval = err.error.detail.detail;
           this.msjDeceval = 'Error comunicación DECEVAL.';
         })
   }

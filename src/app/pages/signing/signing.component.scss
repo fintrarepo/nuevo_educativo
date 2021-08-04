@@ -134,3 +134,9 @@
     }
   }
 }
+.content-loading-with-tittle {
+  bottom: 45px;
+  .content-main-loading{
+    z-index: 20;
+  }
+}

@@ -53,5 +53,6 @@ export interface IPreApplication {
     "negocio_origen": String,
     "result": any,
     "error": any,
+    "tipo_empleo": any
     
 }

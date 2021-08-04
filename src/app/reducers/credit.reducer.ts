@@ -39,7 +39,8 @@ const initialStatePreApplication: IPreApplication = {
     "politica": "",
     "negocio_origen": "",
     "error": "",
-    "result": ""
+    "result": "",
+    tipo_empleo: ""
 }
 
 

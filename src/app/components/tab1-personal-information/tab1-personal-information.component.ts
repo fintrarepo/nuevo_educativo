@@ -184,7 +184,7 @@ export class Tab1PersonalInformationComponent implements OnInit {
     for (let i in response.data) {
       if (this.form.controls[i]) {
         if (i == 'fecha_nacimiento') {
-          if (response.data.fecha_nacimiento != '0099-01-01') {
+          if (response.data.fecha_nacimiento != '0099-01-01 00:00:00') {
             this.form.controls[i].setValue(this.cashDate(response.data.fecha_nacimiento))
           }
         } else if (i == 'fecha_expedicion_id') {

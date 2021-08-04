@@ -116,3 +116,10 @@
     box-shadow: 0px 3px 3px #ccc;
   }
 }
+
+.content-loading-with-tittle {
+  bottom: -15px;
+  .content-main-loading{
+    z-index: 20;
+  }
+}

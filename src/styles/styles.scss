@@ -212,6 +212,14 @@ button {
   }
 }
 
+ngx-select-dropdown.ng-pristine.ng-invalid.ng-touched {
+
+  button.ngx-dropdown-button {
+    background-color: #fffaeb !important;
+    border: 1px solid #ffa412 !important;
+  }
+}
+
 input[type="text"],
 input[type="email"],
 input[type="password"],
@@ -495,6 +503,26 @@ input[type="number"] {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.content-loading-with-tittle {
+  position: absolute;
+  bottom: 55px;
+  width: 100%;
+  height: 100%;
+
+  .content-main-loading {
+    overflow: hidden;
+    padding-top: 17px;
+    border-radius: 7px;
+    box-shadow: 2px 3px 7px #ccc;
+
+    h2 {
+      font-family: "Gotham Bold";
+      font-weight: 600;
+      font-size: 1.3rem;
+    }
+  }
 }
 
 @media (max-width: 1440px) {

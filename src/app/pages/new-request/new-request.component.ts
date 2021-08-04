@@ -68,7 +68,7 @@ export class NewRequestComponent implements OnInit {
       "fecha_credito": ['12'],//NO VAAAAA
 
       "ingresos_usuario": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
-      "ocupacion": ['', Validators.required],
+      "tipo_empleo": ['', Validators.required],
 
       "valor_cuota": [''],
       "valor_aval": [''],

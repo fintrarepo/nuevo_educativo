@@ -6,9 +6,12 @@
         que
         tengan más de 1 hoja.</p>
 
-      <p class="content-loading" *ngIf="isLoading" [ngStyle]="{'padding-top': '2%'}">
-        <img src="/assets/images/loading.gif" alt="">
-      </p>
+      <div class="content-loading-with-tittle" *ngIf="isLoading">
+        <div class="content-main-loading col-lg-4 offset-lg-4" style="background-color: #fff;">
+          <h2 class="text-center " style="    color: #1b77ba;">Cargando...</h2>
+          <div class="row justify-content-center"><img src="/assets/images/loading.gif" alt=""></div>
+        </div>
+      </div>
 
       <div class="container">
         <div class="col-md-12 files-content" *ngFor="let list of listFiles; let i = index">
@@ -76,9 +79,15 @@
             acepta en los recuadros uno a uno los términos y condiciones si estás de acuerdo.</p>
         </div>
       </div>
-      <p class="content-loading" *ngIf="isLoading" [ngStyle]="{'padding-top': '2%'}">
+      <!-- <p class="content-loading" *ngIf="isLoading" [ngStyle]="{'padding-top': '2%'}">
         <img src="/assets/images/loading.gif" alt="">
-      </p>
+      </p> -->
+      <div class="content-loading-with-tittle" *ngIf="isLoading">
+        <div class="content-main-loading col-lg-4 offset-lg-4" style="background-color: #fff;">
+          <h2 class="text-center" style="    color: #1b77ba;">Generando pagaré...</h2>
+          <div class="row justify-content-center"><img src="/assets/images/loading.gif" alt=""></div>
+        </div>
+      </div>
       <div class="row justify-content-center content-form">
         <form [formGroup]="documentsForm"  class="col-lg-6">
           <div class="form-check" *ngFor="let list of signinFiles">

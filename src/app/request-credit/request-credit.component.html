@@ -61,8 +61,10 @@
               <div class="alert alert-danger" role="alert"
                 *ngIf="formPresolicitud.get('telefono').touched && formPresolicitud.get('telefono').errors">
                 <span *ngIf="formPresolicitud.get('telefono').errors?.required">El celular es obligatorio</span>
-                <span *ngIf="formPresolicitud.get('telefono').errors?.min">El celular no puede tener menos de 10 dígitos </span>
-                <span *ngIf="formPresolicitud.get('telefono').errors?.max">El celular no puede tener mas de 10 dígitos </span>
+                <span *ngIf="formPresolicitud.get('telefono').errors?.min">El celular no puede tener menos de 10 dígitos
+                </span>
+                <span *ngIf="formPresolicitud.get('telefono').errors?.max">El celular no puede tener mas de 10 dígitos
+                </span>
               </div>
             </div>
             <div class="form-group col-md-6 col-lg-4">
@@ -144,7 +146,7 @@
               <label class="subtitle-form">Valor matrícula:
                 {{formPresolicitud2.controls.monto.value | currency:'USD':true:'1.0-0'}}</label>
               <input type="text" class="form-control" formControlName="monto" (change)="buildDues()"
-                (keyup)="currency('monto')" [ngClass]="{'invalid': changeFormStudent }">
+                [ngClass]="{'invalid': changeFormStudent }">
               <div class="alert alert-danger" role="alert"
                 *ngIf="formPresolicitud2.get('monto').touched && formPresolicitud2.get('monto').errors">
                 <span *ngIf="formPresolicitud2.get('monto').errors?.required">El valor de la matricula es
@@ -154,7 +156,7 @@
             <div class="form-group col-md-6 col-lg-4">
 
               <div style="display: flex; ">
-                <label class="subtitle-form">Plazo del crédito</label>
+                <label class="subtitle-form">Plazo del crédito (meses)</label>
                 <div class="mytooltip top" style="margin-left: 10px;">
                   <div class="information-icon">
                     ?
@@ -197,21 +199,6 @@
               </div>
             </div>
           </div>
-          <div class="form-row">
-            <div class="form-group col-md-6 col-lg-4">
-              <label class="subtitle-form">Valor ingresos mensuales:
-                {{formPresolicitud2.controls.ingresos.value | currency:'USD':true:'1.0-0'}}</label>
-              <input type="text" class="form-control" formControlName="ingresos"
-                [ngClass]="{'invalid': formPresolicitud2.controls.ingresos.touched && formPresolicitud2.controls.ingresos.errors?.notMayor }">
-              <div class="alert alert-danger" role="alert"
-                *ngIf="formPresolicitud2.get('ingresos').touched && formPresolicitud2.get('ingresos').errors">
-                <span *ngIf="formPresolicitud2.get('ingresos').errors?.required">El valor de ingresos mensuales
-                  requerido.</span>
-                <span *ngIf="formPresolicitud2.get('ingresos').errors?.notMayor">El valor ingresado no puede ser menor a
-                  {{formPresolicitud2.controls.sala.value | currency:'USD':true:'1.0-0'}}.</span>
-              </div>
-            </div>
-          </div>
           <div class="terms-and-conditions">
             <label class="container-new-check">
               <input type="checkbox" formControlName="polite">
@@ -225,7 +212,6 @@
           (formPresolicitud2.get('tipo_carrera').touched && formPresolicitud2.get('tipo_carrera').errors) ||
           (formPresolicitud2.get('monto').touched && formPresolicitud2.get('monto').errors) ||
           (formPresolicitud2.get('num_cuotas').touched && formPresolicitud2.get('num_cuotas').errors) ||
-          (formPresolicitud2.get('ingresos').touched && formPresolicitud2.get('ingresos').errors) ||
           (formPresolicitud2.get('fecha_pago').touched && formPresolicitud2.get('fecha_pago').errors) ||
           (formPresolicitud2.get('polite').touched && formPresolicitud2.get('polite').errors)"
             style="margin-top: 1em; margin-bottom: 1em;">
@@ -309,12 +295,12 @@
               Valor de matrícula
             </p>
             <p class="value-item-simulation">
-              ${{formPresolicitud2.value.monto}}
+              {{formPresolicitud2.value.monto | currency:'USD':true:'1.0-0'}}
             </p>
           </div>
           <div class="col-md-4">
             <p class="title-item-simulation">
-              Plazo del crédito
+              Plazo del crédito (meses)
             </p>
             <p class="value-item-simulation">
               {{formPresolicitud2.value.num_cuotas}}
@@ -380,15 +366,24 @@
             </div>
             <div class="form-group col-md-6 col-lg-4">
               <label class="subtitle-form">Número de cédula</label>
-              <input   type="text" class="form-control" formControlName="identificacion"
+              <input type="text" class="form-control" formControlName="identificacion"
                 [ngClass]="{'invalid': changeFormDataCredit }" />
-                <div class="alert alert-danger" role="alert"
+              <div class="alert alert-danger" role="alert"
                 *ngIf="formPresolicitud3.get('identificacion').touched && formPresolicitud3.get('identificacion').errors">
-                <span *ngIf="formPresolicitud3.get('identificacion').errors?.required">el número de cédula es obligatorio</span>
-                <span *ngIf="formPresolicitud3.get('identificacion').errors?.min">Los dígitos del número de cédula no puede ser menor a 6</span>
-                <span *ngIf="formPresolicitud3.get('identificacion').errors?.max">Los dígitos del número de cédula no puede ser mayor a 10</span>
+                <span *ngIf="formPresolicitud3.get('identificacion').errors?.required">el número de cédula es
+                  obligatorio</span>
+                <span *ngIf="formPresolicitud3.get('identificacion').errors?.min">Los dígitos del número de cédula no
+                  puede ser menor a 6</span>
+                <span *ngIf="formPresolicitud3.get('identificacion').errors?.max">Los dígitos del número de cédula no
+                  puede ser mayor a 10</span>
+              </div>
+              <div class="alert alert-danger" role="alert" *ngIf="!formPresolicitud3.get('identificacion').errors && invalidCc">
+                <span>¡Algo no salió bien!. Validar el
+                  campo de cedula ingresado.</span>
               </div>
             </div>
+          </div>
+          <div class="form-row" style="justify-content: center;">
             <div class="form-group col-md-6 col-lg-4">
               <label class="subtitle-form">Ocupación</label>
               <select class="form-control" formControlName="ocupacion"
@@ -397,6 +392,19 @@
                 <option [value]="occupation.codigo" *ngFor="let occupation of occupations">{{occupation.nombre}}
                 </option>
               </select>
+            </div>
+            <div class="form-group col-md-6 col-lg-4">
+              <label class="subtitle-form">Valor ingresos mensuales:
+                {{formPresolicitud3.controls.ingresos.value | currency:'USD':true:'1.0-0'}}</label>
+              <input type="text" class="form-control" formControlName="ingresos"
+                [ngClass]="{'invalid': formPresolicitud3.controls.ingresos.touched && formPresolicitud3.controls.ingresos.errors?.notMayor }">
+              <div class="alert alert-danger" role="alert"
+                *ngIf="formPresolicitud3.get('ingresos').touched && formPresolicitud3.get('ingresos').errors">
+                <span *ngIf="formPresolicitud3.get('ingresos').errors?.required">El valor de ingresos mensuales
+                  requerido.</span>
+                <span *ngIf="formPresolicitud3.get('ingresos').errors?.notMayor">El valor ingresado no puede ser menor a
+                  {{formPresolicitud3.controls.sala.value | currency:'USD':true:'1.0-0'}}.</span>
+              </div>
             </div>
           </div>
           <div class="terms-and-conditions">
@@ -415,8 +423,8 @@
               los campos estén diligenciados para poder continuar</span>
           </div>
           <div class="content-button-step" *ngIf="invalidCc" style="margin-top: 1em; margin-bottom: 1em;">
-            <span style="color: #dc3545!important; text-align: center; max-width: 90%;">Algo no salió bien. Un asesor se
-              pondrá en contacto contigo para ayudarte.</span>
+            <span style="color: #dc3545!important; text-align: center; max-width: 90%;">¡Algo no salió bien!. Validar el
+              campo de cedula ingresado.</span>
           </div>
           <div class="content-button-step" style="margin-top: 1em; margin-bottom: 1em;" *ngIf="!loadingRequest">
             <button class="btn btn-outline-form" (click)="currentStep = 1; currentSubStep = 3;">volver</button>
@@ -424,7 +432,7 @@
               [disabled]="formPresolicitud3.invalid">Solicitar</button>
           </div>
 
-          <div class="content-button-step spinner" *ngIf="loadingRequest">
+          <!-- <div class="content-button-step spinner" *ngIf="loadingRequest">
             <div class="lds-spinner">
               <div></div>
               <div></div>
@@ -439,8 +447,15 @@
               <div></div>
               <div></div>
             </div>
-          </div>
+          </div> -->
+
         </form>
+      </div>
+      <div class="content-loading-with-tittle" *ngIf="loadingRequest">
+        <div class="content-main-loading col-lg-4 offset-lg-4" style="background-color: #fff;">
+          <h2 class="text-center" style="    color: #1b77ba;">{{messageLoading}}</h2>
+          <div class="row justify-content-center"><img src="/assets/images/loading.gif" alt=""></div>
+        </div>
       </div>
     </div>
   </div>
@@ -470,8 +485,8 @@
         <h2>¡Felicidades, tu crédito fue Pre-aprobado!</h2>
 
         <p>
-          Para obtener tu crédito Fintra, inicia sesión con tu usuario (correo registrado) y contraseña
-          (cédula registrada)
+          Para obtener tu crédito Fintra, inicia sesión con tu <strong>usuario (correo registrado) y contraseña (cédula
+            registrada)</strong>
         </p>
 
         <button class="btn btn-outline-form" routerLink="https://edu.fintra.co/login" target="_blank">INICIAR
@@ -501,9 +516,9 @@
         <img src="/assets/images/No aprobado_icon-01-01.png" style="width: 140px; margin-bottom: 2em;">
         <h2>Algo no salió bien, pero tranquilo. Contáctanos directamente para poder ayudarte</h2>
 
-        <div class="content-button-step">
+        <!-- <div class="content-button-step">
           <button class="btn btn-outline-form">Contáctanos</button>
-        </div>
+        </div> -->
       </div>
     </div>
 

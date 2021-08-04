@@ -12,7 +12,10 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ModalDelete } from '../modals/delete/modalDelete';
 import { filter } from 'rxjs/operators';
 import { ModalPdf } from '../modals/pdf/modalPdf';
+import { Store } from '@ngrx/store';
 
+import * as reducers from '../../reducers/reducers';
+import { OpenAlert } from 'src/app/actions/alert.actions';
 @Component({
   selector: 'app-uploads',
   templateUrl: './uploads.component.html',
@@ -43,7 +46,8 @@ export class UploadsComponent implements OnInit {
     private auth: AuthService,
     private formBuilder: FormBuilder,
     private activateRouter: ActivatedRoute,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private store: Store<reducers.State>,
   ) {
     this.documentsForm = this.formBuilder.group({
       pagare_deceval: ['', Validators.requiredTrue],
@@ -189,6 +193,12 @@ export class UploadsComponent implements OnInit {
           this.isLoading = false;
           this.mDeceval = true;
           this.msjDeceval = 'Error comunicación DECEVAL.'
+          return this.store.dispatch(new OpenAlert({
+            open: true,
+            title: "Error",
+            subTitle: "Ha habido un error en la comunicación con DECEVAL.",
+            type: "danger"
+          }))
         })
   }
 
@@ -223,7 +233,7 @@ export class UploadsComponent implements OnInit {
   }
 
   nextTap(tap) {
-    this.creditService.commercialFollowUp({"cod-solicitud":this.numSolicitud,"tipo":"E"}).subscribe(resp => console.log(resp))
+    // this.creditService.commercialFollowUp({"cod-solicitud":this.numSolicitud,"tipo":"E"}).subscribe(resp => console.log(resp))
     this.tabFiles = tap;
   }
 }

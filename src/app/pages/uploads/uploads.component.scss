@@ -67,7 +67,7 @@ button.button-blue {
   }
 
   .content-form {
-    margin: 36px 0px;
+    margin: 55px 0px;
 
     form {
       .form-check {
@@ -106,6 +106,13 @@ button.button-blue {
         }
       }
     }
+  }
+}
+
+.content-loading-with-tittle {
+  bottom: -52px;
+  .content-main-loading{
+    z-index: 20;
   }
 }
 

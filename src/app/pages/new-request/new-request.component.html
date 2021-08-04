@@ -60,8 +60,8 @@
           </div>
           <div class="form-group col-md-6 col-lg-4">
             <label class="subtitle-form">Ocupación</label>
-            <select class="form-control" formControlName="ocupacion"
-              [ngClass]="{'invalid': form.controls.ocupacion.touched && form.controls.ocupacion.errors }">
+            <select class="form-control" formControlName="tipo_empleo"
+              [ngClass]="{'invalid': form.controls.tipo_empleo.touched && form.controls.tipo_empleo.errors }">
               <option value="">Seleccione una ocupación</option>
               <option [value]="occupation.codigo" *ngFor="let occupation of occupations">{{occupation.nombre}}
               </option>

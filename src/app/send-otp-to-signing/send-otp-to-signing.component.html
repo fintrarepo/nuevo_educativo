@@ -26,9 +26,13 @@
             acepta en los recuadros uno a uno los términos y condiciones si estás de acuerdo.</p>
         </div>
       </div>
-      <p class="content-loading" *ngIf="isLoading" [ngStyle]="{'padding-top': '2%'}">
-            <img src="/assets/images/loading.gif" alt="">
-          </p>
+
+      <div class="content-loading-with-tittle" *ngIf="isLoading">
+        <div class="content-main-loading col-lg-4 offset-lg-4" style="background-color: #fff;">
+          <h2 class="text-center" style="    color: #1b77ba;">{{messageLoading}}</h2>
+          <div class="row justify-content-center"><img src="/assets/images/loading.gif" alt=""></div>
+        </div>
+      </div>
       <div class="row justify-content-center content-form">
         <form [formGroup]="documentsForm" class="col-lg-6">
           <div class="form-check" *ngFor="let list of signinFiles">
@@ -40,8 +44,7 @@
             </label>
             <button class="btn btn-success" (click)="downloadFile(list)">Ver</button>
           </div>
-          <div class="alert alert-danger" role="alert"
-            *ngIf="(documentsForm.get('pagare_deceval').errors && documentsForm.get('pagare_deceval').dirty)
+          <div class="alert alert-danger" role="alert" *ngIf="(documentsForm.get('pagare_deceval').errors && documentsForm.get('pagare_deceval').dirty)
             || (documentsForm.get('terminos_y_condiciones').errors && documentsForm.get('terminos_y_condiciones').dirty)
             || (documentsForm.get('fianza_titular').errors && documentsForm.get('fianza_titular').dirty)
             || mDeceval">
@@ -65,37 +68,6 @@
       </div>
     </div>
 
-    <!-- <div *ngIf="stepSigning === 2" class="validate-otp">
-      <div class="row justify-content-center">
-        <div class="col-lg-6">
-          <h3 class="text-center title-form">Confirmación de número de celular</h3>
-          <form [formGroup]="phoneForm" class="form-code" (submit)="sendSms($event)">
-            <div class="form-group col-md-6 col-lg-12 mb-5">
-              <label class="subtitle-form">Número de Celular</label>
-              <input type="number" class="form-control" formControlName="phone" />
-              <div class="alert alert-danger" role="alert"
-                *ngIf="(phoneForm.get('phone').errors && phoneForm.get('phone').dirty)">
-                <span *ngIf="phoneForm.get('phone').errors?.required">El número de celular es requerido</span>
-              </div>
-            </div>
-          </form>
-          <div class="row justify-content-center">
-            <div class="content-button-step">
-              <button class="btn btn-outline-form" type="button">
-                VOLVER
-              </button>
-              <button *ngIf="!isLoading" class="btn btn-outline-form2" (click)="sendSms($event)" [disabled]="!phoneForm.valid" type="submit">
-                ENVIAR OTP
-              </button>
-              <button *ngIf="isLoading" class="btn btn-outline-form2" [disabled]="true">
-                CARGANDO...
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
     <div *ngIf="stepSigning === 2" class="validate-otp">
       <div class="row justify-content-center">
         <div class="col-lg-6">
@@ -112,7 +84,7 @@
             <div class="row justify-content-center">
               <div class="form-group col-md-6 col-lg-12 mb-5">
                 <label class="subtitle-form">Clave dinámica de verificación</label>
-                <input type="number" class="form-control" formControlName="key" />
+                <input type="text" class="form-control" formControlName="key" />
                 <div class="alert alert-danger" role="alert"
                   *ngIf="(keyForm.get('key').errors && keyForm.get('key').dirty)  || notfound">
                   <span *ngIf="keyForm.get('key').errors?.required">La clave de verificacón es requerida</span>
@@ -126,7 +98,8 @@
               <button *ngIf="!showTime" class="btn btn-outline-form2 mr-2" (click)="sendSms()" type="submit">
                 REENVIAR SMS
               </button>
-              <button *ngIf="!isLoading2" class="btn btn-outline-form2" (click)="goSigning()" [disabled]="!keyForm.valid" type="submit">
+              <button *ngIf="!isLoading2" class="btn btn-outline-form2" (click)="goSigning()"
+                [disabled]="!keyForm.valid" type="submit">
                 VALIDAR OTP
               </button>
               <button *ngIf="isLoading2" class="btn btn-outline-form2" [disabled]="true">

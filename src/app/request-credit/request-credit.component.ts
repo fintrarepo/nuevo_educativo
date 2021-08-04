@@ -10,6 +10,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
   styleUrls: ['./request-credit.component.scss']
 })
 export class RequestCreditComponent implements OnInit {
+  messageLoading: string;
 
   formPresolicitud: FormGroup;
   formPresolicitud2: FormGroup;
@@ -55,9 +56,9 @@ export class RequestCreditComponent implements OnInit {
     this.referred = this.route.snapshot.queryParamMap.get('referido');
 
     this.formPresolicitud = this.fb.group({
-      primer_nombre: ["cesar", [Validators.required, Validators.pattern('^[a-zA-Z]*$')]],
-      telefono: ['', [Validators.required, Validators.max(9999999999), Validators.min(999999999)]],
-      email: ["cesariza2014@gmail.com", [Validators.required, Validators.email]]
+      primer_nombre: ["", [Validators.required, Validators.pattern('^[a-zA-Z]*$')]],
+      telefono: [null, [Validators.required, Validators.max(9999999999), Validators.min(999999999)]],
+      email: ["", [Validators.required, Validators.email]]
     });
 
     this.formPresolicitud2 = this.fb.group({
@@ -67,18 +68,18 @@ export class RequestCreditComponent implements OnInit {
       num_cuotas: [null, Validators.required],
       tipo_carrera: ["", Validators.required],
       monto: [null, Validators.required],
-      ingresos: [null, [Validators.required]],
       polite: ['', Validators.requiredTrue],
-      id_prospecto: [null, Validators.required],
-      sala: [null, Validators.required]
-    }, { validator: this.checkSalary });
+      id_prospecto: [null, Validators.required]
+    });
 
     this.formPresolicitud3 = this.fb.group({
       ocupacion: ["", Validators.required],
       primer_apellido: ["", Validators.required],
-      identificacion: ["", [Validators.required, Validators.max(9999999999), Validators.min(99999)]],
-      term: ["", Validators.requiredTrue]
-    });
+      identificacion: [null, [Validators.required, Validators.max(9999999999), Validators.min(99999)]],
+      ingresos: [null, [Validators.required]],
+      term: ["", Validators.requiredTrue],
+      sala: [null, Validators.required]
+    }, { validator: this.checkSalary });
   }
 
   ngOnInit() {
@@ -113,7 +114,6 @@ export class RequestCreditComponent implements OnInit {
         this.iFrameContainer.classList.add('hide');
         this.iFrameContainer.classList.remove('show');
         if (event.data.isSuccess) {
-          // this.queryDataCredit()
           await this.ConsultarValidacion("https://demorcs.olimpiait.com:6314/Validacion/ConsultarValidacion", this.token).then((resp: any) => {
             if (resp && resp.code == 200) {
               const data = resp.data;
@@ -122,17 +122,25 @@ export class RequestCreditComponent implements OnInit {
                   this.credit.checkStatusReconoser(this.formPresolicitud2.value.id_prospecto)
                     .subscribe(response => {
                       if (response.aprobo) {
+                        this.messageLoading = 'Estamos generando tu solicitud';
                         this.queryDataCredit()
                       } else {
                         this.loadingRequest = false;
                         this.currentStep = 3;
                         this.currentSubStep = 3;
+                        this.sendError('No aprobado.')
                       }
                     }, err => {
+                      this.loadingRequest = false;
+                      this.currentStep = 3;
+                      this.currentSubStep = 4;
                       this.sendError('Interna.')
                     });
                 }
               }, err => {
+                this.loadingRequest = false;
+                this.currentStep = 3;
+                this.currentSubStep = 4;
                 this.sendError('Interna.')
               })
             }
@@ -197,9 +205,9 @@ export class RequestCreditComponent implements OnInit {
       "cod-solicitud": '',
       correo: this.formPresolicitud.value.email,
       celular: this.formPresolicitud.value.telefono,
-      nombres: this.formPresolicitud.value.primer_nombre + this.formPresolicitud3.value.primer_apellido,
+      nombres: this.formPresolicitud.value.primer_nombre + ' ' + this.formPresolicitud3.value.primer_apellido,
       cedula: this.formPresolicitud3.value.identificacion,
-      info: "error de comunicación + " + message //
+      info: "error de comunicación " + message //
     })
       .subscribe(reponse => {
         console.log('SEND NOTIFICATION')
@@ -215,8 +223,7 @@ export class RequestCreditComponent implements OnInit {
 
     this.credit.updateSimulation({
       ...this.formPresolicitud.value,
-      monto: this.formPresolicitud2.value.monto.replace(/,/g, ""),
-      valor_ingresos_cliente: this.formPresolicitud2.value.ingresos.replace(/,/g, ""),
+      monto: this.formPresolicitud2.value.monto,
       fecha_pago: this.formPresolicitud2.value.fecha_pago,
       num_cuotas: this.formPresolicitud2.value.num_cuotas,
       paso: 2,
@@ -232,7 +239,7 @@ export class RequestCreditComponent implements OnInit {
 
 
     this.credit.simulateNotToken({
-      "monto": this.formPresolicitud2.value.monto.replace(/,/g, ""),
+      "monto": this.formPresolicitud2.value.monto, // .replace(/,/g, ""),
       "num_cuotas": parseInt(this.formPresolicitud2.value.num_cuotas),
       "fecha_pago": this.formPresolicitud2.value.fecha_pago,
       "id_convenio": 58,
@@ -286,7 +293,7 @@ export class RequestCreditComponent implements OnInit {
     let dataToSend = {
       entidad: "EDUCATIVO",
       afiliado: this.formPresolicitud2.value.afiliado,
-      monto: this.formPresolicitud2.value.monto.replace(/,/g, ""),
+      monto: this.formPresolicitud2.value.monto, //.replace(/,/g, ""),
       producto: "01",
       num_cuotas: this.formPresolicitud2.value.num_cuotas,
       fecha_pago: this.formPresolicitud2.value.fecha_pago,
@@ -298,7 +305,7 @@ export class RequestCreditComponent implements OnInit {
       primer_nombre: this.formPresolicitud.value.primer_nombre,
       primer_apellido: this.formPresolicitud3.value.primer_apellido,
       email: this.formPresolicitud.value.email,
-      ingresos_usuario: this.formPresolicitud2.value.ingresos.replace(/,/g, ""),
+      ingresos_usuario: this.formPresolicitud3.value.ingresos, //.replace(/,/g, ""),
       fecha_nacimiento: "",
       valor_cuota: this.valor_cuota,//Falta esto
       valor_aval: this.valor_aval,//Falta esto
@@ -339,7 +346,7 @@ export class RequestCreditComponent implements OnInit {
       }
       this.loadingRequest = false;
       this.currentStep = 3;
-      this.currentSubStep = 4;
+      this.currentSubStep = 3;
     })
 
 
@@ -362,7 +369,7 @@ export class RequestCreditComponent implements OnInit {
       cuotaInicial = 6;
       cuotaFinal = 18;
 
-      const monto = this.formPresolicitud2.value.monto.replace(/,/g, "");
+      const monto = this.formPresolicitud2.value.monto; //.replace(/,/g, "");
       cuotaInicial = 6;
       if (monto >= 0 && monto <= 5000000) {
         cuotaFinal = 12;
@@ -392,6 +399,9 @@ export class RequestCreditComponent implements OnInit {
   }
 
   checkCredit() {
+    this.loadingRequest = true;
+    this.invalidCc = false;
+    this.messageLoading = 'Validación de identidad';
     this.credit.checkCredic(this.formPresolicitud3.value.identificacion).subscribe(resp => {
       if (resp.success) {
         if (resp.data.option == 2) {
@@ -406,15 +416,16 @@ export class RequestCreditComponent implements OnInit {
     },
       err => {
         this.sendError('interna.')
+        this.loadingRequest = false;
+        this.currentStep = 3;
+        this.currentSubStep = 4;
       })
   }
 
   async runValidation() {
     this.invalidCc = false;
-    this.loadingRequest = true;
     this.validacion = { ...this.validacion, celular: this.formPresolicitud.value.telefono, numDoc: this.formPresolicitud3.value.identificacion.toString(), email: this.formPresolicitud.value.email, }
-    //this.validacion = {...this.validacion,  numDoc: "1143444600", email: "antoniojsh93@gmail.com" }
-    // let token;
+
     let url;
     await this.Post("https://demorcs.olimpiait.com:6317/TraerToken", this.auth).then((resp: any) => {
       this.token = resp.accessToken;
@@ -430,8 +441,8 @@ export class RequestCreditComponent implements OnInit {
       }
     })
       .catch(err => {
-        this.loadingRequest = false;
         this.invalidCc = true;
+        this.loadingRequest = false;
         this.sendError('con Reconoser ID (Validación de identidad).')
       });
     if (url) {
@@ -508,8 +519,8 @@ export class RequestCreditComponent implements OnInit {
   }
 
   currency(control) {
-    this.formPresolicitud2.value[control] =
-      this.formPresolicitud2.value[control]
+    this.formPresolicitud3.value[control] =
+      this.formPresolicitud3.value[control]
         .replace(/,/g, "")
         .toString()
         .replace(/[^0-9]/g, '')
@@ -526,7 +537,7 @@ export class RequestCreditComponent implements OnInit {
   private loadSalary() {
     this.utils.getSalary()
       .subscribe(response => {
-        this.formPresolicitud2.patchValue({
+        this.formPresolicitud3.patchValue({
           sala: response.salario_minimo_mensual
         });
       })

@@ -8,6 +8,10 @@ import { ModalMessage } from '../modals/message/modalMessage';
 import { SigningService } from '../../services/signing/signing.service';
 import { asyncScheduler, interval, Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+
+import * as reducers from '../../reducers/reducers';
+import { OpenAlert } from 'src/app/actions/alert.actions';
 
 @Component({
   selector: 'app-signing',
@@ -26,6 +30,7 @@ export class SigningComponent implements OnInit {
   isLoading: boolean = false;
   showTime: boolean = true;
   textError: string;
+  messageLoading: string;
   cod_negocio: string;
   mensaje: any;
   numSolicitud: any;
@@ -38,8 +43,10 @@ export class SigningComponent implements OnInit {
     private modalService: NgbModal,
     private creditService: CreditsService,
     private activateRouter: ActivatedRoute,
+    private store: Store<reducers.State>,
     private signingService: SigningService
   ) {
+    this.messageLoading= "Validando OTP"; 
     this.notfound = false;
     // form otp
     this.otpForm = this.formBuilder.group({
@@ -78,6 +85,7 @@ export class SigningComponent implements OnInit {
 
   countDown() {
     this.showTime = true;
+    this.creditService.sendOtp().subscribe()
     this.counter$.subscribe(next => {
       this.seconds = next;
 
@@ -92,13 +100,19 @@ export class SigningComponent implements OnInit {
     if (this.otpForm.valid) {
       this.isLoading = true;
       this.notfound = false;
-      this.creditService.validateOtp({ 'cod-otp': this.otpForm.value.otp }).subscribe(data => {
+      this.creditService.validateOtp({ 'cod-otp': (this.otpForm.value.otp).toString() }).subscribe(data => {
         this.tapSigning = 2;
         this.isLoading = false;
       }, err => {
         this.notfound = true;
         this.textError = err.error.data.detail;
         this.isLoading = false;
+        return this.store.dispatch(new OpenAlert({
+          open: true,
+          title: "Error",
+          subTitle: err.error.data.detail,
+          type: "danger"
+        }))
       })
     }
 
@@ -123,9 +137,11 @@ export class SigningComponent implements OnInit {
   }
 
   firmar() {
+    this.messageLoading= "Firmando documentos"; 
     if (this.signingForm.invalid) {
       return;
     }
+    
     this.isLoading = true;
 
     // codeudor
@@ -147,6 +163,12 @@ export class SigningComponent implements OnInit {
       }, err => {
         this.isLoading = false;
         this.textError = err.error.detail;
+        return this.store.dispatch(new OpenAlert({
+          open: true,
+          title: "Error",
+          subTitle: err.error.detail,
+          type: "danger"
+        }))
       })
     } else {
       // firma tirular
@@ -167,6 +189,12 @@ export class SigningComponent implements OnInit {
       }, err => {
         this.isLoading = false;
         this.textError = err.error.detail;
+        return this.store.dispatch(new OpenAlert({
+          open: true,
+          title: "Error",
+          subTitle: err.error.detail,
+          type: "danger"
+        }))
       })
     }
 
