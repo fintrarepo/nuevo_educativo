@@ -3,7 +3,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ArchwizardModule } from 'angular-archwizard';
+// import { ArchwizardModule } from 'angular-archwizard';
 import { FormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
@@ -138,7 +138,6 @@ const directives = [
     RouterModule.forChild(routes),
     CommonModule,
     ReactiveFormsModule,
-    ArchwizardModule,
     FormsModule,
     AngularFontAwesomeModule,
     ...boostrapModules
