@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import * as reducers from '../../reducers/reducers';
 import { Subscription } from 'rxjs';
 import { GetListRequest } from '../../actions/list-requests.actions';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-reconocer',
@@ -12,6 +13,7 @@ import { GetListRequest } from '../../actions/list-requests.actions';
   styleUrls: ['./reconocer.component.scss']
 })
 export class ReconocerComponent implements OnInit, OnDestroy {
+  UrlReconocer:string = environment.reconcer;
   auth;
   procesoConvenioGuid;
   token: any;
@@ -48,16 +50,22 @@ export class ReconocerComponent implements OnInit, OnDestroy {
     this.getCredits();
     this.subReq$ = this.listRequest$.subscribe(data => {
       let request = data.filter(req => req.numero_solicitud == this.numSolicitud);
-      if (request) {        
+      if (request) {
         this.dataUser = { telefono: request[0].celular, email: request[0].email, cc: request[0].identificacion }
       }
     });
 
     this.iFrame = document.getElementById('iFrame');
     this.iFrameContainer = document.getElementById('iFrameContainer');
-    this.auth = {
+    // prueba
+    // this.auth = {
+    //   clientId: "FINTRA",
+    //   clientSecret: "F1ntr4P@$$w0rd"
+    // };
+    // prod
+        this.auth = {
       clientId: "FINTRA",
-      clientSecret: "F1ntr4P@$$w0rd"
+      clientSecret: "Me@uB@!E44CQ%EAP"
     };
 
     this.validacion = {
@@ -69,9 +77,9 @@ export class ReconocerComponent implements OnInit, OnDestroy {
       numDoc: "",
       email: "",
       celular: "",
-      usuario: "Fintra",
-      clave: "12345",
-      consultaFuentes: true
+      usuario: "FINTRA",
+      clave: "Fintra.2021*",
+      consultaFuentes: false
     }
 
     this.runValidation();
@@ -87,10 +95,15 @@ export class ReconocerComponent implements OnInit, OnDestroy {
           this.loadingRequest = false;
 
           // this.queryDataCredit()
-          await this.ConsultarValidacion("https://demorcs.olimpiait.com:6314/Validacion/ConsultarValidacion", this.token).then((resp: any) => {
+          // prod:  https://recidaw.olimpiait.com/index.html
+          // prueba: "https://demorcs.olimpiait.com:6314/Validacion/ConsultarValidacion"
+          await this.ConsultarValidacion(`${this.UrlReconocer}/Validacion/ConsultarValidacion`, this.token).then((resp: any) => {
             if (resp && resp.code == 200) {
               const data = resp.data;
-              // this.saveReconocerID(data)
+              this.saveReconocerID(data).subscribe(Response => {
+                console.log(Response);
+                
+              });
               // --(finalizado = TRUE and EstadoProceso = (1: enrolamiento) and cacelado =false) // Paso las validaciones de identidad  
               // --(finalizado = TRUE and EstadoProceso = (2: validacion) and cancelado =false and aprobado=true  ) // Pasa cliente enrolados previamente
               if (data.finalizado == true && data.estadoProceso == 1 && data.cancelado == false) {
@@ -133,11 +146,12 @@ export class ReconocerComponent implements OnInit, OnDestroy {
     this.validacion = { ...this.validacion, numDoc: this.dataUser.cc, email: this.dataUser.email, celular: this.dataUser.telefono }
     // let token;
     let url;
-    await this.Post("https://demorcs.olimpiait.com:6317/TraerToken", this.auth).then((resp: any) => {
+    await this.Post("https://recidaw.olimpiait.com/TraerToken", this.auth).then((resp: any) => {
       this.token = resp.accessToken;
     });
+    debugger;
     //SOLICITAR VALIDACIÓN
-    await this.Post("https://demorcs.olimpiait.com:6314/Validacion/SolicitudValidacion", this.validacion, this.token).then((resp: any) => {
+    await this.Post("https://recidaw.olimpiait.com/Validacion/SolicitudValidacion", this.validacion, this.token).then((resp: any) => {
       if (resp && resp.code == 200) {
         url = resp.data.url;
         this.procesoConvenioGuid = resp.data.procesoConvenioGuid
@@ -213,11 +227,7 @@ export class ReconocerComponent implements OnInit, OnDestroy {
   }
 
   saveReconocerID(data) {
-    this.creditService.saveReconocerID(({ "identificacion": 123456, "id_prospecto": '', "json_resp": data })
-      // .subscribe(data => {
-      //   console.log('Saved reconocer ID');
-      // })
-      )
+    return this.creditService.saveReconocerID({ "numero_solicitud": this.numSolicitud, "identificacion": this.dataUser.cc, "tipo_trama": 2, "json_resp": data })
   }
 
 }

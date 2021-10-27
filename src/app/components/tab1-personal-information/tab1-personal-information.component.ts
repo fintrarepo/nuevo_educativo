@@ -99,7 +99,7 @@ export class Tab1PersonalInformationComponent implements OnInit {
       placeholder: 'Selecciona tu barrio',
       search: true,
       displayKey: 'name',
-      limitTo: 10,
+      limitTo: 50,
       noResultsFound: 'no se encontro ningun resultado'
   };
   }

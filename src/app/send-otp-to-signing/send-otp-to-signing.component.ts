@@ -9,6 +9,7 @@ import { CreditsService } from '../services/credits/credits.service';
 import { ModalPdf } from '../pages/modals/pdf/modalPdf';
 import { asyncScheduler, interval, Observable } from 'rxjs';
 import { take, map } from 'rxjs/operators';
+import { UtilsService } from '../services/utils/utils.service';
 
 @Component({
   selector: 'app-send-otp-to-signing',
@@ -51,6 +52,7 @@ export class SendOtpToSigningComponent implements OnInit {
   messageLoading: string;
 
   constructor(
+    public utils: UtilsService,
     private signingService: SigningService,
     private fb: FormBuilder,
     private modalService: NgbModal,
@@ -70,7 +72,7 @@ export class SendOtpToSigningComponent implements OnInit {
     this.iFrameContainer = document.getElementById('iFrameContainer');
     this.auth = {
       clientId: "FINTRA",
-      clientSecret: "F1ntr4P@$$w0rd"
+      clientSecret: ' ["Me@uB@!E44CQ%EAP"'
     };
     this.validacion = {
       guidConv: "7aacec4f-2f02-4901-81f8-1d5772653434",
@@ -82,7 +84,7 @@ export class SendOtpToSigningComponent implements OnInit {
       email: "",
       celular: "",
       usuario: "Fintra",
-      clave: "12345"
+      clave: "Fintra.2021*"
     }
 
     window.onmessage = async (event) => {
@@ -93,7 +95,7 @@ export class SendOtpToSigningComponent implements OnInit {
         if (event.data.isSuccess) {
 
           // this.queryDataCredit()
-          await this.ConsultarValidacion("https://demorcs.olimpiait.com:6314/Validacion/ConsultarValidacion", this.token).then((resp: any) => {
+          await this.ConsultarValidacion("https://recidaw.olimpiait.com/Validacion/ConsultarValidacion", this.token).then((resp: any) => {
             if (resp && resp.code == 200) {
               const data = resp.data;
               this.saveReconocerID(data)
@@ -304,12 +306,12 @@ export class SendOtpToSigningComponent implements OnInit {
     //this.validacion = {...this.validacion,  numDoc: "1143444600", email: "antoniojsh93@gmail.com" }
     // let token;
     let url;
-
-    await this.Post("https://demorcs.olimpiait.com:6317/TraerToken", this.auth).then((resp: any) => {
+    debugger;
+    await this.Post("https://recidaw.olimpiait.com/TraerToken", this.auth).then((resp: any) => {
       this.token = resp.accessToken;
     });
     //SOLICITAR VALIDACIÓN
-    await this.Post("https://demorcs.olimpiait.com:6314/Validacion/SolicitudValidacion", this.validacion, this.token).then((resp: any) => {
+    await this.Post("https://recidaw.olimpiait.com/Validacion/SolicitudValidacion", this.validacion, this.token).then((resp: any) => {
       if (resp && resp.code == 200) {
         url = resp.data.url;
         this.procesoConvenioGuid = resp.data.procesoConvenioGuid

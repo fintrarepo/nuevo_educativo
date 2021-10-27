@@ -37,7 +37,7 @@ export class Tab1WorkingInformationComponent implements OnInit {
       "ocupacion": ['', Validators.compose([Validators.maxLength(50), Validators.required])],
       "direccion": ['', Validators.compose([Validators.maxLength(50)])],
       "salario_ing": ['', Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
-      "otros_ingresos": [, Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
+      "otros_ingresos": [, Validators.compose([Validators.maxLength(8), Validators.pattern('^[0-9]*$')])],
       "total_activos": [, Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
       "total_pasivos": [, Validators.compose([Validators.maxLength(8), Validators.required, Validators.pattern('^[0-9]*$')])],
       departamento: ['', Validators.compose([Validators.maxLength(60)])],
@@ -56,6 +56,7 @@ export class Tab1WorkingInformationComponent implements OnInit {
   }
 
   ngOnInit() {
+    window.scrollTo(0, 0)
     this.configSelect = {
       searchOnKey: 'name',
       searchPlaceholder: 'Buscar',
@@ -64,7 +65,7 @@ export class Tab1WorkingInformationComponent implements OnInit {
       placeholder: 'Selecciona tu barrio',
       search: true,
       displayKey: 'name',
-      limitTo: 10,
+      limitTo: 50,
       noResultsFound: 'no se encontro ningun resultado'
   };
   this.credits.autoComplete({
@@ -218,7 +219,7 @@ export class Tab1WorkingInformationComponent implements OnInit {
   private buildDataForm() {
     let dataForm = { ...this.form.value }
     dataForm.fecha_ingreso = this.utils.buildDate(dataForm.fecha_ingreso)
-    dataForm.telefono = String(dataForm.telefono)
+    dataForm.telefono = String(dataForm.telefono)=="undefined"?'':String(dataForm.telefono)
     return dataForm;
   }
 

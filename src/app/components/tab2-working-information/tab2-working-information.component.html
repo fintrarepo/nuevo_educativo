@@ -85,15 +85,18 @@
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Salario / Mesada / Ingresos mes</label>
         <input type="number" class="form-control" formControlName="salario_ing">
+        <label class="subtitle-form">{{ form.controls.salario_ing.value | currency: 'USD': true: '1.0-1' }} </label>
       </div>
 
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Otros ingresos (comisiones, arriendos, etc)</label>
         <input type="number" class="form-control" formControlName="otros_ingresos">
+        <label class="subtitle-form">{{ form.controls.otros_ingresos.value | currency: 'USD': true: '1.0-1' }} </label>
       </div>
       <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">Total activos</label>
+        <label class="subtitle-form">Total activos (Valor total de bienes inmuebles, vehículos, saldos de cuentas bancarias, etc.)</label>
         <input type="number" class="form-control" formControlName="total_activos">
+        <label class="subtitle-form">{{ form.controls.total_activos.value | currency: 'USD': true: '1.0-1' }} </label>
       </div>
     </div>
   </div>
@@ -110,8 +113,10 @@
         <input type="number" class="form-control" formControlName="prestamo_xnomina">
       </div> -->
       <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">Total pasivos</label>
+        <label class="subtitle-form">Total pasivos (Valor
+          total de préstamos, deudas de TDC y otras deudas)</label>
         <input type="number" class="form-control" formControlName="total_pasivos">
+        <label class="subtitle-form">{{ form.controls.total_pasivos.value | currency: 'USD': true: '1.0-1' }} </label>
       </div>
     </div>
 

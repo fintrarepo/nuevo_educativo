@@ -29,8 +29,9 @@
 
       <div class="content-loading-with-tittle" *ngIf="isLoading">
         <div class="content-main-loading col-lg-4 offset-lg-4" style="background-color: #fff;">
+      
+          <div class="row justify-content-center"><img src="/assets/images/loading.gif" alt="" style="height: 13em;"></div>
           <h2 class="text-center" style="    color: #1b77ba;">{{messageLoading}}</h2>
-          <div class="row justify-content-center"><img src="/assets/images/loading.gif" alt=""></div>
         </div>
       </div>
       <div class="row justify-content-center content-form">
@@ -84,7 +85,7 @@
             <div class="row justify-content-center">
               <div class="form-group col-md-6 col-lg-12 mb-5">
                 <label class="subtitle-form">Clave dinámica de verificación</label>
-                <input type="text" class="form-control" formControlName="key" />
+                <input type="text" class="form-control" formControlName="key" (keydown)="utils.validateOnlyNumbersPositive($event)"/>
                 <div class="alert alert-danger" role="alert"
                   *ngIf="(keyForm.get('key').errors && keyForm.get('key').dirty)  || notfound">
                   <span *ngIf="keyForm.get('key').errors?.required">La clave de verificacón es requerida</span>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as reducers from '../../reducers/reducers';
 import { AuthService } from '../../services/auth/auth.service';
@@ -21,6 +21,8 @@ export class HomeComponent implements OnInit {
   currentBussiness$ = this.store.select(reducers.currentBussiness);
 
   isShowNotApproved$ = this.store.select(reducers.isShowNotApproved);
+  main: string;
+  Mainwidth: string;
 
   constructor(private activeRoute: ActivatedRoute, private store: Store<reducers.State>, public auth: AuthService, private route: Router) {
     this.currenturl = this.route.url;
@@ -30,6 +32,14 @@ export class HomeComponent implements OnInit {
         this.showMenu = false;
       }
     })
+      this.main = window.innerHeight + 'px';
+      this.Mainwidth = window.innerWidth + 'px';
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.main = window.innerHeight + 'px';
+    this.Mainwidth = window.innerWidth + 'px';
   }
 
   ngOnInit() {

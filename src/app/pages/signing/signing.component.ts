@@ -12,6 +12,7 @@ import { Store } from '@ngrx/store';
 
 import * as reducers from '../../reducers/reducers';
 import { OpenAlert } from 'src/app/actions/alert.actions';
+import { UtilsService } from 'src/app/services/utils/utils.service';
 
 @Component({
   selector: 'app-signing',
@@ -38,6 +39,7 @@ export class SigningComponent implements OnInit {
   uniNegocio: any;
 
   constructor(
+    public utils: UtilsService,
     private formBuilder: FormBuilder,
     private router: Router,
     private modalService: NgbModal,
@@ -82,10 +84,12 @@ export class SigningComponent implements OnInit {
     }
     this.creditService.dataOto$.subscribe(dato => this.mensaje = dato);
   }
-
+  sendSms(){
+    this.creditService.sendOtp().subscribe()
+    this.countDown()
+  }
   countDown() {
     this.showTime = true;
-    this.creditService.sendOtp().subscribe()
     this.counter$.subscribe(next => {
       this.seconds = next;
 

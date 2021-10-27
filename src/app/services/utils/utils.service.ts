@@ -73,6 +73,9 @@ export class UtilsService {
   }
 
   buildDate(object) {
+    if(object==undefined){
+      return "";   
+    }
     if (!(object.year && object.month && object.day)) {
       return "";
     }
@@ -352,4 +355,25 @@ export class UtilsService {
       text = text.toString().replace(busca, reemplaza);
     return text;
   }
+
+  validateOnlyNumbersPositive(e: KeyboardEvent) {
+    const KEY_CODES_ALLOWED: any = {
+        DELETE_KEY: 8,
+        SUPR_KEY: 46,
+        TAB_KEY: 9,
+        LEFT_KEY: 37,
+        RIGHT_KEY: 39,
+        MINUS_KEY: 109,
+        GUION_KEY: 189,
+        POINT_KEY: 190
+    };
+    const keyCode: number = e.keyCode;
+    // Si las teclas presionas son diferentes a los numeros tanto en el teclado numerico como en el alfanumerico
+    if (!(keyCode >= 48 && keyCode <= 57) && !(keyCode >= 96 && keyCode <= 105) &&
+        keyCode !== KEY_CODES_ALLOWED.TAB_KEY && keyCode !== KEY_CODES_ALLOWED.DELETE_KEY && keyCode !== KEY_CODES_ALLOWED.SUPR_KEY &&
+        keyCode !== KEY_CODES_ALLOWED.RIGHT_KEY && keyCode !== KEY_CODES_ALLOWED.LEFT_KEY &&
+        keyCode !== KEY_CODES_ALLOWED.MINUS_KEY && keyCode !== KEY_CODES_ALLOWED.POINT_KEY) {
+        e.preventDefault();
+    }
+}
 }

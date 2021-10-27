@@ -7,8 +7,9 @@
       </p> -->
       <div class="content-loading-with-tittle" *ngIf="isLoading">
         <div class="content-main-loading col-lg-8 offset-lg-2" style="background-color: #fff;">
+       
+          <div class="row justify-content-center"><img src="/assets/images/loading.gif" alt="" style="height: 13em;"></div>
           <h2 class="text-center " style="    color: #1b77ba;">{{messageLoading}}</h2>
-          <div class="row justify-content-center"><img src="/assets/images/loading.gif" alt=""></div>
         </div>
       </div>
       <div class="content-porcentaje">
@@ -27,7 +28,7 @@
           <form [formGroup]="otpForm" class="form-code">
             <div class="mb-5 content-form">
               <label for="otpInput" class="form-label">Clave dinámica de verificación</label>
-              <input type="number" class="form-control" formControlName="otp" id="otpInput">
+              <input type="text" class="form-control" formControlName="otp" id="otpInput" (keydown)="utils.validateOnlyNumbersPositive($event)">
               <div class="alert alert-danger" role="alert" *ngIf="(otpForm.get('otp').errors && otpForm.get('otp').dirty) || notfound">
                 <span *ngIf="otpForm.get('otp').errors?.required">La clave de verificación es obligatoria</span>
                 <span *ngIf="notfound">{{textError}}</span>
@@ -44,7 +45,7 @@
                 CARGANDO...
               </button>
             </div>
-            <button *ngIf="!showTime" class="btn-outline-form2" (click)="countDown()" >
+            <button *ngIf="!showTime" class="btn-outline-form2" (click)="sendSms()" >
               REENVIAR SMS
             </button>
           </div>

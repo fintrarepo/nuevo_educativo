@@ -73,6 +73,7 @@ export class UploadsComponent implements OnInit {
   }
 
   loadListFile() {
+    this.isLoading = true;
     const negocio = this.route.snapshot.paramMap.get('id');
     const params: listFile = {
       option: 10,
@@ -100,7 +101,7 @@ export class UploadsComponent implements OnInit {
       this.isLoading = false;
       this.listFiles = list.data
       const filesUploaded = this.listFiles.filter(x => x.url != '')
-      this.allFileUploaded = filesUploaded.length == 3 ? true : false;
+      this.allFileUploaded = filesUploaded.length == 5 ? true : false;
 
     });
 

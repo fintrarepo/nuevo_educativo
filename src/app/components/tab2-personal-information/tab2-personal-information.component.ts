@@ -108,7 +108,7 @@ export class Tab2PersonalInformationComponent implements OnInit {
       placeholder: 'Selecciona tu barrio',
       search: true,
       displayKey: 'name',
-      limitTo: 10,
+      limitTo: 50,
       noResultsFound: 'no se encontro ningun resultado'
   };
     this.credits.autoComplete({

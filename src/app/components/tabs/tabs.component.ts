@@ -103,6 +103,12 @@ export class TabsComponent implements OnInit {
   }
 
   selectTab1SubTab1(state) {
+
+    
+    // var myDiv = document.getElementById('section');
+    // myDiv.scrollTop = 0;
+    
+
     if (state.active && this.tabsComponent.activeId != "tab1SubTab1") {
       this.disableAllTabs();
       this.disabledTab1 = false;
@@ -113,6 +119,12 @@ export class TabsComponent implements OnInit {
   }
 
   selectTab1SubTab2(state) {
+
+    
+    // var myDiv = document.getElementById('section');
+    // myDiv.scrollTop = 0;
+    
+
     //console.log(this.tabsComponent.activeId)
     if (state.active && this.tabsComponent.activeId != "tab1SubTab2") {
       this.disableAllTabs();
@@ -125,6 +137,12 @@ export class TabsComponent implements OnInit {
   }
 
   selectTab1SubTab3(state) {
+
+    
+    // var myDiv = document.getElementById('section');
+    // myDiv.scrollTop = 0;
+    
+
     if (state.active && this.tabsComponent.activeId != "tab1SubTab3") {
       this.disableAllTabs();
       setTimeout(() => {
@@ -137,6 +155,12 @@ export class TabsComponent implements OnInit {
   }
 
   selectTab2SubTab1(state) {
+
+    
+    // var myDiv = document.getElementById('section');
+    // myDiv.scrollTop = 0;
+    
+
     if (state.active) {
       this.disableAllTabs();
       this.disabledTab2 = false;
@@ -147,6 +171,12 @@ export class TabsComponent implements OnInit {
   }
 
   selectTab2SubTab2(state) {
+
+    
+    // var myDiv = document.getElementById('section');
+    // myDiv.scrollTop = 0;
+    
+
     if (state.active && this.tabs2Component.activeId != "tab2SubTab2") {
       this.disableAllTabs();
       setTimeout(() => {

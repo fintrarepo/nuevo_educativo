@@ -33,10 +33,13 @@
   <div id="wrapper-step-content" class="wrapper-step-content" *ngIf="currentStep == 1">
     <div class="step-content" *ngIf="currentSubStep==1">
       <div class="subtitle-step">
-        <p>
-          Ingresa los datos reales del titular del crédito y descubre cómo quedarían las cuotas
-          aproximadamente.
-        </p>
+        <div>
+          <p style="max-width: 100%; margin-top: 30px;" class="mb-0">
+            <strong>Ingresa los datos de la persona  responsable de  realizar los pagos del crédito</strong>
+          </p>
+          <p style="max-width: 100%; margin-bottom: 30px;">y descubre cómo quedarían las cuotas aproximadamente.
+          </p>
+        </div>
       </div>
 
       <div class="block-form">
@@ -51,13 +54,12 @@
               <div class="alert alert-danger" role="alert"
                 *ngIf="formPresolicitud.get('primer_nombre').touched && formPresolicitud.get('primer_nombre').errors">
                 <span *ngIf="formPresolicitud.get('primer_nombre').errors?.required">El nombre es obligatorio</span>
-                <span *ngIf="formPresolicitud.get('primer_nombre').errors?.pattern">El primer nombre no debe tener
-                  espacios</span>
+                <span *ngIf="formPresolicitud.get('primer_nombre').errors?.pattern">Este campo no deberá contener números, ni espacios, ni caractéres especiales.</span>
               </div>
             </div>
             <div class="form-group col-md-6 col-lg-4">
               <label class="subtitle-form">Celular</label>
-              <input type="number" class="form-control" formControlName="telefono" title="Celular invalido" />
+              <input type="number" class="form-control" formControlName="telefono" title="Celular invalido" (keydown)="utils.validateOnlyNumbersPositive($event)"/>
               <div class="alert alert-danger" role="alert"
                 *ngIf="formPresolicitud.get('telefono').touched && formPresolicitud.get('telefono').errors">
                 <span *ngIf="formPresolicitud.get('telefono').errors?.required">El celular es obligatorio</span>
@@ -77,10 +79,19 @@
               </div>
             </div>
           </div>
+          <div class="content-button-step" *ngIf="errorSimulation" style="margin-top: 1em; margin-bottom: 1em;">
+            <span style="color: #dc3545!important; text-align: center; max-width: 90%;">En este momento no podemos
+              procesar tu solicitud de crédito. Si
+              deseas conocer más información, comunícate con nuestra línea de atención al
+              público <strong>+575 3782828</strong></span>
+          </div>
 
           <div class="content-button-step">
-            <button class="btn btn-outline-form" id="continuar_pasouno"
+            <button *ngIf="!isLoading2" class="btn btn-outline-form" id="continuar_pasouno"
               [disabled]="formPresolicitud.invalid">Continuar</button>
+              <button *ngIf="isLoading2" class="btn btn-outline-form2" [disabled]="true">
+                CARGANDO...
+              </button>
           </div>
         </form>
       </div>
@@ -112,12 +123,8 @@
             </div>
             <div class="form-group col-md-6 col-lg-4">
               <label class="subtitle-form">Nombre institución</label>
-              <select class="form-control" (change)="buildDues()" formControlName="afiliado"
-                [ngClass]="{'invalid': changeFormStudent }">
-                <option value="">Seleccione una institución educativa</option>
-                <option [value]="item.nit_afiliado" *ngFor="let item of afiliates">
-                  {{item.nombre_afiliado}}</option>
-              </select>
+              <ngx-select-dropdown (change)="buildDues()" formControlName="afiliado" [multiple]="false" [config]="configSelect"
+                                    [options]="afiliates"></ngx-select-dropdown>
               <div class="alert alert-danger" role="alert"
                 *ngIf="formPresolicitud2.get('afiliado').touched && formPresolicitud2.get('afiliado').errors">
                 <span *ngIf="formPresolicitud2.get('afiliado').errors?.required">Seleccione una institución, es
@@ -145,7 +152,7 @@
             <div class="form-group col-md-6 col-lg-4">
               <label class="subtitle-form">Valor matrícula:
                 {{formPresolicitud2.controls.monto.value | currency:'USD':true:'1.0-0'}}</label>
-              <input type="text" class="form-control" formControlName="monto" (change)="buildDues()"
+              <input type="text" class="form-control" formControlName="monto" (change)="buildDues()" (keydown)="utils.validateOnlyNumbersPositive($event)"
                 [ngClass]="{'invalid': changeFormStudent }">
               <div class="alert alert-danger" role="alert"
                 *ngIf="formPresolicitud2.get('monto').touched && formPresolicitud2.get('monto').errors">
@@ -199,6 +206,12 @@
               </div>
             </div>
           </div>
+          <div class="content-button-step" *ngIf="errorSimulation" style="margin-top: 1em; margin-bottom: 1em;">
+            <span style="color: #dc3545!important; text-align: center; max-width: 90%;">En este momento no podemos
+              procesar tu solicitud de crédito. Si
+              deseas conocer más información, comunícate con nuestra línea de atención al
+              público <strong>+575 3782828</strong></span>
+          </div>
           <div class="terms-and-conditions">
             <label class="container-new-check">
               <input type="checkbox" formControlName="polite">
@@ -220,8 +233,11 @@
           </div>
           <div class="content-button-step" style="margin-top: 1em; margin-bottom: 1em;">
             <button class="btn btn-outline-form" (click)="currentSubStep = 1;">volver</button>
-            <button id="simular_educativo" class="btn btn-outline-form" type="submit" value="Simular"
+            <button *ngIf="!isLoading2" id="simular_educativo" class="btn btn-outline-form" type="submit" value="Simular"
               [disabled]="formPresolicitud2.invalid"> Simular</button>
+              <button *ngIf="isLoading2" class="btn btn-outline-form2" [disabled]="true">
+                SIMULANDO...
+              </button>
           </div>
         </form>
       </div>
@@ -284,7 +300,7 @@
               Nombre institución
             </p>
             <p class="value-item-simulation">
-              {{getNameAfiliafo(formPresolicitud2.value.afiliado)}}
+              {{getNameAfiliafo(formPresolicitud2.value.afiliado.nit_afiliado)}}
             </p>
           </div>
         </div>
@@ -366,7 +382,7 @@
             </div>
             <div class="form-group col-md-6 col-lg-4">
               <label class="subtitle-form">Número de cédula</label>
-              <input type="text" class="form-control" formControlName="identificacion"
+              <input type="text" class="form-control" formControlName="identificacion" (keydown)="utils.validateOnlyNumbersPositive($event)"
                 [ngClass]="{'invalid': changeFormDataCredit }" />
               <div class="alert alert-danger" role="alert"
                 *ngIf="formPresolicitud3.get('identificacion').touched && formPresolicitud3.get('identificacion').errors">
@@ -377,7 +393,8 @@
                 <span *ngIf="formPresolicitud3.get('identificacion').errors?.max">Los dígitos del número de cédula no
                   puede ser mayor a 10</span>
               </div>
-              <div class="alert alert-danger" role="alert" *ngIf="!formPresolicitud3.get('identificacion').errors && invalidCc">
+              <div class="alert alert-danger" role="alert"
+                *ngIf="!formPresolicitud3.get('identificacion').errors && invalidCc">
                 <span>¡Algo no salió bien!. Validar el
                   campo de cedula ingresado.</span>
               </div>
@@ -396,7 +413,7 @@
             <div class="form-group col-md-6 col-lg-4">
               <label class="subtitle-form">Valor ingresos mensuales:
                 {{formPresolicitud3.controls.ingresos.value | currency:'USD':true:'1.0-0'}}</label>
-              <input type="text" class="form-control" formControlName="ingresos"
+              <input type="text" class="form-control" formControlName="ingresos" (keydown)="utils.validateOnlyNumbersPositive($event)"
                 [ngClass]="{'invalid': formPresolicitud3.controls.ingresos.touched && formPresolicitud3.controls.ingresos.errors?.notMayor }">
               <div class="alert alert-danger" role="alert"
                 *ngIf="formPresolicitud3.get('ingresos').touched && formPresolicitud3.get('ingresos').errors">
@@ -428,8 +445,11 @@
           </div>
           <div class="content-button-step" style="margin-top: 1em; margin-bottom: 1em;" *ngIf="!loadingRequest">
             <button class="btn btn-outline-form" (click)="currentStep = 1; currentSubStep = 3;">volver</button>
-            <button id="solicitar_credito" class="btn btn-outline-form" type="submit" value="Simular"
+            <button *ngIf="!isLoading2" id="solicitar_credito" class="btn btn-outline-form" type="submit" value="Simular"
               [disabled]="formPresolicitud3.invalid">Solicitar</button>
+              <button *ngIf="isLoading2" class="btn btn-outline-form2" [disabled]="true">
+                SIMULANDO...
+              </button>
           </div>
 
           <!-- <div class="content-button-step spinner" *ngIf="loadingRequest">
@@ -453,8 +473,8 @@
       </div>
       <div class="content-loading-with-tittle" *ngIf="loadingRequest">
         <div class="content-main-loading col-lg-4 offset-lg-4" style="background-color: #fff;">
+          <div class="row justify-content-center"><img src="/assets/images/loading.gif" alt="" style="height: 13em;"></div>
           <h2 class="text-center" style="    color: #1b77ba;">{{messageLoading}}</h2>
-          <div class="row justify-content-center"><img src="/assets/images/loading.gif" alt=""></div>
         </div>
       </div>
     </div>
