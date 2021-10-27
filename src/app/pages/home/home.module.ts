@@ -5,7 +5,6 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import { SelectDropDownModule } from 'ngx-select-dropdown'
 
 //Pages
 import { HomeComponent } from './home.component';
@@ -47,6 +46,7 @@ import { ModalDelete } from '../modals/delete/modalDelete';
 import { SafePipe } from '../../pipes/safe.pipe';
 import { SharedModule } from 'src/app/shared.module';
 import { ReconocerComponent } from '../reconocer/reconocer.component';
+import { SelectDropDownModule } from 'ngx-select-dropdown';
 
 const routes: Routes = [
   {

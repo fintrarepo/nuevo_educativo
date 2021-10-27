@@ -13,7 +13,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./reconocer.component.scss']
 })
 export class ReconocerComponent implements OnInit, OnDestroy {
-  UrlReconocer:string = environment.reconcer;
+  UrlReconocer:string = environment.reconocer;
   auth;
   procesoConvenioGuid;
   token: any;

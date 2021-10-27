@@ -41,7 +41,7 @@
     "ngrx-store-freeze": "^0.2.4",
     "ngx-extended-pdf-viewer": "^8.1.1",
     "ngx-mydatepicker": "^2.4.9",
-    "ngx-select-dropdown": "^1.1.0",
+    "ngx-select-dropdown": "^1.4.3",
     "pg": "^7.18.2",
     "rxjs": "~6.4.0",
     "tslib": "^1.9.0",

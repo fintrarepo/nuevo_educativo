@@ -12,7 +12,7 @@ export const environment = {
   fintra: "http://192.168.140.197:8094/fintra",
   // fintra: "http://192.168.0.52:8094/fintra/"
   // fintra: "http://piloto.fintra.co:8094/fintra",
-  reconcer:"https://recidaw.olimpiait.com"
+  reconocer:"https://recidaw.olimpiait.com"
 };
 // apiPath: "http://192.168.140.65:8084/fintracredit"
 /*
