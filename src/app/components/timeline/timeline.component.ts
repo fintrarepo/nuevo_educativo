@@ -9,7 +9,7 @@ export class TimelineComponent implements OnInit {
   @Input('currentStep') currentStep: number = 0;
 
   oneStepNumber: number = 0;
-  twoStepNumber: number = 1;
+  twoStepNumber: number = 6;
   thirdStepNumber: number = 3;
   fourStepNumber: number = 8;
   constructor() { }
@@ -22,10 +22,7 @@ export class TimelineComponent implements OnInit {
     return this.currentStep == step ? img : step < this.currentStep ?
       img.replace('.svg', '_Verde.svg') :
       step > this.currentStep ? img.replace('.svg', '_Gris.svg') : img
-
-
-
-
+      
   }
 
 }

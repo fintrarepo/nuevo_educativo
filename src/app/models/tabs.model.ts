@@ -97,15 +97,7 @@ export interface ITab1SubTab3 {
     "segundo_nombre": String,
     "parentesco": String,
     "telefono1": number,
-    "celular": number,
-    "direccion": String,
-    "departamento": String,
-    "ciudad": String,
-    "tipo_via": String,
-    "via_principal": String,
-    "via_secundaria": String,
-    "numero": String,
-    "complemento": String
+    "celular": number
 
 }
 

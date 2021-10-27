@@ -97,15 +97,7 @@ export const initialTab1SubTab3State: ITab1SubTab3 = {
     "segundo_nombre": "",
     "parentesco": "",
     "telefono1": null,
-    "celular": null,
-    "direccion": "",
-    "departamento": "",
-    "ciudad": "",
-    "tipo_via": "",
-    "via_principal": "",
-    "via_secundaria": "",
-    "numero": "",
-    "complemento": ""
+    "celular": null
 }
 
 

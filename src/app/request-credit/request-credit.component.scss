@@ -159,6 +159,7 @@
 
 
 .step-content {
+  position: relative;
   padding-top: 10px;
   width: 100%;
   max-width: 1100px;
@@ -197,9 +198,11 @@
   color: #37BFFA;
   text-transform: uppercase;
   border-radius: 10px;
-  padding: 12px 50px;
+  padding: 8px 0px;
+  width: 216px;
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
+  margin-right: 0px;
 
 
   &:disabled {
@@ -441,6 +444,17 @@
   .body-modal {
     padding: 2em;
     color: #707070;
+    text-align: justify;
+    line-height: 20px;
+
+    ul {
+      list-style: lower-roman;
+      padding-left: 19px;
+
+      li {
+        margin-bottom: 5px;
+      }
+    }
   }
 
   .footer-modal {

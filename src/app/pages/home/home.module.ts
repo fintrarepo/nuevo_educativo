@@ -13,6 +13,7 @@ import { DashboardComponent } from '../dashboard/dashboard.component';
 import { UploadsComponent } from '../uploads/uploads.component';
 import { CreditApplicationComponent } from '../credit-application/credit-application.component';
 import { NewRequestComponent } from '../new-request/new-request.component';
+import { SigningComponent } from '../signing/signing.component';
 
 
 //Components
@@ -41,6 +42,13 @@ import { AuthGuard } from '../../auth.guard';
 //DIRECTIVES
 import { InputDateDirective } from '../../directives/input-date.directive';
 
+// modals
+import { ModalDelete } from '../modals/delete/modalDelete';
+import { SafePipe } from '../../pipes/safe.pipe';
+import { SharedModule } from 'src/app/shared.module';
+import { ReconocerComponent } from '../reconocer/reconocer.component';
+import { SelectDropDownModule } from 'ngx-select-dropdown';
+
 const routes: Routes = [
   {
     path: '',
@@ -62,12 +70,12 @@ const routes: Routes = [
         component: DashboardComponent
       },
       {
-        path: 'upload/:id',
+        path: 'upload/:id/:sol',
         component: UploadsComponent
       },
       {
         path: 'credit-application/:id',
-        component: CreditApplicationComponent
+        component: CreditApplicationComponent                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
       },
       {
         path: 'history',
@@ -86,7 +94,14 @@ const routes: Routes = [
         path: 'referir',
         component: ReferredComponent
       },
-
+      {
+        path: 'signing/:id/:num',
+        component: SigningComponent
+      },
+      {
+        path: 'reconocer/:neg/:num',
+        component: ReconocerComponent
+      }
     ],
   },
   { path: '**', redirectTo: 'upload' }
@@ -101,7 +116,8 @@ const pagesComponets = [
   DashboardComponent,
   UploadsComponent,
   CreditApplicationComponent,
-  NewRequestComponent
+  NewRequestComponent,
+  ModalDelete
 ]
 
 const components = [
@@ -121,7 +137,8 @@ const components = [
   LoadingFormsComponent,
   UpdateInfoComponent,
   NotApprovedComponent,
-  ReferredComponent
+  ReferredComponent,
+  ReconocerComponent
 ]
 
 const directives = [
@@ -132,7 +149,8 @@ const directives = [
   declarations: [
     ...pagesComponets,
     ...components,
-    ...directives
+    ...directives,
+    SafePipe 
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -140,8 +158,11 @@ const directives = [
     ReactiveFormsModule,
     FormsModule,
     AngularFontAwesomeModule,
+    SelectDropDownModule,
+    SharedModule,
     ...boostrapModules
   ],
-  exports: [RouterModule]
+  entryComponents: [ModalDelete],
+  exports: [RouterModule, SigningComponent]
 })
 export class HomeModule { }

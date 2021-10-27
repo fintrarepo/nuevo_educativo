@@ -1,0 +1,125 @@
+.container {
+  display: flex;
+  align-items: center;
+
+  .content-button-step.spinner {
+    height: inherit;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .upload-files,
+  .validate-otp {
+    width: 100%;
+    position: relative;
+
+    .title-form{
+      margin-bottom: 2rem;
+    }
+
+    p.content-loading {
+      position: absolute;
+      z-index: 1;
+    }
+
+    p {
+      font-family: "Gotham Light Regular";
+      color: #707070;
+      line-height: 20px;
+    }
+
+    .time {
+      span {
+        font-weight: 600;
+        font-size: 40px;
+        padding: 10px 5px;
+        position: relative;
+        color: #34b8f0;
+
+        &::after {
+          content: 'Segundos';
+          font-size: 11px;
+          position: absolute;
+          margin-left: 8px;
+          font-weight: 600;
+          bottom: 12px;
+        }
+      }
+    }
+
+    .content-form {
+      margin: 36px 0px 55px 0px;
+
+      form {
+        .form-check {
+          margin-bottom: 10px;
+          font-family: 'Gotham Light Regular';
+
+          button {
+            padding: 6px 25px;
+            line-height: 12px;
+            font-size: 10px;
+            float: right;
+            background-color: #37BFFA;
+            border-color: #34b8f0;
+            font-weight: bold;
+          }
+
+          label {
+            cursor: pointer;
+            color: #707070;
+          }
+
+          &:last-child {
+            margin-bottom: 0px;
+          }
+        }
+
+        .alert.alert-danger {
+          margin-bottom: 0px;
+          position: absolute;
+          padding: 1px 20px;
+
+          p {
+            margin-bottom: 0px;
+            font-size: 0.8rem;
+            color: inherit;
+          }
+        }
+      }
+    }
+  }
+}
+
+.content-confirm-sms {
+  .logo-firma {
+    z-index: 10;
+    position: absolute;
+    left: 50%;
+    margin-left: -82.5px;
+
+    img {
+      height: 45px;
+      margin-top: 12.5px;
+    }
+  }
+
+  &::before {
+
+    content: '';
+    height: 70px;
+    width: 100%;
+    background-color: #34b8f0;
+    position: absolute;
+    box-shadow: 0px 3px 3px #ccc;
+  }
+}
+
+.content-loading-with-tittle {
+  bottom: -15px;
+  .content-main-loading{
+    z-index: 20;
+  }
+}

@@ -1,0 +1,142 @@
+.white-box {
+  h1 {
+    color: #707070;
+  }
+
+  .content-porcentaje {
+    background-color: #cccccc;
+    height: 10px;
+    border-radius: 4px;
+    margin-bottom: 25px;
+
+    .porcentaje {
+      height: inherit;
+      background-color: #32befa;
+
+      &.medio {
+        width: 50%;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+      }
+
+      &.completo {
+        width: 100%;
+        border-radius: 4px;
+        // border-bottom-left-radius: 4px;
+      }
+    }
+  }
+
+  p.content-loading {
+    position: absolute;
+    z-index: 1;
+  }
+
+  h2,
+  p {
+    font-family: "Poppins", sans-serif;
+  }
+
+  h2 {
+    font-size: 1.1em;
+    color: #1b77ba;
+    font-weight: 600;
+  }
+
+  p {
+    font-size: 1em;
+    color: #37bffa;
+  }
+
+  form.form-code {
+    .content-form {
+      position: relative;
+    }
+  }
+
+  .list-requirements {
+    li {
+      margin-bottom: 10px;
+      font-size: 0.8rem;
+      position: relative;
+      left: 36px;
+      color: #cccccc;
+
+      &::before {
+        padding: 3px 8px;
+        border-radius: 50%;
+        border: 1px solid #ccc;
+        display: inline-block;
+        position: absolute;
+        left: -36px;
+        font-size: 0.7rem;
+      }
+    }
+
+    li.valid {
+      color: #198754;
+      &::before {
+        border: 1px solid #198754 !important;
+      }
+    }
+
+    li.invalid {
+      color: #dc3545;
+      &::before {
+        border: 1px solid #dc3545 !important;
+      }
+    }
+
+    li:nth-child(1) {
+      &::before {
+        content: "1";
+      }
+    }
+
+    li:nth-child(2) {
+      &::before {
+        content: "2";
+      }
+    }
+
+    li:nth-child(3) {
+      &::before {
+        content: "3";
+      }
+    }
+
+    li:nth-child(4) {
+      &::before {
+        content: "4";
+      }
+    }
+  }
+
+  button {
+    height: 50px;
+  }
+  .time {
+    span {
+      font-weight: 600;
+      font-size: 40px;
+      padding: 10px 5px;
+      position: relative;
+      color: #34b8f0;
+
+      &::after {
+        content: 'Segundos';
+        font-size: 11px;
+        position: absolute;
+        margin-left: 8px;
+        font-weight: 600;
+        bottom: 22px;
+      }
+    }
+  }
+}
+.content-loading-with-tittle {
+  bottom: 45px;
+  .content-main-loading{
+    z-index: 20;
+  }
+}

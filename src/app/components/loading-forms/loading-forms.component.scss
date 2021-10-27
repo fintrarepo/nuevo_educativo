@@ -23,3 +23,17 @@
 
 }
 
+.content-loading-with-tittle {
+  width: inherit;
+  height: inherit;
+  position: absolute;
+  top: 0px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+
+  .content-main-loading {
+    height: 449px;
+    box-shadow: 2px 3px 7px #ccc;
+  }
+}

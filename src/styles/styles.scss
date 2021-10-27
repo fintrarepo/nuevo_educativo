@@ -11,8 +11,6 @@ ul {
   padding: 0;
 }
 
-
-
 .content-loading {
   width: 100%;
   height: 100%;
@@ -22,7 +20,7 @@ ul {
 }
 
 .blur-page {
-  filter: blur(5px)
+  filter: blur(5px);
 }
 
 .popup-fintra {
@@ -43,10 +41,10 @@ ul {
     height: auto;
     background: white;
     z-index: 3000;
-    box-shadow: 0 1px 3px #CCCCCC, 0 1px 2px #CCCCCC;
+    box-shadow: 0 1px 3px #cccccc, 0 1px 2px #cccccc;
     border-radius: 10px;
     overflow: hidden;
-    animation: mymove .4s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+    animation: mymove 0.4s cubic-bezier(0.95, 0.05, 0.795, 0.035);
     padding: 2em;
 
     .step-popup {
@@ -89,19 +87,19 @@ label.container input {
   left: 0;
   height: 15px;
   width: 15px;
-  border: 2px solid #37BFFA;
+  border: 2px solid #37bffa;
   border-radius: 2px;
 }
 
 /* On mouse-over, add a grey background color */
 label.container:hover input~.checkmark {
-  background-color: #2196F3;
+  background-color: #2196f3;
 }
 
 /* When the checkbox is checked, add a blue background */
 label.container input:checked~.checkmark {
-  background-color: #2196F3;
-  border-color: darken(#2196F3, 3%);
+  background-color: #2196f3;
+  border-color: darken(#2196f3, 3%);
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -116,23 +114,19 @@ label.container input:checked~.checkmark:after {
   display: block;
 }
 
-
-
 .light-blue-font {
-  font-family: 'Gotham Light Regular';
+  font-family: "Gotham Light Regular";
   color: $blue-light;
   font-size: 16px;
 }
 
 .light-blue-yellow-dark {
-  font-family: 'Gotham Bold';
+  font-family: "Gotham Bold";
   color: $yellow-light;
-
 }
 
-
 .dark-blue-font {
-  font-family: 'Gotham Bold';
+  font-family: "Gotham Bold";
   color: $blue-dark !important;
   //   font-size: 26px !important;
 }
@@ -142,7 +136,6 @@ label.container input:checked~.checkmark:after {
   margin-top: 3px;
 }
 
-
 .white-box {
   height: 100%;
   overflow-y: auto;
@@ -151,14 +144,11 @@ label.container input:checked~.checkmark:after {
   background: white;
   padding: 40px;
   // margin: 14px 60px 14px 14px;
-  box-shadow: 0 0px 6px #CCCCCC !important;
+  box-shadow: 0 0px 6px #cccccc !important;
   border-radius: 10px;
   width: 100%;
   padding-bottom: 7em;
 }
-
-
-
 
 // BUTTONS
 button {
@@ -168,21 +158,20 @@ button {
 .btn-outline-primary {
   color: $blue-light;
   border-color: $blue-light;
-  font-family: 'Gotham Bold';
+  font-family: "Gotham Bold";
   border: 2px solid $blue-light;
-  font-size: .8rem;
-  transition: all .2s ease-in-out;
+  font-size: 0.8rem;
+  transition: all 0.2s ease-in-out;
   width: 150px;
 
   &:hover,
   &:active {
-    background-color: #32BEFA !important;
+    background-color: #32befa !important;
     // background-color: transparent;
     color: white !important;
     padding-left: 15px;
     outline: none;
     border: 2px solid $blue-light;
-
   }
 }
 
@@ -196,15 +185,15 @@ button {
 }
 
 .title-form {
-  color: #32BEFA;
-  font-family: 'Gotham Bold';
+  color: #32befa;
+  font-family: "Gotham Bold";
   font-size: 1.4em;
   margin-bottom: 1em;
   text-rendering: optimizeLegibility;
 }
 
 .subtitle-form {
-  font-family: 'Gotham Bold';
+  font-family: "Gotham Bold";
   color: $dark;
   font-weight: 600;
   font-size: 0.9rem;
@@ -223,39 +212,44 @@ button {
   }
 }
 
+ngx-select-dropdown.ng-pristine.ng-invalid.ng-touched {
+
+  button.ngx-dropdown-button {
+    background-color: #fffaeb !important;
+    border: 1px solid #ffa412 !important;
+  }
+}
+
 input[type="text"],
 input[type="email"],
 input[type="password"],
 input[type="number"],
 input[type="date"],
+button.ngx-dropdown-button,
 select {
-  font-family: 'Gotham Light Regular' !important;
+  font-family: "Gotham Light Regular" !important;
   font-size: 1rem !important;
   color: $color-inputs !important;
   // border: 1px solid red;
   border-radius: 7px !important;
   height: 44px !important;
-  border: 1px solid #37BFFA !important;
-
+  border: 1px solid #37bffa !important;
 
   &:focus {
     outline: none !important;
     box-shadow: none !important;
-    border: 2px solid darken(#37BFFA, 5%) !important;
-
+    border: 2px solid darken(#37bffa, 5%) !important;
   }
 
   &.warning-input {
-    background-color: #FFFAEB !important;
-    border: 1px solid #FFA412 !important;
+    background-color: #fffaeb !important;
+    border: 1px solid #ffa412 !important;
   }
 
   &.ng-touched.ng-invalid:not(form) {
-    background-color: #FFFAEB !important;
-    border: 1px solid #FFA412 !important;
+    background-color: #fffaeb !important;
+    border: 1px solid #ffa412 !important;
   }
-
-
 }
 
 input[type="text"],
@@ -266,7 +260,7 @@ input[type="number"] {
   -webkit-appearance: none;
 
   &:read-only {
-    background: #F0F8FC;
+    background: #f0f8fc;
     cursor: pointer;
   }
 }
@@ -284,7 +278,7 @@ input[type="number"] {
   width: 400px;
   height: 54px;
   border-radius: 10px;
-  font-family: 'Gotham Bold';
+  font-family: "Gotham Bold";
   color: #707070;
   padding-left: 30px;
   max-width: 80vw;
@@ -295,8 +289,8 @@ input[type="number"] {
   width: 160px;
   height: 40px;
   color: $blue-semi-light;
-  font-family: 'Gotham Bold';
-  font-size: .8em;
+  font-family: "Gotham Bold";
+  font-size: 0.8em;
   border-radius: 7px;
   border: 2px solid $blue-light;
 }
@@ -305,8 +299,8 @@ input[type="number"] {
   background: white;
 
   color: $blue-semi-light;
-  font-family: 'Gotham Bold';
-  font-size: .8em;
+  font-family: "Gotham Bold";
+  font-size: 0.8em;
   border-radius: 7px;
   border: none !important;
 }
@@ -327,18 +321,16 @@ input[type="number"] {
   box-shadow: none;
 }
 
-
-
 .button-blue {
   background: $blue-semi-light;
   width: 160px;
   height: 40px;
   color: white;
-  font-family: 'Gotham Bold';
-  font-size: .8em;
+  font-family: "Gotham Bold";
+  font-size: 0.8em;
   border-radius: 7px;
   border: none;
-  transition: all .2s cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
 
   &:hover {
     color: $blue-semi-light;
@@ -350,8 +342,8 @@ input[type="number"] {
 
 .button-outline-border-white {
   border: 2px solid white;
-  font-family: 'Gotham Bold';
-  letter-spacing: .8px;
+  font-family: "Gotham Bold";
+  letter-spacing: 0.8px;
   font-size: 13px;
   width: 206px;
   height: 40px;
@@ -360,12 +352,12 @@ input[type="number"] {
 }
 
 .button-outline-border-orange {
-  border: 2px solid #FFA412;
-  font-family: 'Gotham Bold';
+  border: 2px solid #ffa412;
+  font-family: "Gotham Bold";
   font-size: 13px;
   width: 258px;
   height: 40px;
-  color: #FFA412;
+  color: #ffa412;
   border-radius: 7px;
 }
 
@@ -374,7 +366,6 @@ input[type="number"] {
 
   .button-next-tab {}
 }
-
 
 .content-buttons-next-back {
   position: absolute;
@@ -421,11 +412,10 @@ input[type="number"] {
     background: $blue-semi-light;
 
     color: white;
-    font-family: 'Gotham Bold';
-    font-size: .8em;
+    font-family: "Gotham Bold";
+    font-size: 0.8em;
     border: 2px solid $blue-semi-light;
-    transition: all .2s cubic-bezier(0.075, 0.82, 0.165, 1);
-
+    transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
 
     img {
       width: 50px;
@@ -440,20 +430,17 @@ input[type="number"] {
       margin-left: 55px;
       color: white;
       font-family: "GotHam Bold";
-      font-size: .9rem;
+      font-size: 0.9rem;
     }
 
-
     &.next-step {
-      background: #4DEB96;
-      border: 2px solid #4DEB96;
+      background: #4deb96;
+      border: 2px solid #4deb96;
 
       span {
         color: white;
       }
     }
-
-
 
     &:hover {
       color: $blue-semi-light;
@@ -464,11 +451,9 @@ input[type="number"] {
       span {
         color: $blue-semi-light !important;
       }
-
     }
   }
 }
-
 
 .not-found-list {
   width: 100%;
@@ -486,6 +471,57 @@ input[type="number"] {
   h1 {
     color: #999;
     text-align: center;
+  }
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+#iFrameContainer {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 100000;
+
+  #iFrame {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.content-button-step.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content-loading-with-tittle {
+  position: absolute;
+  bottom: 55px;
+  width: 100%;
+  height: 100%;
+
+  .content-main-loading {
+    overflow: hidden;
+    padding-top: 17px;
+    border-radius: 7px;
+    box-shadow: 2px 3px 7px #ccc;
+
+    h2 {
+      font-family: "Gotham Bold";
+      font-weight: 600;
+      font-size: 1.3rem;
+    }
   }
 }
 
@@ -526,5 +562,162 @@ input[type="number"] {
 @media (max-width: 575.98px) {
   .content-buttons-next-back.top {
     display: none;
+  }
+}
+
+.btn-outline-form {
+  color: #37bffa;
+  margin-right: 40px;
+
+  &:hover {
+    color: #37bffa;
+  }
+}
+
+.btn-outline-form2 {
+  color: #FFF;
+  background-color: #37bffa;
+
+  &:hover {
+    color: white;
+  }
+}
+
+.btn-outline-form,
+.btn-outline-form2 {
+  border: 2px solid #37bffa;
+  text-transform: uppercase;
+  border-radius: 10px;
+  padding: 8px 0px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  width: 210px;
+  line-height: 26px;
+
+  &:disabled {
+    border: 2px solid #ccc;
+    background: #cccccc;
+    color: white;
+  }
+}
+
+select#scaleSelect,
+input#pageNumber {
+  font-size: 12px;
+  height: 26px !important;
+  cursor: pointer;
+  border-radius: 2px;
+  border-width: 1px;
+  border-style: solid !important;
+  border: 1px solid rgba(0, 0, 0, 0.4) !important;
+}
+
+.alert.alert-danger {
+  margin-top: 7px;
+  position: absolute;
+  padding: 1px 20px;
+
+  span {
+    margin-bottom: 0px;
+    font-size: 0.8rem;
+    color: inherit;
+    line-height: 13px;
+    display: block;
+    padding: 5px 0px;
+  }
+}
+
+.lds-spinner {
+  color: official;
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.lds-spinner div {
+  transform-origin: 40px 40px;
+  animation: lds-spinner 1.2s linear infinite;
+}
+
+.lds-spinner div:after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 3px;
+  left: 37px;
+  width: 6px;
+  height: 18px;
+  border-radius: 20%;
+  background: #37BFFA;
+}
+
+.lds-spinner div:nth-child(1) {
+  transform: rotate(0deg);
+  animation-delay: -1.1s;
+}
+
+.lds-spinner div:nth-child(2) {
+  transform: rotate(30deg);
+  animation-delay: -1s;
+}
+
+.lds-spinner div:nth-child(3) {
+  transform: rotate(60deg);
+  animation-delay: -0.9s;
+}
+
+.lds-spinner div:nth-child(4) {
+  transform: rotate(90deg);
+  animation-delay: -0.8s;
+}
+
+.lds-spinner div:nth-child(5) {
+  transform: rotate(120deg);
+  animation-delay: -0.7s;
+}
+
+.lds-spinner div:nth-child(6) {
+  transform: rotate(150deg);
+  animation-delay: -0.6s;
+}
+
+.lds-spinner div:nth-child(7) {
+  transform: rotate(180deg);
+  animation-delay: -0.5s;
+}
+
+.lds-spinner div:nth-child(8) {
+  transform: rotate(210deg);
+  animation-delay: -0.4s;
+}
+
+.lds-spinner div:nth-child(9) {
+  transform: rotate(240deg);
+  animation-delay: -0.3s;
+}
+
+.lds-spinner div:nth-child(10) {
+  transform: rotate(270deg);
+  animation-delay: -0.2s;
+}
+
+.lds-spinner div:nth-child(11) {
+  transform: rotate(300deg);
+  animation-delay: -0.1s;
+}
+
+.lds-spinner div:nth-child(12) {
+  transform: rotate(330deg);
+  animation-delay: 0s;
+}
+
+@keyframes lds-spinner {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
   }
 }

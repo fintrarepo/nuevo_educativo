@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UtilsService } from '../services/utils/utils.service';
 import { CreditsService } from '../services/credits/credits.service';
 import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-request-credit',
@@ -9,6 +10,12 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./request-credit.component.scss']
 })
 export class RequestCreditComponent implements OnInit {
+  messageLoading: string;
+  
+  formPresolicitud: FormGroup;
+  formPresolicitud2: FormGroup;
+  formPresolicitud3: FormGroup;
+
   loadingRequest: boolean = false;
   currentStep = 1;
   currentSubStep = 1;
@@ -22,26 +29,10 @@ export class RequestCreditComponent implements OnInit {
   afiliates: any[] = [];
   dues: any[] = [];
   dates: any[] = [];
+  valor_salario;
   valor_cuota;
   valor_aval;
   showModal: boolean = false;
-
-  form = {
-
-    primer_nombre: "",
-    telefono: null,
-    email: "",
-
-    fecha_pago: "",
-    ciudad: "",
-    afiliado: "",
-    num_cuotas: null,
-    tipo_carrera: "",
-    monto: null,
-
-    primer_apellido: "",
-    identificacion: ""
-  }
 
   changeFormStudent: boolean = false;
   changeFormDataCredit: boolean = false;
@@ -54,23 +45,57 @@ export class RequestCreditComponent implements OnInit {
   validacion;
   procesoConvenioGuid;
   token;
+  occupations: any;
+  invalidCc: boolean = false;
+  errorSimulation: boolean = false;
+  isLoading2: boolean = false;
+  configSelect;
 
-  constructor(public utils: UtilsService, private credit: CreditsService, private route: ActivatedRoute) {
+  constructor(
+    public utils: UtilsService,
+    private credit: CreditsService,
+    private route: ActivatedRoute,
+    private fb: FormBuilder) {
     this.referred = this.route.snapshot.queryParamMap.get('referido');
 
+    this.formPresolicitud = this.fb.group({
+      primer_nombre: ["", [Validators.required, Validators.pattern('^[a-zA-Z]*$')]],
+      telefono: [null, [Validators.required, Validators.max(9999999999), Validators.min(999999999)]],
+      email: ["", [Validators.required, Validators.email]]
+    });
 
+    this.formPresolicitud2 = this.fb.group({
+      fecha_pago: ["", Validators.required],
+      ciudad: ["", Validators.required],
+      afiliado: ["", Validators.required],
+      num_cuotas: [null, Validators.required],
+      tipo_carrera: ["", Validators.required],
+      monto: [null, Validators.required],
+      polite: ['', Validators.requiredTrue],
+      id_prospecto: ['', Validators.required]
+    });
+
+    this.formPresolicitud3 = this.fb.group({
+      ocupacion: ["", Validators.required],
+      primer_apellido: ["", Validators.required],
+      identificacion: [null, [Validators.required, Validators.max(9999999999), Validators.min(99999)]],
+      ingresos: [null, [Validators.required]],
+      term: ["", Validators.requiredTrue],
+      sala: [null, Validators.required]
+    }, { validator: this.checkSalary });
   }
 
   ngOnInit() {
-    console.log('Test')
+    this.loadOccupations()
     this.loadCitys()
+    this.loadSalary()
     this.dates = this.utils.carcularFecha();
     this.txtSend = document.getElementById('txtSend');
     this.iFrame = document.getElementById('iFrame');
     this.iFrameContainer = document.getElementById('iFrameContainer');
     this.auth = {
       clientId: "FINTRA",
-      clientSecret: "F1ntr4P@$$w0rd"
+      clientSecret: "Me@uB@!E44CQ%EAP"
     };
 
     this.validacion = {
@@ -81,36 +106,63 @@ export class RequestCreditComponent implements OnInit {
       tipoDoc: "CC",
       numDoc: "",
       email: "",
-      celular: "3057671931",
+      celular: "",
       usuario: "Fintra",
-      clave: "12345"
+      clave: "Fintra.2021*"
     }
 
+    this.configSelect = {
+      searchOnKey: 'nombre_afiliado',
+      searchPlaceholder: 'Buscar',
+      moreText: 'Solo se puede seleccionar una universidad',
+      height: 'auto',
+      placeholder: 'Selecciona la universidad',
+      search: true,
+      displayKey: 'nombre_afiliado',
+      limitTo: 50,
+      noResultsFound: 'no se encontro ningun resultado'
+  };
+
     window.onmessage = async (event) => {
-      console.log(`Received message: ${event.data}`, event.data);
       if (event.data.for === "resultData") {
         // alert("Proceso terminado, Estado:" + event.data.isSuccess);
         this.iFrameContainer.classList.add('hide');
         this.iFrameContainer.classList.remove('show');
         if (event.data.isSuccess) {
-          // this.queryDataCredit()
-          await this.ConsultarValidacion("https://demorcs.olimpiait.com:6314/Validacion/ConsultarValidacion", this.token).then((resp: any) => {
+          await this.ConsultarValidacion("https://recidaw.olimpiait.com/Validacion/ConsultarValidacion", this.token).then((resp: any) => {
             if (resp && resp.code == 200) {
               const data = resp.data;
-              this.saveReconocerID(data)
-              // --(finalizado = TRUE and EstadoProceso = (1: enrolamiento) and cacelado =false) // Paso las validaciones de identidad  
-              // --(finalizado = TRUE and EstadoProceso = (2: validacion) and cancelado =false and aprobado=true  ) // Pasa cliente enrolados previamente
-              if (data.finalizado == true && data.estadoProceso == 1 && data.cancelado == false) {
-                return this.queryDataCredit();
-              }
-              if (data.finalizado == true && data.estadoProceso == 2 && data.cancelado == false && data.aprobado == true) {
-                return this.queryDataCredit();
-              }
-
-              this.loadingRequest = false;
-              this.currentStep = 3;
-              this.currentSubStep = 3;
+              this.saveReconocerID(data).subscribe(resp => {
+                if (resp.data === 'OK') {
+                  this.messageLoading = 'Estamos generando tu solicitud';
+                  this.queryDataCredit()
+                  // this.credit.checkStatusReconoser(this.formPresolicitud2.value.id_prospecto)
+                  //   .subscribe(response => {
+                  //     if (response.aprobo) {
+                  //     } else {
+                  //       this.loadingRequest = false;
+                  //       this.currentStep = 3;
+                  //       this.currentSubStep = 3;
+                  //       this.sendError('No aprobado.')
+                  //     }
+                  //   }, err => {
+                  //     this.loadingRequest = false;
+                  //     this.currentStep = 3;
+                  //     this.currentSubStep = 4;
+                  //     this.sendError('Interna.')
+                  //   });
+                }
+              }, err => {
+                this.loadingRequest = false;
+                this.currentStep = 3;
+                this.currentSubStep = 4;
+                this.sendError('Interna.')
+                this.isLoading2 = false;
+              })
             }
+          }).catch(err => {
+            this.isLoading2 = false;
+            this.sendError('con Reconoser ID (Validación de identidad).')
           });
         } else {
           this.saveReconocerID(event.data);
@@ -124,94 +176,133 @@ export class RequestCreditComponent implements OnInit {
 
 
   saveReconocerID(data) {
-    this.credit.saveReconocerID(this.form.identificacion, data)
-      .subscribe(data => {
-        console.log('Saved reconocer ID');
-      })
+    return this.credit.saveReconocerID({ "identificacion": this.formPresolicitud3.value.identificacion, "id_prospecto": this.formPresolicitud2.value.id_prospecto, "json_resp": data, "tipo_trama": 1 })
   }
 
 
   firstStepSend() {
+    this.isLoading2 = true;
     this.credit.saveSimulation({
-      primer_nombre: this.form.primer_nombre,
-      telefono: this.form.telefono,
-      email: this.form.email,
+      ...this.formPresolicitud.value,
       monto: 0,
       fecha_pago: "0100-01-01",
       num_cuotas: 0,
       paso: 1,
       cod_referido: this.referred ? this.referred : -100,
       agencia: "",
-      afiliado: ""
+      afiliado: "",
+      origen_solicitud: 'WEB'
     })
       .subscribe(reponse => {
-        console.log('SAVED SIMULATION')
+        this.formPresolicitud2.patchValue({ id_prospecto: reponse.id_prospecto })
+        this.currentSubStep = 2;
+        this.errorSimulation = false;
+        this.isLoading2 = false;
+      }, err => {
+        this.isLoading2 = false;
+        this.errorSimulation = true;
+        this.sendError('Interna.')
       });
-
-
-    this.currentSubStep = 2;
 
 
   }
 
+  updatestate() {
+    this.credit.updateStateSimulation({
+      id_prospecto: this.formPresolicitud2.value.id_prospecto,
+      estado_credito: "PR",
+      subestado_credito: "PRI",
+      numero_solicitud: ''
+    })
+      .subscribe(reponse => {
+        console.log('Estado actualizado')
+      }, err => {
+        this.isLoading2 = false;
+        this.sendError('interna.')
+      });
+  }
+
+  sendError(message: string) {
+    this.credit.notifyError({
+      id_prospecto: this.formPresolicitud2.value.id_prospecto,
+      unidad: 31,
+      "cod-solicitud": '',
+      correo: this.formPresolicitud.value.email,
+      celular: this.formPresolicitud.value.telefono,
+      nombres: this.formPresolicitud.value.primer_nombre + ' ' + this.formPresolicitud3.value.primer_apellido,
+      cedula: this.formPresolicitud3.value.identificacion,
+      info: "error de comunicación " + message //
+    })
+      .subscribe(reponse => {
+        console.log('SEND NOTIFICATION')
+      });
+  }
 
   simulate() {
+    this.errorSimulation = false;
+    this.isLoading2 = true;
+
+    if (this.formPresolicitud2.invalid) {
+      return;
+    }
 
 
-
-
-    this.credit.saveSimulation({
-      primer_nombre: this.form.primer_nombre,
-      telefono: this.form.telefono,
-      email: this.form.email,
-      monto: this.form.monto.replace(/,/g, ""),
-      fecha_pago: this.form.fecha_pago,
-      num_cuotas: this.form.num_cuotas,
+    this.credit.updateSimulation({
+      ...this.formPresolicitud.value,
+      monto: this.formPresolicitud2.value.monto,
+      fecha_pago: this.formPresolicitud2.value.fecha_pago,
+      num_cuotas: this.formPresolicitud2.value.num_cuotas,
       paso: 2,
-
+      id_prospecto: this.formPresolicitud2.value.id_prospecto,
       cod_referido: this.referred ? this.referred : -100,
-      agencia: this.form.ciudad,
-      afiliado: this.form.afiliado
+      agencia: this.formPresolicitud2.value.ciudad,
+      ocupacion: '',
+      afiliado: this.formPresolicitud2.value.afiliado.nit_afiliado
     })
       .subscribe(reponse => {
         console.log('SAVED SIMULATION')
+        this.credit.simulateNotToken({
+          "monto": this.formPresolicitud2.value.monto, // .replace(/,/g, ""),
+          "num_cuotas": parseInt(this.formPresolicitud2.value.num_cuotas),
+          "fecha_pago": this.formPresolicitud2.value.fecha_pago,
+          "id_convenio": 58,
+          "und_neg": 31,
+          "identificacion": 0
+        })
+          .subscribe(response => {
+            this.valor_cuota = response.valor_cuota
+            this.valor_aval = response.valor_aval
+            if (this.valor_cuota <= 100000) {
+              alert('Lo sentimos, la cuota mensual debe ser mayor a $100.000')
+              return;
+            }
+            this.currentSubStep = 3;
+            this.isLoading2 = false;
+          }, err => {
+            this.errorSimulation = true;
+            this.isLoading2 = false;
+            this.sendError('interna.')
+          })
+      }, err => {
+        this.errorSimulation = true;
+        this.isLoading2 = false;
+        this.sendError('interna.')
       });
-
-
-    this.credit.simulateNotToken({
-      "monto": this.form.monto.replace(/,/g, ""),
-      "num_cuotas": parseInt(this.form.num_cuotas),
-      "fecha_pago": this.form.fecha_pago,
-      "id_convenio": 58,
-      "und_neg": 31,
-      "identificacion": 0
-    })
-      .subscribe(response => {
-        this.valor_cuota = response.valor_cuota
-        this.valor_aval = response.valor_aval
-        if (this.valor_cuota <= 100000) {
-          alert('Lo sentimos, la cuota mensual debe ser mayor a $100.000')
-          return;
-        }
-        this.currentSubStep = 3;
-      })
   }
 
 
 
   loadAfiliates() {
     this.utils
-      .loadAfiliates(this.form.ciudad)
+      .loadAfiliates(this.formPresolicitud2.value.ciudad)
       .subscribe(afiliates => {
         this.afiliates = afiliates.data;
-        console.log(this.afiliates)
       })
   }
 
   requestCredit() {
-    this.credit.clientExists(this.form.identificacion)
+    this.credit.clientExists(this.formPresolicitud3.value.identificacion)
       .subscribe(response => {
-        console.log(response.escliente)
         if (response.escliente == true) {
           this.currentStep = 3;
           this.currentSubStep = 1;
@@ -219,6 +310,8 @@ export class RequestCreditComponent implements OnInit {
           this.queryDataCredit()
           //this.runValidation();
         }
+      }, err => {
+
       })
 
   }
@@ -232,34 +325,37 @@ export class RequestCreditComponent implements OnInit {
 
     let dataToSend = {
       entidad: "EDUCATIVO",
-      afiliado: this.form.afiliado,
-      monto: this.form.monto.replace(/,/g, ""),
+      afiliado: this.formPresolicitud2.value.afiliado.nit_afiliado,
+      monto: this.formPresolicitud2.value.monto, //.replace(/,/g, ""),
       producto: "01",
-      num_cuotas: this.form.num_cuotas,
-      fecha_pago: this.form.fecha_pago,
+      num_cuotas: this.formPresolicitud2.value.num_cuotas,
+      fecha_pago: this.formPresolicitud2.value.fecha_pago,
       id_convenio: "58",
       fecha_credito: fecha_credito,
       tipo_identificacion: "CED",
-      identificacion: this.form.identificacion,
+      identificacion: this.formPresolicitud3.value.identificacion,
       fecha_expedicion: "",
-      primer_nombre: this.form.primer_nombre,
-      primer_apellido: this.form.primer_apellido,
-      email: this.form.email,
-      ingresos_usuario: 0,
+      primer_nombre: this.formPresolicitud.value.primer_nombre,
+      primer_apellido: this.formPresolicitud3.value.primer_apellido,
+      email: this.formPresolicitud.value.email,
+      ingresos_usuario: this.formPresolicitud3.value.ingresos, //.replace(/,/g, ""),
       fecha_nacimiento: "",
       valor_cuota: this.valor_cuota,//Falta esto
       valor_aval: this.valor_aval,//Falta esto
       empresa: "FINTRA",
-      telefono: this.form.telefono,
+      telefono: this.formPresolicitud.value.telefono,
       tipo_cliente: "",
       financia_aval: "f",
       und_neg: "31",
-      ciudad: this.form.ciudad,
+      ciudad: this.formPresolicitud2.value.ciudad,
       nit_empresa: "8020220161",
       monto_renovacion: "0",
       politica: "",
       negocio_origen: "",
-      tipo_carrera: this.form.tipo_carrera
+      tipo_carrera: this.formPresolicitud2.value.tipo_carrera,
+      tipo_empleo: this.formPresolicitud3.value.ocupacion,
+      id_prospecto: this.formPresolicitud2.value.id_prospecto,
+      origen_solicitud: 'WEB'
     }
 
     if (this.referred) {
@@ -267,16 +363,22 @@ export class RequestCreditComponent implements OnInit {
     }
     this.credit.send2(dataToSend).subscribe(response => {
       this.loadingRequest = false;
-      console.log(response)
       if (response.data.estado_sol == 'P') {
         this.currentStep = 3;
         this.currentSubStep = 2;
       } else {
+        this.messageError = response.data.msg
         this.currentStep = 3;
         this.currentSubStep = 3;
       }
     }, err => {
-      this.messageError = err.error.detail
+      this.isLoading2 = false;
+      this.sendError('Interna.')
+      if (err.error.detail.msg) {
+        this.messageError = err.error.detail.msg;
+      } else {
+        this.messageError = err.error.detail;
+      }
       this.loadingRequest = false;
       this.currentStep = 3;
       this.currentSubStep = 3;
@@ -295,14 +397,14 @@ export class RequestCreditComponent implements OnInit {
   }
 
   buildDues() {
-    let currentAffiliate = this.afiliates.filter(x => x.nit_afiliado == this.form.afiliado)[0]
+    let currentAffiliate = this.afiliates.filter(x => x.nit_afiliado == this.formPresolicitud2.value.afiliado.nit_afiliado)[0]
     let cuotaInicial = currentAffiliate.cuota_inicial
     let cuotaFinal = currentAffiliate.cuota_final
-    if (this.form.tipo_carrera == 'POSGRADO') {
+    if (this.formPresolicitud2.value.tipo_carrera == 'POSGRADO') {
       cuotaInicial = 6;
       cuotaFinal = 18;
 
-      const monto = this.form.monto.replace(/,/g, "");
+      const monto = this.formPresolicitud2.value.monto; //.replace(/,/g, "");
       cuotaInicial = 6;
       if (monto >= 0 && monto <= 5000000) {
         cuotaFinal = 12;
@@ -313,16 +415,19 @@ export class RequestCreditComponent implements OnInit {
       } else if (monto > 20000000) {
         cuotaFinal = 36;
       }
-    } else if (this.form.tipo_carrera == 'CONTINUADA') {
+    } else if (this.formPresolicitud2.value.tipo_carrera == 'CONTINUADA') {
       cuotaFinal = 4;
       cuotaInicial = 4;
     }
+    console.log('INICIAL', cuotaInicial );
+    console.log('FINAL', cuotaFinal );
+    
     this.dues = this.buildArrayDues(cuotaInicial, cuotaFinal)
   }
 
   validateSpaces() {
     this.spaces = false;
-    const name = this.form.primer_nombre;
+    const name = this.formPresolicitud.value.primer_nombre;
     for (var i = 0; i < name.length; i++) {
       if (name[i] == " ") {
         this.spaces = true;
@@ -331,30 +436,67 @@ export class RequestCreditComponent implements OnInit {
     }
   }
 
+  checkCredit() {
+    this.isLoading2 = true;
+    this.loadingRequest = true;
+    this.invalidCc = false;
+    this.messageLoading = 'Iniciaremos tu validación de identidad';
+    this.credit.checkCredic(this.formPresolicitud3.value.identificacion).subscribe(resp => {
+      if (resp.success) {
+        if (resp.data.option == 2) {
+         
+          this.runValidation();
+        } else {
+          this.currentStep = 3;
+          this.currentSubStep = 1;
+        }
+      } else {
+        this.runValidation();
+      }
+    },
+      err => {
+        this.sendError('interna.')
+        this.loadingRequest = false;
+        this.isLoading2 = false;
+        this.currentStep = 3;
+        this.currentSubStep = 4;
+      })
+  }
 
   async runValidation() {
-    this.loadingRequest = true;
-    this.validacion = { ...this.validacion, numDoc: this.form.identificacion.toString(), email: this.form.email, }
-    //this.validacion = {...this.validacion,  numDoc: "1143444600", email: "antoniojsh93@gmail.com" }
-    // let token;
+    this.invalidCc = false;
+    this.validacion = { ...this.validacion, celular: this.formPresolicitud.value.telefono, numDoc: this.formPresolicitud3.value.identificacion.toString(), email: this.formPresolicitud.value.email, }
+
     let url;
-    await this.Post("https://demorcs.olimpiait.com:6317/TraerToken", this.auth).then((resp: any) => {
+    debugger;
+    // let url_prod="https://demorcs.olimpiait.com:6317/TraerToken"
+    let url_prod="https://recidaw.olimpiait.com/TraerToken"
+    await this.Post(url_prod, this.auth).then((resp: any) => {
       this.token = resp.accessToken;
+    }).catch(err => {
+      this.sendError('con Reconoser ID (Validación de identidad).')
+      this.isLoading2 = false;
     });
     //SOLICITAR VALIDACIÓN
-    await this.Post("https://demorcs.olimpiait.com:6314/Validacion/SolicitudValidacion", this.validacion, this.token).then((resp: any) => {
+    await this.Post("https://recidaw.olimpiait.com/Validacion/SolicitudValidacion", this.validacion, this.token).then((resp: any) => {
       if (resp && resp.code == 200) {
-        console.log(resp.data)
+        this.messageLoading = 'Estamos validando tu identidad';
+        this.updatestate();
         url = resp.data.url;
         this.procesoConvenioGuid = resp.data.procesoConvenioGuid
       }
-    });
+    })
+      .catch(err => {
+        this.isLoading2 = false;
+        this.invalidCc = true;
+        this.loadingRequest = false;
+        this.sendError('con Reconoser ID (Validación de identidad).')
+      });
     if (url) {
       this.iFrame.src = url;
       this.iFrameContainer.classList.remove('hide');
       this.iFrameContainer.classList.add('show');
     }
-    console.log(url);
 
   }
 
@@ -389,7 +531,7 @@ export class RequestCreditComponent implements OnInit {
       "guidConv": "7aacec4f-2f02-4901-81f8-1d5772653434",
       "procesoConvenioGuid": this.procesoConvenioGuid,
       "usuario": "Fintra",
-      "clave": "12345"
+      "clave": "Fintra.2021*"
     }
 
     return new Promise(function (resolve, reject) {
@@ -423,14 +565,13 @@ export class RequestCreditComponent implements OnInit {
     this.changeFormDataCredit = true;
   }
 
-  currency() {
-    this.form.monto =
-      this.form.monto
+  currency(control) {
+    this.formPresolicitud3.value[control] =
+      this.formPresolicitud3.value[control]
         .replace(/,/g, "")
         .toString()
         .replace(/[^0-9]/g, '')
         .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-
 
   }
 
@@ -438,6 +579,21 @@ export class RequestCreditComponent implements OnInit {
     this.utils.loadCitys()
       .subscribe(response => {
         this.cities = response
+      })
+  }
+  private loadSalary() {
+    this.utils.getSalary()
+      .subscribe(response => {
+        this.formPresolicitud3.patchValue({
+          sala: response.salario_minimo_mensual
+        });
+      })
+  }
+
+  private loadOccupations() {
+    this.credit.loadOccupation()
+      .subscribe(response => {
+        this.occupations = response
       })
   }
 
@@ -450,4 +606,13 @@ export class RequestCreditComponent implements OnInit {
     return arrayDues;
   }
 
+  checkSalary(group: FormGroup) {
+    const salario = group.controls.ingresos.value;
+    const salarioMin = group.controls.sala.value;
+    if (salario !== '' && salario < salarioMin) {
+      group.controls.ingresos.setErrors({ notMayor: true });
+    } else {
+      group.controls.ingresos.setErrors(null);
+    }
+  }
 }

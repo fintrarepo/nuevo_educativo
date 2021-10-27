@@ -1,5 +1,6 @@
-<div *ngIf="(isOpenForm$ | async)">
-  <div class="content-popup">
-    <img src="/assets/images/loading.gif" alt="">
+<div *ngIf="(isOpenForm$ | async)" class="content-loading-with-tittle">
+  <div class="content-main-loading col-lg-4" style="background-color: #fff;">
+    <h2 class="text-center" style="    color: #1b77ba;">Estamos procesando tu solicitud</h2>
+    <div class="row justify-content-center"><img src="/assets/images/loading.gif" alt=""></div>
   </div>
 </div>

@@ -26,6 +26,7 @@ export class Tab1PersonalInformationComponent implements OnInit {
   currentSelectDpto;
   observerAddress;
   observerCity;
+  configSelect;
 
   //CITYS
   ciudad_expedicion_id: any[] = [];
@@ -89,6 +90,18 @@ export class Tab1PersonalInformationComponent implements OnInit {
     this.credits.autoComplete({
       "numero_solicitud": this.business, "tab": 1
     }).subscribe(this.responseAutoComplete.bind(this))
+
+    this.configSelect = {
+      searchOnKey: 'name',
+      searchPlaceholder: 'Buscar',
+      moreText: 'Solo se puede seleccionar un barrio',
+      height: 'auto',
+      placeholder: 'Selecciona tu barrio',
+      search: true,
+      displayKey: 'name',
+      limitTo: 50,
+      noResultsFound: 'no se encontro ningun resultado'
+  };
   }
 
   openForm(field) {
@@ -171,12 +184,18 @@ export class Tab1PersonalInformationComponent implements OnInit {
     for (let i in response.data) {
       if (this.form.controls[i]) {
         if (i == 'fecha_nacimiento') {
-          this.form.controls[i].setValue(this.cashDate(response.data.fecha_nacimiento))
+          if (response.data.fecha_nacimiento != '0099-01-01 00:00:00') {
+            this.form.controls[i].setValue(this.cashDate(response.data.fecha_nacimiento))
+          }
         } else if (i == 'fecha_expedicion_id') {
-          this.form.controls[i].setValue(this.cashDate(response.data.fecha_expedicion_id))
+          if (response.data.fecha_expedicion_id != '0099-01-01 00:00:00') {
+            this.form.controls[i].setValue(this.cashDate(response.data.fecha_expedicion_id))
+          }
         }
         else {
           this.form.controls[i].setValue(response.data[i])
+          this.form.controls['celular'].setValue(response.data['telefono'])
+          this.form.controls['telefono'].setValue('')
         }
       }
 
@@ -205,6 +224,7 @@ export class Tab1PersonalInformationComponent implements OnInit {
     dataForm.fecha_nacimiento = this.utils.buildDate(dataForm.fecha_nacimiento)
     dataForm.estrato = parseInt(dataForm.estrato)
     dataForm.identificacion = parseInt(dataForm.identificacion)
+    dataForm.barrio = dataForm.barrio.value
     return dataForm;
   }
 
@@ -214,8 +234,8 @@ export class Tab1PersonalInformationComponent implements OnInit {
   }
 
   private ageValidator(control: AbstractControl): { [key: string]: boolean } | null {
-  //  console.log(control.value);
-  //  console.log(this.form.get("fecha_nacimiento").value)
+    //  console.log(control.value);
+    //  console.log(this.form.get("fecha_nacimiento").value)
     return null;
   };
 

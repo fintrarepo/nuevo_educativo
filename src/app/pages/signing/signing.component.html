@@ -1,0 +1,102 @@
+<div class="white-box">
+  <h1 class="title-form text-center">Generar firma electrónica</h1>
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <!-- <p class="content-loading" *ngIf="isLoading" [ngStyle]="{'padding-top': '2%'}">
+        <img src="/assets/images/loading.gif" alt="">
+      </p> -->
+      <div class="content-loading-with-tittle" *ngIf="isLoading">
+        <div class="content-main-loading col-lg-8 offset-lg-2" style="background-color: #fff;">
+       
+          <div class="row justify-content-center"><img src="/assets/images/loading.gif" alt="" style="height: 13em;"></div>
+          <h2 class="text-center " style="    color: #1b77ba;">{{messageLoading}}</h2>
+        </div>
+      </div>
+      <div class="content-porcentaje">
+        <div class="porcentaje completo"></div>
+      </div>
+      <div [ngSwitch]="tapSigning">
+        <div *ngSwitchCase="1">
+          <h2>
+            Ingrese clave dinámica de verificación
+          </h2>
+          <p >Digite la clave dinámica de verificación enviada al celular: <b>{{mensaje.value}}</b></p>
+          <div *ngIf="showTime" class="time">
+            <p class="text-center my-3"><span>{{seconds}}</span></p>
+            <p class="text-center">Tiempo de vida de la clave dinámica</p>
+          </div>
+          <form [formGroup]="otpForm" class="form-code">
+            <div class="mb-5 content-form">
+              <label for="otpInput" class="form-label">Clave dinámica de verificación</label>
+              <input type="text" class="form-control" formControlName="otp" id="otpInput" (keydown)="utils.validateOnlyNumbersPositive($event)">
+              <div class="alert alert-danger" role="alert" *ngIf="(otpForm.get('otp').errors && otpForm.get('otp').dirty) || notfound">
+                <span *ngIf="otpForm.get('otp').errors?.required">La clave de verificación es obligatoria</span>
+                <span *ngIf="notfound">{{textError}}</span>
+              </div>
+            </div>
+          </form>
+          <div class="row justify-content-center">
+            <button class="btn btn-outline-form" (click)="backUpdate()">ATRAS</button>
+            <div *ngIf="showTime">
+              <button *ngIf="!isLoading" class="btn-outline-form2" (click)="validarOtp()" [disabled]="!otpForm.valid">
+                VALIDAR OTP
+              </button>
+              <button *ngIf="isLoading" class="btn-outline-form2"  [disabled]="true">
+                CARGANDO...
+              </button>
+            </div>
+            <button *ngIf="!showTime" class="btn-outline-form2" (click)="sendSms()" >
+              REENVIAR SMS
+            </button>
+          </div>
+        </div>
+        <div *ngSwitchCase="2">
+          <p>Digite la clave que va a asignar para su firma electrónica</p>
+
+          <form [formGroup]="signingForm">
+            <div class="form-check mb-4">
+              <input class="form-check-input" type="checkbox" formControlName="conditions"
+                (click)="aceptarTerminos($event)">
+              <label class="form-check-label">
+                Acepto condiciones
+              </label>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Ingrese nueva clave</label>
+              <input type="password" class="form-control" formControlName="contrasena" id="password">
+            </div>
+            <div class="mb-5">
+              <label for="confirmpassword" class="form-label">Confirme nueva clave</label>
+              <input type="password" class="form-control" formControlName="confirmcontrasena" id="confirmpassword">
+              <div class="alert alert-danger" role="alert" *ngIf="signingForm.get('confirmcontrasena').touched && signingForm.get('confirmcontrasena').errors?.notSame">
+                <span >Las contraseñas no coinciden</span>
+              </div>
+              
+            </div>
+          </form>
+          <p>Recuerda. La clave debe cumplir con los siguientes requisitos.</p>
+          <ul class="list-requirements">
+            <li [className]="(signingForm.get('contrasena').errors?.minlength || signingForm.get('contrasena').errors?.maxlength)  ? 'invalid' : 'valid'">Debe tener mínimo
+              8 caracteres y máximo 15</li>
+            <li [className]="signingForm.get('contrasena').errors?.notNumber  ? 'invalid' : 'valid'">Debe tener al
+              menos un (1) número</li>
+            <li [className]="signingForm.get('contrasena').errors?.notLowerUpper  ? 'invalid' : 'valid'">Debe tener
+              almenos dos letras de la a-z ya sea mayúsculas o minúsculas. Mínimo debe tener una mayúscula</li>
+            <li [className]="!signingForm.get('contrasena').errors?.notRepite  ? 'valid' : 'invalid'">No debe tener más de 5 caracteres seguidos con las misma letra (Ejemplo: aaaaa1)</li>
+          </ul>
+
+          <div class="row justify-content-center mb-4">
+            <button class="btn btn-outline-form" (click)="goBack()">ATRAS</button>
+            <button *ngIf="!isLoading" class="btn btn-outline-form2" [disabled]="signingForm.invalid" (click)="firmar()">
+              IR A FIRMAR
+            </button>
+            <button *ngIf="isLoading" class="btn btn-outline-form2"  [disabled]="true">
+              CARGANDO...
+            </button>
+          </div>
+        </div>
+        <div *ngSwitchDefault>output2</div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -2,9 +2,11 @@
   // padding: 1em 10em;
   margin-bottom: 1em;
   height: 129px;
-  &:first-child{
+
+  &:first-child {
     margin-top: 4em;
   }
+
   div {
     display: flex;
     align-items: center;
@@ -28,7 +30,7 @@
   border: 2px solid #32BEFA;
   border-radius: 10px;
 
-  .image-file-big{
+  .image-file-big {
     width: 94.27px;
     height: auto;
   }
@@ -40,16 +42,79 @@ p {
 }
 
 
-.options-file{
+.options-file {
   display: flex;
   justify-content: space-between;
 
-  img{
+  img {
     margin-right: 20px;
     cursor: pointer;
   }
 }
 
+button.button-blue {
+  height: 50px;
+}
+
+.upload-files {
+  position: relative;
+  p {
+    line-height: 20px;
+  }
+  p.content-loading {
+    position: absolute;
+    z-index: 1;
+  }
+
+  .content-form {
+    margin: 55px 0px;
+
+    form {
+      .form-check {
+        margin-bottom: 10px;
+        font-family: 'Gotham Light Regular';
+
+        button {
+          padding: 6px 25px;
+          line-height: 12px;
+          font-size: 10px;
+          float: right;
+          background-color: #37BFFA;
+          border-color: #34b8f0;
+          font-weight: bold;
+        }
+
+        label {
+          cursor: pointer;
+          color: #707070;
+        }
+
+        &:last-child {
+          margin-bottom: 0px;
+        }
+      }
+
+      .alert.alert-danger {
+        margin-bottom: 0px;
+        position: absolute;
+        padding: 1px 20px;
+
+        p {
+          margin-bottom: 0px;
+          font-size: 0.8rem;
+          color: inherit;
+        }
+      }
+    }
+  }
+}
+
+.content-loading-with-tittle {
+  bottom: -52px;
+  .content-main-loading{
+    z-index: 20;
+  }
+}
 
 @media (max-width: 769.98px) {
   .files-content {
@@ -62,7 +127,7 @@ p {
   }
 }
 
-.up{
+.up {
   background: #4DEB96;
 }
 
@@ -76,21 +141,23 @@ p {
     padding: 1em .5em;
     align-items: flex-start;
 
-    div{
-        align-items: flex-start;
-    }
-    img{
-        width: 64px;
-        height: 64px;
-    }
-    p{
-        font-size: .7rem;
+    div {
+      align-items: flex-start;
     }
 
-    button{
-        width: 85px;
-        height: 24px;
-        font-size: .7rem;
+    img {
+      width: 64px;
+      height: 64px;
+    }
+
+    p {
+      font-size: .7rem;
+    }
+
+    button {
+      width: 85px;
+      height: 24px;
+      font-size: .7rem;
     }
   }
 }

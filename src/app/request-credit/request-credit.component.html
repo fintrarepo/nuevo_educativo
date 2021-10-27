@@ -1,495 +1,613 @@
 <div class="content-request-credit">
-    <div class="title-section">
-        <h2>Tu crédito educativo en 3 pasos</h2>
-    </div>
-    <div class="step-buttons">
-        <!-- <div class="dashed"></div> -->
+  <div class="title-section">
+    <h2>Tu crédito educativo en 3 pasos</h2>
+  </div>
+  <div class="step-buttons">
+    <!-- <div class="dashed"></div> -->
 
-        <div class="content-button-step" [ngClass]="{'selected': currentStep == 1, 'visited': currentStep > 1}">
-            <div class="button-step">
-                1
-            </div>
-            <span>Simula tu crédito</span>
-
-        </div>
-        <div class="lines-step" [ngClass]="{'visited': currentStep > 1}"></div>
-        <div class="content-button-step" [ngClass]="{'selected': currentStep == 2, 'visited': currentStep > 2}">
-            <div class="button-step">
-                2
-            </div>
-            <span>Crea tu perfil</span>
-
-        </div>
-        <div class="lines-step" [ngClass]="{'visited': currentStep > 2}"></div>
-        <div class="content-button-step" [ngClass]="{'selected': currentStep == 3}">
-            <div class="button-step">
-                3
-            </div>
-            <span>Obtén tu Crédito</span>
-        </div>
+    <div class="content-button-step" [ngClass]="{'selected': currentStep == 1, 'visited': currentStep > 1}">
+      <div class="button-step">
+        1
+      </div>
+      <span>Simula tu crédito</span>
 
     </div>
+    <div class="lines-step" [ngClass]="{'visited': currentStep > 1}"></div>
+    <div class="content-button-step" [ngClass]="{'selected': currentStep == 2, 'visited': currentStep > 2}">
+      <div class="button-step">
+        2
+      </div>
+      <span>Crea tu perfil</span>
 
-    <div id="wrapper-step-content" class="wrapper-step-content" *ngIf="currentStep == 1">
-        <div class="step-content" *ngIf="currentSubStep==1">
-            <div class="subtitle-step">
-                <p>
-                    Ingresa los datos reales del titular del crédito y descubre cómo quedarían las cuotas
-                    aproximadamente.
-                </p>
-            </div>
+    </div>
+    <div class="lines-step" [ngClass]="{'visited': currentStep > 2}"></div>
+    <div class="content-button-step" [ngClass]="{'selected': currentStep == 3}">
+      <div class="button-step">
+        3
+      </div>
+      <span>Obtén tu Crédito</span>
+    </div>
 
-            <div class="block-form">
-                <form ngNativeValidate (submit)="firstStepSend()" #initForm="ngForm">
-                    <div class="form-row">
-                        <div class="form-group col-md-6 col-lg-4">
-                            <label class="subtitle-form">Primer nombre</label>
-                            <input type="text" class="form-control" [(ngModel)]="form.primer_nombre"
-                                name="primer_nombre" required="true" pattern="^[a-zA-Z]*$"
-                                title="No está permitido espacios, ni caracteres especiales"
-                                (keyup)="validateSpaces()" />
-                            <span *ngIf="spaces" style="color: #dc3545!important;">El primer nombre no debe tener
-                                espacios</span>
-                        </div>
-                        <div class="form-group col-md-6 col-lg-4">
-                            <label class="subtitle-form">Celular</label>
-                            <input type="number" class="form-control" [(ngModel)]="form.telefono" name="telefono"
-                                required="true" max="9999999999" title="Celular invalido" />
-                        </div>
-                        <div class="form-group col-md-6 col-lg-4">
-                            <label class="subtitle-form">Correo electrónico</label>
-                            <input type="email" class="form-control" [(ngModel)]="form.email" name="email"
-                                required="true" />
-                        </div>
-                    </div>
+  </div>
 
-                    <div class="content-button-step">
-                        <button class="btn btn-outline-form" id="continuar_pasouno" [disabled]="!initForm.form.valid">Continuar</button>
-                    </div>
-                </form>
-            </div>
+  <div id="wrapper-step-content" class="wrapper-step-content" *ngIf="currentStep == 1">
+    <div class="step-content" *ngIf="currentSubStep==1">
+      <div class="subtitle-step">
+        <div>
+          <p style="max-width: 100%; margin-top: 30px;" class="mb-0">
+            <strong>Ingresa los datos de la persona  responsable de  realizar los pagos del crédito</strong>
+          </p>
+          <p style="max-width: 100%; margin-bottom: 30px;">y descubre cómo quedarían las cuotas aproximadamente.
+          </p>
         </div>
+      </div>
 
-
-        <div class="step-content" *ngIf="currentSubStep==2">
-            <div class="subtitle-step">
-                <p>
-                    ¡Lo éstas haciendo bien! Estos datos son del estudiante
-                </p>
+      <div class="block-form">
+        <form ngNativeValidate (submit)="firstStepSend()" [formGroup]="formPresolicitud">
+          <div class="form-row">
+            <div class="form-group col-md-6 col-lg-4">
+              <label class="subtitle-form">Primer nombre</label>
+              <input type="text" class="form-control" formControlName="primer_nombre"
+                title="No está permitido espacios, ni caracteres especiales" (keyup)="validateSpaces()" />
+              <!-- <span *ngIf="spaces" style="color: #dc3545!important;">El primer nombre no debe tener
+                espacios</span> -->
+              <div class="alert alert-danger" role="alert"
+                *ngIf="formPresolicitud.get('primer_nombre').touched && formPresolicitud.get('primer_nombre').errors">
+                <span *ngIf="formPresolicitud.get('primer_nombre').errors?.required">El nombre es obligatorio</span>
+                <span *ngIf="formPresolicitud.get('primer_nombre').errors?.pattern">Este campo no deberá contener números, ni espacios, ni caractéres especiales.</span>
+              </div>
             </div>
-
-            <div class="block-form">
-                <form ngNativeValidate (submit)="simulate()" #myForm="ngForm">
-                    <div class="form-row">
-                        <div class="form-group col-md-6 col-lg-4">
-                            <label class="subtitle-form">Ubicación institución</label>
-                            <select class="form-control" (change)="loadAfiliates()" [(ngModel)]="form.ciudad"
-                                name="ciudad" required="true"
-                                [ngClass]="{'invalid': ciudad.invalid && changeFormStudent }" #ciudad="ngModel">
-                                <option value="">Seleccione una ciudad</option>
-                                <option [value]="city.codigo" *ngFor="let city of cities">{{city.ciudad}}</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-6 col-lg-4">
-                            <label class="subtitle-form">Nombre institución</label>
-                            <select class="form-control" (change)="buildDues()" [(ngModel)]="form.afiliado"
-                                name="afiliado" required="true"
-                                [ngClass]="{'invalid': afiliado.invalid && changeFormStudent }" #afiliado="ngModel">
-                                <option value="">Seleccione una institución educativa</option>
-                                <option [value]="item.nit_afiliado" *ngFor="let item of afiliates">
-                                    {{item.nombre_afiliado}}</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-6 col-lg-4">
-                            <label class="subtitle-form">Tipo de estudio</label>
-                            <select class="form-control" [(ngModel)]="form.tipo_carrera" name="tipo_carrera"
-                                (change)="buildDues()" required="true"
-                                [ngClass]="{'invalid': tipo_carrera.invalid && changeFormStudent }"
-                                #tipo_carrera="ngModel">
-                                <option value="">Seleccione un tipo de estudio</option>
-                                <option value="PREGRADO">Pregrado</option>
-                                <option value="POSGRADO">Posgrado</option>
-                                <option value="CONTINUADA">Educación Continuada</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group col-md-6 col-lg-4">
-                            <label class="subtitle-form">Valor matrícula</label>
-                            <input type="text" class="form-control" [(ngModel)]="form.monto" name="monto"
-                                (change)="buildDues()" required="true" (keyup)="currency()"
-                                [ngClass]="{'invalid': monto.invalid && changeFormStudent }" #monto="ngModel">
-                        </div>
-                        <div class="form-group col-md-6 col-lg-4">
-
-                            <div style="display: flex; ">
-                                <label class="subtitle-form">Plazo del crédito</label>
-                                <div class="mytooltip top" style="margin-left: 10px;">
-                                    <div class="information-icon">
-                                        ?
-                                    </div>
-                                    <span class="tiptext">Indica el # de cuotas en que desearías diferir tu</span>
-                                </div>
-                            </div>
-
-                            <select class="form-control" [(ngModel)]="form.num_cuotas" name="num_cuotas" required="true"
-                                [ngClass]="{'invalid': num_cuotas.invalid && changeFormStudent }" #num_cuotas="ngModel">
-                                <option value="">Seleccione plazo del crédito</option>
-                                <option [value]="item" *ngFor="let item of dues">{{item}}</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-6 col-lg-4">
-
-                            <div style="display: flex;">
-                                <label class="subtitle-form">Fecha primer pago</label>
-                                <div class="mytooltip top" style="margin-left: 10px;">
-                                    <div class="information-icon">
-                                        ?
-                                    </div>
-                                    <span class="tiptext">Se refiere al día en que realizarías tus pagos cada
-                                        mes.</span>
-                                </div>
-                            </div>
-                            <select class="form-control" [(ngModel)]="form.fecha_pago" name="fecha_pago"
-                                (change)="buildDues()" required="true"
-                                [ngClass]="{'invalid': fecha_pago.invalid && changeFormStudent }" #fecha_pago="ngModel">
-                                <option value="">Seleccione fecha primer pago</option>
-                                <option [value]="date" *ngFor="let date of dates">{{date}}</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="terms-and-conditions">
-                        <!-- <label class="container" style="padding: 0; margin-top: 5px;
-                        margin-right: 10px;">
-                            <input type="checkbox" [(ngModel)]="polite" name="polite">
-                            <span class="checkmark"></span>
-                        </label> -->
-                        <label class="container-new-check">
-                            <input type="checkbox" [(ngModel)]="polite" name="polite" (change)="changePolite()">
-                            <span class="checkmark"></span>
-                        </label>
-                        <span>Acepto <a
-                                href="https://fintra.co/documentos/Politica-de-tratamiento-de-datos-personales-Fintra.pdf"
-                                target="_blank">Política de tratamiento de datos personales.</a></span>
-                    </div>
-                    <div class="content-button-step" *ngIf="!myForm.form.valid && polite"
-                        style="margin-top: 1em; margin-bottom: 1em;">
-                        <span style="color: #dc3545!important; text-align: center; max-width: 90%;">Verifique que todos
-                            los campos estén diligenciados para poder continuar</span>
-                    </div>
-                    <div class="content-button-step" style="margin-top: 1em; margin-bottom: 1em;">
-                        <button class="btn btn-outline-form" (click)="currentSubStep = 1;">volver</button>
-                        <button id="simular_educativo" class="btn btn-outline-form" type="submit" value="Simular"
-                            [disabled]="!myForm.form.valid || !polite"> Simular</button>
-                    </div>
-
-
-                </form>
+            <div class="form-group col-md-6 col-lg-4">
+              <label class="subtitle-form">Celular</label>
+              <input type="number" class="form-control" formControlName="telefono" title="Celular invalido" (keydown)="utils.validateOnlyNumbersPositive($event)"/>
+              <div class="alert alert-danger" role="alert"
+                *ngIf="formPresolicitud.get('telefono').touched && formPresolicitud.get('telefono').errors">
+                <span *ngIf="formPresolicitud.get('telefono').errors?.required">El celular es obligatorio</span>
+                <span *ngIf="formPresolicitud.get('telefono').errors?.min">El celular no puede tener menos de 10 dígitos
+                </span>
+                <span *ngIf="formPresolicitud.get('telefono').errors?.max">El celular no puede tener mas de 10 dígitos
+                </span>
+              </div>
             </div>
-        </div>
-
-        <div class="step-content" *ngIf="currentSubStep==3">
-            <div class="subtitle-step">
-                <p style="width: 100%;">
-                    Resultado de tu Simulación
-                </p>
+            <div class="form-group col-md-6 col-lg-4">
+              <label class="subtitle-form">Correo electrónico</label>
+              <input type="email" class="form-control" formControlName="email" />
+              <div class="alert alert-danger" role="alert"
+                *ngIf="formPresolicitud.get('email').touched && formPresolicitud.get('email').errors">
+                <span *ngIf="formPresolicitud.get('email').errors?.required">El Correo electrónico es obligatorio</span>
+                <span *ngIf="formPresolicitud.get('email').errors?.email">El correo ingresado no es valido</span>
+              </div>
             </div>
+          </div>
+          <div class="content-button-step" *ngIf="errorSimulation" style="margin-top: 1em; margin-bottom: 1em;">
+            <span style="color: #dc3545!important; text-align: center; max-width: 90%;">En este momento no podemos
+              procesar tu solicitud de crédito. Si
+              deseas conocer más información, comunícate con nuestra línea de atención al
+              público <strong>+575 3782828</strong></span>
+          </div>
 
-            <div class="content-simulation">
-                <div class="row">
-                    <div class="col-md-4">
-                        <p class="title-item-simulation">
-                            Nombre Solicitante
-                        </p>
-                        <p class="value-item-simulation">
-                            {{form.primer_nombre}}
-                        </p>
-                    </div>
-                    <div class="col-md-4">
-                        <p class="title-item-simulation">
-                            Correo electrónico
-                        </p>
-                        <p class="value-item-simulation">
-                            {{form.email}}
-                        </p>
-                    </div>
-                    <div class="col-md-4">
-                        <p class="title-item-simulation">
-                            Celular
-                        </p>
-                        <p class="value-item-simulation">
-                            {{form.telefono}}
-                        </p>
-                    </div>
+          <div class="content-button-step">
+            <button *ngIf="!isLoading2" class="btn btn-outline-form" id="continuar_pasouno"
+              [disabled]="formPresolicitud.invalid">Continuar</button>
+              <button *ngIf="isLoading2" class="btn btn-outline-form2" [disabled]="true">
+                CARGANDO...
+              </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+    <div class="step-content" *ngIf="currentSubStep==2">
+      <div class="subtitle-step">
+        <p>
+          ¡Lo éstas haciendo bien! Estos datos son del estudiante
+        </p>
+      </div>
+
+      <div class="block-form">
+        <form ngNativeValidate (submit)="simulate()" [formGroup]="formPresolicitud2">
+          <div class="form-row">
+            <div class="form-group col-md-6 col-lg-4">
+              <label class="subtitle-form">Ubicación institución</label>
+              <select class="form-control" (change)="loadAfiliates()" formControlName="ciudad"
+                [ngClass]="{'invalid': changeFormStudent }">
+                <option value="">Seleccione una ciudad</option>
+                <option [value]="city.codigo" *ngFor="let city of cities">{{city.ciudad}}</option>
+              </select>
+              <div class="alert alert-danger" role="alert"
+                *ngIf="formPresolicitud2.get('ciudad').touched && formPresolicitud2.get('ciudad').errors">
+                <span *ngIf="formPresolicitud2.get('ciudad').errors?.required">Seleccione una ubicación, es
+                  requerida.</span>
+              </div>
+            </div>
+            <div class="form-group col-md-6 col-lg-4">
+              <label class="subtitle-form">Nombre institución</label>
+              <ngx-select-dropdown (change)="buildDues()" formControlName="afiliado" [multiple]="false" [config]="configSelect"
+                                    [options]="afiliates"></ngx-select-dropdown>
+              <div class="alert alert-danger" role="alert"
+                *ngIf="formPresolicitud2.get('afiliado').touched && formPresolicitud2.get('afiliado').errors">
+                <span *ngIf="formPresolicitud2.get('afiliado').errors?.required">Seleccione una institución, es
+                  requerida.</span>
+              </div>
+            </div>
+            <div class="form-group col-md-6 col-lg-4">
+              <label class="subtitle-form">Tipo de estudio</label>
+              <select class="form-control" formControlName="tipo_carrera" (change)="buildDues()"
+                [ngClass]="{'invalid': changeFormStudent }">
+                <option value="">Seleccione un tipo de estudio</option>
+                <option value="PREGRADO">Pregrado</option>
+                <option value="POSGRADO">Posgrado</option>
+                <option value="CONTINUADA">Educación Continuada</option>
+              </select>
+              <div class="alert alert-danger" role="alert"
+                *ngIf="formPresolicitud2.get('tipo_carrera').touched && formPresolicitud2.get('tipo_carrera').errors">
+                <span *ngIf="formPresolicitud2.get('tipo_carrera').errors?.required">Seleccione un tipo de estudio, es
+                  requerido.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-6 col-lg-4">
+              <label class="subtitle-form">Valor matrícula:
+                {{formPresolicitud2.controls.monto.value | currency:'USD':true:'1.0-0'}}</label>
+              <input type="text" class="form-control" formControlName="monto" (change)="buildDues()" (keydown)="utils.validateOnlyNumbersPositive($event)"
+                [ngClass]="{'invalid': changeFormStudent }">
+              <div class="alert alert-danger" role="alert"
+                *ngIf="formPresolicitud2.get('monto').touched && formPresolicitud2.get('monto').errors">
+                <span *ngIf="formPresolicitud2.get('monto').errors?.required">El valor de la matricula es
+                  requerido.</span>
+              </div>
+            </div>
+            <div class="form-group col-md-6 col-lg-4">
+
+              <div style="display: flex; ">
+                <label class="subtitle-form">Plazo del crédito (meses)</label>
+                <div class="mytooltip top" style="margin-left: 10px;">
+                  <div class="information-icon">
+                    ?
+                  </div>
+                  <span class="tiptext">Indica el # de cuotas en que desearías diferir tu</span>
                 </div>
+              </div>
 
-                <div class="row">
-                    <div class="col-md-4">
-                        <p class="title-item-simulation">
-                            Tipo de estudio
-                        </p>
-                        <p class="value-item-simulation">
-                            {{form.tipo_carrera}}
-                        </p>
-                    </div>
-                    <div class="col-md-4">
-                        <p class="title-item-simulation">
-                            Ubicación estudio
-                        </p>
-                        <p class="value-item-simulation">
-                            {{getNameCity(form.ciudad)}}
-                        </p>
-                    </div>
-                    <div class="col-md-4">
-                        <p class="title-item-simulation">
-                            Nombre institución
-                        </p>
-                        <p class="value-item-simulation">
-                            {{getNameAfiliafo(form.afiliado)}}
-                        </p>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4">
-                        <p class="title-item-simulation">
-                            Valor de matrícula
-                        </p>
-                        <p class="value-item-simulation">
-                            ${{form.monto}}
-                        </p>
-                    </div>
-                    <div class="col-md-4">
-                        <p class="title-item-simulation">
-                            Plazo del crédito
-                        </p>
-                        <p class="value-item-simulation">
-                            {{form.num_cuotas}}
-                        </p>
-                    </div>
-                    <div class="col-md-4">
-                        <p class="title-item-simulation">
-                            Fecha primer pago
-                        </p>
-                        <p class="value-item-simulation">
-                            {{form.fecha_pago}}
-                        </p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4 offset-md-4">
-                        <div class="result-cuota-content">
-                            <span>Valor cuota aproximada</span>
-                            <h2>{{valor_cuota | currency:'USD':true:'1.0-0'}}</h2>
-                        </div>
-                    </div>
-                </div>
-
-
-
-
+              <select class="form-control" formControlName="num_cuotas" [ngClass]="{'invalid': changeFormStudent }">
+                <option value="">Seleccione plazo del crédito</option>
+                <option [value]="item" *ngFor="let item of dues">{{item}}</option>
+              </select>
+              <div class="alert alert-danger" role="alert"
+                *ngIf="formPresolicitud2.get('num_cuotas').touched && formPresolicitud2.get('num_cuotas').errors">
+                <span *ngIf="formPresolicitud2.get('num_cuotas').errors?.required">Seleccione un plazo de crédito, es
+                  requerido.</span>
+              </div>
             </div>
+            <div class="form-group col-md-6 col-lg-4">
 
-            <div class="row message-result-simulation">
-                <h2>¡Genial! Ya estás a un paso de tu Pre-aprobado</h2>
-                <span>*Verifica tus datos antes de continuar</span>
+              <div style="display: flex;">
+                <label class="subtitle-form">Fecha primer pago</label>
+                <div class="mytooltip top" style="margin-left: 10px;">
+                  <div class="information-icon">
+                    ?
+                  </div>
+                  <span class="tiptext">Se refiere al día en que realizarías tus pagos cada
+                    mes.</span>
+                </div>
+              </div>
+              <select class="form-control" formControlName="fecha_pago" (change)="buildDues()"
+                [ngClass]="{'invalid': changeFormStudent }">
+                <option value="">Seleccione fecha primer pago</option>
+                <option [value]="date" *ngFor="let date of dates">{{date}}</option>
+              </select>
+              <div class="alert alert-danger" role="alert"
+                *ngIf="formPresolicitud2.get('fecha_pago').touched && formPresolicitud2.get('fecha_pago').errors">
+                <span *ngIf="formPresolicitud2.get('fecha_pago').errors?.required">Seleccione la fecha del primer pago,
+                  es requerida.</span>
+              </div>
             </div>
-
-            <div class="content-button-step" style="margin-top: 1em; margin-bottom: 1em;">
-                <button class="btn btn-outline-form" (click)="currentSubStep = 2;">volver</button>
-                <button class="btn btn-outline-form" type="submit" value="Simular" id="simulado_solicitud"
-                    (click)="currentStep = 2; currentSubStep = 1;">continuar</button>
-            </div>
-        </div>
+          </div>
+          <div class="content-button-step" *ngIf="errorSimulation" style="margin-top: 1em; margin-bottom: 1em;">
+            <span style="color: #dc3545!important; text-align: center; max-width: 90%;">En este momento no podemos
+              procesar tu solicitud de crédito. Si
+              deseas conocer más información, comunícate con nuestra línea de atención al
+              público <strong>+575 3782828</strong></span>
+          </div>
+          <div class="terms-and-conditions">
+            <label class="container-new-check">
+              <input type="checkbox" formControlName="polite">
+              <span class="checkmark"></span>
+            </label>
+            <span>Acepto <a href="https://fintra.co/documentos/Politica-de-tratamiento-de-datos-personales-Fintra.pdf"
+                target="_blank">Política de tratamiento de datos personales.</a></span>
+          </div>
+          <div class="content-button-step" *ngIf="(formPresolicitud2.get('ciudad').touched && formPresolicitud2.get('ciudad').errors) ||
+          (formPresolicitud2.get('afiliado').touched && formPresolicitud2.get('afiliado').errors) ||
+          (formPresolicitud2.get('tipo_carrera').touched && formPresolicitud2.get('tipo_carrera').errors) ||
+          (formPresolicitud2.get('monto').touched && formPresolicitud2.get('monto').errors) ||
+          (formPresolicitud2.get('num_cuotas').touched && formPresolicitud2.get('num_cuotas').errors) ||
+          (formPresolicitud2.get('fecha_pago').touched && formPresolicitud2.get('fecha_pago').errors) ||
+          (formPresolicitud2.get('polite').touched && formPresolicitud2.get('polite').errors)"
+            style="margin-top: 1em; margin-bottom: 1em;">
+            <span style="color: #dc3545!important; text-align: center; max-width: 90%;">Verifique que todos
+              los campos estén diligenciados para poder continuar</span>
+          </div>
+          <div class="content-button-step" style="margin-top: 1em; margin-bottom: 1em;">
+            <button class="btn btn-outline-form" (click)="currentSubStep = 1;">volver</button>
+            <button *ngIf="!isLoading2" id="simular_educativo" class="btn btn-outline-form" type="submit" value="Simular"
+              [disabled]="formPresolicitud2.invalid"> Simular</button>
+              <button *ngIf="isLoading2" class="btn btn-outline-form2" [disabled]="true">
+                SIMULANDO...
+              </button>
+          </div>
+        </form>
+      </div>
     </div>
 
-    <div class="wrapper-step-content" *ngIf="currentStep == 2">
-        <div class="step-content" *ngIf="currentSubStep==1">
-            <div class="subtitle-step">
-                <p>
-                    ¡Ya estás cerca! <br>
-                    Ingresa estos datos y solicítalo.
-                </p>
-            </div>
+    <div class="step-content" *ngIf="currentSubStep==3">
+      <div class="subtitle-step">
+        <p style="width: 100%;">
+          Resultado de tu Simulación
+        </p>
+      </div>
 
-            <div class="block-form">
-                <form ngNativeValidate (submit)="queryDataCredit()" #myFormClient="ngForm">
-                    <div class="form-row" style="justify-content: center;">
-                        <div class="form-group col-md-6 col-lg-4">
-                            <label class="subtitle-form">Primer apellido</label>
-                            <input type="text" class="form-control" [(ngModel)]="form.primer_apellido"
-                                name="primer_apellido" required="true"
-                                [ngClass]="{'invalid': primer_apellido.invalid && changeFormDataCredit }"
-                                #primer_apellido="ngModel" />
-                        </div>
-                        <div class="form-group col-md-6 col-lg-4">
-                            <label class="subtitle-form"># de cédula</label>
-                            <input type="number" class="form-control" [(ngModel)]="form.identificacion"
-                                name="identificacion" required="true"
-                                [ngClass]="{'invalid': identificacion.invalid && changeFormDataCredit }"
-                                #identificacion="ngModel" />
-                        </div>
-                    </div>
-                    <div class="terms-and-conditions">
-                        <!-- <label class="container" style="padding: 0; margin-top: 5px;
-                        margin-right: 10px;">
-                            <input type="checkbox" [(ngModel)]="terms" name="terms">
-                            <span class="checkmark"></span>
-                        </label> -->
-                        <label class="container-new-check">
-                            <input type="checkbox" [(ngModel)]="terms" name="terms" (change)="changeTerms()">
-                            <span class="checkmark"></span>
-                        </label>
-                        <span style="max-width: 574px;">Autorizo que la información entregada sea consultada en
-                            centrales de riesgo. Para
-                            continuar, debes aceptar los <a (click)="showModal = true;"
-                                style="cursor: pointer;">Términos y Condiciones.</a></span>
-                    </div>
-                    <div class="content-button-step" *ngIf="!myFormClient.form.valid && terms"
-                        style="margin-top: 1em; margin-bottom: 1em;">
-                        <span style="color: #dc3545!important; text-align: center; max-width: 90%;">Verifique que todos
-                            los campos estén diligenciados para poder continuar</span>
-                    </div>
-                    <div class="content-button-step" style="margin-top: 1em; margin-bottom: 1em;" *ngIf="!loadingRequest">
-                        <button class="btn btn-outline-form"
-                            (click)="currentStep = 1; currentSubStep = 3;">volver</button>
-                        <button id="solicitar_credito" class="btn btn-outline-form" type="submit" value="Simular"
-                            [disabled]="!myFormClient.form.valid || !terms">Solicitar</button>
-                    </div>
-
-                    <div class="content-button-step spinner" *ngIf="loadingRequest">
-                        <div class="lds-spinner">
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </div>
-                    </div>
-                </form>
-            </div>
+      <div class="content-simulation">
+        <div class="row">
+          <div class="col-md-4">
+            <p class="title-item-simulation">
+              Nombre Solicitante
+            </p>
+            <p class="value-item-simulation">
+              {{formPresolicitud.value.primer_nombre}}
+            </p>
+          </div>
+          <div class="col-md-4">
+            <p class="title-item-simulation">
+              Correo electrónico
+            </p>
+            <p class="value-item-simulation">
+              {{formPresolicitud.value.email}}
+            </p>
+          </div>
+          <div class="col-md-4">
+            <p class="title-item-simulation">
+              Celular
+            </p>
+            <p class="value-item-simulation">
+              {{formPresolicitud.value.telefono}}
+            </p>
+          </div>
         </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <p class="title-item-simulation">
+              Tipo de estudio
+            </p>
+            <p class="value-item-simulation">
+              {{formPresolicitud2.value.tipo_carrera}}
+            </p>
+          </div>
+          <div class="col-md-4">
+            <p class="title-item-simulation">
+              Ubicación estudio
+            </p>
+            <p class="value-item-simulation">
+              {{getNameCity(formPresolicitud2.value.ciudad)}}
+            </p>
+          </div>
+          <div class="col-md-4">
+            <p class="title-item-simulation">
+              Nombre institución
+            </p>
+            <p class="value-item-simulation">
+              {{getNameAfiliafo(formPresolicitud2.value.afiliado.nit_afiliado)}}
+            </p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <p class="title-item-simulation">
+              Valor de matrícula
+            </p>
+            <p class="value-item-simulation">
+              {{formPresolicitud2.value.monto | currency:'USD':true:'1.0-0'}}
+            </p>
+          </div>
+          <div class="col-md-4">
+            <p class="title-item-simulation">
+              Plazo del crédito (meses)
+            </p>
+            <p class="value-item-simulation">
+              {{formPresolicitud2.value.num_cuotas}}
+            </p>
+          </div>
+          <div class="col-md-4">
+            <p class="title-item-simulation">
+              Fecha primer pago
+            </p>
+            <p class="value-item-simulation">
+              {{formPresolicitud2.value.fecha_pago}}
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 offset-md-4">
+            <div class="result-cuota-content">
+              <span>Valor cuota aproximada</span>
+              <h2>{{valor_cuota | currency:'USD':true:'1.0-0'}}</h2>
+            </div>
+          </div>
+        </div>
+
+
+
+
+      </div>
+
+      <div class="row message-result-simulation">
+        <h2>¡Genial! Ya estás a un paso de tu Pre-aprobado</h2>
+        <span>*Verifica tus datos antes de continuar</span>
+      </div>
+
+      <div class="content-button-step" style="margin-top: 1em; margin-bottom: 1em;">
+        <button class="btn btn-outline-form" (click)="currentSubStep = 2;">volver</button>
+        <button class="btn btn-outline-form" type="submit" value="Simular" id="simulado_solicitud"
+          (click)="currentStep = 2; currentSubStep = 1;">continuar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrapper-step-content" *ngIf="currentStep == 2">
+    <div class="step-content" *ngIf="currentSubStep==1">
+      <div class="subtitle-step">
+        <p>
+          ¡Ya estás cerca! <br>
+          Ingresa estos datos y solicítalo.
+        </p>
+      </div>
+
+      <div class="block-form">
+        <form ngNativeValidate (submit)="checkCredit()" [formGroup]="formPresolicitud3">
+          <div class="form-row" style="justify-content: center;">
+            <div class="form-group col-md-6 col-lg-4">
+              <label class="subtitle-form">Primer apellido</label>
+              <input type="text" class="form-control" formControlName="primer_apellido"
+                [ngClass]="{'invalid': changeFormDataCredit }" />
+              <div class="alert alert-danger" role="alert"
+                *ngIf="formPresolicitud3.get('primer_apellido').touched && formPresolicitud3.get('primer_apellido').errors">
+                <span *ngIf="formPresolicitud3.get('primer_apellido').errors?.required">El apellido es
+                  obligatorio</span>
+              </div>
+            </div>
+            <div class="form-group col-md-6 col-lg-4">
+              <label class="subtitle-form">Número de cédula</label>
+              <input type="text" class="form-control" formControlName="identificacion" (keydown)="utils.validateOnlyNumbersPositive($event)"
+                [ngClass]="{'invalid': changeFormDataCredit }" />
+              <div class="alert alert-danger" role="alert"
+                *ngIf="formPresolicitud3.get('identificacion').touched && formPresolicitud3.get('identificacion').errors">
+                <span *ngIf="formPresolicitud3.get('identificacion').errors?.required">el número de cédula es
+                  obligatorio</span>
+                <span *ngIf="formPresolicitud3.get('identificacion').errors?.min">Los dígitos del número de cédula no
+                  puede ser menor a 6</span>
+                <span *ngIf="formPresolicitud3.get('identificacion').errors?.max">Los dígitos del número de cédula no
+                  puede ser mayor a 10</span>
+              </div>
+              <div class="alert alert-danger" role="alert"
+                *ngIf="!formPresolicitud3.get('identificacion').errors && invalidCc">
+                <span>¡Algo no salió bien!. Validar el
+                  campo de cedula ingresado.</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-row" style="justify-content: center;">
+            <div class="form-group col-md-6 col-lg-4">
+              <label class="subtitle-form">Ocupación</label>
+              <select class="form-control" formControlName="ocupacion"
+                [ngClass]="{'invalid': formPresolicitud3.controls.ocupacion.touched && formPresolicitud3.controls.ocupacion.errors }">
+                <option value="">Seleccione una ocupación</option>
+                <option [value]="occupation.codigo" *ngFor="let occupation of occupations">{{occupation.nombre}}
+                </option>
+              </select>
+            </div>
+            <div class="form-group col-md-6 col-lg-4">
+              <label class="subtitle-form">Valor ingresos mensuales:
+                {{formPresolicitud3.controls.ingresos.value | currency:'USD':true:'1.0-0'}}</label>
+              <input type="text" class="form-control" formControlName="ingresos" (keydown)="utils.validateOnlyNumbersPositive($event)"
+                [ngClass]="{'invalid': formPresolicitud3.controls.ingresos.touched && formPresolicitud3.controls.ingresos.errors?.notMayor }">
+              <div class="alert alert-danger" role="alert"
+                *ngIf="formPresolicitud3.get('ingresos').touched && formPresolicitud3.get('ingresos').errors">
+                <span *ngIf="formPresolicitud3.get('ingresos').errors?.required">El valor de ingresos mensuales
+                  requerido.</span>
+                <span *ngIf="formPresolicitud3.get('ingresos').errors?.notMayor">El valor ingresado no puede ser menor a
+                  {{formPresolicitud3.controls.sala.value | currency:'USD':true:'1.0-0'}}.</span>
+              </div>
+            </div>
+          </div>
+          <div class="terms-and-conditions">
+            <label class="container-new-check">
+              <input type="checkbox" formControlName="term">
+              <span class="checkmark"></span>
+            </label>
+            <span style="max-width: 574px;">Autorizo que la información entregada sea consultada en
+              centrales de riesgo. Para
+              continuar, debes aceptar los <a (click)="showModal = true;" style="cursor: pointer;">Términos y
+                Condiciones.</a></span>
+          </div>
+          <div class="content-button-step" *ngIf="formPresolicitud3.invalid && !invalidCc"
+            style="margin-top: 1em; margin-bottom: 1em;">
+            <span style="color: #dc3545!important; text-align: center; max-width: 90%;">Verifique que todos
+              los campos estén diligenciados para poder continuar</span>
+          </div>
+          <div class="content-button-step" *ngIf="invalidCc" style="margin-top: 1em; margin-bottom: 1em;">
+            <span style="color: #dc3545!important; text-align: center; max-width: 90%;">¡Algo no salió bien!. Validar el
+              campo de cedula ingresado.</span>
+          </div>
+          <div class="content-button-step" style="margin-top: 1em; margin-bottom: 1em;" *ngIf="!loadingRequest">
+            <button class="btn btn-outline-form" (click)="currentStep = 1; currentSubStep = 3;">volver</button>
+            <button *ngIf="!isLoading2" id="solicitar_credito" class="btn btn-outline-form" type="submit" value="Simular"
+              [disabled]="formPresolicitud3.invalid">Solicitar</button>
+              <button *ngIf="isLoading2" class="btn btn-outline-form2" [disabled]="true">
+                SIMULANDO...
+              </button>
+          </div>
+
+          <!-- <div class="content-button-step spinner" *ngIf="loadingRequest">
+            <div class="lds-spinner">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div> -->
+
+        </form>
+      </div>
+      <div class="content-loading-with-tittle" *ngIf="loadingRequest">
+        <div class="content-main-loading col-lg-4 offset-lg-4" style="background-color: #fff;">
+          <div class="row justify-content-center"><img src="/assets/images/loading.gif" alt="" style="height: 13em;"></div>
+          <h2 class="text-center" style="    color: #1b77ba;">{{messageLoading}}</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="wrapper-step-content" *ngIf="currentStep == 3">
+
+    <div class="step-content" *ngIf="currentSubStep==1">
+      <div class="content-message-information">
+        <h2>Vemos que ya eres cliente Fintra</h2>
+
+        <p>
+          Para continuar con tu solicitud, comunícate con
+          uno de nuestros asesores a nuestra línea de atención al cliente <strong>+575 3782828</strong>
+        </p>
+
+        <button class="btn btn-outline-form" routerLink="https://edu.fintra.co/login" target="_blank">INICIAR
+          SESIÓN</button>
+      </div>
     </div>
 
 
+    <div class="step-content" *ngIf="currentSubStep==2">
+      <div class="content-message-information">
+        <img src="/assets/images/No aprobado_icon-02.png" style="width: 140px; margin-bottom: 2em;">
+        <h2>¡Felicidades, tu crédito fue Pre-aprobado!</h2>
 
-    <div class="wrapper-step-content" *ngIf="currentStep == 3">
+        <p>
+          Para obtener tu crédito Fintra, inicia sesión con tu <strong>usuario (correo registrado) y contraseña (cédula
+            registrada)</strong>
+        </p>
 
-        <div class="step-content" *ngIf="currentSubStep==1">
-            <div class="content-message-information">
-                <h2>Vemos que ya eres cliente Fintra</h2>
-
-                <p>
-                    Para ingresar a tu cuenta, inicia sesión con tu usuario (correo registrado). Si olvidaste tu
-                    contraseña has click aquí.
-                </p>
-
-                <button class="btn btn-outline-form" routerLink="https://edu.fintra.co/login" target="_blank">INICIAR
-                    SESIÓN</button>
-            </div>
-        </div>
-
-
-        <div class="step-content" *ngIf="currentSubStep==2">
-            <div class="content-message-information">
-                <img src="/assets/images/No aprobado_icon-02.png" style="width: 140px; margin-bottom: 2em;">
-                <h2>¡Felicidades, tu crédito fue Pre-aprobado!</h2>
-
-                <p>
-                    Para obtener tu crédito Fintra, inicia sesión con tu usuario (correo registrado) y contraseña
-                    (cédula registrada)
-                </p>
-
-                <button class="btn btn-outline-form" routerLink="https://edu.fintra.co/login" target="_blank">INICIAR
-                    SESIÓN</button>
-            </div>
-        </div>
-
-
-        <div class="step-content" *ngIf="currentSubStep==3">
-            <div class="content-message-information">
-                <img src="/assets/images/No aprobado_icon-01-01.png" style="width: 140px; margin-bottom: 2em;">
-                <h2>Algo no salió bien, pero tranquilo</h2>
-
-                <p>
-                    <!-- Te ayudamos a encontrar más opciones. Contáctanos a nuestras líneas de atención disponibles. -->
-                    {{messageError}}
-                </p>
-
-
-            </div>
-        </div>
+        <button class="btn btn-outline-form" routerLink="https://edu.fintra.co/login" target="_blank">INICIAR
+          SESIÓN</button>
+      </div>
     </div>
+
+
+    <div class="step-content" *ngIf="currentSubStep==3">
+      <div class="content-message-information">
+        <img src="/assets/images/No aprobado_icon-01-01.png" style="width: 140px; margin-bottom: 2em;">
+        <h2>¡Lo sentimos!</h2>
+
+        <p>
+          En este momento no podemos procesar tu solicitud de crédito. Si
+          deseas conocer más información, comunícate con nuestra línea de atención al
+          público <strong>+575 3782828</strong>
+        </p>
+
+
+      </div>
+    </div>
+
+
+    <div class="step-content" *ngIf="currentSubStep==4">
+      <div class="content-message-information">
+        <img src="/assets/images/No aprobado_icon-01-01.png" style="width: 140px; margin-bottom: 2em;">
+        <h2>Algo no salió bien, pero tranquilo. Contáctanos directamente para poder ayudarte</h2>
+
+        <!-- <div class="content-button-step">
+          <button class="btn btn-outline-form">Contáctanos</button>
+        </div> -->
+      </div>
+    </div>
+
+    <div class="step-content" *ngIf="currentSubStep==5">
+      <div class="content-message-information">
+        <img src="/assets/images/No aprobado_icon-01-01.png" style="width: 140px; margin-bottom: 2em;">
+        <h2>Vemos que ya eres cliente Fintra</h2>
+
+        <p> Para ingresar a tu cuenta, inicia sesión con tu usuario (correo registrado) y
+          contraseña.
+        </p>
+
+        <button class="btn btn-outline-form" routerLink="https://edu.fintra.co/login" target="_blank">INICIAR
+          SESIÓN</button>
+      </div>
+    </div>
+
+  </div>
 
 </div>
 
 <div class="custom-modal" *ngIf="showModal">
-    <div class="wrapper-modal">
-        <div class="title-modal">
-            AUTORIZACIÓN PARA CONSULTA ENCENTRALES DE RIESGO
-        </div>
-
-        <div class="body-modal">
-            Declaro que la información que he suministrado es verídica y doy mi consentimiento expreso eirrevocable a
-            Fintra
-            S.A. con NIT. 802.022.016-1 a quien estoy solicitando un crédito para:Consultar en cualquier tiempo en las
-            centrales de riesgo, toda la información relevante para conocer midesempeño como deudor, mi capacidad de
-            pago
-            para valorar el riesgo de concederme un crédito.Reportar a las centrales información de riesgo datos, tanto
-            sobre el cumplimiento oportuno como sobreel incumplimiento, si lo hubiere, de mis obligaciones crediticias,
-            o de
-            mis deberes legales de contenidopatrimonial, de tal forma que éstas presenten una información veráz,
-            pertinente,
-            completa y exacta demi desempeño como deudor.Suministrar a las centrales de información de riesgos datos
-            relativos a mis solicitudes de crédito, asícomo otros atinentes a mis relaciones comerciales, financieras y
-            de
-            servicio con el fin de que estos lasutilicen en sus estudios estadísticos y de desarrollo de herrmanientas
-            para
-            prevenir el fraude.En mi calidad de Titular de la información, actuando libre y voluntariamente, autorizo a
-            Fintra S.A.- y/o aExperian Colombia S.A. (en adelante DataCrédito Experian), Carrera 7 No. 76-35 Tel 3191400
-            de
-            Bogotá D.C.,o quien represente sus derechos, a acceder a mis datos personales contenidos en la base de datos
-            deMareigua Ltda. (Mareigua Ltda. con NIT 800.167.353-4), Aportes en Línea (Aportes En Línea
-            S.A.900147238-2),
-            Colfondos y/o administradoras de pensiones, y demás Operadores de información deseguridad social autorizados
-            por
-            el Ministerio de Salud y Protección Social, a mis datos personalesrecolectados por medio del presente
-            formulario, y a mis datos personales contenidos en la base dedatos de DataCrédito Experian (Operador de
-            información crediticia), en adelante mi informaciónpersonal, para darle tratamiento en los términos
-            expresados
-            en la Política de Tratamiento de laInformación Personal de Fintra S.A. y/o DataCrédito Experian y para
-            finalidades de gestión de riesgocrediticio tales como: (i) elaboración y circulación a terceros de scores
-            crediticios, herramientas devalidación de ingresos, herramientas predictivas de ingresos, herramientas para
-            evitar el fraude y engeneral, herramientas que le permitan a los Suscriptores de DataCrédito Experian,
-            adelantar
-            unaadecuada gestión del riesgo crediticio. (ii) Compararla, contrastarla y complementarla con la
-            informaciónfinanciera, comercial, crediticio, de servicios y proveniente de terceros países de DataCrédito
-            Experian.(iii) Compararla, contrastarla y complementarla con la información personal de Midatacrédito.
-        </div>
-
-        <div class="footer-modal">
-            <button class="btn btn-outline-form" (click)="terms = true; showModal = false;">Acepto ser
-                consultado</button>
-        </div>
+  <div class="wrapper-modal">
+    <div class="title-modal">
+      AUTORIZACIÓN PARA CONSULTA ENCENTRALES DE RIESGO
     </div>
+
+    <div class="body-modal">
+      Declaro que la información que he suministrado es verídica y doy mi consentimiento expreso e irrevocable a Fintra
+      S.A. con NIT. 802.022.016-1 a quien estoy solicitando un crédito para: Consultar en cualquier tiempo en las
+      centrales de riesgo, toda la información relevante para conocer mi desempeño como deudor, mi capacidad de pago
+      para valorar el riesgo de concederme un crédito. Reportar a las centrales información de riesgo datos, tanto sobre
+      el cumplimiento oportuno como sobre el incumplimiento, si lo hubiere, de mis obligaciones crediticias, o de mis
+      deberes legales de contenido patrimonial, de tal forma que éstas presenten una información verás, pertinente,
+      completa y exacta de mi desempeño como deudor. Suministrar a las centrales de información de riesgos datos
+      relativos a mis solicitudes de crédito, créditos como otros atinentes a mis relaciones comerciales, financieras y
+      de servicio con el fin de que estos las utilicen en sus estudios estadísticos y de desarrollo de herramientas para
+      prevenir el fraude. En mi calidad de Titular de la información, actuando libre y voluntariamente, autorizo a
+      Fintra S.A.- y/o a Experian Colombia S.A. (en adelante DataCrédito Experian), Carrera 7 No. 76-35 Tel 3191400 de
+      Bogotá D.C., o quien represente sus derechos, a acceder a mis datos personales contenidos en la base de datos de
+      Mareigua Ltda. (Mareigua Ltda. con NIT 800.167.353-4), Aportes en Línea (Aportes En Línea S.A.900147238-2),
+      Colfondos y/o administradoras de pensiones, y demás Operadores de información de seguridad social autorizados por
+      el Ministerio de Salud y Protección Social, a mis datos personales recolectados por medio del presente formulario,
+      y a mis datos personales contenidos en la base de datos de DataCrédito Experian (Operador de información
+      crediticia), en adelante mi información personal, para darle tratamiento en los términos expresados en la Política
+      de Tratamiento de la Información Personal de Fintra S.A. y/o Data Crédito Experian y para finalidades de gestión
+      de riesgo crediticio tales como:
+      <ul>
+        <li>Elaboración y circulación a terceros de scores crediticios, herramientas de validación de ingresos,
+          herramientas predictivas de ingresos, herramientas para evitar el fraude y en general, herramientas que le
+          permitan a los Suscriptores de DataCrédito Experian, adelantar una adecuada gestión del riesgo crediticio.
+        </li>
+        <li>Compararla, contrastarla y complementarla con la información financiera, comercial, crediticio, de servicios
+          y proveniente de terceros países de DataCrédito Experian.</li>
+        <li>Compararla, contrastarla y complementarla con la información personal de Mi DataCrédito.</li>
+      </ul>
+    </div>
+
+    <div class="footer-modal">
+      <button style="padding-left: 8px; padding-right: 8px; box-sizing: content-box;" class="btn btn-outline-form"
+        (click)="terms = true; showModal = false;">Acepto ser
+        consultado</button>
+    </div>
+  </div>
 </div>
 
 <!-- <button (click)="runValidation()">VALIDACION</button> -->
 
 
 <div id="iFrameContainer" class="hide">
-    <iframe
-      id="iFrame"
-      allow="camera"
-      class="iframe__wrapper"
-      frameborder="0"></iframe>
+  <iframe id="iFrame" allow="camera" class="iframe__wrapper" frameborder="0"></iframe>
 </div>
