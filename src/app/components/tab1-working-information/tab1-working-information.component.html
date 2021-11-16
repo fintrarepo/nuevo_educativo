@@ -17,8 +17,7 @@
     <div class="form-row">
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Ocupación</label>
-        <select class="form-control" formControlName="ocupacion"
-          (change)="loadJobs(form.controls.ocupacion.value)">
+        <select class="form-control" formControlName="ocupacion" (change)="loadJobs(form.controls.ocupacion.value)">
           <option value="">Seleccione Ocupación</option>
           <option [value]="item.table_code" *ngFor="let item of (formData$ | async)?.ACTECO">{{item.dato}}</option>
         </select>
@@ -71,7 +70,7 @@
       <div *ngIf="!empleado" class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Barrio</label>
         <ngx-select-dropdown formControlName="barrio" [multiple]="false" [config]="configSelect"
-                                    [options]="neighborhoods"></ngx-select-dropdown>
+          [options]="neighborhoods"></ngx-select-dropdown>
         <!-- <select class="form-control" formControlName="barrio">
           <option value="">Seleccione un barrio</option>
           <option [value]="item.value" *ngFor="let item of neighborhoods">{{item.name}}</option>
@@ -98,17 +97,20 @@
     <div class="form-row">
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Salario / Mesada / Ingresos mes </label>
-        <input type="number" class="form-control" formControlName="salario_ing" >
+        <input type="number" class="form-control" formControlName="salario_ing">
         <label class="subtitle-form">{{ form.controls.salario_ing.value | currency: 'USD': true: '1.0-1' }} </label>
       </div>
 
       <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">Otros ingresos (comisiones, arriendos, etc)
-          {{ form.controls.otros_ingresos.value | currency: 'USD': true: '1.0-1' }} </label>
+        <div class="label-input-content">
+          <label class="subtitle-form">Otros ingresos (comisiones, arriendos, etc)
+            {{ form.controls.otros_ingresos.value | currency: 'USD': true: '1.0-1' }} </label>
+          <span *ngIf="!validator('otros_ingresos')">(Opcional)</span>
+        </div>
         <input type="number" class="form-control" formControlName="otros_ingresos">
       </div>
       <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">Activos (Valor total de bienes inmuebles, etc) 
+        <label class="subtitle-form">Activos (Valor total de bienes inmuebles, etc)
           {{ form.controls.total_activos.value | currency: 'USD': true: '1.0-1' }}</label>
         <input type="number" class="form-control" formControlName="total_activos">
       </div>

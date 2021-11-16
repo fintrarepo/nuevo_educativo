@@ -181,12 +181,15 @@ export class UploadsComponent implements OnInit {
   }
 
   verPagare() {
+  
     this.isLoading = true;
+   
     const params = { "cod-solicitud": String(this.numSolicitud) }
     return this.creditService.pagare(params)
       .subscribe(
         x => {
-          this.viewPdf(x.data);
+          this.viewPdf("*"+x.data.base64);
+
           this.isLoading = false;
           this.mDeceval = false;
         },

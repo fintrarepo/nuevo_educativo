@@ -9,7 +9,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 // tslint:disable-next-line:component-class-suffix
 export class ModalPdf implements OnInit {
     @Input() public url_pdf;
-
+    validar:boolean=false;
     constructor(
         private activeModal: NgbActiveModal
     ) { }
@@ -18,5 +18,13 @@ export class ModalPdf implements OnInit {
         this.activeModal.dismiss();
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        if(this.url_pdf.substring(0,1)=='*'){
+            this.url_pdf=this.url_pdf.substring(1)
+            this.validar=true;
+        }else{
+            this.validar=false;
+        }
+        
+    }
 }

@@ -72,7 +72,7 @@ export class SendOtpToSigningComponent implements OnInit {
     this.iFrameContainer = document.getElementById('iFrameContainer');
     this.auth = {
       clientId: "FINTRA",
-      clientSecret: ' ["Me@uB@!E44CQ%EAP"'
+      clientSecret: "Me@uB@!E44CQ%EAP"
     };
     this.validacion = {
       guidConv: "7aacec4f-2f02-4901-81f8-1d5772653434",
@@ -361,7 +361,7 @@ export class SendOtpToSigningComponent implements OnInit {
       "guidConv": "7aacec4f-2f02-4901-81f8-1d5772653434",
       "procesoConvenioGuid": this.procesoConvenioGuid,
       "usuario": "Fintra",
-      "clave": "12345"
+      "clave": "Fintra.2021*"
     }
 
     return new Promise(function (resolve, reject) {

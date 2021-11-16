@@ -18,9 +18,9 @@
       <div [ngSwitch]="tapSigning">
         <div *ngSwitchCase="1">
           <h2>
-            Ingrese clave dinámica de verificación
+            Ingrese clave dinámica de verificación enviada al celular.
           </h2>
-          <p >Digite la clave dinámica de verificación enviada al celular: <b>{{mensaje.value}}</b></p>
+          <p > <b>{{mensaje.value}}</b></p>
           <div *ngIf="showTime" class="time">
             <p class="text-center my-3"><span>{{seconds}}</span></p>
             <p class="text-center">Tiempo de vida de la clave dinámica</p>
@@ -51,6 +51,17 @@
           </div>
         </div>
         <div *ngSwitchCase="2">
+          <p>La clave debe cumplir con los siguientes requisitos.</p>
+          <ul class="list-requirements">
+            <li [className]="(signingForm.get('contrasena').errors?.minlength || signingForm.get('contrasena').errors?.maxlength)  ? 'invalid' : 'valid'">Debe tener mínimo
+              8 caracteres y máximo 15</li>
+            <li [className]="signingForm.get('contrasena').errors?.notNumber  ? 'invalid' : 'valid'">Debe tener al
+              menos un (1) número</li>
+            <li [className]="signingForm.get('contrasena').errors?.notLowerUpper  ? 'invalid' : 'valid'">Debe tener
+              almenos dos letras de la a-z ya sea mayúsculas o minúsculas. Mínimo debe tener una mayúscula</li>
+            <li [className]="!signingForm.get('contrasena').errors?.notRepite  ? 'valid' : 'invalid'">No debe tener más de 5 caracteres seguidos con las misma letra (Ejemplo: aaaaa1)</li>
+          </ul>
+          
           <p>Digite la clave que va a asignar para su firma electrónica</p>
 
           <form [formGroup]="signingForm">
@@ -74,16 +85,7 @@
               
             </div>
           </form>
-          <p>Recuerda. La clave debe cumplir con los siguientes requisitos.</p>
-          <ul class="list-requirements">
-            <li [className]="(signingForm.get('contrasena').errors?.minlength || signingForm.get('contrasena').errors?.maxlength)  ? 'invalid' : 'valid'">Debe tener mínimo
-              8 caracteres y máximo 15</li>
-            <li [className]="signingForm.get('contrasena').errors?.notNumber  ? 'invalid' : 'valid'">Debe tener al
-              menos un (1) número</li>
-            <li [className]="signingForm.get('contrasena').errors?.notLowerUpper  ? 'invalid' : 'valid'">Debe tener
-              almenos dos letras de la a-z ya sea mayúsculas o minúsculas. Mínimo debe tener una mayúscula</li>
-            <li [className]="!signingForm.get('contrasena').errors?.notRepite  ? 'valid' : 'invalid'">No debe tener más de 5 caracteres seguidos con las misma letra (Ejemplo: aaaaa1)</li>
-          </ul>
+
 
           <div class="row justify-content-center mb-4">
             <button class="btn btn-outline-form" (click)="goBack()">ATRAS</button>
