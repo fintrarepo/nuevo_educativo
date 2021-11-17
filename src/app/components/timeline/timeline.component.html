@@ -12,8 +12,8 @@
   </div>
   <div class="line-step"></div>
   <div class="horizontal-step"
-    [ngClass]="{'current': thirdStepNumber == currentStep, 'visited': thirdStepNumber <  currentStep, 'future': thirdStepNumber > currentStep }">
-    <img [src]="getImage(3,'/assets/images/Icon_Aprobación en Proceso.svg')" alt="">
+    [ngClass]="{'current': twoStepNumber == currentStep, 'visited': twoStepNumber <  currentStep, 'future': twoStepNumber > currentStep }">
+    <img [src]="getImage(1,'/assets/images/Icon_Aprobación en Proceso.svg')" alt="">
     <div class="circle-step">
       <div class="line-step"></div>
     </div>
@@ -25,8 +25,8 @@
   </div>
   <div class="line-step"></div>
   <div class="horizontal-step"
-    [ngClass]="{'current': twoStepNumber == currentStep, 'visited': twoStepNumber <  currentStep, 'future': twoStepNumber > currentStep }">
-    <img [src]="getImage(6,'/assets/images/Icon_Adjuntar Documentos.svg')" alt="">
+    [ngClass]="{'current': thirdStepNumber == currentStep, 'visited': thirdStepNumber <  currentStep, 'future': thirdStepNumber > currentStep }">
+    <img [src]="getImage(2,'/assets/images/Icon_Adjuntar Documentos.svg')" alt="">
     <div class="circle-step">
       <div class="line-step"></div>
     </div>
@@ -39,7 +39,7 @@
   <div class="line-step"></div>
   <div class="horizontal-step"
     [ngClass]="{'current': fourStepNumber == currentStep, 'visited': fourStepNumber <  currentStep, 'future': fourStepNumber > currentStep }">
-    <img [src]="getImage(8,'/assets/images/Icon_Crédito Validacion.svg')" alt="">
+    <img [src]="getImage(3,'/assets/images/Icon_Crédito Validacion.svg')" alt="">
     <div class="circle-step">
       <div class="line-step"></div>
     </div>

@@ -30,25 +30,25 @@ export class ListRequestComponent implements OnInit {
 
 
   routerLink(item) {
-    if (item.etapa == 0) {
+    if (item.etapa_educativo == 0) {
       return "/app/credit-application/" + item.numero_solicitud
-    } else if (item.etapa > 0) {
+    } else if (item.etapa_educativo > 0) {
       // return "/app/upload/" + item.cod_neg + '/' + item.numero_solicitud
-      return "/app/upload/" + item.cod_neg + '/' + item.numero_solicitud
+      return "/app/reconocer/" + item.cod_neg + '/' + item.numero_solicitud
     }
   }
 
 
   getTitleButton(item) {
-    if (item.etapa == 0) {
+    if (item.etapa_educativo == 0) {
       return "Formulario"
-    } else if (item.etapa > 0 && item.adjuntar != 't') {
+    } else if (item.etapa_educativo == 2 && item.adjuntar != 't') {
       return "Adjuntar"
     }
   }
 
   validateButton(item) {
-    return (item.etapa == 0 || (item.etapa > 0 && item.adjuntar != 't'))
+    return (item.etapa_educativo == 0 || (item.etapa_educativo ==2 && item.adjuntar != 't'))
   }
 
   loadMore(){

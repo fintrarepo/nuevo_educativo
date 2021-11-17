@@ -8,7 +8,7 @@
       <h1>No se encontró ningún resultado</h1>
     </div>
     <div class="row item-request" *ngFor="let item of (listRequest$ | async )"
-      [ngClass]="{'desembolsado': item.etapa== 8, 'not-aproved': item.etapa == -1}">
+      [ngClass]="{'desembolsado': item.etapa_educativo== 4, 'not-aproved': item.etapa_educativo == -1}">
 
 
 
@@ -124,11 +124,11 @@
 
       </div>
 
-      <div class="col-md-12 col-sm-12 col-lg-6" *ngIf="(item.etapa != 8 && item.etapa != -1)">
+      <div class="col-md-12 col-sm-12 col-lg-6" *ngIf="(item.etapa_educativo != 4 && item.etapa_educativo != -1)">
 
         <div class="row align-items-center">
           <div class="col-lg-12 col-6" *ngIf="type_list=='requests'">
-            <app-timeline [currentStep]="item.etapa"></app-timeline>
+            <app-timeline [currentStep]="item.etapa_educativo"></app-timeline>
           </div>
           <div class="col-lg-12 col-6 justify-content-end text-right" *ngIf="type_list=='requests'">
 
@@ -153,12 +153,12 @@
 
       </div>
 
-      <div class="col-lg-6 text-right aproved-content" *ngIf="item.etapa == 8 ">
+      <div class="col-lg-6 text-right aproved-content" *ngIf="item.etapa_educativo == 4 ">
         <img src="/assets/images/Icon_Crédito Desembolsado_Verde.svg">
         <button class="btn btn-desemboldado" [disabled]="true">CRÉDITO DESEMBOLSADO</button>
       </div>
 
-      <div class="col-lg-6 text-right not-aproved-content" *ngIf="item.etapa == -1">
+      <div class="col-lg-6 text-right not-aproved-content" *ngIf="item.etapa_educativo == -1">
         <img src="/assets/images/Icon_Crédito Rechazado.svg">
         <button class="btn btn-not-aproved" [disabled]="true">CRÉDITO RECHAZADO</button>
       </div>
