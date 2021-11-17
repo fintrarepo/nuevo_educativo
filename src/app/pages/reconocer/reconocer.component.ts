@@ -200,7 +200,7 @@ export class ReconocerComponent implements OnInit, OnDestroy {
       "guidConv": "7aacec4f-2f02-4901-81f8-1d5772653434",
       "procesoConvenioGuid": this.procesoConvenioGuid,
       "usuario": "Fintra",
-      "clave": "12345"
+      "clave": "Fintra.2021*"
     }
 
     return new Promise(function (resolve, reject) {
