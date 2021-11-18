@@ -173,6 +173,7 @@ export class SendOtpToSigningComponent implements OnInit {
         const modalRef: NgbModalRef = this.modalService.open(ModalMessage, { backdrop: 'static', centered: true });
 
         if (res.success) {
+          res.data.body2="";
           modalRef.componentInstance.message = res.data;
         }
         modalRef.result.then(null, () => {
