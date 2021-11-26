@@ -20,6 +20,13 @@ export class Tab1ReferencesComponent implements OnInit {
 
   addressState$ = this.store.select(reducers.getAddressFormState);
   formData$ = this.store.select(reducers.platformDataForm);
+  telefonoTitular: string;
+  celularTitular: string;
+  telefono1_p_validar: boolean;
+  telefono1_f_validar: boolean;
+  celular_f_validar: boolean;
+  celular_p_validar: boolean;
+  celular_a_validar: boolean;
 
   constructor(private credits: CreditsService,
     private store: Store<reducers.State>,
@@ -67,6 +74,7 @@ export class Tab1ReferencesComponent implements OnInit {
     this.credits.autoComplete({
       "numero_solicitud": this.business, "tab": 3
     }).subscribe(this.responseAutoComplete.bind(this))
+    this.seachtInfo()
   }
 
 
@@ -146,7 +154,7 @@ export class Tab1ReferencesComponent implements OnInit {
   }
 
 
-  
+
   validator(control) {
     const validator = this.form.get(control).validator({} as AbstractControl);
     if (validator && validator.required) {
@@ -199,5 +207,66 @@ export class Tab1ReferencesComponent implements OnInit {
     }
   }
 
+  seachtInfo() {
+    this.credits.autoComplete({
+      "numero_solicitud": this.business, "tab": 1
+    }).subscribe(response => {
+      this.telefonoTitular = response.data.celular,
+        this.celularTitular = response.data.telefono
+    })
+  }
+  validarTelefono(key) {
+    switch (key) {
+      case 1:
+        if (this.telefonoTitular == this.form.controls['telefono1_f'].value) {
+          this.telefono1_f_validar = true;
+        } else {
+          this.telefono1_f_validar = false;
+        }
+        break;
+      case 2:
+        if (this.telefonoTitular == this.form.controls['celular_f'].value) {
+          this.celular_f_validar = true;
+          return
+        }
+        else {
+          this.celular_f_validar = false;
+        }
+        if (this.form.controls['celular_p'].value == this.form.controls['celular_f'].value) {
+          this.celular_a_validar = true;
+        }
+        else {
+          this.celular_a_validar = false;
+        }
+        break;
+      case 3:
+        if (this.telefonoTitular == this.form.controls['telefono1_p'].value) {
+          this.telefono1_p_validar = true;
+        }
+        else {
+          this.telefono1_p_validar = false;
+        }
+        break;
+      case 4:
+        if (this.telefonoTitular == this.form.controls['celular_p'].value) {
+          this.celular_p_validar = true;
+          return;
+        }
+        else {
+          this.celular_p_validar = false;
+        }
+        if (this.form.controls['celular_p'].value == this.form.controls['celular_f'].value) {
+          this.celular_a_validar = true;
+        }
+        else {
+          this.celular_a_validar = false;
+        }
+        break;
+
+      default:
+        break;
+    }
+
+  }
 }
 

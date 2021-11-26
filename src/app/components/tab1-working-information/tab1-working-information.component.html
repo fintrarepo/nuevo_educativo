@@ -23,7 +23,7 @@
         </select>
       </div>
       <div class="form-group col-md-6 col-lg-4">
-        <label class="subtitle-form">Actividad Econímica</label>
+        <label class="subtitle-form">Actividad Económica</label>
         <select class="form-control" formControlName="actividad_economica">
           <option value="">Seleccione una Actividad económica</option>
           <option [value]="item.codigo" *ngFor="let item of jobs">{{item.nombre}}</option>
@@ -103,16 +103,17 @@
 
       <div class="form-group col-md-6 col-lg-4">
         <div class="label-input-content">
-          <label class="subtitle-form">Otros ingresos (comisiones, arriendos, etc)
-            {{ form.controls.otros_ingresos.value | currency: 'USD': true: '1.0-1' }} </label>
+          <label class="subtitle-form">Otros ingresos (comisiones, arriendos, etc) </label>
           <span *ngIf="!validator('otros_ingresos')">(Opcional)</span>
         </div>
         <input type="number" class="form-control" formControlName="otros_ingresos">
+        <label class="subtitle-form">{{ form.controls.otros_ingresos.value | currency: 'USD': true: '1.0-1' }} </label>
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Activos (Valor total de bienes inmuebles, etc)
-          {{ form.controls.total_activos.value | currency: 'USD': true: '1.0-1' }}</label>
+        </label>
         <input type="number" class="form-control" formControlName="total_activos">
+        <label class="subtitle-form">  {{ form.controls.total_activos.value | currency: 'USD': true: '1.0-1' }}</label>
       </div>
     </div>
   </div>

@@ -146,7 +146,7 @@ export class Tab2PersonalInformationComponent implements OnInit {
   impForm() {
     // this.store.dispatch(new ToggleBlurPage())
     // this.store.dispatch(new ShowOrHiddenLoadingForm(true))
-  
+    this.form.controls.parentesco_girador.setValue(this.estudentIsApplicant?'SOY_EL_GIRADOR': this.form.controls.parentesco_girador.value)
     this.form.markAllAsTouched()
     if (!this.form.valid) {
       // this.store.dispatch(new ToggleBlurPage())

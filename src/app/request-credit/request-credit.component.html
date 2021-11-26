@@ -83,7 +83,7 @@
             <span style="color: #dc3545!important; text-align: center; max-width: 90%;">En este momento no podemos
               procesar tu solicitud de crédito. Si
               deseas conocer más información, comunícate con nuestra línea de atención al
-              público <strong>+57 (5) 378 28 28</strong></span>
+              público <strong>+57 (5) 387 28 28</strong></span>
           </div>
 
           <div class="content-button-step">
@@ -210,7 +210,7 @@
             <span style="color: #dc3545!important; text-align: center; max-width: 90%;">En este momento no podemos
               procesar tu solicitud de crédito. Si
               deseas conocer más información, comunícate con nuestra línea de atención al
-              público <strong>+57 (5) 378 28 28</strong></span>
+              público <strong>+57 (5) 387 28 28</strong></span>
           </div>
           <div class="terms-and-conditions">
             <label class="container-new-check">
@@ -373,12 +373,18 @@
             <div class="form-group col-md-6 col-lg-4">
               <label class="subtitle-form">Primer apellido</label>
               <input type="text" class="form-control" formControlName="primer_apellido"
-                [ngClass]="{'invalid': changeFormDataCredit }" />
+                [ngClass]="{'invalid': changeFormDataCredit }"  title="No está permitido caracteres especiales" />
               <div class="alert alert-danger" role="alert"
                 *ngIf="formPresolicitud3.get('primer_apellido').touched && formPresolicitud3.get('primer_apellido').errors">
                 <span *ngIf="formPresolicitud3.get('primer_apellido').errors?.required">El apellido es
                   obligatorio</span>
+                  <span *ngIf="formPresolicitud3.get('primer_apellido').errors?.pattern">Este campo no deberá contener caractéres especiales.</span>
               </div>
+              <!-- <div class="alert alert-danger" role="alert"
+              *ngIf="formPresolicitud.get('primer_nombre').touched && formPresolicitud.get('primer_nombre').errors">
+              <span *ngIf="formPresolicitud.get('primer_nombre').errors?.required">El nombre es obligatorio</span>
+              <span *ngIf="formPresolicitud.get('primer_nombre').errors?.pattern">Este campo no deberá contener números, ni espacios, ni caractéres especiales.</span>
+            </div> -->
             </div>
             <div class="form-group col-md-6 col-lg-4">
               <label class="subtitle-form">Número de cédula</label>
@@ -490,7 +496,7 @@
 
         <p>
           Para continuar con tu solicitud, comunícate con
-          uno de nuestros asesores a nuestra línea de atención al cliente <strong>+57 (5) 378 28 28</strong>
+          uno de nuestros asesores a nuestra línea de atención al cliente <strong>+57 (5) 387 28 28</strong>
         </p>
 
         <a class="btn btn-outline-form" href="https://edu.fintra.co/login" target="_blank">INICIAR
@@ -523,7 +529,7 @@
         <p>
           En este momento no podemos procesar tu solicitud de crédito. Si
           deseas conocer más información, comunícate con nuestra línea de atención al
-          cliente <strong>+57 (5) 378 28 28</strong>
+          cliente <strong>+57 (5) 387 28 28</strong>
         </p>
 
 
@@ -535,7 +541,7 @@
       <div class="content-message-information">
         <img src="/assets/images/No aprobado_icon-01-01.png" style="width: 140px; margin-bottom: 2em;">
         <h2>Algo no salió bien, pero tranquilo. <br>Contáctanos directamente para poder ayudarte. Comunícate con nuestra línea de atención al
-          cliente <strong>+57 (5) 378 28 28</strong></h2>
+          cliente <strong>+57 (5) 387 28 28</strong></h2>
 
         <!-- <div class="content-button-step">
           <button class="btn btn-outline-form">Contáctanos</button>

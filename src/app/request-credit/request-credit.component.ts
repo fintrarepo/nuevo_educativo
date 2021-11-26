@@ -77,7 +77,7 @@ export class RequestCreditComponent implements OnInit {
 
     this.formPresolicitud3 = this.fb.group({
       ocupacion: ["", Validators.required],
-      primer_apellido: ["", Validators.required],
+      primer_apellido: ["",  [Validators.required, Validators.pattern('^[a-zA-Z]*$')]],
       identificacion: [null, [Validators.required, Validators.max(9999999999), Validators.min(99999)]],
       ingresos: [null, [Validators.required]],
       term: ["", Validators.requiredTrue],

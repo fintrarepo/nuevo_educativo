@@ -49,11 +49,20 @@
           <label class="subtitle-form">Teléfono</label>
           <span *ngIf="!validator('telefono1_f')">(Opcional)</span>
         </div>
-        <input type="number" class="form-control" formControlName="telefono1_f">
+        <input type="number" class="form-control" [class.ng-invalid]="telefono1_f_validar" [class.is-invalid]="telefono1_f_validar"  formControlName="telefono1_f" (change)="validarTelefono(1)"  >
+        <div class="invalid-feedback" *ngIf="telefono1_f_validar" >
+          El número no telefono, no puede ser igual al titular
+        </div>
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Celular</label>
-        <input type="number" class="form-control" formControlName="celular_f">
+        <input type="number" class="form-control" [class.ng-invalid]="celular_f_validar||celular_a_validar" [class.is-invalid]="celular_f_validar||celular_a_validar" formControlName="celular_f" (change)="validarTelefono(2)" >
+        <div class="invalid-feedback" *ngIf="celular_f_validar" >
+          El número no telefono, no puede ser igual al titular
+        </div>
+        <div class="invalid-feedback" *ngIf="celular_a_validar" >
+          El número no telefono, no puede ser igual en las referencias
+        </div>
       </div>
     </div>
   </div>
@@ -86,13 +95,22 @@
       <div class="form-group col-md-6 col-lg-4">
         <div class="label-input-content">
           <label class="subtitle-form">Teléfono</label>
-          <span *ngIf="!validator('telefono1_p')">(Opcional)</span>
+          <span *ngIf="!validator('telefono1_p')" >(Opcional)</span>
         </div>
-        <input type="number" class="form-control" formControlName="telefono1_p">
+        <input type="number" [class.ng-invalid]="telefono1_p_validar" [class.is-invalid]="telefono1_p_validar"  class="form-control" formControlName="telefono1_p" (change)="validarTelefono(3)" >
+        <div class="invalid-feedback" *ngIf="telefono1_p_validar" >
+          El número no telefono, no puede ser igual al titular
+        </div>
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Celular</label>
-        <input type="number" class="form-control" formControlName="celular_p">
+        <input type="number" class="form-control" [class.ng-invalid]="celular_p_validar||celular_a_validar"  [class.is-invalid]="celular_p_validar||celular_a_validar" formControlName="celular_p" (change)="validarTelefono(4)" >
+        <div class="invalid-feedback" *ngIf="celular_p_validar" >
+          El número no telefono, no puede ser igual al titular
+        </div>
+        <div class="invalid-feedback" *ngIf="celular_a_validar" >
+          El número no telefono, no puede ser igual en las referencias
+        </div>
       </div>
       <div class="form-group col-md-6 col-lg-4">
       </div>
