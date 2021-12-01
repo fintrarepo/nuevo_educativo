@@ -468,7 +468,7 @@ export class RequestCreditComponent implements OnInit {
     this.validacion = { ...this.validacion, celular: this.formPresolicitud.value.telefono, numDoc: this.formPresolicitud3.value.identificacion.toString(), email: this.formPresolicitud.value.email, }
 
     let url;
-    debugger;
+    // debugger;
     // let url_prod="https://demorcs.olimpiait.com:6317/TraerToken"
     let url_prod="https://recidaw.olimpiait.com/TraerToken"
     await this.Post(url_prod, this.auth).then((resp: any) => {

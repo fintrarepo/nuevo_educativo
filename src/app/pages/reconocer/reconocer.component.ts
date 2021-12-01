@@ -149,7 +149,7 @@ export class ReconocerComponent implements OnInit, OnDestroy {
     await this.Post("https://recidaw.olimpiait.com/TraerToken", this.auth).then((resp: any) => {
       this.token = resp.accessToken;
     });
-    debugger;
+    // debugger;
     //SOLICITAR VALIDACIÓN
     await this.Post("https://recidaw.olimpiait.com/Validacion/SolicitudValidacion", this.validacion, this.token).then((resp: any) => {
       if (resp && resp.code == 200) {

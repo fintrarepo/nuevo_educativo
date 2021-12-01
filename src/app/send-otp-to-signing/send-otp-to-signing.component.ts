@@ -307,7 +307,7 @@ export class SendOtpToSigningComponent implements OnInit {
     //this.validacion = {...this.validacion,  numDoc: "1143444600", email: "antoniojsh93@gmail.com" }
     // let token;
     let url;
-    debugger;
+    // debugger;
     await this.Post("https://recidaw.olimpiait.com/TraerToken", this.auth).then((resp: any) => {
       this.token = resp.accessToken;
     });
