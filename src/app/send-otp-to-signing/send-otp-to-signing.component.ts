@@ -50,6 +50,8 @@ export class SendOtpToSigningComponent implements OnInit {
   dataSigning: { cc: any; email: any; telefono: any; };
   isLoading2: boolean;
   messageLoading: string;
+  aplicaValidacionEntidad: boolean;
+  entidad: string;
 
   constructor(
     public utils: UtilsService,
@@ -62,6 +64,16 @@ export class SendOtpToSigningComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.utils.getAplicaReconocer().subscribe(res => {
+      if(res.status==200){
+        if((res.data.aplica=="SI") &&(res.data.entidad=="RECONOSER")){
+          this.aplicaValidacionEntidad=true;
+          this.entidad="RECONOSER";
+        }else{
+          this.aplicaValidacionEntidad=false;
+        }
+      }
+    })
     this.counter$ = interval(1000, asyncScheduler).pipe(
       map(
         x => 180 - x
@@ -232,8 +244,25 @@ export class SendOtpToSigningComponent implements OnInit {
       .subscribe(res => {
         if (res.success) {
           this.dataSigning = { cc: res.data.documento, email: res.data.email, telefono: res.data.celular }
+          if(this.aplicaValidacionEntidad){
+            switch (this.entidad) {
+              case 'RECONOSER':
+                this.runValidation();
+              break;
+            
+              default:
+                this.loadListFile();
+                this.loadingRequest = false;
+                this.stepSigning = 1;
+              break;
+            }
+          }else{
+            this.loadListFile();
+            this.loadingRequest = false;
+            this.stepSigning = 1;
+          }
 
-          this.runValidation();
+         
           this.showStep = true;
         } else {
           this.showStep = false;

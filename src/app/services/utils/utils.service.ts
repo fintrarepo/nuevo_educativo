@@ -65,6 +65,10 @@ export class UtilsService {
     return this.http.get("/webresources/loans/info-extractos/" + id);
   }
 
+  getAplicaReconocer() {
+    return this.http.post("/webresources/firma/aplica-reconocer",'{"unidad":"EDUCATIVO"}');
+  }
+
   sendSmsCode(identification, phone) {
     return this.http.post(
       this.apiHost + "/users/" + identification + "/sendsms",

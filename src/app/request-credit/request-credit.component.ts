@@ -50,6 +50,8 @@ export class RequestCreditComponent implements OnInit {
   errorSimulation: boolean = false;
   isLoading2: boolean = false;
   configSelect;
+  aplicaValidacionEntidad: boolean=false;
+  entidad: string="";
 
   constructor(
     public utils: UtilsService,
@@ -93,6 +95,16 @@ export class RequestCreditComponent implements OnInit {
     this.txtSend = document.getElementById('txtSend');
     this.iFrame = document.getElementById('iFrame');
     this.iFrameContainer = document.getElementById('iFrameContainer');
+    this.utils.getAplicaReconocer().subscribe(res => {
+      if(res.status==200){
+        if((res.data.aplica=="SI") &&(res.data.entidad=="RECONOSER")){
+          this.aplicaValidacionEntidad=true;
+          this.entidad="RECONOSER";
+        }else{
+          this.aplicaValidacionEntidad=false;
+        }
+      }
+    })
     this.auth = {
       clientId: "FINTRA",
       clientSecret: "Me@uB@!E44CQ%EAP"
@@ -444,14 +456,13 @@ export class RequestCreditComponent implements OnInit {
     this.credit.checkCredic(this.formPresolicitud3.value.identificacion).subscribe(resp => {
       if (resp.success) {
         if (resp.data.option == 2) {
-         
-          this.runValidation();
+          this.validarentidad();
         } else {
           this.currentStep = 3;
           this.currentSubStep = 1;
         }
       } else {
-        this.runValidation();
+        this.validarentidad();
       }
     },
       err => {
@@ -461,6 +472,23 @@ export class RequestCreditComponent implements OnInit {
         this.currentStep = 3;
         this.currentSubStep = 4;
       })
+  }
+  validarentidad(){
+    if(this.aplicaValidacionEntidad){
+      switch (this.entidad) {
+        case 'RECONOSER':
+          this.runValidation();
+        break;
+      
+        default:
+          this.messageLoading = 'Estamos generando tu solicitud';
+          this.queryDataCredit()
+        break;
+      }
+    }else{
+      this.messageLoading = 'Estamos generando tu solicitud';
+      this.queryDataCredit()
+    }
   }
 
   async runValidation() {

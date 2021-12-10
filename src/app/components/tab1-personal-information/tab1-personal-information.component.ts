@@ -36,6 +36,10 @@ export class Tab1PersonalInformationComponent implements OnInit {
   addressState$ = this.store.select(reducers.getAddressFormState);
   formData$ = this.store.select(reducers.platformDataForm);
   citys$ = this.store.select(reducers.citys);
+  fechaMaxima: any;
+  anioActual: number;
+  mesActual: string;
+  diaActual: string;
 
 
   constructor(private store: Store<reducers.State>,
@@ -101,7 +105,12 @@ export class Tab1PersonalInformationComponent implements OnInit {
       displayKey: 'name',
       limitTo: 50,
       noResultsFound: 'no se encontro ningun resultado'
-  };
+    };
+  }
+  fechaValida(): void {
+    this.anioActual = parseInt((new Date(), "yyyy")+"");
+    this.mesActual = (new Date(), "mm");
+    this.diaActual = (new Date(), "dd");
   }
 
   openForm(field) {
