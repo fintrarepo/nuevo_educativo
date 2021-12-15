@@ -26,6 +26,7 @@ export class ListRequestEffects {
         tap(v => console.log('LoginUser effect tap', v.payload)),
         map(action => action.payload),
         exhaustMap(action => {
+            debugger
             const request = action.credits ? this.listRequest.getLoans(action.identificacion) : this.listRequest.getRequests("-2", action.limit, action.offset)
             return request.pipe(
                 map(Response => {

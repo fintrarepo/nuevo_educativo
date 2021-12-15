@@ -15,5 +15,6 @@
         "activityBar.activeBackground": "#7f40bf",
         "activityBar.activeBorder": "#c78f58"
     },
-    "peacock.color": "#639"
+    "peacock.color": "#639",
+    "terminal.integrated.sendKeybindingsToShell": true
 }
