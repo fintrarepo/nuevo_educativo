@@ -93,9 +93,9 @@ export class Tab1WorkingInformationComponent implements OnInit {
         this.form.removeControl('tipo_contrato');
         this.form.removeControl('fecha_ingreso');
         this.form.removeControl('telefono');
-        this.form.addControl('actividad_especifica', new FormControl('', Validators.required));
-        this.form.addControl('barrio', new FormControl('', Validators.required));
-        this.form.addControl('antiguedad_negocio', new FormControl('', Validators.required));
+        this.form.addControl('actividad_especifica', new FormControl(''));
+        this.form.addControl('barrio', new FormControl(''));
+        this.form.addControl('antiguedad_negocio', new FormControl(''));
       }
     })
   }
@@ -170,6 +170,7 @@ export class Tab1WorkingInformationComponent implements OnInit {
   }
 
   saveData() {
+    debugger
     this.form.markAllAsTouched()
     if (!this.form.valid) {
       return this.store.dispatch(new OpenAlert({
