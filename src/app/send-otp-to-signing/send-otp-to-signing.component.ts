@@ -178,7 +178,8 @@ export class SendOtpToSigningComponent implements OnInit {
     this.messageLoading = 'Enviando mensaje...'
     this.isLoading = true;
     const params = {
-      "num-celular": this.dataSigning.telefono
+      "num-celular": this.dataSigning.telefono,
+      "documento": this.dataSigning.cc
     }
     this.signingService.sendDinamicKey(params)
       .subscribe(res => {
@@ -215,7 +216,7 @@ export class SendOtpToSigningComponent implements OnInit {
     if (!this.keyForm.valid) {
       return;
     }
-    this.notfound = false;
+    this.notfound = false; 
     this.isLoading2 = true;
     const params = {
       "num-celular": this.dataSigning.telefono,
