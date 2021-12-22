@@ -186,7 +186,7 @@ export class SendOtpToSigningComponent implements OnInit {
 
         if (res.success) {
           res.data.body2="";
-          modalRef.componentInstance.message = res.data;
+          modalRef.componentInstance.code = res.data;
         }
         modalRef.result.then(null, () => {
           this.stepSigning = 2;
