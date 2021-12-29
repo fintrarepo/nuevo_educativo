@@ -1,0 +1,29 @@
+@import "../../../styles/vars/exports";
+.danger {
+    background: $danger;
+}
+  
+.warning {
+    background: $yellow-dark;
+}
+  
+.success {
+    background: $green-dark;
+}
+.primary{
+    background-color: #32BEFA;
+}
+.header{
+    background-color: #32BEFA;
+}
+  
+.title,
+.sub-title {
+  margin: 1em;
+  color: white;
+}
+.dowlader{
+    color: #002bff;
+    text-decoration: underline;
+    cursor:pointer
+}

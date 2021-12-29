@@ -16,6 +16,7 @@ import { Store } from '@ngrx/store';
 
 import * as reducers from '../../reducers/reducers';
 import { OpenAlert } from 'src/app/actions/alert.actions';
+import { FirmDocumentsComponent } from 'src/app/components/firmDocuments/firmDocuments.component';
 @Component({
   selector: 'app-uploads',
   templateUrl: './uploads.component.html',
@@ -48,6 +49,7 @@ export class UploadsComponent implements OnInit {
     private activateRouter: ActivatedRoute,
     private modalService: NgbModal,
     private store: Store<reducers.State>,
+    // public dialog: MatDialog,
   ) {
     this.documentsForm = this.formBuilder.group({
       pagare_deceval: ['', Validators.requiredTrue],
@@ -63,6 +65,8 @@ export class UploadsComponent implements OnInit {
   }
 
   ngOnInit() {
+    const modalRef: NgbModalRef = this.modalService.open(FirmDocumentsComponent, { backdrop: 'static', centered: true });
+
     this.loadListFile();
     this.tabFiles = 1;
     this.documentsForm.get('pagare_deceval').valueChanges.subscribe(validate => {
@@ -217,6 +221,11 @@ export class UploadsComponent implements OnInit {
   }
 
   goSigning() {
+
+    // const modalRef: NgbModalRef = this.modalService.open(FirmDocumentsComponent, { backdrop: 'static', centered: true });
+
+       
+    // alert("hola");
     this.isLoading = true;
 
     this.creditService.sendOtp().subscribe((response) => {

@@ -170,7 +170,7 @@ export class Tab1WorkingInformationComponent implements OnInit {
   }
 
   saveData() {
-    debugger
+    // debugger
     this.form.markAllAsTouched()
     if (!this.form.valid) {
       return this.store.dispatch(new OpenAlert({

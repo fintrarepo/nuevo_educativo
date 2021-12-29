@@ -1,0 +1,28 @@
+<div class="container" >
+  <div class="row header">
+    <div class="col-lg-10">
+      <p class="title title-form">Firma tus documentos</p>
+    </div>
+    <div class="col-lg-2 text-center">
+      <p class="title title-form" class="close" aria-label="Close" >x</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <p>Los siguientes documentos se requieren para legalizar tu crédito, firma y sube uno a uno los términos si estás de acuerdo.</p>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-lg-12">
+      <ol class="list-group list-group-numbered">
+        <li class="list-group-item d-flex justify-content-between align-items-start"  *ngFor="let list of signinFiles">
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">{{list.descripcion}}</div>
+            <p class="dowlader"  (click)="downloadFile(list)">Descargar</p>  
+          </div>
+          <span class="badge primary rounded-pill text-white p-2">Firma y sube el documento</span>
+        </li>
+      </ol>
+    </div>
+  </div>
+</div>
