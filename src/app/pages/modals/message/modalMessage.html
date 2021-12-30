@@ -1,10 +1,11 @@
-    <div class="modal-body terminos">
-      <h3 class="text-center titulo-modal">{{message.title}}</h3>
-      <p>{{message.body}}<b>{{message.value}}</b></p>
-      <p>{{message.body2}}</p> 
-    </div>
-    <div class="row justify-content-center mb-4">
-      <button class="btn-outline-form2" (click)="closeModal()">
-        Aceptar
-      </button>
-    </div>
+<div class="modal-body terminos">
+  <h3 class="text-center titulo-modal">{{message.title}}</h3>
+  <p  *ngIf="!message.innerHtml">{{message.body}}<b>{{message.value}}</b></p>
+  <p  *ngIf="!message.innerHtml">{{message.body2}}</p>
+  <p  *ngIf="message.innerHtml" [innerHTML]="message.innerHtml"></p>
+</div>
+<div class="row justify-content-center mb-4">
+  <button class="btn-outline-form2" (click)="closeModal()">
+    Aceptar
+  </button>
+</div>
