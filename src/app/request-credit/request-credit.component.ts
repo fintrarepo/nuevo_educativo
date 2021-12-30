@@ -61,7 +61,7 @@ export class RequestCreditComponent implements OnInit {
     this.referred = this.route.snapshot.queryParamMap.get('referido');
 
     this.formPresolicitud = this.fb.group({
-      primer_nombre: ["", [Validators.required, Validators.pattern('^[a-zA-Z\u00f1\u00d1]*$')]],
+      primer_nombre: ["", [Validators.required, Validators.pattern('^[a-zA-Z \u00f1\u00d1]*$')]],
       telefono: [null, [Validators.required, Validators.max(9999999999), Validators.min(999999999)]],
       email: ["", [Validators.required, Validators.email]]
     });
@@ -79,7 +79,7 @@ export class RequestCreditComponent implements OnInit {
 
     this.formPresolicitud3 = this.fb.group({
       ocupacion: ["", Validators.required],
-      primer_apellido: ["",  [Validators.required, Validators.pattern('^[a-zA-Z\u00f1\u00d1]*$')]],
+      primer_apellido: ["",  [Validators.required, Validators.pattern('^[a-zA-Z \u00f1\u00d1]*$')]],
       identificacion: [null, [Validators.required, Validators.max(9999999999), Validators.min(99999)]],
       ingresos: [null, [Validators.required]],
       term: ["", Validators.requiredTrue],

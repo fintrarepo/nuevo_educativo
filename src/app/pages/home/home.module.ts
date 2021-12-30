@@ -48,6 +48,7 @@ import { SafePipe } from '../../pipes/safe.pipe';
 import { SharedModule } from 'src/app/shared.module';
 import { ReconocerComponent } from '../reconocer/reconocer.component';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
+import { FirmDocumentsComponent } from 'src/app/components/firmDocuments/firmDocuments.component';
 
 const routes: Routes = [
   {
@@ -115,6 +116,7 @@ const pagesComponets = [
   HomeComponent,
   DashboardComponent,
   UploadsComponent,
+  
   CreditApplicationComponent,
   NewRequestComponent,
   ModalDelete
@@ -122,7 +124,7 @@ const pagesComponets = [
 
 const components = [
   TabsComponent,
-
+  FirmDocumentsComponent,
   ListRequestComponent,
   TimelineComponent,
   Tab1PersonalInformationComponent,
@@ -162,7 +164,7 @@ const directives = [
     SharedModule,
     ...boostrapModules
   ],
-  entryComponents: [ModalDelete],
+  entryComponents: [ModalDelete,FirmDocumentsComponent],
   exports: [RouterModule, SigningComponent]
 })
 export class HomeModule { }
