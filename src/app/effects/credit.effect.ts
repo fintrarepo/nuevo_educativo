@@ -69,8 +69,8 @@ export class CreditEffects {
             new ShowOrHiddenLoadingForm(false),
             new OpenAlert({
                 open: true,
-                title: error.title,
-                subTitle: error.detail,
+                title: 'Campos incorrectos',
+                subTitle: error.detail.msg,
                 type: "danger"
             })
         ])
