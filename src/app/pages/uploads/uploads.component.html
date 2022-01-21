@@ -89,14 +89,16 @@
         </div>
       </div>
       <div class="row justify-content-center content-form">
-        <form [formGroup]="documentsForm"  class="col-lg-6">
-          <div class="form-check" *ngFor="let list of signinFiles">
-            <input  class="form-check-input" type="checkbox" [formControlName]="list.nombre_archivo"  [value]="list.id_archivo" [id]="list.nombre_archivo">
-            <label class="form-check-label" [for]="list.nombre_archivo">
-            <!-- <label class="form-check-label"> -->
-              {{list.descripcion}}
-            </label>
-            <button class="btn btn-success" (click)="downloadFile(list)">Ver</button>
+        <form [formGroup]="documentsForm"  class="col-lg-6" >
+          <div class="form-check" *ngFor="let list of signinFiles" >
+            <ng-container *ngIf="list.id_archivo==447">
+              <input  class="form-check-input" type="checkbox" [formControlName]="list.nombre_archivo"  [value]="list.id_archivo" [id]="list.nombre_archivo">
+              <label class="form-check-label" [for]="list.nombre_archivo">
+              <!-- <label class="form-check-label"> -->
+                {{list.descripcion}}
+              </label>
+              <button class="btn btn-success" (click)="downloadFile(list)">Ver</button>
+            </ng-container>
           </div>
           <div class="alert alert-danger" role="alert" 
           *ngIf="(documentsForm.get('pagare_deceval').errors && documentsForm.get('pagare_deceval').dirty)

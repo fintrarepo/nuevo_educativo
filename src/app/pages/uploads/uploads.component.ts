@@ -53,10 +53,10 @@ export class UploadsComponent implements OnInit {
   ) {
     this.documentsForm = this.formBuilder.group({
       pagare_deceval: ['', Validators.requiredTrue],
-      otros_soportes_1_titular: ['', Validators.requiredTrue],
-      seguro_titular: ['', Validators.requiredTrue],
-      terminos_y_condiciones: ['', [Validators.requiredTrue]],
-      fianza_titular: ['', [Validators.requiredTrue]]
+      otros_soportes_1_titular: ['', ],
+      seguro_titular: ['', ],
+      terminos_y_condiciones: ['', []],
+      fianza_titular: ['', []]
     });
     this.activateRouter.params.subscribe(({ id, sol }) => {
       this.condNegocio = id;
@@ -65,7 +65,7 @@ export class UploadsComponent implements OnInit {
   }
 
   ngOnInit() {
-    const modalRef: NgbModalRef = this.modalService.open(FirmDocumentsComponent, { backdrop: 'static', centered: true });
+    // const modalRef: NgbModalRef = this.modalService.open(FirmDocumentsComponent, { backdrop: 'static', centered: true });
 
     this.loadListFile();
     this.tabFiles = 1;
@@ -174,6 +174,7 @@ export class UploadsComponent implements OnInit {
   }
 
   downloadFile(file) {
+    debugger;
     if (file.url === '') {
       // return this.download(file.id_archivo);
       this.viewPdf("/assets/pdf/" + file.id_archivo + ".pdf");
@@ -212,6 +213,7 @@ export class UploadsComponent implements OnInit {
 
 
   download(text) {
+   
     window.open(encodeURIComponent("/assets/pdf/" + text + ".pdf"))
   }
 
@@ -248,5 +250,12 @@ export class UploadsComponent implements OnInit {
   nextTap(tap) {
     // this.creditService.commercialFollowUp({"cod-solicitud":this.numSolicitud,"tipo":"E"}).subscribe(resp => console.log(resp))
     this.tabFiles = tap;
+    if(this.tabFiles==2){
+     this.modalService.open(FirmDocumentsComponent, { backdrop: 'static', centered: true }).result.then((result) => {
+      this.tabFiles =2;
+      }, (reason) => {
+        
+      });
+    }
   }
 }

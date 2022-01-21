@@ -6,8 +6,9 @@ import { CreditsService } from 'src/app/services/credits/credits.service';
 import { Store } from '@ngrx/store';
 import * as reducers from '../../reducers/reducers';
 import { OpenAlert } from 'src/app/actions/alert.actions';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ModalPdf } from 'src/app/pages/modals/pdf/modalPdf';
+import { HttpHeaders } from '@angular/common/http';
 @Component({
   selector: 'app-firmDocuments',
   templateUrl: './firmDocuments.component.html',
@@ -15,14 +16,15 @@ import { ModalPdf } from 'src/app/pages/modals/pdf/modalPdf';
 })
 export class FirmDocumentsComponent implements OnInit {
 
-
+  firmarActivado:number=0;
   listFiles: any = [];
   signinFiles: any = [];
   allFileUploaded: boolean;
   msjDeceval: string;
   condNegocio: any;
   numSolicitud: any;
-
+  selectedFile: any = null;
+  bloquearCampo:any=[];
   constructor( 
     private creditService: CreditsService,
     private router: Router,
@@ -31,6 +33,7 @@ export class FirmDocumentsComponent implements OnInit {
     private activateRouter: ActivatedRoute,
     private modalService: NgbModal,
     private store: Store<reducers.State>,
+    private activeModal: NgbActiveModal
     ) { }
 
   ngOnInit() {
@@ -50,47 +53,58 @@ export class FirmDocumentsComponent implements OnInit {
       console.log(  this.signinFiles)
       const filesUploaded = this.listFiles.filter(x => x.url != '')
       this.allFileUploaded = filesUploaded.length == 3 ? true : false;
+      // this.bloquearCampo=[];
+      for (let i = 0; i < this.signinFiles.length; i++) {
+        this.bloquearCampo.push(false);
+      }
     });
   }
+
 
   downloadFile(file) {
     if (file.url === '') {
       // return this.download(file.id_archivo);
-      // this.viewPdf("/assets/pdf/" + file.id_archivo + ".pdf");
-      let link = document.createElement('a');
-      link.href = "/assets/pdf/" + file.nombre_archivo + ".pdf";
-      link.download = `${file.id_archivo}.pdf`;
-      link.dispatchEvent(new MouseEvent('click'));
-    }
-
-    if (file.url != '') {
-      this.verPagare();
+      this.viewPdf("/assets/pdf/" + file.id_archivo + ".pdf");
     }
   }
 
-  verPagare() {
-
-   
-    const params = { "cod-solicitud": String(this.numSolicitud) }
-    return this.creditService.pagare(params)
-      .subscribe(
-        x => {
-          this.viewPdf("*"+x.data.base64);
-        },
-        err => {
-        
-          this.msjDeceval = 'Error comunicación DECEVAL.'
-          return this.store.dispatch(new OpenAlert({
-            open: true,
-            title: "Error",
-            subTitle: "Ha habido un error en la comunicación con DECEVAL.",
-            type: "danger"
-          }))
-        })
-  }
+  closeModal() {
+    this.activeModal.dismiss();
+}
 
   viewPdf(item) {
     const modalRef: NgbModalRef = this.modalService.open(ModalPdf, { backdrop: 'static', centered: true, size: 'xl' });
     modalRef.componentInstance.url_pdf = item;
+  }
+
+  onFileSelected(obj: any, input: any,index:number) {
+    let options: any;
+    if (input.target.files && input.target.files.length > 0) {
+      this.selectedFile = input.target.files[0];
+      obj['file_name'] = this.selectedFile.name;
+      const formData = new FormData();
+      formData.append('file', this.selectedFile, this.selectedFile.name);
+      options = {
+        headers: new HttpHeaders({
+          'token': String(localStorage.getItem('token')),
+          'id_file': String(obj.id_archivo),
+          'negocio': String(this.route.snapshot.paramMap.get('id'))
+        })
+      };
+
+      this.creditService.uploadImage(formData, options).subscribe(info => {
+        if (info.success) {
+          this.bloquearCampo[index].false;
+          this.firmarActivado+=1;
+        }
+
+
+      },
+      err => {
+        console.log(err);
+        
+      });
+
+    }
   }
 }
