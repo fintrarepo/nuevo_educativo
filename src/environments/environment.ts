@@ -7,15 +7,15 @@ export const environment = {
   // apiPath: "http://piloto.fintra.co:8084/fintracredit",
   // apiPath: "http://piloto.fintra.co:8084/fintracredit",
 
-  apiPath: "https://prometheus.fintra.co:8443/fintracredit",
-  // apiPath: "http://192.168.140.197:8084/fintracredit",
+  // apiPath: "https://prometheus.fintra.co:8443/fintracredit",
+  apiPath: "http://192.168.140.197:8084/fintracredit",
 
   // apiPath:"https://educativofintra.ngrok.io/fintracredit",
   // apiPath: "https://educativo.ngrok.io/fintracredit",  // apiPath: "http://192.168.190.98:8084/fintracredit",
 
 
-  fintra: "http://192.168.140.197:8094/fintra",
-  // fintra: "https://prometheus.fintra.co:8444/fintra",
+  // fintra: "http://192.168.140.197:8094/fintra",
+  fintra: "https://prometheus.fintra.co:8444/fintra",
   
   // fintra: "http://192.168.0.52:8094/fintra/"
   // fintra: "http://piloto.fintra.co:8094/fintra",
