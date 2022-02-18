@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UtilsService } from '../services/utils/utils.service';
 import { CreditsService } from '../services/credits/credits.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -57,6 +57,7 @@ export class RequestCreditComponent implements OnInit {
     public utils: UtilsService,
     private credit: CreditsService,
     private route: ActivatedRoute,
+    private router:Router,
     private fb: FormBuilder) {
     this.referred = this.route.snapshot.queryParamMap.get('referido');
 
@@ -249,7 +250,7 @@ export class RequestCreditComponent implements OnInit {
         console.log('SEND NOTIFICATION')
       });
   }
-
+ 
   simulate() {
     this.errorSimulation = false;
     this.isLoading2 = true;
@@ -273,6 +274,7 @@ export class RequestCreditComponent implements OnInit {
     })
       .subscribe(reponse => {
         console.log('SAVED SIMULATION')
+        // alert("hola");
         this.credit.simulateNotToken({
           "monto": this.formPresolicitud2.value.monto, // .replace(/,/g, ""),
           "num_cuotas": parseInt(this.formPresolicitud2.value.num_cuotas),
@@ -374,8 +376,11 @@ export class RequestCreditComponent implements OnInit {
       dataToSend['referido'] = this.referred;
     }
     this.credit.send2(dataToSend).subscribe(response => {
+    
       this.loadingRequest = false;
       if (response.data.estado_sol == 'P') {
+        // alert("Hola");
+        this.router.navigate(['preaprobado']);   
         this.currentStep = 3;
         this.currentSubStep = 2;
       } else {
