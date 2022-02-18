@@ -10,6 +10,7 @@ export class MensajeAprobadoComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+   
   }
 
 }

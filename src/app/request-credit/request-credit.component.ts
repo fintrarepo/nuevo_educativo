@@ -274,6 +274,7 @@ export class RequestCreditComponent implements OnInit {
     })
       .subscribe(reponse => {
         console.log('SAVED SIMULATION')
+        history.pushState(null, '', 'pasoAntesPreaprobado');
         // alert("hola");
         this.credit.simulateNotToken({
           "monto": this.formPresolicitud2.value.monto, // .replace(/,/g, ""),
