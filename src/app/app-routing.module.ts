@@ -12,6 +12,7 @@ import { RequestCreditComponent } from './request-credit/request-credit.componen
 import { NoAuthGuard } from './auth.guard';
 import { SigningComponent } from './pages/signing/signing.component';
 import { SendOtpToSigningComponent } from './send-otp-to-signing/send-otp-to-signing.component';
+import { MensajeAprobadoComponent } from './mensaje/mensajeAprobado/mensajeAprobado.component';
 
 const routes: Routes = [
   {
@@ -50,6 +51,10 @@ const routes: Routes = [
   {
     path: 'request-credit',
     component: RequestCreditComponent
+  },
+  {
+    path: 'preaprobado',
+    component: MensajeAprobadoComponent
   },
   {
     path: 'send-sms/:num/:tipo/:neg',

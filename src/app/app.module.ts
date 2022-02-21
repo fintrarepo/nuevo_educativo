@@ -53,6 +53,7 @@ import { AddressFormComponent } from './components/address-form/address-form.com
 import { GetExtractComponent } from './pages/get-extract/get-extract.component';
 import { RequestCreditComponent } from './request-credit/request-credit.component';
 import { SharedModule } from './shared.module';
+import { MensajeAprobadoComponent } from './mensaje/mensajeAprobado/mensajeAprobado.component';
 
 
 
@@ -96,7 +97,8 @@ const NGRX_IMPORTS = [
     AddressFormComponent,
     GetExtractComponent,
     RequestCreditComponent,
-    SendOtpToSigningComponent
+    SendOtpToSigningComponent,
+    MensajeAprobadoComponent
   ],
   imports: [
     BrowserModule,
