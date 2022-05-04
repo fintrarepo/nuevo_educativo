@@ -18,7 +18,8 @@ export class ModalMessage implements OnInit {
     }
 
     ngOnInit() {
-        this.message.value = this.message.value;
+        console.log(this.message)
+        // this.message.value = this.message.value;
 
     }
 
