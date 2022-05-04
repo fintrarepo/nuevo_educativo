@@ -184,10 +184,9 @@ export class SendOtpToSigningComponent implements OnInit {
     this.signingService.sendDinamicKey(params)
       .subscribe(res => {
         const modalRef: NgbModalRef = this.modalService.open(ModalMessage, { backdrop: 'static', centered: true });
-
         if (res.success) {
           res.data.body2="";
-          modalRef.componentInstance.code = res.data;
+          modalRef.componentInstance.message = res.data;
         }
         modalRef.result.then(null, () => {
           this.stepSigning = 2;
