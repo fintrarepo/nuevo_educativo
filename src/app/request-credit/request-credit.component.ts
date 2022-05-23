@@ -52,6 +52,7 @@ export class RequestCreditComponent implements OnInit {
   configSelect;
   aplicaValidacionEntidad: boolean=false;
   entidad: string="";
+  universidad: string;
 
   constructor(
     public utils: UtilsService,
@@ -60,7 +61,8 @@ export class RequestCreditComponent implements OnInit {
     private router:Router,
     private fb: FormBuilder) {
     this.referred = this.route.snapshot.queryParamMap.get('referido');
-
+    this.universidad = this.route.snapshot.queryParamMap.get('universidad');
+      // alert(this.universidad )
     this.formPresolicitud = this.fb.group({
       primer_nombre: ["", [Validators.required, Validators.pattern('^[a-zA-Z \u00f1\u00d1]*$')]],
       telefono: [null, [Validators.required, Validators.max(9999999999), Validators.min(999999999)]],
@@ -89,6 +91,7 @@ export class RequestCreditComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(location.href)
     this.loadOccupations()
     this.loadCitys()
     this.loadSalary()
@@ -204,7 +207,8 @@ export class RequestCreditComponent implements OnInit {
       cod_referido: this.referred ? this.referred : -100,
       agencia: "",
       afiliado: "",
-      origen_solicitud: 'WEB'
+      origen_solicitud: 'WEB',
+      path:(this.universidad==null)||(this.universidad==undefined)?'':this.universidad
     })
       .subscribe(reponse => {
         this.formPresolicitud2.patchValue({ id_prospecto: reponse.id_prospecto })
