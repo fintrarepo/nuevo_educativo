@@ -43,7 +43,7 @@ export class FirmDocumentsComponent implements OnInit {
     })
     const negocio = this.route.snapshot.paramMap.get('id');
     const params: listFile = {
-      option: 10,
+      option: 15,
       numero_solicitud: negocio,
       user: this.auth.id_usuario,
       und_negocio: 31
