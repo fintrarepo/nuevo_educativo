@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   // apiPath: "http://piloto.fintra.co:8084/fintracredit",
   // apiPath: "http://piloto.fintra.co:8084/fintracredit",
-  apiPath: "https://prometheus.fintra.co:8443/fintracredit",
+  apiPath: "https://tefi.ngrok.io/",
 
   // apiPath: "http://localhost:8084/fintracredit",
   // apiPath: "http://192.168.140.197:8084/fintracredit",

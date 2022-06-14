@@ -140,6 +140,7 @@ export class FirmDocumentsComponent implements OnInit {
     };
     this.creditService.deleteFile(params).subscribe(list => {
       Swal.close();
+      this.firmarActivado-=1;
       const ind=this.signinFiles.findIndex(element => element ==item);
           console.log(ind);
           this.signinFiles[ind].bloquear=false;
