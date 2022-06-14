@@ -9,6 +9,8 @@ import { OpenAlert } from 'src/app/actions/alert.actions';
 import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ModalPdf } from 'src/app/pages/modals/pdf/modalPdf';
 import { HttpHeaders } from '@angular/common/http';
+import Swal from 'sweetalert2';
+import { ModalDelete } from 'src/app/pages/modals/delete/modalDelete';
 @Component({
   selector: 'app-firmDocuments',
   templateUrl: './firmDocuments.component.html',
@@ -93,9 +95,20 @@ export class FirmDocumentsComponent implements OnInit {
       };
 
       this.creditService.uploadImage(formData, options).subscribe(info => {
+        // debugger;
         if (info.success) {
+   
           this.bloquearCampo[index].false;
           this.firmarActivado+=1;
+          const ind=this.signinFiles.findIndex(element => element ==obj);
+          console.log(ind);
+          this.signinFiles[ind].bloquear=true;
+        }else{
+          Swal.fire(
+            'Informacion',
+            info.error.data,
+            'question'
+          )
         }
 
 
@@ -106,5 +119,30 @@ export class FirmDocumentsComponent implements OnInit {
       });
 
     }
+  }
+  openModal(item) {
+    const modalRef: NgbModalRef = this.modalService.open(ModalDelete, { backdrop: 'static', centered: true });
+    modalRef.componentInstance.document = item;
+    modalRef.componentInstance.passEntry.subscribe((receivedEntry) => {
+      this.deleteFile(receivedEntry,item);
+    })
+  }
+
+  
+  deleteFile(list,item) {
+    Swal.fire({ title: 'Cargando', html: 'Buscando información...', timer: 500000, didOpen: () => { Swal.showLoading(); }, }).then((result) => { });
+    const params: listFile = {
+      option: 4,
+      numero_solicitud: this.route.snapshot.paramMap.get('id'),
+      user: this.auth.id_usuario,
+      und_negocio: 31,
+      id_archivo: list.id_archivo
+    };
+    this.creditService.deleteFile(params).subscribe(list => {
+      Swal.close();
+      const ind=this.signinFiles.findIndex(element => element ==item);
+          console.log(ind);
+          this.signinFiles[ind].bloquear=false;
+    });
   }
 }
