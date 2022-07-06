@@ -40,6 +40,7 @@ export class HttpService {
   }
 
   private optionsRequest(options) {
+    console.log(options);
     return options ?
       options : {
         headers: new HttpHeaders({

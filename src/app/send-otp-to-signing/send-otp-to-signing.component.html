@@ -18,7 +18,38 @@
       </div>
     </div>
 
-    <div *ngIf="stepSigning === 1" class="upload-files">
+    <div *ngIf="politics==true" class="upload-files">
+      <div class="row justify-content-center">
+        <div class="col-lg-7">
+          <h1 class="title-form text-center my-2">Aceptar politica y clausula</h1>
+          <p class="text-center mb-0">Se requiere que acepte nuestra política de tratamiento de datos personales.</p>
+        </div>
+      </div>
+
+      <div class="row justify-content-center content-form">
+        <form [formGroup]="acceptForm">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" formControlName="politica">
+            <label class="form-check-label">
+              Acepto <a class="dowlader" (click)="viewFile(1)">Política de tratamiento de datos personales.</a>
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" formControlName="clausula">
+            <label class="form-check-label">
+              Acepto <a class="dowlader" (click)="viewFile(2)">Cláusula de veracidad de los datos.</a>
+            </label>
+          </div>
+        </form>
+      </div>
+      <div class="row justify-content-center">
+        <button class="btn btn-outline-form2" (click)="aceptarPolitica()" [disabled]="acceptForm.invalid">
+          SIGUIENTE
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="stepSigning === 1 && politics==false" class="upload-files">
       <div class="row justify-content-center">
         <div class="col-lg-7">
           <h1 class="title-form text-center my-2">Documentos por firmar</h1>
@@ -63,7 +94,10 @@
         </div>
       </div>
       <div class="row justify-content-center">
-        <button class="btn btn-outline-form2" (click)="sendSms()" [disabled]="!documentsForm.valid">
+        <!-- <button class="btn btn-outline-form2" (click)="nextTap(2)" [disabled]="!documentsForm.valid">
+          IR A FIRMAR
+        </button> -->
+        <button class="btn btn-outline-form2" (click)="nextTap(2)">
           IR A FIRMAR
         </button>
       </div>
@@ -138,3 +172,57 @@
 <div id="iFrameContainer" class="hide">
   <iframe id="iFrame" allow="camera" class="iframe__wrapper" frameborder="0"></iframe>
 </div>
+
+<ng-template #documentos let-c="close" let-d="dismiss">
+  <div class="container-fluid">
+    <div class="row header">
+      <div class="col-sm-10">
+        <p class="title title-form">Firma tus documentos</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <p>Los siguientes documentos se requieren para legalizar tu crédito, firma y sube uno a uno los documentos si
+          estás de acuerdo.</p>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-lg-12">
+        <ol class="list-group list-group-numbered">
+          <ng-container *ngFor="let list of listadoFiles;let n =index">
+            <li class="list-group-item d-flex justify-content-between align-items-start" *ngIf="list.id_archivo!=447">
+              <div class="ms-2 me-auto">
+                <div class="fw-bold">{{list.descripcion}}</div>
+                <p class="dowlader" (click)="downloadFile(list)">Descargar</p>
+              </div>
+              <ng-container *ngIf="!list.bloquear==true">
+                <input type="file" style="display: none" #fileInputFron (change)="onFileSelected(list, $event,n)"
+                  [disabled]="list.url != '' ? true : false">
+                <div class="options-file" *ngIf="!bloquearCampo[n]">
+                  <img src="/assets/images/clip.png" alt="" (click)='fileInputFron.click()'>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="list.bloquear==true">
+                <div class="option-file">
+                  <img  src="/assets/images/trash.png" alt="" (click)="openModal(list)">
+                </div>
+              </ng-container>
+            </li>
+          </ng-container>
+        </ol>
+      </div>
+      <div class="col-lg-12">
+        <div class="d-flex justify-content-end m-2">
+          <div class="content-buttons-next-back" style="position: static;">
+            <button class="btn btn-next" [disabled]="!(firmarActivado==signinFiles.length)">
+              <img src="/assets/images/Icon_ChevronRight.svg" alt="">
+              <span>
+                FIRMAR PAGARÉ {{firmarActivado}}/{{signinFiles.length}}
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -116,6 +116,11 @@ export class CreditsService {
       + '&und_negocio=' + data.und_negocio, this.options);
   }
 
+  aceptarPolitica(data) {
+    console.log(data);
+    return this.http.post(environment.apifintra + '/api/generic/tk/insertar-tratamiento-educativo', data, true)
+  }
+
   deleteFile(data: listFile) {
     return this.http.get(environment.fintra + '/EndPointCoreServlet?'
       + 'option=' + data.option
@@ -152,6 +157,10 @@ export class CreditsService {
 
   uploadImage(data, options) {
     return this.http.post('/FileUploadServlet', data, options);
+  }
+
+  upload(data, options) {
+    return this.http.post('/FileUploadServletEdu', data, options);
   }
 
   registerUser(data) {

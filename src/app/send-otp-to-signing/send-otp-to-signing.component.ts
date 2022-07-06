@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { listFile } from '../models/credits.model';
@@ -10,6 +10,10 @@ import { ModalPdf } from '../pages/modals/pdf/modalPdf';
 import { asyncScheduler, interval, Observable } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 import { UtilsService } from '../services/utils/utils.service';
+import { AuthService } from '../services/auth/auth.service';
+import Swal from 'sweetalert2';
+import { ModalDelete } from '../pages/modals/delete/modalDelete';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-send-otp-to-signing',
@@ -23,6 +27,10 @@ export class SendOtpToSigningComponent implements OnInit {
   phoneForm: FormGroup;
   documentsForm: FormGroup;
   keyForm: FormGroup;
+  acceptForm: FormGroup;
+  tabFiles: number;
+  politics: boolean;
+  dataFile: any = {};
 
   stepSigning: number = 0;
   seconds: number;
@@ -35,6 +43,7 @@ export class SendOtpToSigningComponent implements OnInit {
   showTime: boolean = true;
   errors: boolean;
   signinFiles: any = [];
+  listadoFiles: any = [];
   numSolicitud: string;
   tipoUser: string;
   uniNegocio: number;
@@ -53,6 +62,17 @@ export class SendOtpToSigningComponent implements OnInit {
   aplicaValidacionEntidad: boolean;
   entidad: string;
 
+  //Variables del modal
+  firmarActivado:number=0;
+  listFiles: any = [];
+  allFileUploaded: boolean;
+  condNegocio: any;
+  selectedFile: any = null;
+  bloquearCampo:any=[];
+
+  @ViewChild('documentos', { static: false }) modalValidacion: NgbModal;
+
+
   constructor(
     public utils: UtilsService,
     private signingService: SigningService,
@@ -61,9 +81,11 @@ export class SendOtpToSigningComponent implements OnInit {
     private activateRouter: ActivatedRoute,
     private creditService: CreditsService,
     private router: Router,
+    private ats: AuthService
   ) { }
 
   ngOnInit() {
+    this.politics = true;
     this.utils.getAplicaReconocer().subscribe(res => {
       if(res.status==200){
         if((res.data.aplica=="SI") &&(res.data.entidad=="RECONOSER")){
@@ -150,6 +172,10 @@ export class SendOtpToSigningComponent implements OnInit {
       terminos_y_condiciones: ['', [Validators.requiredTrue]],
       fianza_titular: ['', [Validators.requiredTrue]]
     })
+    this.acceptForm = this.fb.group({
+      politica: ['', Validators.requiredTrue],
+      clausula: ['', Validators.requiredTrue]
+    })
 
     this.activateRouter.params.subscribe(({ num, tipo, neg }) => {
       this.numSolicitud = num;
@@ -167,7 +193,169 @@ export class SendOtpToSigningComponent implements OnInit {
       }
     });
     this.showStep = true;
+
+    //Aqui empieza para el modal
+    this.activateRouter.params.subscribe(({ id, sol }) => {
+      this.condNegocio = id;
+      this.numSolicitud = sol;
+    })
+
+    const negocio = this.activateRouter.snapshot.paramMap.get('num');
+    console.log(this.ats)
+    console.log(negocio)
+    const params: listFile = {
+      option: 15,
+      numero_solicitud: negocio,
+      user: 'API_FINTRA',
+      und_negocio: 31
+    };
+    this.creditService.loadFileList(params).subscribe(list => {
+      console.log(list)
+      this.listadoFiles = list.data;
+      const filesUploaded = this.listFiles.filter(x => x.url != '')
+      this.allFileUploaded = filesUploaded.length == 3 ? true : false;
+      // this.bloquearCampo=[];
+      for (let i = 0; i < this.listadoFiles.length; i++) {
+        this.bloquearCampo.push(false);
+      }
+    });
+
   }
+
+  aceptarPolitica(){
+    this.politics = false;
+        this.modalService.open(this.modalValidacion, { backdrop: 'static', centered: true }).result.then((result) => {
+          this.tabFiles =2;
+          console.log(result);
+          }, (reason) => {});
+    // const negocio = this.activateRouter.snapshot.paramMap.get('num');
+    // const params = {
+    //   numero_solicitud: 209317,
+    //   tipo: 1,
+    //   politica: "S",
+    //   clausula: "S"
+    // };
+    // console.log(params)
+    // this.creditService.aceptarPolitica(params).subscribe(info => {
+    //   console.log(info)
+    //   if (info.status == 200) {
+    //     Swal.fire(
+    //       'Informacion',
+    //       'Aceptados los terminos',
+    //       'success'
+    //     )
+    //     this.modalService.open(this.modalValidacion, { backdrop: 'static', centered: true }).result.then((result) => {
+    //       this.tabFiles =2;
+    //       console.log(result);
+    //       }, (reason) => {});
+    //   }else{
+    //     Swal.fire(
+    //       'Informacion',
+    //       info.error.data,
+    //       'question'
+    //     )
+    //   }
+    // },
+    // err => {
+    //   console.log(err);
+    // });
+  }
+
+  viewFile(item) {
+    if (item==1) {
+      this.viewPdf("/assets/pdf/politica_personales.pdf");
+    } else {
+      this.viewPdf("/assets/pdf/clausula.pdf");
+    }
+  }
+
+  //Metodos del modal
+  onFileSelected(obj: any, input: any,index:number) {
+    let options: any;
+    if (input.target.files && input.target.files.length > 0) {
+      this.selectedFile = input.target.files[0];
+      obj['file_name'] = this.selectedFile.name;
+      const formData = new FormData();
+      formData.append('file', this.selectedFile, this.selectedFile.name);
+      options = {
+        headers: new HttpHeaders({
+          'token': 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJ0YXZvc2FsYXMyNzBAZ21haWwuY29tIiwiaWF0IjoxNjU3MDU0OTczLCJzdWIiOiJHdXN0YXZvIEd1c3Rhdm8iLCJpc3MiOiJ0YXZvc2FsYXMyNzBAZ21haWwuY29tIiwiZXhwIjoxNjU3OTU0OTczfQ.0TiZtG-rVdKELxLuA4vxDj2_BZnzibUjTBFi5NNUGJs',
+          'id_file': String(obj.id_archivo),
+          'negocio': String(this.activateRouter.snapshot.paramMap.get('id'))
+        })
+      };
+      const params = {
+        file: this.selectedFile,
+        filename: this.selectedFile.name
+      };
+      this.creditService.upload(formData, options).subscribe(info => {
+        console.log(info)
+        console.log(formData)
+        console.log(this.selectedFile, this.selectedFile.name)
+        debugger;
+        if (info.success) {
+          this.bloquearCampo[index].false;
+          this.firmarActivado+=1;
+          const ind=this.signinFiles.findIndex(element => element ==obj);
+          console.log(ind);
+          // this.signinFiles[ind].bloquear=true;
+        }else{
+          Swal.fire(
+            'Informacion',
+            info.error.data,
+            'question'
+          )
+        }
+      },
+      err => {
+        console.log(err);
+      });
+    }
+  }
+
+  closeModal() {
+    this.modalService.dismissAll();
+  }
+
+  openModal(item) {
+    const modalRef: NgbModalRef = this.modalService.open(ModalDelete, { backdrop: 'static', centered: true });
+    modalRef.componentInstance.document = item;
+    modalRef.componentInstance.passEntry.subscribe((receivedEntry) => {
+      this.deleteFile(receivedEntry,item);
+    })
+  }
+
+  deleteFile(list,item) {
+    Swal.fire({ title: 'Cargando', html: 'Buscando información...', timer: 500000, didOpen: () => { Swal.showLoading(); }, }).then((result) => { });
+    const params: listFile = {
+      option: 4,
+      numero_solicitud: this.activateRouter.snapshot.paramMap.get('id'),
+      user: this.auth.id_usuario,
+      und_negocio: 31,
+      id_archivo: list.id_archivo
+    };
+    this.creditService.deleteFile(params).subscribe(list => {
+      Swal.close();
+      this.firmarActivado-=1;
+      const ind=this.signinFiles.findIndex(element => element ==item);
+          console.log(ind);
+          this.signinFiles[ind].bloquear=false;
+    });
+  }
+  // Aqui se terminan los metodos del modal.
+
+  nextTap(tap) {
+    // this.creditService.commercialFollowUp({"cod-solicitud":this.numSolicitud,"tipo":"E"}).subscribe(resp => console.log(resp))
+    // this.tabFiles = tap;
+    // if(this.tabFiles==2){
+    //   this.modalService.open(this.modalValidacion, { backdrop: 'static', centered: true }).result.then((result) => {
+    //     this.tabFiles =2;
+    //     console.log(result);
+    //     }, (reason) => {});
+    // }
+    // this.modalService.open(this.modalValidacion, { backdrop: 'static', keyboard: false, ariaLabelledBy: 'modal-basic-title', size: 'lg' });
+  }
+
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
@@ -286,9 +474,11 @@ export class SendOtpToSigningComponent implements OnInit {
       und_negocio: this.uniNegocio
     };
     // documentos a firmar
+    console.log(params)
     this.creditService.loadFileList(params).subscribe(list => {
       this.loadingRequest = false;
       this.signinFiles = list.data;
+      console.log(this.signinFiles)
       // const filesUploaded = this.listFiles.filter(x => x.url != '')
       // this.allFileUploaded = filesUploaded.length == 3 ? true : false;
 
@@ -309,7 +499,8 @@ export class SendOtpToSigningComponent implements OnInit {
   verPagare() {
     this.messageLoading = 'Generando pagaré'
     this.isLoading = true;
-    const params = { "cod-solicitud": String(this.numSolicitud) }
+    const negocio = this.activateRouter.snapshot.paramMap.get('num');
+    const params = { "cod-solicitud": negocio }
     return this.creditService.pagare(params)
       .subscribe(
         x => {
