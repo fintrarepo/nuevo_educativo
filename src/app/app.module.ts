@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { NgxMyDatePickerModule } from 'ngx-mydatepicker';
 import { SelectDropDownModule } from 'ngx-select-dropdown'
+import { BorrarComponent } from './pages/modals/borrar/borrar.component';
 
 //ngrx
 import { StoreModule } from '@ngrx/store';
@@ -98,7 +99,8 @@ const NGRX_IMPORTS = [
     GetExtractComponent,
     RequestCreditComponent,
     SendOtpToSigningComponent,
-    MensajeAprobadoComponent
+    MensajeAprobadoComponent,
+    BorrarComponent
   ],
   imports: [
     BrowserModule,
@@ -113,7 +115,8 @@ const NGRX_IMPORTS = [
     ...NGRX_IMPORTS
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [ BorrarComponent ]
 })
 export class AppModule { }
 

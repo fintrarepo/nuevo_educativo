@@ -28,6 +28,7 @@ export class NewRequestComponent implements OnInit {
   dues: any[] = [];
   emails: any[] = [];
   acceptTerms: boolean = false;
+  acceptClau: boolean = false;
   maxDate: any;
   now: any;
   adultDate: any;

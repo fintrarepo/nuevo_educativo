@@ -165,6 +165,6 @@ const directives = [
     ...boostrapModules
   ],
   entryComponents: [ModalDelete,FirmDocumentsComponent],
-  exports: [RouterModule, SigningComponent]
+  exports: [RouterModule, SigningComponent, ModalDelete]
 })
 export class HomeModule { }

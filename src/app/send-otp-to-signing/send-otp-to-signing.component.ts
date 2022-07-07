@@ -13,6 +13,7 @@ import { UtilsService } from '../services/utils/utils.service';
 import { AuthService } from '../services/auth/auth.service';
 import Swal from 'sweetalert2';
 import { ModalDelete } from '../pages/modals/delete/modalDelete';
+import { BorrarComponent } from '../pages/modals/borrar/borrar.component';
 import { HttpHeaders } from '@angular/common/http';
 
 @Component({
@@ -199,12 +200,12 @@ export class SendOtpToSigningComponent implements OnInit {
       this.condNegocio = id;
       this.numSolicitud = sol;
     })
-
+    debugger;
     const negocio = this.activateRouter.snapshot.paramMap.get('num');
     console.log(this.ats)
     console.log(negocio)
     const params: listFile = {
-      option: 15,
+      option: 16,
       numero_solicitud: negocio,
       user: 'API_FINTRA',
       und_negocio: 31
@@ -228,37 +229,37 @@ export class SendOtpToSigningComponent implements OnInit {
           this.tabFiles =2;
           console.log(result);
           }, (reason) => {});
-    // const negocio = this.activateRouter.snapshot.paramMap.get('num');
-    // const params = {
-    //   numero_solicitud: 209317,
-    //   tipo: 1,
-    //   politica: "S",
-    //   clausula: "S"
-    // };
-    // console.log(params)
-    // this.creditService.aceptarPolitica(params).subscribe(info => {
-    //   console.log(info)
-    //   if (info.status == 200) {
-    //     Swal.fire(
-    //       'Informacion',
-    //       'Aceptados los terminos',
-    //       'success'
-    //     )
-    //     this.modalService.open(this.modalValidacion, { backdrop: 'static', centered: true }).result.then((result) => {
-    //       this.tabFiles =2;
-    //       console.log(result);
-    //       }, (reason) => {});
-    //   }else{
-    //     Swal.fire(
-    //       'Informacion',
-    //       info.error.data,
-    //       'question'
-    //     )
-    //   }
-    // },
-    // err => {
-    //   console.log(err);
-    // });
+    const negocio = this.activateRouter.snapshot.paramMap.get('num');
+    const params = {
+      numero_solicitud: parseInt(negocio),
+      tipo: 1,
+      politica: "S",
+      clausula: "S"
+    };
+    console.log(params)
+    this.creditService.aceptarPolitica(params).subscribe(info => {
+      console.log(info)
+      if (info.status == 200) {
+        Swal.fire(
+          'Informacion',
+          'Aceptados los terminos',
+          'success'
+        )
+        this.modalService.open(this.modalValidacion, { backdrop: 'static', centered: true }).result.then((result) => {
+          this.tabFiles =2;
+          console.log(result);
+          }, (reason) => {});
+      }else{
+        Swal.fire(
+          'Informacion',
+          info.error.data,
+          'question'
+        )
+      }
+    },
+    err => {
+      console.log(err);
+    });
   }
 
   viewFile(item) {
@@ -296,9 +297,9 @@ export class SendOtpToSigningComponent implements OnInit {
         if (info.success) {
           this.bloquearCampo[index].false;
           this.firmarActivado+=1;
-          const ind=this.signinFiles.findIndex(element => element ==obj);
+          const ind=this.listadoFiles.findIndex(element => element ==obj);
           console.log(ind);
-          // this.signinFiles[ind].bloquear=true;
+          this.listadoFiles[ind].bloquear=true;
         }else{
           Swal.fire(
             'Informacion',
@@ -318,7 +319,7 @@ export class SendOtpToSigningComponent implements OnInit {
   }
 
   openModal(item) {
-    const modalRef: NgbModalRef = this.modalService.open(ModalDelete, { backdrop: 'static', centered: true });
+    const modalRef: NgbModalRef = this.modalService.open(BorrarComponent, { backdrop: 'static', centered: true });
     modalRef.componentInstance.document = item;
     modalRef.componentInstance.passEntry.subscribe((receivedEntry) => {
       this.deleteFile(receivedEntry,item);

@@ -213,10 +213,20 @@
             Acepto los términos y condiciones
           </a>
         </div>
+        <div class="terminos">
+          <label class="container">
+            <input type="checkbox" [(ngModel)]="acceptClau">
+            <span class="checkmark"></span>
+          </label>
+          <a style="margin: 0;" href="/assets/pdf/clausula.pdf" target="_blank"
+            style="color: #37BFFA;">
+            Aceptar politica y clausula
+          </a>
+        </div>
         <div class="content-buttons">
           <button class="btn button-white" (click)="simulate()">Simular</button>
           <button class="btn button-blue" (click)="send()"
-            [disabled]="!(resultSimulation$ | async) || !acceptTerms">Solicitar</button>
+            [disabled]="!(resultSimulation$ | async) || (!acceptTerms && !acceptClau)">Solicitar</button>
         </div>
       </div>
     </div>
