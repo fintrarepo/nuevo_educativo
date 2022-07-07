@@ -200,7 +200,6 @@ export class SendOtpToSigningComponent implements OnInit {
       this.condNegocio = id;
       this.numSolicitud = sol;
     })
-    debugger;
     const negocio = this.activateRouter.snapshot.paramMap.get('num');
     console.log(this.ats)
     console.log(negocio)
@@ -280,7 +279,6 @@ export class SendOtpToSigningComponent implements OnInit {
       formData.append('file', this.selectedFile, this.selectedFile.name);
       options = {
         headers: new HttpHeaders({
-          'token': 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJ0YXZvc2FsYXMyNzBAZ21haWwuY29tIiwiaWF0IjoxNjU3MDU0OTczLCJzdWIiOiJHdXN0YXZvIEd1c3Rhdm8iLCJpc3MiOiJ0YXZvc2FsYXMyNzBAZ21haWwuY29tIiwiZXhwIjoxNjU3OTU0OTczfQ.0TiZtG-rVdKELxLuA4vxDj2_BZnzibUjTBFi5NNUGJs',
           'id_file': String(obj.id_archivo),
           'negocio': String(this.activateRouter.snapshot.paramMap.get('id'))
         })
