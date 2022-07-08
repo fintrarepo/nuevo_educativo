@@ -202,7 +202,7 @@ export class SendOtpToSigningComponent implements OnInit {
     console.log(this.ats)
     console.log(negocio)
     const params: listFile = {
-      option: 15,
+      option: 16,
       numero_solicitud: negocio,
       user: 'API_FINTRA',
       und_negocio: 31
