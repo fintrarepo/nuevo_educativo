@@ -220,13 +220,22 @@
             <span>Acepto <a href="https://fintra.co/documentos/Politica-de-tratamiento-de-datos-personales-Fintra.pdf"
                 target="_blank">Política de tratamiento de datos personales.</a></span>
           </div>
+          <div class="terms-and-conditions">
+            <label class="container-new-check">
+              <input type="checkbox" formControlName="clausula">
+              <span class="checkmark"></span>
+            </label>
+            <span>Acepto <a href="/assets/pdf/clausula.pdf"
+                target="_blank">Cláusula de veracidad de los datos.</a></span>
+          </div>
           <div class="content-button-step" *ngIf="(formPresolicitud2.get('ciudad').touched && formPresolicitud2.get('ciudad').errors) ||
           (formPresolicitud2.get('afiliado').touched && formPresolicitud2.get('afiliado').errors) ||
           (formPresolicitud2.get('tipo_carrera').touched && formPresolicitud2.get('tipo_carrera').errors) ||
           (formPresolicitud2.get('monto').touched && formPresolicitud2.get('monto').errors) ||
           (formPresolicitud2.get('num_cuotas').touched && formPresolicitud2.get('num_cuotas').errors) ||
           (formPresolicitud2.get('fecha_pago').touched && formPresolicitud2.get('fecha_pago').errors) ||
-          (formPresolicitud2.get('polite').touched && formPresolicitud2.get('polite').errors)"
+          (formPresolicitud2.get('polite').touched && formPresolicitud2.get('polite').errors) ||
+          (formPresolicitud2.get('clausula').touched && formPresolicitud2.get('clausula').errors)"
             style="margin-top: 1em; margin-bottom: 1em;">
             <span style="color: #dc3545!important; text-align: center; max-width: 90%;">Verifique que todos
               los campos estén diligenciados para poder continuar</span>
