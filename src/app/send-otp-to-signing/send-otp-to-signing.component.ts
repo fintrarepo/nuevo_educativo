@@ -169,9 +169,7 @@ export class SendOtpToSigningComponent implements OnInit {
       key: ['', Validators.required]
     })
     this.documentsForm = this.fb.group({
-      pagare_deceval: ['', Validators.requiredTrue],
-      terminos_y_condiciones: ['', [Validators.requiredTrue]],
-      fianza_titular: ['', [Validators.requiredTrue]]
+      pagare_deceval: ['', Validators.requiredTrue]
     })
     this.acceptForm = this.fb.group({
       politica: ['', Validators.requiredTrue],
@@ -204,7 +202,7 @@ export class SendOtpToSigningComponent implements OnInit {
     console.log(this.ats)
     console.log(negocio)
     const params: listFile = {
-      option: 16,
+      option: 15,
       numero_solicitud: negocio,
       user: 'API_FINTRA',
       und_negocio: 31
@@ -283,15 +281,10 @@ export class SendOtpToSigningComponent implements OnInit {
           'negocio': String(this.activateRouter.snapshot.paramMap.get('id'))
         })
       };
-      const params = {
-        file: this.selectedFile,
-        filename: this.selectedFile.name
-      };
       this.creditService.upload(formData, options).subscribe(info => {
         console.log(info)
         console.log(formData)
         console.log(this.selectedFile, this.selectedFile.name)
-        debugger;
         if (info.success) {
           this.bloquearCampo[index].false;
           this.firmarActivado+=1;
@@ -336,9 +329,10 @@ export class SendOtpToSigningComponent implements OnInit {
     this.creditService.deleteFile(params).subscribe(list => {
       Swal.close();
       this.firmarActivado-=1;
-      const ind=this.signinFiles.findIndex(element => element ==item);
+      const ind=this.listadoFiles.findIndex(element => element ==item);
           console.log(ind);
-          this.signinFiles[ind].bloquear=false;
+          this.listadoFiles[ind].bloquear=false;
+          console.log(this.listadoFiles[ind].bloquear)
     });
   }
   // Aqui se terminan los metodos del modal.

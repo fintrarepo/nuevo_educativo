@@ -100,7 +100,7 @@ const NGRX_IMPORTS = [
     RequestCreditComponent,
     SendOtpToSigningComponent,
     MensajeAprobadoComponent,
-    BorrarComponent
+    BorrarComponent,
   ],
   imports: [
     BrowserModule,
@@ -112,11 +112,12 @@ const NGRX_IMPORTS = [
     SharedModule,
     NgxMyDatePickerModule.forRoot(),
     SelectDropDownModule,
+
     ...NGRX_IMPORTS
   ],
   providers: [],
   bootstrap: [AppComponent],
-  exports: [ BorrarComponent ]
+  entryComponents: [ BorrarComponent ]
 })
 export class AppModule { }
 

@@ -72,7 +72,7 @@ export class FirmDocumentsComponent implements OnInit {
 
   closeModal() {
     this.activeModal.dismiss();
-}
+  }
 
   viewPdf(item) {
     const modalRef: NgbModalRef = this.modalService.open(ModalPdf, { backdrop: 'static', centered: true, size: 'xl' });
