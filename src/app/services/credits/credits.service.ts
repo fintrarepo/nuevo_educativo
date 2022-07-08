@@ -118,7 +118,7 @@ export class CreditsService {
 
   aceptarPolitica(data) {
     console.log(data);
-    return this.http.post(environment.apifintra + '/api/generic/insertar-tratamiento-educativo', data, true)
+    return this.http.post(environment.apifintra + '/api/generic/tk/insertar-tratamiento-educativo', data, true)
   }
 
   deleteFile(data: listFile) {
