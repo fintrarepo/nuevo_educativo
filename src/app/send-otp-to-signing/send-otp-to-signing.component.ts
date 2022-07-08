@@ -62,6 +62,7 @@ export class SendOtpToSigningComponent implements OnInit {
   messageLoading: string;
   aplicaValidacionEntidad: boolean;
   entidad: string;
+  tipoSoli:string;
 
   //Variables del modal
   firmarActivado:number=0;
@@ -194,9 +195,10 @@ export class SendOtpToSigningComponent implements OnInit {
     this.showStep = true;
 
     //Aqui empieza para el modal
-    this.activateRouter.params.subscribe(({ id, sol }) => {
-      this.condNegocio = id;
-      this.numSolicitud = sol;
+    this.activateRouter.params.subscribe(({ num, tipo, neg}) => {
+      this.condNegocio = neg;
+      this.numSolicitud = num;
+      this.tipoSoli = tipo;
     })
     const negocio = this.activateRouter.snapshot.paramMap.get('num');
     console.log(this.ats)
