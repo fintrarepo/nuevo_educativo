@@ -87,6 +87,7 @@ export class UploadsComponent implements OnInit {
     };
     // documentos a firmar
     this.creditService.loadFileList(params).subscribe(list => {
+      console.log(params)
       this.isLoading = false;
       this.signinFiles = list.data;
       const filesUploaded = this.listFiles.filter(x => x.url != '')
