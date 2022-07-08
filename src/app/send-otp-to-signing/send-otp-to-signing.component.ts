@@ -263,7 +263,7 @@ export class SendOtpToSigningComponent implements OnInit {
 
   viewFile(item) {
     if (item==1) {
-      this.viewPdf("/assets/pdf/politica_personales.pdf");
+      this.viewPdf("/assets/pdf/politica.pdf");
     } else {
       this.viewPdf("/assets/pdf/clausula.pdf");
     }
