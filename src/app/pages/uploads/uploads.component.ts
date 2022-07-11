@@ -39,6 +39,8 @@ export class UploadsComponent implements OnInit {
   condNegocio: string;
   numSolicitud: any;
   msjDeceval: string;
+  tamanoRequerido:number = 0;
+  envioRequerido: number = 0;
 
   constructor(
     private creditService: CreditsService,
