@@ -107,9 +107,15 @@ export class UploadsComponent implements OnInit {
     this.creditService.loadFileList(params2).subscribe(list => {
       this.isLoading = false;
       this.listFiles = list.data
+      console.log(this.listFiles)
       const filesUploaded = this.listFiles.filter(x => x.url != '')
       this.allFileUploaded = filesUploaded.length == 5 ? true : false;
-
+      for (let i = 0; i < this.listFiles.length; i++) {
+        if (this.listFiles[i].requerido=='S') {
+          this.tamanoRequerido = this.tamanoRequerido+1;
+          console.log(this.tamanoRequerido)
+        }
+      }
     });
 
   }
@@ -136,6 +142,10 @@ export class UploadsComponent implements OnInit {
       und_negocio: 31,
       id_archivo: list.id_archivo
     };
+    if (list.requerido=='S') {
+      this.envioRequerido-=1;
+    }
+    console.log(this.envioRequerido)
     this.creditService.deleteFile(params).subscribe(list => {
       this.isLoading = false;
       this.loadListFile();
@@ -159,6 +169,9 @@ export class UploadsComponent implements OnInit {
 
       this.creditService.uploadImage(formData, options).subscribe(info => {
         if (info.success) {
+          if (obj.requerido=='S') {
+            this.envioRequerido+=1;
+          }
           this.loadListFile();
         }
 
@@ -177,7 +190,6 @@ export class UploadsComponent implements OnInit {
   }
 
   downloadFile(file) {
-    debugger;
     if (file.url === '') {
       // return this.download(file.id_archivo);
       this.viewPdf("/assets/pdf/" + file.id_archivo + ".pdf");
