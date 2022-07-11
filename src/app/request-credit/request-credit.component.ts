@@ -77,6 +77,7 @@ export class RequestCreditComponent implements OnInit {
       tipo_carrera: ["", Validators.required],
       monto: [null, Validators.required],
       polite: ['', Validators.requiredTrue],
+      clausula: ['', Validators.requiredTrue],
       id_prospecto: ['', Validators.required]
     });
 
