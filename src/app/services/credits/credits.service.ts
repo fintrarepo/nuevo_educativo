@@ -156,6 +156,7 @@ export class CreditsService {
   }
 
   uploadImage(data, options) {
+    console.log(data)
     return this.http.post('/FileUploadServlet', data, options);
   }
 

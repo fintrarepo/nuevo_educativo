@@ -52,7 +52,7 @@
                 CONTINUAR
               </button>
 
-              <button class="btn btn-next" (click)="nextTap(2)" [disabled]="!(tamanoRequerido<=envioRequerido)">
+              <button class="btn btn-next" (click)="nextTap(2)" [disabled]="access() > 0">
                 <img src="/assets/images/Icon_ChevronRight.svg" alt="">
                 <span>
                   FIRMAR
