@@ -21,7 +21,7 @@ export const environment = {
 
   // fintra: "http://192.168.140.197:8094/fintra",
   // fintra: "http://192.168.0.52:8094/fintra",
-  fintra: "https://167c-181-57-229-82.ngrok.io/fintra/",
+  fintra: "https://a469-181-57-229-82.ngrok.io/fintra/",
 
   // fintra: "http://192.168.0.52:8094/fintra/"
   // fintra: "http://piloto.fintra.co:8094/fintra",
