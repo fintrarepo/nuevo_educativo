@@ -68,7 +68,7 @@ export class UploadsComponent implements OnInit {
 
   ngOnInit() {
     // const modalRef: NgbModalRef = this.modalService.open(FirmDocumentsComponent, { backdrop: 'static', centered: true });
-
+    
     this.loadListFile();
     this.tabFiles = 1;
     this.documentsForm.get('pagare_deceval').valueChanges.subscribe(validate => {
@@ -104,6 +104,9 @@ export class UploadsComponent implements OnInit {
       und_negocio: 31
     };
     // documentos a subir
+    this.tamanoRequerido = 0;
+    this.envioRequerido = 0;
+    console.log('Empezamos: ', this.envioRequerido)
     this.creditService.loadFileList(params2).subscribe(list => {
       this.isLoading = false;
       this.listFiles = list.data;
@@ -113,18 +116,19 @@ export class UploadsComponent implements OnInit {
       // this.tamanoRequerido = 2;
       // console.log(this.tamanoRequerido)
       for (let i = 0; i < this.listFiles.length; i++) {
-        if (this.listFiles[i].requerido=='S' && this.listFiles[i].archivo_cargado!='N') {
-          this.tamanoRequerido = this.tamanoRequerido+1;
-          this.envioRequerido = this.tamanoRequerido;
-          console.log('Requerido: ', this.tamanoRequerido, ' vs ', 'Enviado: ', this.envioRequerido);
-        } 
-        // if (this.listFiles[i].requerido=='S' || (this.listFiles[i].requerido=='S' && this.listFiles[i].archivo_cargado!='N')) {
-        //   this.tamanoRequerido = this.tamanoRequerido+1;
-        //   this.envioRequerido = this.tamanoRequerido;
-        //   console.log('Requerido: ', this.tamanoRequerido, ' vs ', 'Enviado: ', this.envioRequerido);
-        // }
+        if (this.listFiles[i].requerido=='S') {
+          this.tamanoRequerido= this.tamanoRequerido+1;
+
+          if (this.listFiles[i].archivo_cargado!='N') {
+            this.envioRequerido=this.envioRequerido+1;
+            console.log('Aqui estoy: ', this.envioRequerido)
+          }
+        }
       }
+      console.log('Requerido ', this.tamanoRequerido)
+      console.log('Requerido: ', this.tamanoRequerido, ' vs Envio:', this.envioRequerido);
     });
+    
 
   }
 
@@ -152,9 +156,10 @@ export class UploadsComponent implements OnInit {
     };
     if (list.requerido=='S') {
       this.envioRequerido-=1;
+      console.log('Requerido: ', this.tamanoRequerido, ' vs Envio:', this.envioRequerido);
     }
     console.log(this.envioRequerido)
-    this.creditService.deleteFile(params).subscribe(list => {
+    this.creditService.deleteFile(params).subscribe(info => {
       this.isLoading = false;
       this.loadListFile();
     });
@@ -180,8 +185,9 @@ export class UploadsComponent implements OnInit {
       console.log(options)
       this.creditService.uploadImage(formData, options).subscribe(info => {
         if (info.success) {
-          if (obj.requerido=='S') {
+          if (obj.requerido=='S' && obj.archivo_cargado=='N') {
             this.envioRequerido+=1;
+            console.log('Requerido: ', this.tamanoRequerido, ' vs Envio:', this.envioRequerido);
           }
           this.loadListFile();
         }
@@ -261,8 +267,8 @@ export class UploadsComponent implements OnInit {
   }
 
   access() {
-    if (this.listFiles.length > 0) {
-      let longitud = this.listFiles.filter(doc => doc.requerido === 'S');
+    if (this.tamanoRequerido >= 2) {
+      let longitud = this.listFiles.filter(doc => doc.archivo_cargado === 'N');
 
       return longitud.length;
     }
