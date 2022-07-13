@@ -212,22 +212,64 @@
               deseas conocer más información, comunícate con nuestra línea de atención al
               público <strong>+57 (5) 387 28 28</strong></span>
           </div>
-          <div class="terms-and-conditions">
-            <label class="container-new-check">
-              <input type="checkbox" formControlName="polite">
-              <span class="checkmark"></span>
-            </label>
-            <span>Acepto <a href="https://fintra.co/documentos/Politica-de-tratamiento-de-datos-personales-Fintra.pdf"
-                target="_blank">Política de tratamiento de datos personales.</a></span>
+          <div class="col-sm-12 terms-and-conditions">
+            <div class="row mb-3">
+              <label class="container-new-check">
+                <input type="checkbox" formControlName="polite">
+                <span class="checkmark"></span>
+              </label>
+              <span>Acepto <a href="https://fintra.co/documentos/Politica-de-tratamiento-de-datos-personales-Fintra.pdf"
+                  target="_blank">Política de tratamiento de datos personales.</a></span>
+            </div>
+            <div class="row mb-3">
+              <label class="container-new-check">
+                <input type="checkbox" formControlName="polite">
+                <span class="checkmark"></span>
+              </label>
+              <span>Acepto <a class="mouse" (click)="aceptarClausula()" target="_blank">Cláusula de veracidad de los datos.</a></span>
+            </div>
+            
           </div>
-          <div class="terms-and-conditions">
-            <label class="container-new-check">
-              <input type="checkbox" formControlName="clausula">
-              <span class="checkmark"></span>
-            </label>
-            <span>Acepto <a href="/assets/pdf/clausula.pdf"
-                target="_blank">Cláusula de veracidad de los datos.</a></span>
-          </div>
+          <ng-template #clausula let-c="close" let-d="dismiss">
+            <div class="container-fluid">
+              <div class="row header">
+                <div class="col-sm-11">
+                  <p class="title title-form ml-4">Cláusula de veracidad de los datos.</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <p align="justify">Yo como cliente solicitante acepto y declaro que la información
+                    suministrada y compartida sujeta a tratamiento por parte de
+                    Fintra S.A.S, es veraz, completa, exacta, actualizada,
+                    comprobable y comprensible, y que asumo mi responsabilidad
+                    por la entrega de datos parciales, incompletos, fraccionados,
+                    que induzcan a error, inconsistentes, o que sean falsos, bajo la
+                    premisa que en tal caso, me podré convertir en autor de los
+                    delitos de estafa y falsedad en documentos, conforme a lo que
+                    disponen los artículos 246, 289 y 296 del Código Penal
+                    Colombiano, y demás normas complementarias y accesorias.</p>
+                  <p align="justify">Así mismo, declaro que los recursos solicitados y objeto del
+                    contrato serán usados para fines lícitos y de ninguna manera
+                    para la comisión de cualquiera de los actos establecidos como
+                    delitos de acuerdo con la legislación penal.</p>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-lg-12">
+                  <div class="d-flex justify-content-end m-2">
+                    <div class="content-buttons-next-back" style="position: static;">
+                      <button class="btn btn-outline-form2" (click)="closeModal()">
+                        <span>
+                          CERRAR
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
           <div class="content-button-step" *ngIf="(formPresolicitud2.get('ciudad').touched && formPresolicitud2.get('ciudad').errors) ||
           (formPresolicitud2.get('afiliado').touched && formPresolicitud2.get('afiliado').errors) ||
           (formPresolicitud2.get('tipo_carrera').touched && formPresolicitud2.get('tipo_carrera').errors) ||

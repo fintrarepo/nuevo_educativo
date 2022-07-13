@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UtilsService } from '../services/utils/utils.service';
 import { CreditsService } from '../services/credits/credits.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-request-credit',
@@ -54,11 +55,14 @@ export class RequestCreditComponent implements OnInit {
   entidad: string="";
   universidad: string;
 
+  @ViewChild('clausula', { static: false }) modalValidacion: NgbModal;
+
   constructor(
     public utils: UtilsService,
     private credit: CreditsService,
     private route: ActivatedRoute,
     private router:Router,
+    private modalService: NgbModal,
     private fb: FormBuilder) {
     this.referred = this.route.snapshot.queryParamMap.get('referido');
     this.universidad = this.route.snapshot.queryParamMap.get('universidad');
@@ -191,6 +195,14 @@ export class RequestCreditComponent implements OnInit {
     }
   }
 
+  aceptarClausula(){
+    this.modalService.open(this.modalValidacion, { backdrop: 'static', centered: true }).result.then((result) => {
+      }, (reason) => {});
+  }
+
+  closeModal() {
+    this.modalService.dismissAll();
+  }
 
   saveReconocerID(data) {
     return this.credit.saveReconocerID({ "identificacion": this.formPresolicitud3.value.identificacion, "id_prospecto": this.formPresolicitud2.value.id_prospecto, "json_resp": data, "tipo_trama": 1 })

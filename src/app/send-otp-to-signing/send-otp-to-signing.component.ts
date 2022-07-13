@@ -76,6 +76,8 @@ export class SendOtpToSigningComponent implements OnInit {
 
   @ViewChild('documentos', { static: false }) modalValidacion: NgbModal;
 
+  @ViewChild('clausula', { static: false }) modalClau: NgbModal;
+
 
   constructor(
     public utils: UtilsService,
@@ -230,10 +232,10 @@ export class SendOtpToSigningComponent implements OnInit {
 
   aceptarPolitica(){
     this.politics = false;
-        this.modalService.open(this.modalValidacion, { backdrop: 'static', centered: true }).result.then((result) => {
-          this.tabFiles =2;
-          console.log(result);
-          }, (reason) => {});
+    this.modalService.open(this.modalValidacion, { backdrop: 'static', centered: true }).result.then((result) => {
+      this.tabFiles =2;
+      console.log(result);
+      }, (reason) => {});
     const negocio = this.activateRouter.snapshot.paramMap.get('num');
     const params = {
       numero_solicitud: parseInt(negocio),
@@ -241,7 +243,6 @@ export class SendOtpToSigningComponent implements OnInit {
       politica: "S",
       clausula: "S"
     };
-    console.log(params)
     this.creditService.aceptarPolitica(params).subscribe(info => {
       console.log(info)
       if (info.status == 200) {
@@ -252,7 +253,6 @@ export class SendOtpToSigningComponent implements OnInit {
         )
         this.modalService.open(this.modalValidacion, { backdrop: 'static', centered: true }).result.then((result) => {
           this.tabFiles =2;
-          console.log(result);
           }, (reason) => {});
       }else{
         Swal.fire(
@@ -265,6 +265,11 @@ export class SendOtpToSigningComponent implements OnInit {
     err => {
       console.log(err);
     });
+  }
+
+  aceptarClausula(){
+    this.modalService.open(this.modalClau, { backdrop: 'static', centered: true }).result.then((result) => {
+      }, (reason) => {});
   }
 
   viewFile(item) {

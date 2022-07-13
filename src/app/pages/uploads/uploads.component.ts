@@ -41,6 +41,7 @@ export class UploadsComponent implements OnInit {
   msjDeceval: string;
   tamanoRequerido:number = 0;
   envioRequerido: number = 0;
+  envioId: string;
 
   constructor(
     private creditService: CreditsService,
@@ -267,7 +268,7 @@ export class UploadsComponent implements OnInit {
   }
 
   access() {
-    if (this.tamanoRequerido >= 2) {
+    if (this.listFiles.length > 0) {
       let longitud = this.listFiles.filter(doc => doc.archivo_cargado === 'N');
 
       return longitud.length;
@@ -277,7 +278,19 @@ export class UploadsComponent implements OnInit {
   }
 
   nextTap(tap) {
-    // this.creditService.commercialFollowUp({"cod-solicitud":this.numSolicitud,"tipo":"E"}).subscribe(resp => console.log(resp))
+    // const params = {
+    //   "cod-negocio": this.activateRouter.snapshot.paramMap.get('id'),
+    // };
+    // this.creditService.etapaDocu(params).subscribe(info => {
+    //   console.log(info)
+    //   if (info.status == 200) {
+    //     console.log('Se envio con exito, ', this.envioId)
+    //   }
+    // },
+    // err => {
+    //   console.log(err);
+    // });
+
     this.tabFiles = tap;
     if(this.tabFiles==2){
      this.modalService.open(FirmDocumentsComponent, { backdrop: 'static', centered: true }).result.then((result) => {
