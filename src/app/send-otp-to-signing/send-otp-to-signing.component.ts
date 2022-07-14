@@ -71,8 +71,12 @@ export class SendOtpToSigningComponent implements OnInit {
   condNegocio: any;
   selectedFile: any = null;
   bloquearCampo:any=[];
+  tamanoRequerido:number = 0;
+  envioRequerido: number = 0;
 
   @ViewChild('documentos', { static: false }) modalValidacion: NgbModal;
+
+  @ViewChild('clausula', { static: false }) modalClau: NgbModal;
 
 
   constructor(
@@ -215,7 +219,11 @@ export class SendOtpToSigningComponent implements OnInit {
       const filesUploaded = this.listFiles.filter(x => x.url != '')
       this.allFileUploaded = filesUploaded.length == 3 ? true : false;
       // this.bloquearCampo=[];
+      console.log(this.listadoFiles.length)
       for (let i = 0; i < this.listadoFiles.length; i++) {
+        if (this.listadoFiles[i].requerido=='S') {
+          this.tamanoRequerido = this.tamanoRequerido+1;
+        }
         this.bloquearCampo.push(false);
       }
     });
@@ -224,10 +232,10 @@ export class SendOtpToSigningComponent implements OnInit {
 
   aceptarPolitica(){
     this.politics = false;
-        this.modalService.open(this.modalValidacion, { backdrop: 'static', centered: true }).result.then((result) => {
-          this.tabFiles =2;
-          console.log(result);
-          }, (reason) => {});
+    this.modalService.open(this.modalValidacion, { backdrop: 'static', centered: true }).result.then((result) => {
+      this.tabFiles =2;
+      console.log(result);
+      }, (reason) => {});
     const negocio = this.activateRouter.snapshot.paramMap.get('num');
     const params = {
       numero_solicitud: parseInt(negocio),
@@ -235,7 +243,6 @@ export class SendOtpToSigningComponent implements OnInit {
       politica: "S",
       clausula: "S"
     };
-    console.log(params)
     this.creditService.aceptarPolitica(params).subscribe(info => {
       console.log(info)
       if (info.status == 200) {
@@ -246,7 +253,6 @@ export class SendOtpToSigningComponent implements OnInit {
         )
         this.modalService.open(this.modalValidacion, { backdrop: 'static', centered: true }).result.then((result) => {
           this.tabFiles =2;
-          console.log(result);
           }, (reason) => {});
       }else{
         Swal.fire(
@@ -259,6 +265,11 @@ export class SendOtpToSigningComponent implements OnInit {
     err => {
       console.log(err);
     });
+  }
+
+  aceptarClausula(){
+    this.modalService.open(this.modalClau, { backdrop: 'static', centered: true }).result.then((result) => {
+      }, (reason) => {});
   }
 
   viewFile(item) {
@@ -275,6 +286,7 @@ export class SendOtpToSigningComponent implements OnInit {
     if (input.target.files && input.target.files.length > 0) {
       this.selectedFile = input.target.files[0];
       obj['file_name'] = this.selectedFile.name;
+      console.log(obj.requerido)
       const formData = new FormData();
       formData.append('file', this.selectedFile, this.selectedFile.name);
       options = {
@@ -286,10 +298,13 @@ export class SendOtpToSigningComponent implements OnInit {
       this.creditService.upload(formData, options).subscribe(info => {
         console.log(info)
         console.log(formData)
-        console.log(this.selectedFile, this.selectedFile.name)
+        console.log(this.selectedFile.name)
         if (info.success) {
           this.bloquearCampo[index].false;
           this.firmarActivado+=1;
+          if (obj.requerido=='S') {
+            this.envioRequerido+=1;
+          }
           const ind=this.listadoFiles.findIndex(element => element ==obj);
           console.log(ind);
           this.listadoFiles[ind].bloquear=true;
@@ -328,9 +343,13 @@ export class SendOtpToSigningComponent implements OnInit {
       und_negocio: 31,
       id_archivo: list.id_archivo
     };
+    if (list.requerido=='S') {
+      this.envioRequerido-=1;
+    }
     this.creditService.deleteFile(params).subscribe(list => {
       Swal.close();
       this.firmarActivado-=1;
+      
       const ind=this.listadoFiles.findIndex(element => element ==item);
           console.log(ind);
           this.listadoFiles[ind].bloquear=false;
@@ -338,19 +357,6 @@ export class SendOtpToSigningComponent implements OnInit {
     });
   }
   // Aqui se terminan los metodos del modal.
-
-  nextTap(tap) {
-    // this.creditService.commercialFollowUp({"cod-solicitud":this.numSolicitud,"tipo":"E"}).subscribe(resp => console.log(resp))
-    // this.tabFiles = tap;
-    // if(this.tabFiles==2){
-    //   this.modalService.open(this.modalValidacion, { backdrop: 'static', centered: true }).result.then((result) => {
-    //     this.tabFiles =2;
-    //     console.log(result);
-    //     }, (reason) => {});
-    // }
-    // this.modalService.open(this.modalValidacion, { backdrop: 'static', keyboard: false, ariaLabelledBy: 'modal-basic-title', size: 'lg' });
-  }
-
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {

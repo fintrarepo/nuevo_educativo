@@ -156,7 +156,12 @@ export class CreditsService {
   }
 
   uploadImage(data, options) {
+    console.log(data)
     return this.http.post('/FileUploadServlet', data, options);
+  }
+
+  etapaDocu(data) {
+    return this.http.post(environment.apiPath + '/webresources/firma/etapa-documentos-adjunto', data);
   }
 
   upload(data, options) {

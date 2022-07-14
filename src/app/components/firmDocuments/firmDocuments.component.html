@@ -42,10 +42,10 @@
     <div class="col-lg-12">
       <div class="d-flex justify-content-end m-2">
         <div class="content-buttons-next-back" style="position: static;">
-          <button class="btn btn-next" (click)="closeModal()" [disabled]="!(firmarActivado==signinFiles.length)">
+          <button class="btn btn-next" (click)="closeModal()" [disabled]="!(tamanoRequerido<=envioRequerido)">
             <img src="/assets/images/Icon_ChevronRight.svg" alt="">
             <span>
-              FIRMAR PAGARÉ {{firmarActivado}}/{{signinFiles.length}}
+              FIRMAR PAGARÉ {{envioRequerido}}/{{tamanoRequerido}}
             </span>
           </button>
         </div>

@@ -52,12 +52,18 @@
                 CONTINUAR
               </button>
 
-              <button class="btn btn-next" (click)="nextTap(2)" [disabled]="access() > 0">
+              <button class="btn btn-next" (click)="nextTap(2)" [disabled]="!(tamanoRequerido<=envioRequerido)">
                 <img src="/assets/images/Icon_ChevronRight.svg" alt="">
                 <span>
                   FIRMAR
                 </span>
               </button>
+              <!-- <button class="btn btn-next" (click)="nextTap(2)" [disabled]="access() > 0">
+                <img src="/assets/images/Icon_ChevronRight.svg" alt="">
+                <span>
+                  FIRMAR
+                </span>
+              </button> -->
 
               <!-- <button class="btn btn-next next-step">
                 <img src="/assets/images/Grupo 301.png" alt="">

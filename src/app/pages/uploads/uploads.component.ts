@@ -39,6 +39,9 @@ export class UploadsComponent implements OnInit {
   condNegocio: string;
   numSolicitud: any;
   msjDeceval: string;
+  tamanoRequerido:number = 0;
+  envioRequerido: number = 0;
+  envioId: string;
 
   constructor(
     private creditService: CreditsService,
@@ -66,7 +69,7 @@ export class UploadsComponent implements OnInit {
 
   ngOnInit() {
     // const modalRef: NgbModalRef = this.modalService.open(FirmDocumentsComponent, { backdrop: 'static', centered: true });
-
+    
     this.loadListFile();
     this.tabFiles = 1;
     this.documentsForm.get('pagare_deceval').valueChanges.subscribe(validate => {
@@ -102,13 +105,31 @@ export class UploadsComponent implements OnInit {
       und_negocio: 31
     };
     // documentos a subir
+    this.tamanoRequerido = 0;
+    this.envioRequerido = 0;
+    console.log('Empezamos: ', this.envioRequerido)
     this.creditService.loadFileList(params2).subscribe(list => {
       this.isLoading = false;
-      this.listFiles = list.data
+      this.listFiles = list.data;
+      console.log(this.listFiles);
       const filesUploaded = this.listFiles.filter(x => x.url != '')
       this.allFileUploaded = filesUploaded.length == 5 ? true : false;
+      // this.tamanoRequerido = 2;
+      // console.log(this.tamanoRequerido)
+      for (let i = 0; i < this.listFiles.length; i++) {
+        if (this.listFiles[i].requerido=='S') {
+          this.tamanoRequerido= this.tamanoRequerido+1;
 
+          if (this.listFiles[i].archivo_cargado!='N') {
+            this.envioRequerido=this.envioRequerido+1;
+            console.log('Aqui estoy: ', this.envioRequerido)
+          }
+        }
+      }
+      console.log('Requerido ', this.tamanoRequerido)
+      console.log('Requerido: ', this.tamanoRequerido, ' vs Envio:', this.envioRequerido);
     });
+    
 
   }
 
@@ -134,13 +155,19 @@ export class UploadsComponent implements OnInit {
       und_negocio: 31,
       id_archivo: list.id_archivo
     };
-    this.creditService.deleteFile(params).subscribe(list => {
+    if (list.requerido=='S') {
+      this.envioRequerido-=1;
+      console.log('Requerido: ', this.tamanoRequerido, ' vs Envio:', this.envioRequerido);
+    }
+    console.log(this.envioRequerido)
+    this.creditService.deleteFile(params).subscribe(info => {
       this.isLoading = false;
       this.loadListFile();
     });
   }
 
   onFileSelected(obj: any, input: any) {
+    console.log(this.tamanoRequerido)
     let options: any;
     if (input.target.files && input.target.files.length > 0) {
       this.selectedFile = input.target.files[0];
@@ -154,19 +181,22 @@ export class UploadsComponent implements OnInit {
           'negocio': String(this.route.snapshot.paramMap.get('id'))
         })
       };
-
+      console.log(obj)
+      console.log(this.selectedFile, this.selectedFile.name)
+      console.log(options)
       this.creditService.uploadImage(formData, options).subscribe(info => {
         if (info.success) {
+          if (obj.requerido=='S' && obj.archivo_cargado=='N') {
+            this.envioRequerido+=1;
+            console.log('Requerido: ', this.tamanoRequerido, ' vs Envio:', this.envioRequerido);
+          }
           this.loadListFile();
         }
-
-
       },
       err => {
         console.log(err);
         
       });
-
     }
   }
 
@@ -175,7 +205,6 @@ export class UploadsComponent implements OnInit {
   }
 
   downloadFile(file) {
-    debugger;
     if (file.url === '') {
       // return this.download(file.id_archivo);
       this.viewPdf("/assets/pdf/" + file.id_archivo + ".pdf");
@@ -249,7 +278,19 @@ export class UploadsComponent implements OnInit {
   }
 
   nextTap(tap) {
-    // this.creditService.commercialFollowUp({"cod-solicitud":this.numSolicitud,"tipo":"E"}).subscribe(resp => console.log(resp))
+    // const params = {
+    //   "cod-negocio": this.activateRouter.snapshot.paramMap.get('id'),
+    // };
+    // this.creditService.etapaDocu(params).subscribe(info => {
+    //   console.log(info)
+    //   if (info.status == 200) {
+    //     console.log('Se envio con exito, ', this.envioId)
+    //   }
+    // },
+    // err => {
+    //   console.log(err);
+    // });
+
     this.tabFiles = tap;
     if(this.tabFiles==2){
      this.modalService.open(FirmDocumentsComponent, { backdrop: 'static', centered: true }).result.then((result) => {

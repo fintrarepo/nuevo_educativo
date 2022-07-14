@@ -27,6 +27,9 @@ export class FirmDocumentsComponent implements OnInit {
   numSolicitud: any;
   selectedFile: any = null;
   bloquearCampo:any=[];
+  tamanoRequerido:number = 0;
+  envioRequerido: number = 0;
+
   constructor( 
     private creditService: CreditsService,
     private router: Router,
@@ -57,6 +60,9 @@ export class FirmDocumentsComponent implements OnInit {
       this.allFileUploaded = filesUploaded.length == 3 ? true : false;
       // this.bloquearCampo=[];
       for (let i = 0; i < this.signinFiles.length; i++) {
+        if (this.signinFiles[i].requerido=='S') {
+          this.tamanoRequerido = this.tamanoRequerido+1;
+        }
         this.bloquearCampo.push(false);
       }
     });
@@ -97,9 +103,11 @@ export class FirmDocumentsComponent implements OnInit {
       this.creditService.uploadImage(formData, options).subscribe(info => {
         // debugger;
         if (info.success) {
-   
           this.bloquearCampo[index].false;
           this.firmarActivado+=1;
+          if (obj.requerido=='S') {
+            this.envioRequerido+=1;
+          }
           const ind=this.signinFiles.findIndex(element => element ==obj);
           console.log(ind);
           this.signinFiles[ind].bloquear=true;
@@ -138,6 +146,9 @@ export class FirmDocumentsComponent implements OnInit {
       und_negocio: 31,
       id_archivo: list.id_archivo
     };
+    if (list.requerido=='S') {
+      this.envioRequerido-=1;
+    }
     this.creditService.deleteFile(params).subscribe(list => {
       Swal.close();
       this.firmarActivado-=1;
