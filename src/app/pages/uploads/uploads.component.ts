@@ -278,18 +278,18 @@ export class UploadsComponent implements OnInit {
   }
 
   nextTap(tap) {
-    // const params = {
-    //   "cod-negocio": this.activateRouter.snapshot.paramMap.get('id'),
-    // };
-    // this.creditService.etapaDocu(params).subscribe(info => {
-    //   console.log(info)
-    //   if (info.status == 200) {
-    //     console.log('Se envio con exito, ', this.envioId)
-    //   }
-    // },
-    // err => {
-    //   console.log(err);
-    // });
+    const params = {
+      "cod-negocio": this.activateRouter.snapshot.paramMap.get('id'),
+    };
+    this.creditService.etapaDocu(params).subscribe(info => {
+      console.log(info)
+      if (info.status == 200) {
+        console.log('Se envio con exito, ', this.envioId)
+      }
+    },
+    err => {
+      console.log(err);
+    });
 
     this.tabFiles = tap;
     if(this.tabFiles==2){

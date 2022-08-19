@@ -109,6 +109,7 @@ export class CreditsService {
   }
 
   loadFileList(data: listFile) {
+    console.log(data)
     return this.http.get(environment.fintra + '/EndPointCoreServlet?'
       + 'option=' + data.option
       + '&numero_solicitud=' + data.numero_solicitud
