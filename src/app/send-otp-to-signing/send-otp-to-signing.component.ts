@@ -476,6 +476,7 @@ export class SendOtpToSigningComponent implements OnInit {
     };
     // documentos a firmar
     console.log(params)
+    console.log(this.signinFiles)
     this.creditService.loadFileList(params).subscribe(list => {
       this.loadingRequest = false;
       this.signinFiles = list.data;

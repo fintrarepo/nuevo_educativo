@@ -58,7 +58,7 @@
     <div class="form-row">
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Tipo de identificación</label>
-        <select class="form-control" formControlName="tipo_id">
+        <select class="form-control" formControlName="tipo_id" disabled>
           <option value="">Seleccione tipo de identificación</option>
           <option [value]="item.table_code" *ngFor="let item of (formData$ | async)?.TIPID">{{item.dato}}</option>
         </select>
@@ -66,7 +66,7 @@
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">N° identificación</label>
-        <input type="number" class="form-control" formControlName="identificacion" maxlength="10">
+        <input type="number" class="form-control" formControlName="identificacion" maxlength="10" disabled>
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Fecha de expedición</label>
