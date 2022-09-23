@@ -58,7 +58,7 @@
     <div class="form-row">
       <div class="form-group col-md-6 col-lg-4">
         <label class="subtitle-form">Tipo de identificación</label>
-        <select class="form-control" formControlName="tipo_id" disabled>
+        <select class="form-control" formControlName="tipo_id">
           <option value="">Seleccione tipo de identificación</option>
           <option [value]="item.table_code" *ngFor="let item of (formData$ | async)?.TIPID">{{item.dato}}</option>
         </select>
